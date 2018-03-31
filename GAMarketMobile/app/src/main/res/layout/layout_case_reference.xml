@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_case_refeType1"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@drawable/home_ll_bg"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_case_refeType1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_case_nextFlow1"
+                android:text="案件领域"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/iv_case_nextFlow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/down"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_case_refeType2"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@drawable/home_ll_bg"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_case_refeType2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_case_nextFlow2"
+                android:text="搜索类型"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/iv_case_nextFlow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/down"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_case_refe_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_ll_bg"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/btn_case_refe_foSearch"
+            style="@style/MyButtonStyle"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="查询"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <include
+            layout="@layout/normal_swipe_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_case_refe_detail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_case_refe_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:textSize="9sp"/>
+
+            <ImageView
+                android:id="@+id/iv_case_refe_cancel"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:alpha="0.4"
+                android:background="@mipmap/clearfill"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_case_refeTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="9sp"/>
+</LinearLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_case_excute">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <!--移送单位-->
+            <LinearLayout
+                android:id="@+id/ll_case_transferDept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="移送单位:"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_case_transferDept"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入移送单位"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--移送时间-->
+            <LinearLayout
+                android:id="@+id/ll_case_transferDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="移送时间:"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_case_transferDate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--移送人-->
+            <LinearLayout
+                android:id="@+id/ll_case_transferPerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="移送人:"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_case_transferPerson"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入移送人"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_case_transferExcute"
+        style="@style/MyButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:text="@string/ok"/>
+</RelativeLayout>

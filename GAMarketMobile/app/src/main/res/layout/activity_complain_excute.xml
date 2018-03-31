@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_comp_excute">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <!--操作-->
+            <LinearLayout
+                android:id="@+id/ll_comp_excute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="操作:"
+                    android:textSize="14sp"/>
+
+                <RadioGroup
+                    android:id="@+id/rg_comp_excute"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_comp_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:checked="true"
+                        android:text="指派"
+                        android:textSize="14sp"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_comp_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="退回"
+                        android:textSize="14sp"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--分流到-->
+            <LinearLayout
+                android:id="@+id/ll_comp_shunt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分流到:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_shunt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_shunt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_shunt"
+                        android:text="选择分局或处室负责人"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_shunt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--指派处理人-->
+            <LinearLayout
+                android:id="@+id/ll_comp_assign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指派处理人:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_assign"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_assign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_assign"
+                        android:text="选择指派处理人"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_assign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--调解时间-->
+            <LinearLayout
+                android:id="@+id/ll_comp_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="调解时间:"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_comp_date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--核查日期-->
+            <LinearLayout
+                android:id="@+id/ll_comp_checkDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="核查日期:"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_comp_checkDate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--调解结果-->
+            <LinearLayout
+                android:id="@+id/ll_comp_tjResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="调解结果:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_tjResult"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_tjResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_tjResult"
+                        android:text="选择调解结果"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_tjResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--调解方式-->
+            <LinearLayout
+                android:id="@+id/ll_comp_tjMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="调解方式:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_tjMode"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_tjMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_tjMode"
+                        android:text="选择调解方式"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_tjMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--投诉操作-->
+            <LinearLayout
+                android:id="@+id/ll_comp_tscz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投诉操作:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_tscz"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_tscz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_tscz"
+                        android:text="选择投诉操作"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_tscz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--挽回损失-->
+            <LinearLayout
+                android:id="@+id/ll_comp_saveMonney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="挽回经济损失(万元):"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_comp_saveMonney"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入金额..."
+                    android:inputType="numberDecimal"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--争议金额-->
+            <LinearLayout
+                android:id="@+id/ll_comp_argueMonney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="争议金额(万元):"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_comp_argueMonney"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入金额..."
+                    android:inputType="numberDecimal"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--行政文书调解号-->
+            <LinearLayout
+                android:id="@+id/ll_comp_tjNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="行政文书调解号:"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_comp_tjNum"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入行政文书调解号..."
+                    android:maxLines="1"
+                    android:maxLength="20"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--核查情况-->
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_comp_checkOpinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入核查情况说明..."
+                android:maxHeight="300dp"
+                android:maxLines="7"
+                android:maxLength="200"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"/>
+
+            <!--调解情况-->
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_comp_tjOpinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入调解情况说明..."
+                android:maxHeight="300dp"
+                android:maxLines="7"
+                android:maxLength="200"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_comp_excute"
+        style="@style/MyButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:text="@string/ok"/>
+</RelativeLayout>

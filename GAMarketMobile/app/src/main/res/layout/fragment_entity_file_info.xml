@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.zx.gamarketmobile.view.MyScrollView
+        android:id="@+id/base_user_info_layout"
+        app:ms_maxheight="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/info_report_handle_list_layout"
+            android:paddingBottom="@dimen/px3"
+            android:layout_margin="@dimen/px10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </com.zx.gamarketmobile.view.MyScrollView>
+
+    <RelativeLayout
+        android:id="@+id/info_report_other_layout"
+        android:layout_below="@+id/base_user_info_layout"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/fragment_entity_file_info_include_layout"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/submit_btn_layout"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="@dimen/px10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/submit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50">
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/MyButtonStyle"
+                android:text="上传照片" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/delete_layout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="@dimen/px50">
+            <Button
+                android:id="@+id/btn_delete"
+                style="@style/MyButtonStyle"
+                android:text="删除照片" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cancle_btn_layout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50">
+            <Button
+                android:id="@+id/btn_cancle"
+                style="@style/MyButtonStyle"
+                android:text="取消" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <include layout="@layout/zoom_imageview" />
+
+
+
+</RelativeLayout>

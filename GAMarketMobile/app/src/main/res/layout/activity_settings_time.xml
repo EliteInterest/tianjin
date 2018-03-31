@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tvActSettingTime_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/settings_time_title"
+            android:textSize="@dimen/Text_Size_Pixel_24" />
+
+        <RadioGroup
+            android:id="@+id/rgActSettingTime_select"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvActSettingTime_hint"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/rbActSettingTime_8"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="8小时"
+                android:checked="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_big" />
+
+            <RadioButton
+                android:id="@+id/rbActSettingTime_24"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="一天"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_big" />
+
+            <RadioButton
+                android:id="@+id/rbActSettingTime_168"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="一周"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_big" />
+
+            <RadioButton
+                android:id="@+id/rbActSettingTime_defined"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_big" />
+
+            <EditText
+                android:id="@+id/edtActSettingTime_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edittext_bg"
+                android:digits="0123456789"
+                android:hint="@string/settings_time_hint"
+                android:inputType="number"
+                android:maxLength="9"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:textSize="@dimen/Text_Size_Pixel_24" />
+        </RadioGroup>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnActSettingTime_ok"
+            style="@style/MyButtonStyle"
+            android:text="@string/ok" />
+    </RelativeLayout>
+
+</LinearLayout>

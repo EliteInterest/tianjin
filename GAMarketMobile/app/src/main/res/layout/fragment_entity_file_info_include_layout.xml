@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/px2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px10"
+        android:layout_marginRight="@dimen/px10"
+        android:orientation="vertical">
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/photo_register_layout_title"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/px40"-->
+            <!--android:background="@color/colorPrimaryDark"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/px10"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="主体图片"-->
+                <!--android:textColor="@color/white" />-->
+
+
+        <!--</LinearLayout>-->
+
+        <GridView
+            android:id="@+id/info_report_horizontalListview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/px70"
+            android:layout_marginTop="@dimen/px2"
+            android:scrollbars="none"
+            android:columnWidth="@dimen/px60"
+            android:numColumns="5"
+            android:stretchMode="columnWidth"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

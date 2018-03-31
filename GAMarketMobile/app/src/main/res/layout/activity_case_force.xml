@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_case_excute">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <!--时间选择-->
+            <LinearLayout
+                android:id="@+id/ll_case_forceDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="执行时间:"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_case_forceDate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!--执行人-->
+            <LinearLayout
+                android:id="@+id/ll_case_forcePerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="执行人:"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_case_forcePerson"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:gravity="top"
+                    android:hint="请输入执行人..."
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <!--图片上传-->
+            <LinearLayout
+                android:id="@+id/ll_case_picUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传相关图片:"
+                    android:textSize="14sp"/>
+
+                <me.iwf.photopicker.widget.MultiPickResultView
+                    android:id="@+id/mprv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </me.iwf.photopicker.widget.MultiPickResultView>
+            </LinearLayout>
+            <!--说明-->
+            <EditText
+                android:id="@+id/et_case_forceOpinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入强制措施执行说明..."
+                android:maxHeight="300dp"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_case_forceExcute"
+        style="@style/MyButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:text="@string/ok"/>
+</RelativeLayout>

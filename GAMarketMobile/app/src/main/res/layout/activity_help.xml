@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+   >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mygallery"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <Button 
+        android:id="@+id/btnActHelp_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/skip"
+        android:text="@string/help_skip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="15dp"
+        android:textColor="#a7e3ff"
+        android:textSize="18sp"
+        />
+    
+    <LinearLayout
+        android:id="@+id/lldots"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        >
+    	
+    	<ImageView
+    	    android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:src="@mipmap/dotsel"
+        	android:scaleType="centerInside"
+        	android:contentDescription="@string/help"
+        	android:visibility="gone"
+        	/>
+    	
+    	<ImageView
+    	    android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="5dp"
+        	android:src="@mipmap/dot"
+        	android:scaleType="centerInside"
+        	android:contentDescription="@string/help"
+        	android:visibility="gone"
+        	/>
+    	
+    	<ImageView
+    	    android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="5dp"
+        	android:src="@mipmap/dot"
+        	android:scaleType="centerInside"
+        	android:contentDescription="@string/help"
+        	android:visibility="gone"
+        	/>
+    </LinearLayout>
+    
+</RelativeLayout>

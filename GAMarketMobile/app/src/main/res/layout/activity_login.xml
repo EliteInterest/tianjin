@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/login_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbarSize="0dip" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/paddig_top" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_height"
+                android:layout_marginTop="@dimen/widget_content_large_margin"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/logo_login" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/widget_content_margin_top"
+                android:background="@mipmap/srk"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/activity_user_login_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/login_inputusername"
+                    android:gravity="center_vertical"
+                    android:hint="@string/login_username"
+                    android:maxEms="15"
+                    android:paddingLeft="45dip"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/widget_write_margin_left"
+                    android:layout_marginRight="@dimen/widget_write_margin_right"
+                    android:background="@color/white" />
+
+                <EditText
+                    android:id="@+id/activity_user_login_pwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/login_inputpwd"
+                    android:hint="@string/login_password"
+                    android:inputType="textPassword"
+                    android:maxEms="15"
+                    android:paddingLeft="45dip"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_remenber_psw"
+                android:checked="true"
+                android:textColor="@color/white"
+                app:switchPadding="5dp"
+                app:theme="@style/MySwitchStyle"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="3dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="记住密码"/>
+            <Button
+                android:id="@+id/activity_user_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/widget_content_margin_top"
+                android:background="@mipmap/dlk"
+                android:text="@string/login_submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" >
+            </Button>
+
+            <TextView
+                android:id="@+id/tv_ip_setting"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/ip_setting"
+                android:textColor="@color/WhiteSmoke"
+                android:textSize="@dimen/text_size_small" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
