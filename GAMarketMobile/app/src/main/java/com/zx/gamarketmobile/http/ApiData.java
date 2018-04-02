@@ -777,9 +777,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("renderCode", objects[2]);
                     break;
                 case HTTP_ID_loginOut:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
                     params.putParams("method", "loginOut");
+                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + LOCAL_HOST_TAG + "/" + "loginout.do");
                     break;
                 case HTTP_ID_getUsersByDept:
                     params.setApiUrl(baseUrl + "GaClientService.do");

@@ -3,9 +3,11 @@ package com.zx.gamarketmobile.util;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -15,6 +17,7 @@ import com.zx.gamarketmobile.ui.mainbase.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Create By Xiangb On 2016/9/23
@@ -28,11 +31,17 @@ public class MyApplication extends Application {
     private static RequestQueue queue;
     public List<Integer> tagList = new ArrayList<Integer>();
 
+    private static final String SET_COOKIE_KEY = "Set-Cookie";
+    private static final String COOKIE_KEY = "Cookie";
+    private static final String SESSION_COOKIE = "JSESSIONID";
+    private SharedPreferences preferences;
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         queue = Volley.newRequestQueue(getApplicationContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (ApiData.ISRELEASE) {
             CrashHandler.getInstance().init(this);
         }
@@ -42,7 +51,7 @@ public class MyApplication extends Application {
         }
     }
 
-    public static Context getAppContext() {
+    public static MyApplication getAppContext() {
         return instance;
     }
 
@@ -56,6 +65,45 @@ public class MyApplication extends Application {
 
     public void addTag(int tag) {
         tagList.add(tag);
+    }
+
+
+    /**
+     * 检查返回的Response header中有没有session
+     *
+     * @param responseHeaders Response Headers.
+     */
+    public final void checkSessionCookie(Map<String, String> responseHeaders) {
+        if (responseHeaders.containsKey(SET_COOKIE_KEY)
+                && responseHeaders.get(SET_COOKIE_KEY).startsWith(SESSION_COOKIE)) {
+            String cookie = responseHeaders.get(SET_COOKIE_KEY);
+            if (cookie.length() > 0) {
+                String[] splitCookie = cookie.split(";");
+                String[] splitSessionId = splitCookie[0].split("=");
+                cookie = splitSessionId[1];
+                SharedPreferences.Editor prefEditor = preferences.edit();
+                prefEditor.putString(SESSION_COOKIE, cookie);
+                prefEditor.commit();
+            }
+        }
+    }
+
+    /**
+     * 添加session到Request header中
+     */
+    public final void addSessionCookie(Map<String, String> requestHeaders) {
+        String sessionId = preferences.getString(SESSION_COOKIE, "");
+        if (sessionId.length() > 0) {
+            StringBuilder builder = new StringBuilder();
+            builder.append(SESSION_COOKIE);
+            builder.append("=");
+            builder.append(sessionId);
+            if (requestHeaders.containsKey(COOKIE_KEY)) {
+                builder.append("; ");
+                builder.append(requestHeaders.get(COOKIE_KEY));
+            }
+            requestHeaders.put(COOKIE_KEY, builder.toString());
+        }
     }
 
     public void cancelAllQueue() {

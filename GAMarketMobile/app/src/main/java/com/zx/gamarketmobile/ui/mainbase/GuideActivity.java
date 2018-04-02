@@ -42,16 +42,16 @@ public class GuideActivity extends BaseActivity {
         addToolBar(false);
 
         guideFunctionEntityList = new ArrayList<>();
-        String[] names = new String[]{"主体查询", "统计分析", "预警信息", "监管任务", "投诉举报", "案件执法", "协同监管", "特种设备", "设置"};
-        int[] ids = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+        String[] names = new String[]{"主体查询", "监管任务", "投诉举报", "案件执法", "信息管理", "统计分析", "帮助", "设置"};
+        int[] ids = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
         int[] imgs = new int[]{R.mipmap.guide_search,
-                R.mipmap.guide_analysis,
-                R.mipmap.guide_sudden,
                 R.mipmap.guide_supervise,
                 R.mipmap.guide_complain,
                 R.mipmap.guide_case,
+                R.mipmap.guide_sudden,
+                R.mipmap.guide_analysis,
                 R.mipmap.guide_synegy,
-                R.mipmap.guid_equip,
+//                R.mipmap.guid_equip,
 //                R.mipmap.guide_msg,
                 R.mipmap.guide_setting};
 
@@ -96,33 +96,33 @@ public class GuideActivity extends BaseActivity {
                             mapIntent.putExtra("type", ConstStrings.MapType_Main);
                             startActivity(mapIntent);
                             break;
-                        case 1://统计分析
+                        case 1://监管任务
                             toHome(0);
                             break;
-                        case 2://预警信息
+                        case 2://投诉举报
                             toHome(1);
                             break;
-                        case 3://协同监管
+                        case 3://案件执法
                             toHome(2);
                             break;
-                        case 4://投诉举报
+                        case 4://信息管理
                             toHome(3);
                             break;
-                        case 5://案件执法
+                        case 5://统计分析
                             toHome(4);
                             break;
-                        case 6://协同监管
-                            startActivity(new Intent(GuideActivity.this, SynergyActivity.class));
+                        case 6://帮助
+//                            startActivity(new Intent(GuideActivity.this, SynergyActivity.class));
                             break;
-                        case 7:
-                            startActivity(new Intent(GuideActivity.this, EquipSearchActivity.class));
+                        case 7: //设置
+//                            startActivity(new Intent(GuideActivity.this, EquipSearchActivity.class));
                             break;
 //                        case 7:
 //                            startActivity(new Intent(GuideActivity.this, MessageCenterActivity.class));
 //                            break;
-                        case 8:
-                            startActivity(new Intent(GuideActivity.this, SettingsActivity.class));
-                            break;
+//                        case 8:
+//                            startActivity(new Intent(GuideActivity.this, SettingsActivity.class));
+//                            break;
                         default:
                             break;
                     }

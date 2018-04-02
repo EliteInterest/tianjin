@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import com.zx.gamarketmobile.ui.complain.ComplainSearchFragment;
 import com.zx.gamarketmobile.ui.emergency.EmergencyNumFragment;
 import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.gamarketmobile.ui.statistics.StatisticsFragment;
-import com.zx.gamarketmobile.ui.supervise.SuperviseClaimedFragment;
 import com.zx.gamarketmobile.ui.supervise.mytask.SuperviseMyTaskFragment;
 import com.zx.gamarketmobile.ui.system.HelpActivity;
 import com.zx.gamarketmobile.ui.system.SettingsActivity;
@@ -41,7 +41,7 @@ import java.util.List;
  * 功能：主界面
  */
 public class HomeActivity extends BaseActivity implements OnClickListener {
-
+    private static String TAG = "HomeActivity";
     public ViewPager mVpContent;
     private TabLayout homeTabLayout;
     private TaskNumFragment mComplaintFragment;// 投诉举报
@@ -92,43 +92,39 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 
     public void initialViewPager() {
         switch (index) {
-            case 0://统计分析
-                setMidText("监管平台统计分析");
-                getRightImg().setVisibility(View.GONE);
-                List<StatisticsInfo> mDataList = createStatisticeData();
-                for (int i = 0; i < mDataList.size(); i++) {
-                    myPagerAdapter.addFragment(StatisticsFragment.newInstance(mDataList.get(i)), mDataList.get(i).labelName);
-                }
-                break;
-            case 1://预警信息
-                setMidText("市场监管预警信息");
-                homeTabLayout.setVisibility(View.GONE);
-                homeTabLayout.setSelectedTabIndicatorHeight(0);
-                myPagerAdapter.addFragment(EmergencyNumFragment.newInstance(0), "预警信息");
-                break;
-            case 2://协同监管
+            case 0://监管任务
                 setMidText("监管任务");
                 String departName = "";
                 if (userInfo != null && !TextUtils.isEmpty(userInfo.getDepartmentAlias())) {
                     departName = userInfo.getDepartmentAlias();
                 }
-                if (!departName.equals("管理员")) {
-                    myPagerAdapter.addFragment(SuperviseMyTaskFragment.newInstance(), "我的任务");
-                }
+                Log.i(TAG, "departName is " + departName);
+//                if (!departName.equals("管理员")) {
+//                    myPagerAdapter.addFragment(SuperviseMyTaskFragment.newInstance(), "我的任务");
+//                }
+
+                myPagerAdapter.addFragment(SuperviseMyTaskFragment.newInstance(), "我的任务");
                 myPagerAdapter.addFragment(TaskNumFragment.newInstance(1), "状态监控");
-                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(0), "坐标纠正");
-                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(1), "主体认领");
-                homeTabLayout.setVisibility(View.VISIBLE);
+//                myPagerAdapter.addFragment(StatisticsFragment.newInstance(null), "统计分析");
+
+//                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(0), "坐标纠正");
+//                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(1), "主体认领");
                 break;
-            case 3://投诉举报
+//            case 1://协同
+//                setMidText("市场监管预警信息");
+//                homeTabLayout.setVisibility(View.GONE);
+//                homeTabLayout.setSelectedTabIndicatorHeight(0);
+//                myPagerAdapter.addFragment(EmergencyNumFragment.newInstance(0), "预警信息");
+//            break;
+            case 1://投诉举报
                 setMidText("监管平台投诉举报");
                 StatisticsInfo compInfo = createCompData();
                 myPagerAdapter.addFragment(ComplainMyListFragment.newInstance(), "我的任务");
                 myPagerAdapter.addFragment(ComplainMonitorFragment.newInstance(), "流程监控");
-                myPagerAdapter.addFragment(ComplainSearchFragment.newInstance(), "主体查询");
+                myPagerAdapter.addFragment(ComplainSearchFragment.newInstance(), "历史查询");
                 myPagerAdapter.addFragment(StatisticsFragment.newInstance(compInfo), "统计分析");
                 break;
-            case 4://案件执法
+            case 2://案件执法
                 setMidText("案件执法");
                 StatisticsInfo caseInfo = createCaseData();
                 myPagerAdapter.addFragment(CaseMyListFragment.newInstance(), "我的任务");
@@ -136,6 +132,25 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
                 myPagerAdapter.addFragment(CaseSearchFragment.newInstance(), "案件查询");
                 myPagerAdapter.addFragment(StatisticsFragment.newInstance(caseInfo), "统计分析");
                 homeTabLayout.setVisibility(View.VISIBLE);
+            case 3://信息管理
+
+                break;
+
+            case 4://统计分析
+                setMidText("监管平台统计分析");
+                getRightImg().setVisibility(View.GONE);
+                List<StatisticsInfo> mDataList = createStatisticeData();
+                for (int i = 0; i < mDataList.size(); i++) {
+                    myPagerAdapter.addFragment(StatisticsFragment.newInstance(mDataList.get(i)), mDataList.get(i).labelName);
+                }
+                break;
+
+            case 5://帮助
+
+                break;
+
+            case 6://设置
+
                 break;
         }
         mVpContent.setOffscreenPageLimit(myPagerAdapter.getCount());

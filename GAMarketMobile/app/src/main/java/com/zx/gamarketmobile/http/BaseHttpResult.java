@@ -18,12 +18,12 @@ public class BaseHttpResult {
 		this.entry = entry;
 	}
 
-	public boolean isSuccess() {
-		return isSuccess;
-	}
-
 	public void setSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
+	}
+
+	public boolean isSuccess() {
+		return isSuccess;
 	}
 
 	public String getMessage() {

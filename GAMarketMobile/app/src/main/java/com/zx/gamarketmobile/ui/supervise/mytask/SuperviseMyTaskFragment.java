@@ -45,5 +45,6 @@ public class SuperviseMyTaskFragment extends BaseFragment{
         vpCase.setOffscreenPageLimit(2);
         vpCase.setAdapter(myPagerAdapter);
         tbCase.setupWithViewPager(vpCase);
+        vpCase.setCurrentItem(0);
     }
 }

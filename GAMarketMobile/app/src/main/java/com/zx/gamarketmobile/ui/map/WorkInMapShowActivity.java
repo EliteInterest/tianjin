@@ -100,6 +100,9 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
 
         showProgressDialog("正在初始化地图，请稍后...");
 
+        envelope.setYMax(26.525839);
+        envelope.setXMin(106.682293);
+        envelope.setYMin(26.175393);
         SDPath = CQDigitalUtil.getDataPath();
         mTaskCountData.setLoadingListener(this);
         mTaskPageData.setLoadingListener(this);
@@ -112,9 +115,6 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
         //设置地图边框范围
         Envelope envelope = new Envelope();
         envelope.setXMax(106.295325);
-        envelope.setYMax(26.525839);
-        envelope.setXMin(106.682293);
-        envelope.setYMin(26.175393);
         mMapView.setExtent(envelope);
 //        mMapView.setMaxExtent(envelope);
         locManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);

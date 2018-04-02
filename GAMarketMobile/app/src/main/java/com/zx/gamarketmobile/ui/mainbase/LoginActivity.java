@@ -26,7 +26,6 @@ import com.zx.gamarketmobile.helper.PermissionsChecker;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
-import com.zx.gamarketmobile.ui.system.HelpActivity;
 import com.zx.gamarketmobile.ui.system.SettingsIPActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.MyApplication;
@@ -258,17 +257,19 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     edit.putLong("setting_time", System.currentTimeMillis());
                     edit.putString("update_version", "");
                     BaseActivity.sIsLoginClear = false;
-                    if (mSharedPreferences.getBoolean("hasShowHelp", false)) {
-                        gotoMainActivity();
-                        edit.commit();
-                    } else {
-                        edit.putBoolean("hasShowHelp", true);
-                        edit.commit();
-                        Intent intent = new Intent();
-                        intent.setClass(LoginActivity.this, HelpActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
+
+                    gotoMainActivity();
+//                    if (mSharedPreferences.getBoolean("hasShowHelp", false)) {
+//                        gotoMainActivity();
+//                        edit.commit();
+//                    } else {
+//                        edit.putBoolean("hasShowHelp", true);
+//                        edit.commit();
+//                        Intent intent = new Intent();
+//                        intent.setClass(LoginActivity.this, HelpActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
                 }
                 break;
             case ApiData.FILE_DOWNLOAD:

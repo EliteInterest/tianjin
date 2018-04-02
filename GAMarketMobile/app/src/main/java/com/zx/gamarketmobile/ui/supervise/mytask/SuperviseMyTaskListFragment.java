@@ -96,7 +96,7 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+//        loadData();
     }
 
     //数据加载

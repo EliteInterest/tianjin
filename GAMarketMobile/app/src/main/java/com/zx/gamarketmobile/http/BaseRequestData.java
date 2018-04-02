@@ -19,6 +19,14 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.util.LogUtil;
 import com.zx.gamarketmobile.util.MyApplication;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -198,9 +206,12 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
                             LogUtil.e("requestData params:", String.valueOf(param));
                         }
                         if (param instanceof Map) {
-//                            postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
-                            postJsonRequest(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
+                            if (id == ApiData.HTTP_ID_login)
+                                postJsonRequest(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
+                            else
+                                postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
                         } else {
+
                             postJson(params.getRequestUrl(id), param.toString(), params.isRetry());
                         }
                         break;
@@ -261,6 +272,66 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
     }
 
 
+    private void processHttp(final String url, final JSONObject jsonObject) {
+        new Thread(new Runnable() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                // 服务器 ：服务器项目 ：servlet名称
+                try {
+                    Log.i("wangwansheng", "url is " + url);
+                    HttpPost httpPost = new HttpPost(url);
+                    String result = "";
+                    if (jsonObject != null) {
+                        Log.i("wangwansheng", "pwd is " + jsonObject.toString());
+                        httpPost.setEntity(new StringEntity(jsonObject.toString(), HTTP.UTF_8));
+                    } else {
+                        Log.i("wangwansheng", "jsonObject is NULL!");
+                    }
+
+                    httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
+
+                    DefaultHttpClient httpclient = Client.getInstance();
+                    HttpResponse response = httpclient.execute(httpPost);
+                    Log.i("wangwansheng", "result is " + response.getStatusLine().getStatusCode());
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        HttpEntity entity = response.getEntity();
+                        result = EntityUtils.toString(entity, HTTP.UTF_8);
+                        Log.i("wangwansheng", "result is " + result);
+
+                        if (result == null) {
+                            pHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onRequestError(id, "未请求到数据");
+                                }
+                            });
+                        } else {
+                            final String returnStr = result.replaceAll("\ufeff", "");
+                            // final String returnStr = str;
+                            Log.i(TAG, "returnStr is " + returnStr);
+                            pHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onRequestComplete(id, pBean, returnStr);
+                                }
+                            });
+                        }
+
+                    } else {
+                    }
+
+                } catch (ClientProtocolException e) {
+                    // TODO: handle exception
+                } catch (IOException e) {
+                    // TODO: handle exception
+                }
+            }
+        }).start();
+    }
+
     /**
      * post方法
      *
@@ -277,6 +348,9 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userName", params.get("userName"));
         jsonObject.put("password", params.get("password"));
+
+//        processHttp(url, jsonObject);
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
