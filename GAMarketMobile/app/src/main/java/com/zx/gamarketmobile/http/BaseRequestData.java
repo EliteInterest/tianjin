@@ -2,7 +2,6 @@ package com.zx.gamarketmobile.http;
 
 import android.accounts.NetworkErrorException;
 import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -12,21 +11,11 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.JsonObject;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.util.LogUtil;
 import com.zx.gamarketmobile.util.MyApplication;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -206,10 +195,11 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
                             LogUtil.e("requestData params:", String.valueOf(param));
                         }
                         if (param instanceof Map) {
-                            if (id == ApiData.HTTP_ID_login)
-                                postJsonRequest(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
-                            else
-                                postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
+//                            if (id == ApiData.HTTP_ID_login)
+                            postJsonRequest(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
+
+//                            else
+//                                postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
                         } else {
 
                             postJson(params.getRequestUrl(id), param.toString(), params.isRetry());
@@ -272,65 +262,65 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
     }
 
 
-    private void processHttp(final String url, final JSONObject jsonObject) {
-        new Thread(new Runnable() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                // 服务器 ：服务器项目 ：servlet名称
-                try {
-                    Log.i("wangwansheng", "url is " + url);
-                    HttpPost httpPost = new HttpPost(url);
-                    String result = "";
-                    if (jsonObject != null) {
-                        Log.i("wangwansheng", "pwd is " + jsonObject.toString());
-                        httpPost.setEntity(new StringEntity(jsonObject.toString(), HTTP.UTF_8));
-                    } else {
-                        Log.i("wangwansheng", "jsonObject is NULL!");
-                    }
-
-                    httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
-
-                    DefaultHttpClient httpclient = Client.getInstance();
-                    HttpResponse response = httpclient.execute(httpPost);
-                    Log.i("wangwansheng", "result is " + response.getStatusLine().getStatusCode());
-                    if (response.getStatusLine().getStatusCode() == 200) {
-                        HttpEntity entity = response.getEntity();
-                        result = EntityUtils.toString(entity, HTTP.UTF_8);
-                        Log.i("wangwansheng", "result is " + result);
-
-                        if (result == null) {
-                            pHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    onRequestError(id, "未请求到数据");
-                                }
-                            });
-                        } else {
-                            final String returnStr = result.replaceAll("\ufeff", "");
-                            // final String returnStr = str;
-                            Log.i(TAG, "returnStr is " + returnStr);
-                            pHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    onRequestComplete(id, pBean, returnStr);
-                                }
-                            });
-                        }
-
-                    } else {
-                    }
-
-                } catch (ClientProtocolException e) {
-                    // TODO: handle exception
-                } catch (IOException e) {
-                    // TODO: handle exception
-                }
-            }
-        }).start();
-    }
+//    private void processHttp(final String url, final JSONObject jsonObject) {
+//        new Thread(new Runnable() {
+//
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public void run() {
+//                // TODO Auto-generated method stub
+//                // 服务器 ：服务器项目 ：servlet名称
+//                try {
+//                    Log.i("wangwansheng", "url is " + url);
+//                    HttpPost httpPost = new HttpPost(url);
+//                    String result = "";
+//                    if (jsonObject != null) {
+//                        Log.i("wangwansheng", "pwd is " + jsonObject.toString());
+//                        httpPost.setEntity(new StringEntity(jsonObject.toString(), HTTP.UTF_8));
+//                    } else {
+//                        Log.i("wangwansheng", "jsonObject is NULL!");
+//                    }
+//
+//                    httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
+//
+//                    DefaultHttpClient httpclient = new HttpClient();
+//                    HttpResponse response = httpclient.execute(httpPost);
+//                    Log.i("wangwansheng", "result is " + response.getStatusLine().getStatusCode());
+//                    if (response.getStatusLine().getStatusCode() == 200) {
+//                        HttpEntity entity = response.getEntity();
+//                        result = EntityUtils.toString(entity, HTTP.UTF_8);
+//                        Log.i("wangwansheng", "result is " + result);
+//
+//                        if (result == null) {
+//                            pHandler.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    onRequestError(id, "未请求到数据");
+//                                }
+//                            });
+//                        } else {
+//                            final String returnStr = result.replaceAll("\ufeff", "");
+//                            // final String returnStr = str;
+//                            Log.i(TAG, "returnStr is " + returnStr);
+//                            pHandler.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    onRequestComplete(id, pBean, returnStr);
+//                                }
+//                            });
+//                        }
+//
+//                    } else {
+//                    }
+//
+//                } catch (ClientProtocolException e) {
+//                    // TODO: handle exception
+//                } catch (IOException e) {
+//                    // TODO: handle exception
+//                }
+//            }
+//        }).start();
+//    }
 
     /**
      * post方法
@@ -345,14 +335,16 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
     public void postJsonRequest(String url, final Map<String, Object> params, boolean isRetry) throws URISyntaxException, IOException, NetworkErrorException,
             TimeoutException, JSONException {
         Log.i(TAG, "url is " + url);
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userName", params.get("userName"));
-        jsonObject.put("password", params.get("password"));
+        for (String key : params.keySet()) {
+            if (params.get(key) == null) {
+            } else {
+                jsonObject.put(key, params.get(key).toString());
+            }
+        }
 
-//        processHttp(url, jsonObject);
-
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+        SessionStoreRequest jsonObjectRequest = new SessionStoreRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 {
@@ -405,6 +397,61 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 0, 1.0f));
         }
         jsonObjectRequest.setTag(url);
+
+
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject jsonObject) {
+//                {
+//                    Log.e("result", jsonObject.toString());
+//                    String response = jsonObject.toString();
+//                    if (response == null) {
+//                        pHandler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onRequestError(id, "未请求到数据");
+//                            }
+//                        });
+//                    } else {
+//                        final String returnStr = response.replaceAll("\ufeff", "");
+//                        // final String returnStr = str;
+//                        Log.i(TAG, "returnStr is " + returnStr);
+//                        pHandler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                onRequestComplete(id, pBean, returnStr);
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//                int statusCode = volleyError.networkResponse.statusCode;
+//                pHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        onRequestError(id, "网络请求失败");
+//                    }
+//                });
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("Accept", "application/json");
+//                headers.put("Content-Type", "application/json; charset=UTF-8");
+//
+//                return headers;
+//            }
+//        };
+//        if (isRetry) {
+//            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(8 * 1000, 1, 1.0f));
+//        } else {
+//            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 0, 1.0f));
+//        }
+//        jsonObjectRequest.setTag(url);
         MyApplication.getQueue().add(jsonObjectRequest);
 
     }
@@ -490,7 +537,7 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
      */
     public void getJson(String url, boolean isRetry) throws URISyntaxException, IOException,
             TimeoutException {
-        StringRequest getRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        PostStringRequest getRequest = new PostStringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("result", response);
@@ -528,6 +575,45 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
         } else {
             getRequest.setRetryPolicy(new DefaultRetryPolicy(8 * 1000, 0, 1.0f));
         }
+
+//        StringRequest getRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.e("result", response);
+//                if (response == null) {
+//                    pHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            onRequestError(id, "null");
+//                        }
+//                    });
+//                } else {
+//                    final String returnStr = response.replaceAll("\ufeff", "");
+//                    // final String returnStr = str;
+//                    pHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            onRequestComplete(id, pBean, returnStr);
+//                        }
+//                    });
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                pHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        onRequestError(id, "网络请求失败");
+//                    }
+//                });
+//            }
+//        });
+//        if (isRetry) {
+//            getRequest.setRetryPolicy(new DefaultRetryPolicy(8 * 1000, 1, 1.0f));
+//        } else {
+//            getRequest.setRetryPolicy(new DefaultRetryPolicy(8 * 1000, 0, 1.0f));
+//        }
         getRequest.setTag(url);
         MyApplication.getQueue().add(getRequest);
     }

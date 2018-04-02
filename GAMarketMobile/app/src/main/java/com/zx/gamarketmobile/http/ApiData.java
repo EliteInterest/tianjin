@@ -359,7 +359,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
 //                    params.setPort(8030);
                     params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + LOCAL_HOST_TAG + "/" + "login.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "login");
+//                    params.putParams("method", "login");
 //                    params.putParams("loginname", objects[0]);
 //                    params.putParams("passwd", MD5Util.getMD5(MD5Util.getMD5(objects[1].toString())));
                     params.putParams("userName", objects[0]);
