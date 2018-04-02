@@ -336,13 +336,7 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
             TimeoutException, JSONException {
         Log.i(TAG, "url is " + url);
 
-        JSONObject jsonObject = new JSONObject();
-        for (String key : params.keySet()) {
-            if (params.get(key) == null) {
-            } else {
-                jsonObject.put(key, params.get(key).toString());
-            }
-        }
+        JSONObject jsonObject = new JSONObject(params);
 
         SessionStoreRequest jsonObjectRequest = new SessionStoreRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override

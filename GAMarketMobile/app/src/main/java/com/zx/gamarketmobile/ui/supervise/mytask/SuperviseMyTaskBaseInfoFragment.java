@@ -65,7 +65,8 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
         if (mEntity != null) {
             if (isVisibleToUser && dataInfoList.size() == 0) {
                 fId = mEntity.getFTaskId();
-                getTaskBaseInfo.loadData(mEntity.getF_GUID(), mEntity.getFTaskStatus(), fId, userInfo.getId());
+//                getTaskBaseInfo.loadData(mEntity.getF_GUID(), mEntity.getFTaskStatus(), fId, userInfo.getId());
+                getTaskBaseInfo.loadData(fId);
             }
         }
     }

@@ -63,7 +63,7 @@ public class TaskNumFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.i(TAG, "enter onResume...");
-        countMonitorTask.loadData(userInfo.getId());
+//        countMonitorTask.loadData(userInfo.getId());
     }
 
     public void updateView(MonitorPrecessCountEntity task) {

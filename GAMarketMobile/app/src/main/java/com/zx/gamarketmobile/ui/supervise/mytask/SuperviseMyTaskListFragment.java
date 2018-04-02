@@ -102,9 +102,12 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
     //数据加载
     private void loadData() {
         if (index == 0) {
-            getTaskPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
+//            getTaskPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
+            getTaskPage.loadData(mPageNo, mPageSize, 3);
         } else {
-            getTaskHisPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
+//            getTaskHisPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
+            getTaskPage.loadData(mPageNo, mPageSize, 4);
+
         }
     }
 
