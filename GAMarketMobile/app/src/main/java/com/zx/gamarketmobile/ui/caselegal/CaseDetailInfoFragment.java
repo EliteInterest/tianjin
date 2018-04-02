@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.CaseCompDetailInfoAdapter;
+import com.zx.gamarketmobile.entity.CaseDetailEntity;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.entity.KeyValueInfo;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +62,8 @@ public class CaseDetailInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_caseGetAyxxDetailById:
-                CaseInfoEntity caseInfoEntity = (CaseInfoEntity) b.getEntry();
-                getDataList(caseInfoEntity);
+                CaseDetailEntity caseDetailEntity = (CaseDetailEntity) b.getEntry();
+                getDataList(caseDetailEntity.getInfo());
                 mCaseAdapter.notifyDataSetChanged();
                 break;
             default:
@@ -71,31 +73,33 @@ public class CaseDetailInfoFragment extends BaseFragment {
 
     private void getDataList(CaseInfoEntity caseInfoEntity) {
         dataInfoList.clear();
-        KeyValueInfo info = new KeyValueInfo("案件名称: ", caseInfoEntity.getfAyAymc());
+        KeyValueInfo info = new KeyValueInfo("案件名称: ", caseInfoEntity.getCaseName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("案件来源: ", caseInfoEntity.getfAyXxly());
+        info = new KeyValueInfo("案源类型: ", caseInfoEntity.getTypeName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("案件领域: ", caseInfoEntity.getfAyAjly());
+        info = new KeyValueInfo("部门: ", caseInfoEntity.getDepartmentName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("违法类型: ", caseInfoEntity.getfAyWflx());
+        info = new KeyValueInfo("登记内容: ", caseInfoEntity.getRegContent());
         dataInfoList.add(info);
-        info = new KeyValueInfo("监管地区: ", caseInfoEntity.getfDsrJgs());
+        info = new KeyValueInfo("登记时间: ", DateUtil.getDateFromMillis(caseInfoEntity.getRegDate()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("当事人: ", caseInfoEntity.getfDsrMc());
+        info = new KeyValueInfo("登记人: ", caseInfoEntity.getRegUser());
         dataInfoList.add(info);
-        info = new KeyValueInfo("当事人类型: ", caseInfoEntity.getfDsrLx());
+        info = new KeyValueInfo("处理意见: ", caseInfoEntity.getDisOpinion());
         dataInfoList.add(info);
-        info = new KeyValueInfo("登记时间: ", caseInfoEntity.getfSjCjsj());
+        info = new KeyValueInfo("提供者姓名名称: ", caseInfoEntity.getProvideName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("登记人: ", caseInfoEntity.getfSjCjr());
+        info = new KeyValueInfo("提供者联系方式: ", caseInfoEntity.getProvideContact());
         dataInfoList.add(info);
-        info = new KeyValueInfo("登记部门: ", caseInfoEntity.getfCjrDept());
+        info = new KeyValueInfo("提供者地址: ", caseInfoEntity.getProvideAddress());
         dataInfoList.add(info);
-        info = new KeyValueInfo("内容摘要: ", caseInfoEntity.getfAyNrzy());
+        info = new KeyValueInfo("涉案主体名称: ", caseInfoEntity.getEnterpriseName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("定性依据: ", caseInfoEntity.getfAyWffg().replace(",", "\n"));
+        info = new KeyValueInfo("涉案主体法人: ", caseInfoEntity.getEnterprisePerson());
         dataInfoList.add(info);
-        info = new KeyValueInfo("处罚依据: ", caseInfoEntity.getfPunishLaw().replace(",", "\n"));
+        info = new KeyValueInfo("涉案主体联系电话: ", caseInfoEntity.getEnterpriseContact());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("涉案主体联系地址: ", caseInfoEntity.getEnterpriseAddress());
         dataInfoList.add(info);
     }
 

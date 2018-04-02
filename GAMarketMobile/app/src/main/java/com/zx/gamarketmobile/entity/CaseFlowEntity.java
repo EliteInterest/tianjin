@@ -6,67 +6,118 @@ package com.zx.gamarketmobile.entity;
  */
 public class CaseFlowEntity {
 
-    private String fSpsj;//审批时间
-    private String fSpr;//处理人
-    private String fSpjs;//处理人角色
-    private String fLcZztmc;//流程环节
-    private String fSpbz;//审批备注
-    private String fSpyj;//审批意见
-    private String fLcZzt;//流程子状态
 
-    public String getfLcZzt() {
-        return fLcZzt;
+    /**
+     * id : FC87154B963340648A08F830228EDE9C
+     * caseId : EE857209BD334EF1B9D37313DDB00DCD
+     * name : 案件查处
+     * process : null
+     * handleUser : 管理员
+     * handleUserId : f9aea146c8ea11e79fcc000c2934879e
+     * handleDate : 1520496310000
+     * acceptUserId : f9aea146c8ea11e79fcc000c2934879e
+     * acceptUser : 管理员
+     * isAgree : null
+     * remark : 中止调查
+     */
+
+    private String id;
+    private String caseId;
+    private String name;
+    private String process;
+    private String handleUser;
+    private String handleUserId;
+    private long handleDate;
+    private String acceptUserId;
+    private String acceptUser;
+    private Object isAgree;
+    private String remark;
+
+    public String getId() {
+        return id;
     }
 
-    public void setfLcZzt(String fLcZzt) {
-        this.fLcZzt = fLcZzt;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getfSpsj() {
-        return fSpsj;
+    public String getCaseId() {
+        return caseId;
     }
 
-    public void setfSpsj(String fSpsj) {
-        this.fSpsj = fSpsj;
+    public void setCaseId(String caseId) {
+        this.caseId = caseId;
     }
 
-    public String getfSpr() {
-        return fSpr;
+    public String getName() {
+        return name;
     }
 
-    public void setfSpr(String fSpr) {
-        this.fSpr = fSpr;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getfSpjs() {
-        return fSpjs;
+    public String getProcess() {
+        return process;
     }
 
-    public void setfSpjs(String fSpjs) {
-        this.fSpjs = fSpjs;
+    public void setProcess(String process) {
+        this.process = process;
     }
 
-    public String getfLcZztmc() {
-        return fLcZztmc;
+    public String getHandleUser() {
+        return handleUser;
     }
 
-    public void setfLcZztmc(String fLcZztmc) {
-        this.fLcZztmc = fLcZztmc;
+    public void setHandleUser(String handleUser) {
+        this.handleUser = handleUser;
     }
 
-    public String getfSpbz() {
-        return fSpbz;
+    public String getHandleUserId() {
+        return handleUserId;
     }
 
-    public void setfSpbz(String fSpbz) {
-        this.fSpbz = fSpbz;
+    public void setHandleUserId(String handleUserId) {
+        this.handleUserId = handleUserId;
     }
 
-    public String getfSpyj() {
-        return fSpyj;
+    public long getHandleDate() {
+        return handleDate;
     }
 
-    public void setfSpyj(String fSpyj) {
-        this.fSpyj = fSpyj;
+    public void setHandleDate(long handleDate) {
+        this.handleDate = handleDate;
+    }
+
+    public String getAcceptUserId() {
+        return acceptUserId;
+    }
+
+    public void setAcceptUserId(String acceptUserId) {
+        this.acceptUserId = acceptUserId;
+    }
+
+    public String getAcceptUser() {
+        return acceptUser;
+    }
+
+    public void setAcceptUser(String acceptUser) {
+        this.acceptUser = acceptUser;
+    }
+
+    public Object getIsAgree() {
+        return isAgree;
+    }
+
+    public void setIsAgree(Object isAgree) {
+        this.isAgree = isAgree;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

@@ -61,21 +61,23 @@ public class CaseDetailActivity extends BaseActivity {
         btnExcute.setOnClickListener(this);
         btnOther = (Button) findViewById(R.id.btnActCase_other);
         btnOther.setOnClickListener(this);
+        //TODO
+        btnOther.setVisibility(View.GONE);
 
-        if (mEntity.getPROC_DEF_ID_().indexOf("AJYQLC") != -1) {//延期流程
-            btnOther.setVisibility(View.GONE);
-            btnExcute.setText("案件延期-处理");
-            caseType = 2;
-        } else if (mEntity.getPROC_DEF_ID_().indexOf("AJXALC") != -1) {//销案流程
-            btnOther.setVisibility(View.GONE);
-            btnExcute.setText("案件销案-处理");
-            caseType = 3;
-        } else {//综合执法
-            caseType = 1;
-            if ("0".equals(mEntity.getfHjBm()) || "99999".equals(mEntity.getfHjBm())) {
-                btnOther.setVisibility(View.GONE);
-            }
-        }
+//        if (mEntity.getPROC_DEF_ID_().indexOf("AJYQLC") != -1) {//延期流程
+//            btnOther.setVisibility(View.GONE);
+//            btnExcute.setText("案件延期-处理");
+//            caseType = 2;
+//        } else if (mEntity.getPROC_DEF_ID_().indexOf("AJXALC") != -1) {//销案流程
+//            btnOther.setVisibility(View.GONE);
+//            btnExcute.setText("案件销案-处理");
+//            caseType = 3;
+//        } else {//综合执法
+//            caseType = 1;
+//            if ("0".equals(mEntity.getfHjBm()) || "99999".equals(mEntity.getfHjBm())) {
+//                btnOther.setVisibility(View.GONE);
+//            }
+//        }
         //流程处理只能在待办中
         if (showExcute) {
             btnExcute.setVisibility(View.VISIBLE);
@@ -90,12 +92,12 @@ public class CaseDetailActivity extends BaseActivity {
 
         mTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
-        myPagerAdapter.addFragment(CaseDetailInfoFragment.newInstance(mEntity.getfId()), "基本信息");
-        myPagerAdapter.addFragment(CaseDetailFileFragment.newInstance(mEntity.getfId()), "案件资料");
-        myPagerAdapter.addFragment(CaseDetailFlowFragment.newInstance(mEntity.getfId()), "流程轨迹");
+        myPagerAdapter.addFragment(CaseDetailInfoFragment.newInstance(mEntity.getId()), "基本信息");
+        myPagerAdapter.addFragment(CaseDetailFileFragment.newInstance(mEntity.getId()), "案件资料");
+        myPagerAdapter.addFragment(CaseDetailFlowFragment.newInstance(mEntity.getId()), "流程轨迹");
         myPagerAdapter.addFragment(CaseDetailChartFragment.newInstance(mEntity, showExcute), "流程图");
 
-        mVpContent.setOffscreenPageLimit(3);
+        mVpContent.setOffscreenPageLimit(4);
         mVpContent.setAdapter(myPagerAdapter);
         mTabLayout.setupWithViewPager(mVpContent);
     }
@@ -114,19 +116,20 @@ public class CaseDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.btnActCase_execute: {
-                if (caseType == 1) {//综合执法
-                    Intent intent = new Intent(this, CaseExcuteActivity.class);
-                    intent.putExtra("entity", mEntity);
-                    startActivityForResult(intent, 0);
-                } else if (caseType == 2) {//案件延期
-                    Intent intent = new Intent(this, CaseDelayActivity.class);
-                    intent.putExtra("entity", mEntity);
-                    startActivityForResult(intent, 0);
-                } else if (caseType == 3) {//案件销案
-                    Intent intent = new Intent(this, CaseDestoryActivity.class);
-                    intent.putExtra("entity", mEntity);
-                    startActivityForResult(intent, 0);
-                }
+                //TODO
+//                if (caseType == 1) {//综合执法
+//                    Intent intent = new Intent(this, CaseExcuteActivity.class);
+//                    intent.putExtra("entity", mEntity);
+//                    startActivityForResult(intent, 0);
+//                } else if (caseType == 2) {//案件延期
+//                    Intent intent = new Intent(this, CaseDelayActivity.class);
+//                    intent.putExtra("entity", mEntity);
+//                    startActivityForResult(intent, 0);
+//                } else if (caseType == 3) {//案件销案
+//                    Intent intent = new Intent(this, CaseDestoryActivity.class);
+//                    intent.putExtra("entity", mEntity);
+//                    startActivityForResult(intent, 0);
+//                }
                 break;
             }
             case R.id.btnActCase_other:
@@ -189,15 +192,15 @@ public class CaseDetailActivity extends BaseActivity {
             tvCaseQz.setOnClickListener(this);
             Button tvCancel = (Button) diaView.findViewById(R.id.pop_dialogues_case_cancel);
             tvCancel.setOnClickListener(this);
-            if (!"".equals(mEntity.getfSfyq())) {
-                tvCaseYq.setVisibility(View.GONE);
-            }
-            if (mEntity.isfSfxa()) {
-                tvCaseXa.setVisibility(View.GONE);
-            }
-            if (mEntity.isfSfys()) {
-                tvCaseYs.setVisibility(View.GONE);
-            }
+//            if (!"".equals(mEntity.getfSfyq())) {
+//                tvCaseYq.setVisibility(View.GONE);
+//            }
+//            if (mEntity.isfSfxa()) {
+//                tvCaseXa.setVisibility(View.GONE);
+//            }
+//            if (mEntity.isfSfys()) {
+//                tvCaseYs.setVisibility(View.GONE);
+//            }
 //            if (mEntity.isfSfqzcs()) {
 //                tvCaseQz.setVisibility(View.GONE);
 //            }

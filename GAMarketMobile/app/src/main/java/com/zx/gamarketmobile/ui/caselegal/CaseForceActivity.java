@@ -12,7 +12,6 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
-import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.Util;
@@ -129,7 +128,7 @@ public class CaseForceActivity extends BaseActivity {
     private void doExcute() {
         String userId = userInfo.getId();
         String date = tvDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
-        doForce.loadData(mEntity.getfId(), userId, etForceOpinion.getText().toString().trim(), etPerson.getText().toString().trim(), date);
+        doForce.loadData(mEntity.getId(), userId, etForceOpinion.getText().toString().trim(), etPerson.getText().toString().trim(), date);
     }
 
     @Override
@@ -177,8 +176,8 @@ public class CaseForceActivity extends BaseActivity {
                     fileNameListStr = fileNameListStr.substring(1);
                     if (!TextUtils.isEmpty(realNameListStr)) {
                         String fUploadPerson = userInfo.getUserName();
-                        if (!TextUtils.isEmpty(mEntity.getfId()) && !TextUtils.isEmpty(fUploadPerson)) {
-                            caseSave.loadData(mEntity.getfId(), userInfo.getId(), realNameListStr, fileNameListStr);
+                        if (!TextUtils.isEmpty(mEntity.getId()) && !TextUtils.isEmpty(fUploadPerson)) {
+                            caseSave.loadData(mEntity.getId(), userInfo.getId(), realNameListStr, fileNameListStr);
                         }
                     }
                 }

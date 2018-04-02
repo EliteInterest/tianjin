@@ -80,10 +80,10 @@ public class CaseDelayActivity extends BaseActivity implements RadioGroup.OnChec
         if (getIntent().hasExtra("entity")) {
             mEntity = (CaseInfoEntity) getIntent().getSerializableExtra("entity");
         }
-        if ("1".equals(mEntity.getfSfyq())) {//已延期
+        if ("0".equals(mEntity.getIsOverdue())) {//已延期
 
-        } else if ("0".equals(mEntity.getfSfyq())) {//正在延期
-            delayCode = mEntity.getfTaskName();
+        } else if ("1".equals(mEntity.getIsOverdue())) {//正在延期
+//            delayCode = mEntity.getfTaskName();
             loadNextPerson();
         } else {//未延期
             delayCode = "0";
@@ -139,7 +139,7 @@ public class CaseDelayActivity extends BaseActivity implements RadioGroup.OnChec
     private void doExcuteByCode() {
         String userId = userInfo.getId();
         String description = etDelayOpinion.getText().toString().trim();
-        String taskId = mEntity.getfTaskId();
+        String taskId = mEntity.getTaskId();
         if (etDelayOpinion.getVisibility() == View.VISIBLE && description.length() == 0) {
             showToast("请填写说明");
             return;
@@ -165,21 +165,21 @@ public class CaseDelayActivity extends BaseActivity implements RadioGroup.OnChec
         }
         switch (delayCode) {
             case "0"://启动延期
-                doDelay.loadData("doAjyqLcStartPro", mEntity.getfId(), isPass, userId, description, taskId);
+                doDelay.loadData("doAjyqLcStartPro", mEntity.getId(), isPass, userId, description, taskId);
                 break;
             case "延期申请":
-                doDelay.loadData("doAjyqLcSqPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDelay.loadData("doAjyqLcSqPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id,
                         "fYqSx", date);
                 break;
             case "延期审查":
-                doDelay.loadData("doAjyqLcScPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDelay.loadData("doAjyqLcScPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id);
                 break;
             case "延期审批":
-                doDelay.loadData("doAjyqLcSpPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDelay.loadData("doAjyqLcSpPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id);
                 break;
@@ -238,7 +238,7 @@ public class CaseDelayActivity extends BaseActivity implements RadioGroup.OnChec
 
     //加载下一流程处理人
     private void loadNextPerson() {
-        getNextPerson.loadData(mEntity.getfId(), isPass, mEntity.getfTaskId());
+        getNextPerson.loadData(mEntity.getId(), isPass, mEntity.getTaskId());
     }
 
     //打开选择框

@@ -73,7 +73,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void onLoadError(int id, boolean bool, String errorMsg) {
         super.onLoadError(id, bool, errorMsg);
-        userManager.setLoginFirst(this);
+        userManager.setNoLogin(this);
         toLogin();
     }
 
@@ -101,7 +101,7 @@ public class WelcomeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(psw)) {
                             loginData.loadData(name, psw);
                         } else {
-                            userManager.setLoginFirst(this);
+                            userManager.setNoLogin(this);
                             gotoActivity();
                         }
                         edit.putBoolean("update_version", false);
@@ -110,6 +110,7 @@ public class WelcomeActivity extends BaseActivity {
                     break;
                 case ApiData.HTTP_ID_login:
                     HttpLoginEntity loginInfo = (HttpLoginEntity) b.getEntry();
+                    loginInfo.setIsLogin(true);
                     String username = mSharePreferences.getString("curuser", "");
                     String password = mSharePreferences.getString(username, "");
                     loginInfo.setPassword(username);
@@ -163,7 +164,7 @@ public class WelcomeActivity extends BaseActivity {
         }
         long selectTime = timeStr + hoursStr * 60 * 60 * 1000;
         if (selectTime < System.currentTimeMillis()) {
-            userManager.setLoginFirst(this);
+            userManager.getUser(this).setIsLogin(false);
             String curuser = mSharePreferences.getString("curuser", "");
             edit.putString("curuser", "");
             edit.putString(curuser, "");

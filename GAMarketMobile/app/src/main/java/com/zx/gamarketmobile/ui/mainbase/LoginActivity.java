@@ -250,13 +250,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         mEditTextPwd.setText("");
                     }
                     HttpLoginEntity loginInfo = (HttpLoginEntity) b.getEntry();
+                    loginInfo.setIsLogin(true);
                     loginInfo.setPassword(mEditTextPwd.getText().toString().trim());
                     loginInfo.setUserName(mEditTextName.getText().toString().trim());
                     userManager.setUser(LoginActivity.this, loginInfo);
                     Editor edit = mSharedPreferences.edit();
                     edit.putLong("setting_time", System.currentTimeMillis());
                     edit.putString("update_version", "");
-                    BaseActivity.sIsLoginClear = false;
+//                    BaseActivity.sIsLoginClear = false;
 
                     gotoMainActivity();
 //                    if (mSharedPreferences.getBoolean("hasShowHelp", false)) {
@@ -270,6 +271,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 //                        startActivity(intent);
 //                        finish();
 //                    }
+                    edit.commit();
                 }
                 break;
             case ApiData.FILE_DOWNLOAD:

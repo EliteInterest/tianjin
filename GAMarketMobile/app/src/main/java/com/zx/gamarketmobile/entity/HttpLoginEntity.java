@@ -15,7 +15,7 @@ public class HttpLoginEntity {
     private String desc;
     private String password;//未加密
     private String telephone;
-    private String logincode;
+    private boolean isLogin;
     private String authority;//用户权限
     private String grid;//管辖片区
 
@@ -123,19 +123,19 @@ public class HttpLoginEntity {
         this.telephone = ("null").equals(telephone) ? null : telephone;
     }
 
-    public String getLoginCode() {
-        return logincode;
+    public boolean isLogin() {
+        return isLogin;
     }
 
-    public void setLoginCode(String logincode) {
-        this.logincode = ("null").equals(logincode) ? null : logincode;
+    public void setIsLogin(boolean isLogin) {
+        this.isLogin = isLogin;
     }
 
     @Override
     public String toString() {
         return "HttpLoginEntity [id=" + id + ", realname=" + realname + ", gender=" + gender + ", age=" + age
                 + ", username=" + username + ", duty=" + duty + ", department=" + department + ", desc=" + desc
-                + ", password=" + password + ", telephone=" + telephone + ", logincode=" + logincode + ", authority="
+                + ", password=" + password + ", telephone=" + telephone + ", isLogin=" + isLogin + ", authority="
                 + authority + "]";
     }
 

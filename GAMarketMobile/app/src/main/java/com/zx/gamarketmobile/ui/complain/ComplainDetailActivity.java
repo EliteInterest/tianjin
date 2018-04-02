@@ -28,6 +28,9 @@ public class ComplainDetailActivity extends BaseActivity {
     private boolean monitor = false;
     public Dialog dialog = null;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,15 +66,15 @@ public class ComplainDetailActivity extends BaseActivity {
         if (monitor) {
             btnExcute.setVisibility(View.GONE);
         }
-        if (mEntity.getfStatus().equals("已办结") || mEntity.getfStatus().equals("未受理")) {
-            btnExcute.setVisibility(View.GONE);
-        }
+//        if (mEntity.getfStatus().equals("已办结") || mEntity.getfStatus().equals("未受理")) {
+//            btnExcute.setVisibility(View.GONE);
+//        }
 
 
         mTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
-        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(mEntity.getfRegId()), "基本信息");
-        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(mEntity.getfRegId()), "处置动态");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(mEntity.getFGuid()), "基本信息");
+        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(mEntity.getFGuid()), "处置动态");
 
         mVpContent.setOffscreenPageLimit(2);
         mVpContent.setAdapter(myPagerAdapter);
@@ -82,7 +85,7 @@ public class ComplainDetailActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_right:
-                if (mEntity.getfLongitude().length() > 0 && mEntity.getfLatitude().length() > 0) {
+                if (mEntity.getSInfo().getX() > 0 && mEntity.getSInfo().getY() > 0) {
                     Intent mapIntent = new Intent(this, WorkInMapShowActivity.class);
                     mapIntent.putExtra("type", ConstStrings.MapType_CompDetail);
                     mapIntent.putExtra("entity", mEntity);

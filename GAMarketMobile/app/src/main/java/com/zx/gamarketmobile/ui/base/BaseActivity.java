@@ -1,7 +1,6 @@
 package com.zx.gamarketmobile.ui.base;
 
-import android.app
-        .ProgressDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -203,7 +202,7 @@ public class BaseActivity extends AppCompatActivity implements BaseRequestData.O
         edit.putString("curuser", "");
         edit.putString(curuser, "");
         edit.putString("fUserId", "");
-        edit.putString("isLogin", "");
+        edit.putBoolean("isLogin", false);
         edit.commit();
     }
 

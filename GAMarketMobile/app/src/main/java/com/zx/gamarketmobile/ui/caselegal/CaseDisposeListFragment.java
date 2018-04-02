@@ -36,7 +36,7 @@ public class CaseDisposeListFragment extends BaseFragment implements LoadMoreLis
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private CaseMyListFragment caseMyListFragment;
-    private ApiData getTaskPage = new ApiData(ApiData.HTTP_ID_caseTaskPage);
+    private ApiData getToDoPage = new ApiData(ApiData.HTTP_ID_caseTaskPage);
     private ApiData getTaskHisPage = new ApiData(ApiData.HTTP_ID_caseTaskHisPage);
 
     public static CaseDisposeListFragment newInstance(CaseMyListFragment caseMyListFragment, int index) {
@@ -54,7 +54,7 @@ public class CaseDisposeListFragment extends BaseFragment implements LoadMoreLis
         rvTodo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         srlTodo = (SwipeRefreshLayout) view.findViewById(R.id.srl_normal_layout);
         rvTodo.setLayoutManager(mLinearLayoutManager);
-        getTaskPage.setLoadingListener(this);
+        getToDoPage.setLoadingListener(this);
         getTaskHisPage.setLoadingListener(this);
         mAdapter = new CaseListAdapter(getActivity(), dataList, true);
         rvTodo.setAdapter(mAdapter);
@@ -100,9 +100,9 @@ public class CaseDisposeListFragment extends BaseFragment implements LoadMoreLis
     //数据加载
     private void loadData() {
         if (index == 0) {
-            getTaskPage.loadData(mPageNo, mPageSize, userInfo.getId());
+            getToDoPage.loadData(mPageNo, mPageSize, "", "", "", "", "");
         } else {
-            getTaskHisPage.loadData(mPageNo, mPageSize, userInfo.getId());
+            getTaskHisPage.loadData(mPageNo, mPageSize, "", "", "", "", "");
         }
     }
 

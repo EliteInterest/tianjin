@@ -12,15 +12,15 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.zx.gamarketmobile.entity.CaseFileEntity;
+import com.zx.gamarketmobile.entity.CaseDetailEntity;
 import com.zx.gamarketmobile.entity.CaseFlowEntity;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.entity.CaseRefeEntity;
 import com.zx.gamarketmobile.entity.CheckInfo;
 import com.zx.gamarketmobile.entity.CheckItemInfoEntity;
 import com.zx.gamarketmobile.entity.CompFlowEntity;
+import com.zx.gamarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
-import com.zx.gamarketmobile.entity.ComplaintInfoEntity;
 import com.zx.gamarketmobile.entity.DeviceEmergencyDetialEntity;
 import com.zx.gamarketmobile.entity.DeviceSecurityRiskEntity;
 import com.zx.gamarketmobile.entity.EmergencyInfo;
@@ -31,7 +31,6 @@ import com.zx.gamarketmobile.entity.EntityPictureBean;
 import com.zx.gamarketmobile.entity.EntityPointBean;
 import com.zx.gamarketmobile.entity.EntitySimpleInfo;
 import com.zx.gamarketmobile.entity.EquipmentInfoEntity;
-import com.zx.gamarketmobile.entity.FileInfoEntity;
 import com.zx.gamarketmobile.entity.HttpLoginEntity;
 import com.zx.gamarketmobile.entity.HttpMonitor;
 import com.zx.gamarketmobile.entity.HttpMonitorEntityList;
@@ -101,6 +100,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final boolean ISRELEASE = true;//是否正式环境
     public static final String LOCAL_HOST = "wenzhe.nat300.top";
     public static final String LOCAL_HOST_TAG = "TJSSO";
+    public static final String LOCAL_HOST_CASE = "TJCase";
     /**
      * 登录页接口 [无参数 ]
      */
@@ -189,7 +189,6 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_caseGetMonitor = 91;//案件执法-监控
     public static final int HTTP_ID_casePageLcjk = 92;//案件列表-流程监控
     public static final int HTTP_ID_caseSaveAyfj = 93;//保存图片信息
-    public static final int HTTP_ID_caseGetFileList = 94;//案件-获取案源附件
     public static final int HTTP_ID_compMonitor = 95;//投诉举报-流程监控
     public static final int HTTP_ID_compPageQuery = 96;//投诉举报-查询
     public static final int HTTP_ID_compInfoById = 97;//投诉举报-详情
@@ -242,6 +241,14 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_synergyGetEquipment1 = 142;//获取预警设备信息
     public static final int HTTP_ID_equipSearchList = 143;//特种设备获取查询列表
     public static final int HTTP_ID_getPicByEntityId = 144;//特种设备获取查询列表
+
+    public static final int HTTP_ID_statistics_case_queryDep = 201;//统计-案件-根据部门统计
+    public static final int HTTP_ID_statistics_case_queryType = 202;//统计-案件-来源统计
+    public static final int HTTP_ID_statistics_case_queryIsCase = 203;//统计-案件-立案统计
+    public static final int HTTP_ID_statistics_case_queryClosedCount = 204;//统计-案件-结案统计
+    public static final int HTTP_ID_statistics_case_queryRecordCount = 205;//统计-案件-案件记录趋势统计
+    public static final int HTTP_ID_statistics_case_queryPunishCount = 206;//统计-案件-案件处罚趋势统计
+
     //TODO
     public static String UUID = "";
 
@@ -909,34 +916,46 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("dpt", objects[2]);
                     break;
                 case HTTP_ID_casePageAyxx:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "pageAyxx");
-                    params.putParams("key", objects[0]);
-                    params.putParams("pageNum", objects[1]);
-                    params.putParams("pageSize", objects[2]);
-                    params.putParams("fStation", objects[3]);
+                    params.setApiUrl(baseUrl + "/TJCase/case/queryList.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("isOverdue", objects[2]);
+                    params.putParams("caseName", objects[3]);
+                    params.putParams("caseNum", objects[4]);
+                    params.putParams("status", objects[5]);
                     break;
                 case HTTP_ID_caseTaskPage:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "taskPage");
-                    params.putParams("pageNum", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJCase/case/queryToDo.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
                     params.putParams("pageSize", objects[1]);
-                    params.putParams("fUserId", objects[2]);
+                    params.putParams("caseName", objects[2]);
+                    params.putParams("foundDateMin", objects[3]);
+                    params.putParams("foundDateMax", objects[4]);
+                    params.putParams("typeCode", objects[5]);
+                    params.putParams("provideName", objects[6]);
+                    break;
+                case HTTP_ID_caseTaskHisPage:
+                    params.setApiUrl(baseUrl + "/TJCase/case/queryAlready.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("caseName", objects[2]);
+                    params.putParams("foundDateMin", objects[3]);
+                    params.putParams("foundDateMax", objects[4]);
+                    params.putParams("typeCode", objects[5]);
+                    params.putParams("provideName", objects[6]);
                     break;
                 case HTTP_ID_caseGetAyxxDetailById:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getAyxxDetailById");
-                    params.putParams("fId", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJCase/case/queryOne.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
                     break;
                 case HTTP_ID_caseGetAyLcgjPageInfo:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getAyLcgjPageInfo");
-                    params.putParams("fAyId", objects[0]);
-                    params.putParams("fType", objects[1]);
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/flowLog.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("caseId", objects[0]);
                     break;
                 case HTTP_ID_caseGetNextPerson:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -962,14 +981,6 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             params.putParams(objects[i] + "", objects[++i]);
                         }
                     }
-                    break;
-                case HTTP_ID_caseTaskHisPage:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "taskHisPage");
-                    params.putParams("pageNum", objects[0]);
-                    params.putParams("pageSize", objects[1]);
-                    params.putParams("fUserId", objects[2]);
                     break;
                 case HTTP_ID_caseDoDelay:
                 case HTTP_ID_caseDoDestory:
@@ -1006,14 +1017,12 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fZxsj", objects[4]);
                     break;
                 case HTTP_ID_caseGetMonitor:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getProStatistics");
+                    params.setApiUrl(baseUrl + "/TJCase/caseMonitor/getMonitorCount.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
                     break;
                 case HTTP_ID_casePageLcjk:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "pageLcjkAyxx");
+                    params.setApiUrl(baseUrl + "/TJCase/caseMonitor/getMonitorCount.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("pageNum", objects[0]);
                     params.putParams("pageSize", objects[1]);
                     params.putParams("type", objects[2]);
@@ -1028,12 +1037,6 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("realNames", objects[2]);
                     params.putParams("fileNames", objects[3]);
                     params.setRetry(false);//是否在网络不好时，请求第二次，默认为true
-                    break;
-                case HTTP_ID_caseGetFileList:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getAyfjListByFid");
-                    params.putParams("fId", objects[0]);
                     break;
                 case HTTP_ID_compMonitor:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1054,10 +1057,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     }
                     break;
                 case HTTP_ID_compInfoById:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintInfo.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getComplaintInfoById");
-                    params.putParams("fRegId", objects[0]);
+                    params.putParams("fGuid", objects[0]);
                     break;
                 case HTTP_ID_compLcgj:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1478,6 +1480,39 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("method", "getPictureByEntityGuid");
                     params.putParams("fEntityGuid", objects[0]);
                     break;
+                case HTTP_ID_statistics_case_queryDep:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/queryDep.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("regDateMin", objects[0]);
+                    params.putParams("regDateMax", objects[1]);
+                    break;
+                case HTTP_ID_statistics_case_queryType:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/queryType.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("regDateMin", objects[0]);
+                    params.putParams("regDateMax", objects[1]);
+                    break;
+                case HTTP_ID_statistics_case_queryIsCase:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/queryIsCase.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("regDateMin", objects[0]);
+                    params.putParams("regDateMax", objects[1]);
+                    break;
+                case HTTP_ID_statistics_case_queryClosedCount:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/getClosedCount.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_case_queryRecordCount:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/getRecordCount.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_case_queryPunishCount:
+                    params.setApiUrl(baseUrl + "/TJCase/statistics/getPunishCount.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -1548,7 +1583,6 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             loginEntity.setGrid(getStringValue(list, "fGrid"));
                             loginEntity.setPassword(getStringValue(list, "fPassword"));
                             loginEntity.setAuthority(getStringValue(list, "grantCode").replace("[", "").replace("]", "").replace("\"", ""));
-                            loginEntity.setLoginCode("notfirst");
                             result.setEntry(loginEntity);
                         }
                         break;
@@ -1729,11 +1763,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             }
                             // 任务操作信息（投诉信息或检查指标）
                             if (!list.isNull("complaintInfo")) {
-                                JSONObject jsonobjComplaint = getJSONObject(list, "complaintInfo");
-                                if (jsonobjComplaint != null) {
-                                    ComplaintInfoEntity complaint = new Gson().fromJson(jsonobjComplaint.toString(), ComplaintInfoEntity.class);
-                                    taskEntity.setComplaintInfo(complaint);
-                                }
+//                                JSONObject jsonobjComplaint = getJSONObject(list, "complaintInfo");
+//                                if (jsonobjComplaint != null) {
+//                                    ComplaintInfoEntity complaint = new Gson().fromJson(jsonobjComplaint.toString(), ComplaintInfoEntity.class);
+//                                    taskEntity.setComplaintInfo(complaint);
+//                                }
                             } else if (list.has("checkItemInfo")) {
                                 List<CheckItemInfoEntity> checkitemList = new ArrayList<>();
                                 JSONArray jsonArrayChecks = getJSONArray(list, "checkItemInfo");
@@ -2443,80 +2477,50 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_casePageLcjk:
                             jsonObject = getJSONObject(jsonObject, "data");
                             NormalListEntity normalListEntity = new NormalListEntity();
-                            normalListEntity.setCurrPageNo(getIntValue(jsonObject, "currPageNo"));
+                            normalListEntity.setCurrPageNo(getIntValue(jsonObject, "pageNo"));
                             normalListEntity.setPageSize(getIntValue(jsonObject, "pageSize"));
-                            normalListEntity.setPageTotal(getIntValue(jsonObject, "pageTotal"));
+                            normalListEntity.setPageTotal(getIntValue(jsonObject, "pages"));
                             normalListEntity.setTotal(getIntValue(jsonObject, "total"));
-                            jsonArray = getJSONArray(jsonObject, "rows");
-                            List<CaseInfoEntity> caseInfoEntities = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                CaseInfoEntity caseInfo = new CaseInfoEntity();
-                                jsonObject = jsonArray.getJSONObject(i);
-                                caseInfo.setfAyAjly(getStringValue(jsonObject, "fAyAjly"));
-                                caseInfo.setfAyAymc(getStringValue(jsonObject, "fAyAymc"));
-                                caseInfo.setfDsrMc(getStringValue(jsonObject, "fDsrMc"));
-                                caseInfo.setfId(getStringValue(jsonObject, "fId"));
-                                caseInfo.setfHjBm(getStringValue(jsonObject, "fHjBm"));
-                                caseInfo.setfHjMc(getStringValue(jsonObject, "fHjMc"));
-                                caseInfo.setfSjCjsj(getStringValue(jsonObject, "fSjCjsj"));
-                                caseInfo.setfSfyq(getStringValue(jsonObject, "fSfyq"));
-                                caseInfo.setfSfxa("1".equals(getStringValue(jsonObject, "fSfxa")));
-                                caseInfo.setfSfys("1".equals(getStringValue(jsonObject, "fSfys")));
-                                caseInfo.setfSfqzcs("1".equals(getStringValue(jsonObject, "fSfqzcs")));
-                                caseInfo.setfTaskId(getStringValue(jsonObject, "TASK_ID"));
-                                caseInfo.setfTaskName(getStringValue(jsonObject, "TASK_NAME_"));
-                                caseInfo.setPROC_DEF_ID_(getStringValue(jsonObject, "PROC_DEF_ID_"));
-                                caseInfo.setfYqzt("已逾期".equals(getStringValue(jsonObject, "fYqzt")));
-                                caseInfo.setLatitude(getStringValue(jsonObject, "fDsrWd"));
-                                caseInfo.setLongitude(getStringValue(jsonObject, "fDsrJd"));
-                                caseInfo.setfDcqzZxrId(getStringValue(jsonObject, "fDcqzZxrId"));
-                                caseInfo.setfDcqzXzr(getStringValue(jsonObject, "fDcqzXzr"));
-                                caseInfoEntities.add(caseInfo);
-                            }
+                            jsonArray = getJSONArray(jsonObject, "list");
+                            List<CaseInfoEntity> caseInfoEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<CaseInfoEntity>>() {
+                            }.getType());
+//                            List<CaseInfoEntity> caseInfoEntities = new ArrayList<>();
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                CaseInfoEntity caseInfo = new CaseInfoEntity();
+//                                jsonObject = jsonArray.getJSONObject(i);
+//                                caseInfo.setfAyAjly(getStringValue(jsonObject, "fAyAjly"));
+//                                caseInfo.setfAyAymc(getStringValue(jsonObject, "fAyAymc"));
+//                                caseInfo.setfDsrMc(getStringValue(jsonObject, "fDsrMc"));
+//                                caseInfo.setfId(getStringValue(jsonObject, "fId"));
+//                                caseInfo.setfHjBm(getStringValue(jsonObject, "fHjBm"));
+//                                caseInfo.setfHjMc(getStringValue(jsonObject, "fHjMc"));
+//                                caseInfo.setfSjCjsj(getStringValue(jsonObject, "fSjCjsj"));
+//                                caseInfo.setfSfyq(getStringValue(jsonObject, "fSfyq"));
+//                                caseInfo.setfSfxa("1".equals(getStringValue(jsonObject, "fSfxa")));
+//                                caseInfo.setfSfys("1".equals(getStringValue(jsonObject, "fSfys")));
+//                                caseInfo.setfSfqzcs("1".equals(getStringValue(jsonObject, "fSfqzcs")));
+//                                caseInfo.setfTaskId(getStringValue(jsonObject, "TASK_ID"));
+//                                caseInfo.setfTaskName(getStringValue(jsonObject, "TASK_NAME_"));
+//                                caseInfo.setPROC_DEF_ID_(getStringValue(jsonObject, "PROC_DEF_ID_"));
+//                                caseInfo.setfYqzt("已逾期".equals(getStringValue(jsonObject, "fYqzt")));
+//                                caseInfo.setLatitude(getStringValue(jsonObject, "fDsrWd"));
+//                                caseInfo.setLongitude(getStringValue(jsonObject, "fDsrJd"));
+//                                caseInfo.setfDcqzZxrId(getStringValue(jsonObject, "fDcqzZxrId"));
+//                                caseInfo.setfDcqzXzr(getStringValue(jsonObject, "fDcqzXzr"));
+//                                caseInfoEntities.add(caseInfo);
+//                            }
                             normalListEntity.setCaseInfoEntityList(caseInfoEntities);
                             result.setEntry(normalListEntity);
                             break;
                         case HTTP_ID_caseGetAyxxDetailById:
                             jsonObject = getJSONObject(jsonObject, "data");
-                            CaseInfoEntity caseInfo = new CaseInfoEntity();
-                            caseInfo.setfAyAjly(getStringValue(jsonObject, "fAyAjly"));
-                            caseInfo.setfAyAymc(getStringValue(jsonObject, "fAyAymc"));
-                            caseInfo.setfDsrMc(getStringValue(jsonObject, "fDsrMc"));
-                            caseInfo.setfId(getStringValue(jsonObject, "fId"));
-                            caseInfo.setfHjBm(getStringValue(jsonObject, "fHjBm"));
-                            caseInfo.setfHjMc(getStringValue(jsonObject, "fHjMc"));
-                            caseInfo.setfSjCjsj(getStringValue(jsonObject, "fSjCjsj"));
-                            caseInfo.setfSfyq(getStringValue(jsonObject, "fSfyq"));
-                            caseInfo.setfAyXxly(getStringValue(jsonObject, "fAyXxly"));
-                            caseInfo.setfAyWflx(getStringValue(jsonObject, "fAyWflx"));
-                            caseInfo.setfDsrJgs(getStringValue(jsonObject, "fDsrJgs"));
-                            caseInfo.setfDsrLx(getStringValue(jsonObject, "fDsrLx"));
-                            caseInfo.setfAyNrzy(getStringValue(jsonObject, "fAyNrzy"));
-                            caseInfo.setfSjCjr(getStringValue(jsonObject, "fSjCjr"));
-                            caseInfo.setfCjrDept(getStringValue(jsonObject, "fCjrDept"));
-                            caseInfo.setLatitude(getStringValue(jsonObject, "fDsrWd"));
-                            caseInfo.setLongitude(getStringValue(jsonObject, "fDsrJd"));
-                            caseInfo.setfDcqzZxrId(getStringValue(jsonObject, "fDcqzZxrId"));
-                            caseInfo.setfDcqzXzr(getStringValue(jsonObject, "fDcqzXzr"));
-                            caseInfo.setfAyWffg(getStringValue(jsonObject, "fAyWffg"));
-                            caseInfo.setfPunishLaw(getStringValue(jsonObject, "fPunishLaw"));
-                            result.setEntry(caseInfo);
+                            CaseDetailEntity caseDetailEntity = gson.fromJson(jsonObject.toString(), CaseDetailEntity.class);
+                            result.setEntry(caseDetailEntity);
                             break;
                         case HTTP_ID_caseGetAyLcgjPageInfo:
                             jsonArray = getJSONArray(jsonObject, "data");
-                            List<CaseFlowEntity> flowList = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                jsonObject = jsonArray.getJSONObject(i);
-                                CaseFlowEntity caseFlowEntity = new CaseFlowEntity();
-                                caseFlowEntity.setfLcZzt(getStringValue(jsonObject, "fLcZzt"));
-                                caseFlowEntity.setfLcZztmc(getStringValue(jsonObject, "fLcZztmc"));
-                                caseFlowEntity.setfSpbz(getStringValue(jsonObject, "fSpbz"));
-                                caseFlowEntity.setfSpr(getStringValue(jsonObject, "fSpr"));
-                                caseFlowEntity.setfSpjs(getStringValue(jsonObject, "fSpjs"));
-                                caseFlowEntity.setfSpyj(getStringValue(jsonObject, "fSpyj"));
-                                caseFlowEntity.setfSpsj(getStringValue(jsonObject, "fSpsj"));
-                                flowList.add(caseFlowEntity);
-                            }
+                            List<CaseFlowEntity> flowList = gson.fromJson(jsonArray.toString(), new TypeToken<List<CaseFlowEntity>>() {
+                            }.getType());
                             result.setEntry(flowList);
                             break;
                         case HTTP_ID_caseGetNextPerson:
@@ -2538,58 +2542,48 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_caseDoDestory:
                             break;
                         case HTTP_ID_caseGetMonitor:
-                            jsonArray = getJSONArray(jsonObject, "data");
+                            jsonObject = getJSONObject(jsonObject, "data");
                             List<TaskCountInfo> taskCountInfos = new ArrayList<>();
                             //从1开始，因为要排序，因为行政处罚需要排到第三个位置。。。。。
-                            for (int i = 1; i < jsonArray.length(); i++) {
-                                jsonObject = jsonArray.getJSONObject(i);
-                                TaskCountInfo countInfo = new TaskCountInfo();
-                                countInfo.status = getStringValue(jsonObject, "TYPE");
-                                countInfo.allCount = getIntValue(jsonObject, "QB");
-                                countInfo.soonCount = getIntValue(jsonObject, "JJYQ");
-                                countInfo.expireCount = getIntValue(jsonObject, "YQ");
-                                taskCountInfos.add(countInfo);
-                            }
-                            jsonObject = jsonArray.getJSONObject(0);
-                            TaskCountInfo countXzcfInfo = new TaskCountInfo();
-                            countXzcfInfo.status = getStringValue(jsonObject, "TYPE");
-                            countXzcfInfo.allCount = getIntValue(jsonObject, "QB");
-                            countXzcfInfo.soonCount = getIntValue(jsonObject, "JJYQ");
-                            countXzcfInfo.expireCount = getIntValue(jsonObject, "YQ");
-                            taskCountInfos.add(2, countXzcfInfo);
+                            TaskCountInfo caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "01";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "01"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "01"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "01"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
+                            caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "N01";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "N01"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "N01"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "N01"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
+                            caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "Y06";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "Y06"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "Y06"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "Y06"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
+                            caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "Y10";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "Y10"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "Y10"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "Y10"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
+                            caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "Y14";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "Y14"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "Y14"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "Y14"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
+                            caseMonitorInfo = new TaskCountInfo();
+                            caseMonitorInfo.status = "02";
+                            caseMonitorInfo.soonCount = getIntValue(getJSONObject(jsonObject, "02"), "soon");
+                            caseMonitorInfo.expireCount = getIntValue(getJSONObject(jsonObject, "02"), "yes");
+                            caseMonitorInfo.allCount = getIntValue(getJSONObject(jsonObject, "02"), "no");
+                            taskCountInfos.add(caseMonitorInfo);
                             result.setEntry(taskCountInfos);
                             break;
                         case HTTP_ID_caseSaveAyfj:
-                            break;
-                        case HTTP_ID_caseGetFileList:
-                            jsonObject = getJSONObject(jsonObject, "data");
-                            CaseFileEntity fileEntity = new CaseFileEntity();
-                            //获取图片列表
-                            jsonArray = getJSONArray(jsonObject, "img");
-                            List<FileInfoEntity> picList = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                FileInfoEntity fileInfo = new FileInfoEntity();
-                                JSONObject picObject = jsonArray.getJSONObject(i);
-                                fileInfo.setFileId(getStringValue(picObject, "fId"));
-                                fileInfo.setFileName(getStringValue(picObject, "fFjmc"));
-                                fileInfo.setFilePath(getStringValue(picObject, "fFjdz"));
-                                picList.add(fileInfo);
-                            }
-                            fileEntity.setPicList(picList);
-                            //获取文件列表
-                            jsonArray = getJSONArray(jsonObject, "doc");
-                            List<FileInfoEntity> docList = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                FileInfoEntity fileInfo = new FileInfoEntity();
-                                JSONObject docObject = jsonArray.getJSONObject(i);
-                                fileInfo.setFileId(getStringValue(docObject, "fId"));
-                                fileInfo.setFileName(getStringValue(docObject, "fFjmc"));
-                                fileInfo.setFilePath(getStringValue(docObject, "fFjdz"));
-                                docList.add(fileInfo);
-                            }
-                            fileEntity.setDocList(docList);
-
-                            result.setEntry(fileEntity);
                             break;
                         case HTTP_ID_compMonitor:
                             jsonArray = getJSONArray(jsonObject, "data");
@@ -2614,53 +2608,15 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             complainEntity.setPageSize(getIntValue(jsonObject, "pageSize"));
                             complainEntity.setPageTotal(getIntValue(jsonObject, "pageTotal"));
                             complainEntity.setTotal(getIntValue(jsonObject, "total"));
-                            jsonArray = getJSONArray(jsonObject, "rows");
-                            List<ComplainInfoEntity> compInfoEntities = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                ComplainInfoEntity compInfo = new ComplainInfoEntity();
-                                jsonObject = jsonArray.getJSONObject(i);
-                                compInfo.setfType(getStringValue(jsonObject, "fType"));
-                                compInfo.setfByReportedAddress(getStringValue(jsonObject, "fByReportedAddress"));
-                                compInfo.setfRegId(getStringValue(jsonObject, "fRegId"));
-                                compInfo.setfByReportedTel(getStringValue(jsonObject, "fByReportedTel"));
-                                compInfo.setfLongitude(getStringValue(jsonObject, "fLongitude"));
-                                compInfo.setfLatitude(getStringValue(jsonObject, "fLatitude"));
-                                compInfo.setfRegPerson(getStringValue(jsonObject, "fRegPerson"));
-                                compInfo.setfReportedTel(getStringValue(jsonObject, "fReportedTel"));
-                                compInfo.setfClassification(getStringValue(jsonObject, "fClassification"));
-                                compInfo.setfByReportedName(getStringValue(jsonObject, "fByReportedName"));
-                                compInfo.setfByReportedGuid(getStringValue(jsonObject, "fByReportedGuid"));
-                                compInfo.setfContent(getStringValue(jsonObject, "fContent"));
-                                compInfo.setfRegUnit(getStringValue(jsonObject, "fRegUnit"));
-                                compInfo.setfRegTime(getStringValue(jsonObject, "fRegTime"));
-                                compInfo.setfResource(getStringValue(jsonObject, "fResource"));
-                                compInfo.setfStatus(getStringValue(jsonObject, "fStatus"));
-                                compInfo.setfYqzt("已逾期".equals(getStringValue(jsonObject, "fYqzt")));
-                                compInfoEntities.add(compInfo);
-                            }
+                            jsonArray = getJSONArray(jsonObject, "list");
+                            List<ComplainInfoEntity> compInfoEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<ComplainInfoEntity>>() {
+                            }.getType());
                             complainEntity.setComplainInfoList(compInfoEntities);
                             result.setEntry(complainEntity);
                             break;
                         case HTTP_ID_compInfoById:
                             jsonObject = getJSONObject(jsonObject, "data");
-                            ComplainInfoEntity compInfo = new ComplainInfoEntity();
-                            compInfo.setfType(getStringValue(jsonObject, "fType"));
-                            compInfo.setfByReportedAddress(getStringValue(jsonObject, "fByReportedAddress"));
-                            compInfo.setfRegId(getStringValue(jsonObject, "fRegId"));
-                            compInfo.setfByReportedTel(getStringValue(jsonObject, "fByReportedTel"));
-                            compInfo.setfLongitude(getStringValue(jsonObject, "fLongitude"));
-                            compInfo.setfLatitude(getStringValue(jsonObject, "fLatitude"));
-                            compInfo.setfRegPerson(getStringValue(jsonObject, "fRegPerson"));
-                            compInfo.setfReportedTel(getStringValue(jsonObject, "fReportedTel"));
-                            compInfo.setfClassification(getStringValue(jsonObject, "fClassification"));
-                            compInfo.setfByReportedName(getStringValue(jsonObject, "fByReportedName"));
-                            compInfo.setfByReportedGuid(getStringValue(jsonObject, "fByReportedGuid"));
-                            compInfo.setfReportedPerson(getStringValue(jsonObject, "fReportedPerson"));
-                            compInfo.setfStation(getStringValue(jsonObject, "fStation"));
-                            compInfo.setfContent(getStringValue(jsonObject, "fContent"));
-                            compInfo.setfRegUnit(getStringValue(jsonObject, "fRegUnit"));
-                            compInfo.setfRegTime(getStringValue(jsonObject, "fRegTime"));
-                            compInfo.setfResource(getStringValue(jsonObject, "fResource"));
+                            ComplainInfoDetailsBean compInfo = gson.fromJson(jsonObject.toString(), ComplainInfoDetailsBean.class);
                             result.setEntry(compInfo);
                             break;
                         case HTTP_ID_compLcgj:
@@ -2945,6 +2901,48 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             List<EntityPictureBean> pictureBeans = gson.fromJson(jsonArray.toString(), new TypeToken<List<EntityPictureBean>>() {
                             }.getType());
                             result.setEntry(pictureBeans);
+                            break;
+                        case HTTP_ID_statistics_case_queryDep:
+                        case HTTP_ID_statistics_case_queryType:
+                        case HTTP_ID_statistics_case_queryIsCase:
+                        case HTTP_ID_statistics_case_queryClosedCount:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> closeCounts = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject closeCountObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo closeCountInfo = new KeyValueInfo();
+                                closeCountInfo.key = getStringValue(closeCountObject, "name");
+                                closeCountInfo.value = getStringValue(closeCountObject, "num");
+                                closeCounts.add(closeCountInfo);
+                            }
+                            result.setEntry(closeCounts);
+                            break;
+                        case HTTP_ID_statistics_case_queryRecordCount:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> recordCount = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject recordObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo recordInfo = new KeyValueInfo();
+                                recordInfo.key = getStringValue(recordObject, "name");
+                                recordInfo.value = getStringValue(recordObject, "num");
+                                recordInfo.value1 = getStringValue(recordObject, "code");
+                                recordCount.add(recordInfo);
+                            }
+                            result.setEntry(recordCount);
+                            break;
+                        case HTTP_ID_statistics_case_queryPunishCount:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> punishCount = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject punishObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo punishInfo = new KeyValueInfo();
+                                punishInfo.key = getStringValue(punishObject, "name");
+                                punishInfo.value = getStringValue(punishObject, "punish");
+                                punishInfo.value1 = getStringValue(punishObject, "noPunish");
+                                punishInfo.value2 = getStringValue(punishObject, "nowPush");
+                                punishCount.add(punishInfo);
+                            }
+                            result.setEntry(punishCount);
                             break;
                         default:
                             break;

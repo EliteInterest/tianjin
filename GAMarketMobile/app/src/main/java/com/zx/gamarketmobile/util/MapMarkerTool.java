@@ -471,8 +471,8 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             ComplainInfoEntity compInfo = compList.get(i);
             Map<String, Object> attributes = new HashMap<String, Object>();
             PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, R.mipmap.tjd1));
-            double x = Double.valueOf(compInfo.getfLongitude());
-            double y = Double.valueOf(compInfo.getfLatitude());
+            double x = Double.valueOf(compInfo.getSInfo().getX());
+            double y = Double.valueOf(compInfo.getSInfo().getY());
             Point pt = new Point(x, y);
             SpatialReference sr4326 = SpatialReference.create(4490);
             Point mappt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
@@ -481,8 +481,8 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             if (i == position) {
                 Map<String, Object> attributes1 = new HashMap<String, Object>();
                 PictureMarkerSymbol picSymbol1 = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, R.mipmap.tjd1));
-                double x1 = Double.valueOf(compInfo.getfLongitude());
-                double y1 = Double.valueOf(compInfo.getfLatitude());
+                double x1 = Double.valueOf(compInfo.getSInfo().getX());
+                double y1 = Double.valueOf(compInfo.getSInfo().getY());
                 Point pt1 = new Point(x1, y1);
                 SpatialReference sr43261 = SpatialReference.create(4490);
                 Point mappt1 = (Point) GeometryEngine.project(pt1, sr43261, mMapView.getSpatialReference());
@@ -786,7 +786,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                         try {
                             int position = mPoiViewPager.getCurrentItem();
                             ComplainInfoEntity info = mCompList.get(position);
-                            showNaviDialog(Double.valueOf(info.getfLatitude()), Double.valueOf(info.getfLongitude()));
+                            showNaviDialog(Double.valueOf(info.getSInfo().getX()), Double.valueOf(info.getSInfo().getY()));
                         } catch (Exception e) {
                             activity.showToast("获取坐标导航信息失败，请稍后再试");
                             e.printStackTrace();
@@ -808,8 +808,8 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
 
                     Map<String, Object> attributes = new HashMap<>();
                     PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, R.mipmap.tjd1));
-                    double ptx = Double.parseDouble(task.getfLongitude());
-                    double pty = Double.parseDouble(task.getfLatitude());
+                    double ptx = Double.valueOf(task.getSInfo().getX());
+                    double pty = Double.valueOf(task.getSInfo().getY());
                     if (ptx == 0 || ptx == 0) {
                         activity.showToast("该主体没有坐标信息");
                     } else {
@@ -1003,7 +1003,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             case ConstStrings.MapType_CompDetail:
                 if (mCompList.size() > 0) {
                     ComplainInfoEntity task = mCompList.get(0);
-                    pt.setXY(Double.valueOf(task.getfLongitude()), Double.valueOf(task.getfLatitude()));
+                    pt.setXY(Double.valueOf(task.getSInfo().getX()), Double.valueOf(task.getSInfo().getY()));
                     SpatialReference sr4326 = SpatialReference.create(4490);
                     pt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
                 }

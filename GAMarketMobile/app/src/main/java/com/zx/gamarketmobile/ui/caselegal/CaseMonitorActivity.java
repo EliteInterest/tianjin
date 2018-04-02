@@ -33,7 +33,7 @@ public class CaseMonitorActivity extends BaseActivity implements LoadMoreListene
     private int mPageNo = 1;
     private int mTotalNo = 0;
     private String type = "", yqtype = "";
-    private ApiData pageLcjk = new ApiData(ApiData.HTTP_ID_casePageLcjk);
+    private ApiData pageLcjk = new ApiData(ApiData.HTTP_ID_casePageAyxx);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class CaseMonitorActivity extends BaseActivity implements LoadMoreListene
 
     //数据加载
     private void loadData() {
-        pageLcjk.loadData(mPageNo, mPageSize, type, yqtype);
+        pageLcjk.loadData(mPageNo, mPageSize, yqtype, "", "", type);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class CaseMonitorActivity extends BaseActivity implements LoadMoreListene
         super.onLoadComplete(id, b);
         srlSearch.setRefreshing(false);
         switch (id) {
-            case ApiData.HTTP_ID_casePageLcjk:
+            case ApiData.HTTP_ID_casePageAyxx:
                 NormalListEntity normalListEntity = (NormalListEntity) b.getEntry();
                 mTotalNo = normalListEntity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);

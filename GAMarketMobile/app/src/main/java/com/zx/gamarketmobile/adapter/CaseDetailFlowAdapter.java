@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseFlowEntity;
 import com.zx.gamarketmobile.listener.MyItemClickListener;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -39,18 +40,12 @@ public class CaseDetailFlowAdapter extends MyRecycleAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Holder myHolder = (Holder) holder;
         CaseFlowEntity mEntify = dataList.get(position);
-        myHolder.tvTime.setText(mEntify.getfSpsj());
-        myHolder.tvPersion.setText(mEntify.getfSpr() + "-\n" + mEntify.getfSpjs());
-        myHolder.tvOperate.setText(mEntify.getfLcZztmc());
+        myHolder.tvTime.setText(DateUtil.getDateFromMillis(mEntify.getHandleDate()));
+        myHolder.tvPersion.setText(mEntify.getHandleUser() + "-\n" + mEntify.getName());
+        myHolder.tvOperate.setText(mEntify.getProcess());
         String lczz = "";
-        if (!"10000".equals(mEntify.getfLcZzt())) {
-            lczz = "0".equals(mEntify.getfSpyj()) ? "不通过:" : "通过:";
-        }
-        if (mEntify.getfSpbz() == null || "null".equals(mEntify.getfSpbz())) {
-            myHolder.tvRemark.setText(lczz);
-        } else {
-            myHolder.tvRemark.setText(lczz + mEntify.getfSpbz());
-        }
+        lczz = "1".equals(mEntify.getIsAgree()) ? "不通过:" : "通过:";
+        myHolder.tvRemark.setText(lczz);
     }
 
     @Override

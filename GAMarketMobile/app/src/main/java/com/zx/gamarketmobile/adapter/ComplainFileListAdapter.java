@@ -40,7 +40,7 @@ public class ComplainFileListAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             FileInfoEntity entity = mItemList.get(position);
-            myHolder.tvName.setText(entity.getFileName());
+            myHolder.tvName.setText(entity.getName());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

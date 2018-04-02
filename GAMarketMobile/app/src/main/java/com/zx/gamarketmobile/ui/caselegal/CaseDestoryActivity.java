@@ -75,10 +75,10 @@ public class CaseDestoryActivity extends BaseActivity implements RadioGroup.OnCh
         if (getIntent().hasExtra("entity")) {
             mEntity = (CaseInfoEntity) getIntent().getSerializableExtra("entity");
         }
-        if (mEntity.isfSfxa() == false) {
+        if ("0".equals(mEntity.getIsPause())) {
             destoryCode = "0";
         } else {
-            destoryCode = mEntity.getfTaskName();
+            destoryCode = mEntity.getCaseName();
             loadNextPerson();
         }
 
@@ -130,7 +130,7 @@ public class CaseDestoryActivity extends BaseActivity implements RadioGroup.OnCh
     private void doExcuteByCode() {
         String userId = userInfo.getId();
         String description = etDestoryOpinion.getText().toString().trim();
-        String taskId = mEntity.getfTaskId();
+        String taskId = mEntity.getTaskId();
         if (etDestoryOpinion.getVisibility() == View.VISIBLE && description.length() == 0) {
             showToast("请填写说明");
             return;
@@ -152,20 +152,20 @@ public class CaseDestoryActivity extends BaseActivity implements RadioGroup.OnCh
         }
         switch (destoryCode) {
             case "0"://启动销案
-                doDestory.loadData("doAjxaLcStartPro", mEntity.getfId(), isPass, userId, description, taskId);
+                doDestory.loadData("doAjxaLcStartPro", mEntity.getId(), isPass, userId, description, taskId);
                 break;
             case "销案申请":
-                doDestory.loadData("doAjxaLcSqPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDestory.loadData("doAjxaLcSqPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id);
                 break;
             case "销案审查":
-                doDestory.loadData("doAjxaLcScPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDestory.loadData("doAjxaLcScPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id);
                 break;
             case "销案审批":
-                doDestory.loadData("doAjxaLcSpPro", mEntity.getfId(), isPass, userId, description, taskId,
+                doDestory.loadData("doAjxaLcSpPro", mEntity.getId(), isPass, userId, description, taskId,
                         "fSlr", name,
                         "assignee", id);
                 break;
@@ -221,7 +221,7 @@ public class CaseDestoryActivity extends BaseActivity implements RadioGroup.OnCh
 
     //加载下一流程处理人
     private void loadNextPerson() {
-        getNextPerson.loadData(mEntity.getfId(), isPass, mEntity.getfTaskId());
+        getNextPerson.loadData(mEntity.getId(), isPass, mEntity.getTaskId());
     }
 
     //打开选择框

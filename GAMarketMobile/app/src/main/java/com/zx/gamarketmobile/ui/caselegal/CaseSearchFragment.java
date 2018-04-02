@@ -116,7 +116,7 @@ public class CaseSearchFragment extends BaseFragment implements LoadMoreListener
 
     //数据加载
     private void loadData() {
-        pageAyxx.loadData(etSearchDetail.getText().toString(), mPageNo, mPageSize, userInfo.getDepartmentAlias());
+        pageAyxx.loadData(mPageNo, mPageSize, "", etSearchDetail.getText().toString().trim(), "");
     }
 
     @Override

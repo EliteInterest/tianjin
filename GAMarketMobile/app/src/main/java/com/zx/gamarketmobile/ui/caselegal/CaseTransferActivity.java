@@ -75,7 +75,7 @@ public class CaseTransferActivity extends BaseActivity {
                             String person = etTransferPerson.getText().toString().trim();
                             String dept = etTransferDept.getText().toString().trim();
                             String date = tvDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
-                            doTransfer.loadData(mEntity.getfId(), userId, person, dept, date);
+                            doTransfer.loadData(mEntity.getId(), userId, person, dept, date);
                         }
                         Util.dialog.dismiss();
                     }

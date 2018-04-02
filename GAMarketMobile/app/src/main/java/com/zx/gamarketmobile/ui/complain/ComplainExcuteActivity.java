@@ -11,13 +11,11 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
-import com.zx.gamarketmobile.entity.HttpLoginEntity;
 import com.zx.gamarketmobile.entity.KeyValueInfo;
 import com.zx.gamarketmobile.entity.SelectPopDataList;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.listener.ICommonListener;
-import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.Util;
@@ -92,7 +90,7 @@ public class ComplainExcuteActivity extends BaseActivity implements RadioGroup.O
     private void initView() {
         addToolBar(true);
         mEntity = (ComplainInfoEntity) getIntent().getSerializableExtra("entity");
-        setMidText(mEntity.getfStatus());
+        setMidText(mEntity.getFType());
         hideRightImg();
 
         llExcute = (LinearLayout) findViewById(R.id.ll_comp_excute);
@@ -139,33 +137,33 @@ public class ComplainExcuteActivity extends BaseActivity implements RadioGroup.O
         getUserByDept.setLoadingListener(this);
         compHandle.setLoadingListener(this);
 
-        //根据状态显示控件
-        if ("待分流".equals(mEntity.getfStatus())) {
-            llShunt.setVisibility(View.VISIBLE);
-            getAllDept.loadData();
-        } else if ("待指派".equals(mEntity.getfStatus())) {
-            if (!mEntity.getfRegUnit().endsWith("分局")) {
-                llExcute.setVisibility(View.VISIBLE);
-            }
-            llAssign.setVisibility(View.VISIBLE);
-            getUserByDept.loadData(userInfo.getDepartmentAlias());
-        } else if ("处理反馈".equals(mEntity.getfStatus())) {
-            if ("举报".equals(mEntity.getfType())) {
-                llTscz.setVisibility(View.VISIBLE);
-                llCheckDate.setVisibility(View.VISIBLE);
-                etCheckOpinion.setVisibility(View.VISIBLE);
-            } else if ("举报".equals(mEntity.getfType())) {
-                llTjNum.setVisibility(View.VISIBLE);
-                llResult.setVisibility(View.VISIBLE);
-                llMode.setVisibility(View.VISIBLE);
-                llArgueMonney.setVisibility(View.VISIBLE);
-                llSaveMonney.setVisibility(View.VISIBLE);
-                etTjOpinion.setVisibility(View.VISIBLE);
-                llDate.setVisibility(View.VISIBLE);
-            }else {
-                etTjOpinion.setVisibility(View.VISIBLE);
-            }
-        }
+//        //根据状态显示控件
+//        if ("待分流".equals(mEntity.getfStatus())) {
+//            llShunt.setVisibility(View.VISIBLE);
+//            getAllDept.loadData();
+//        } else if ("待指派".equals(mEntity.getfStatus())) {
+//            if (!mEntity.getfRegUnit().endsWith("分局")) {
+//                llExcute.setVisibility(View.VISIBLE);
+//            }
+//            llAssign.setVisibility(View.VISIBLE);
+//            getUserByDept.loadData(userInfo.getDepartmentAlias());
+//        } else if ("处理反馈".equals(mEntity.getfStatus())) {
+//            if ("举报".equals(mEntity.getfType())) {
+//                llTscz.setVisibility(View.VISIBLE);
+//                llCheckDate.setVisibility(View.VISIBLE);
+//                etCheckOpinion.setVisibility(View.VISIBLE);
+//            } else if ("举报".equals(mEntity.getfType())) {
+//                llTjNum.setVisibility(View.VISIBLE);
+//                llResult.setVisibility(View.VISIBLE);
+//                llMode.setVisibility(View.VISIBLE);
+//                llArgueMonney.setVisibility(View.VISIBLE);
+//                llSaveMonney.setVisibility(View.VISIBLE);
+//                etTjOpinion.setVisibility(View.VISIBLE);
+//                llDate.setVisibility(View.VISIBLE);
+//            }else {
+//                etTjOpinion.setVisibility(View.VISIBLE);
+//            }
+//        }
 
         //初始化下拉选择项
         selectListResult.add(new SelectPopDataList("达成调解协议", "达成调解协议"));
@@ -243,39 +241,39 @@ public class ComplainExcuteActivity extends BaseActivity implements RadioGroup.O
 
     //进行信息发送
     private void doSendInfo() {
-        if ("待分流".equals(mEntity.getfStatus())) {
-            compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
-                    "fSlr", tvShunt.getText().toString());
-        } else if ("待指派".equals(mEntity.getfStatus())) {
-            if (llAssign.getVisibility() == View.VISIBLE) {
-                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
-                        "fSlr", tvAssign.getText().toString(),
-                        "assignee", fSlrId,
-                        "isPass", "1");
-            } else {
-                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
-                        "fSlr", tvAssign.getText().toString(),
-                        "isPass", "0");
-            }
-        } else if ("处理反馈".equals(mEntity.getfStatus())) {
-            if ("举报".equals(mEntity.getfType())) {
-                String date = tvCheckDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
-                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
-                        "fComplaintOpreator", tvTscz.getText().toString(),
-                        "fCheckDate", date,
-                        "fCheckSituation", etCheckOpinion.getText().toString());
-            } else {
-                String date = tvDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
-                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
-                        "fMediateDate", date,
-                        "fMediateResult", tvResult.getText().toString(),
-                        "fSaveLoseMoney", etSaveMonney.getText().toString(),
-                        "fDisputeAmount", etArgueMonney.getText().toString(),
-                        "fDocumentNumber", etTjNum.getText().toString(),
-                        "fMediateMode", tvMode.getText().toString(),
-                        "fMediateSituation", etTjOpinion.getText().toString());
-            }
-        }
+//        if ("待分流".equals(mEntity.getfStatus())) {
+//            compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
+//                    "fSlr", tvShunt.getText().toString());
+//        } else if ("待指派".equals(mEntity.getfStatus())) {
+//            if (llAssign.getVisibility() == View.VISIBLE) {
+//                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
+//                        "fSlr", tvAssign.getText().toString(),
+//                        "assignee", fSlrId,
+//                        "isPass", "1");
+//            } else {
+//                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
+//                        "fSlr", tvAssign.getText().toString(),
+//                        "isPass", "0");
+//            }
+//        } else if ("处理反馈".equals(mEntity.getfStatus())) {
+//            if ("举报".equals(mEntity.getfType())) {
+//                String date = tvCheckDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
+//                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
+//                        "fComplaintOpreator", tvTscz.getText().toString(),
+//                        "fCheckDate", date,
+//                        "fCheckSituation", etCheckOpinion.getText().toString());
+//            } else {
+//                String date = tvDate.getText().toString().replace("年", "-").replace("月", "-").replace("日", "");
+//                compHandle.loadData(mEntity.getfRegId(), mEntity.getfStatus(), userInfo.getId(),
+//                        "fMediateDate", date,
+//                        "fMediateResult", tvResult.getText().toString(),
+//                        "fSaveLoseMoney", etSaveMonney.getText().toString(),
+//                        "fDisputeAmount", etArgueMonney.getText().toString(),
+//                        "fDocumentNumber", etTjNum.getText().toString(),
+//                        "fMediateMode", tvMode.getText().toString(),
+//                        "fMediateSituation", etTjOpinion.getText().toString());
+//            }
+//        }
     }
 
     //打开选择框

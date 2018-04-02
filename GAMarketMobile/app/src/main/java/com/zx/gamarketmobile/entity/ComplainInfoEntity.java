@@ -8,177 +8,113 @@ import java.io.Serializable;
  */
 public class ComplainInfoEntity implements Serializable {
 
-    private String fReportedPerson;//投诉人
-    private String fType;//投诉类型
-    private String fByReportedAddress;//投诉地址
-    private String fRegId;//投诉id
-    private String fByReportedTel;//通过**电话投诉
-    private String fRegPerson;//
-    private String fLongitude;//
-    private String fLatitude;//
-    private String fClassification;//
-    private String fStation;//投诉区域
-    private String fByReportedName;//投诉企业名
-    private String fByReportedGuid;//投诉企业id
-    private String fContent;//内容
-    private String fRegUnit;//
-    private String fRegTime;//投诉时间
-    private String fResource;//
-    private String fReportedTel;//
-    private String fStatus;//状态
+    /**
+     * fGuid : ed902abc92c948e1810909a0d1a32711
+     * fName : 张元中
+     * fType : 投诉
+     * fStatus : 10
+     * sInfo : {"x":106.567433,"y":29.643714,"spatialReference":"4490"}
+     * fRegTime : 1439949411000
+     * fEntityName : 中豪雪弗兰4s店
+     */
 
-    public boolean isfYqzt() {
-        return fYqzt;
+    private String fGuid;
+    private String fName;
+    private String fType;
+    private int fStatus;
+    private SInfoBean sInfo;
+    private long fRegTime;
+    private String fEntityName;
+
+    public String getFGuid() {
+        return fGuid;
     }
 
-    public void setfYqzt(boolean fYqzt) {
-        this.fYqzt = fYqzt;
+    public void setFGuid(String fGuid) {
+        this.fGuid = fGuid;
     }
 
-    private boolean fYqzt;
-
-
-    public String getfStatus() {
-        return fStatus;
+    public String getFName() {
+        return fName;
     }
 
-    public void setfStatus(String fStatus) {
-        this.fStatus = fStatus;
+    public void setFName(String fName) {
+        this.fName = fName;
     }
 
-    public String getfReportedTel() {
-        return fReportedTel;
-    }
-
-    public void setfReportedTel(String fReportedTel) {
-        this.fReportedTel = fReportedTel;
-    }
-
-    public String getfRegPerson() {
-        return fRegPerson;
-    }
-
-    public void setfRegPerson(String fRegPerson) {
-        this.fRegPerson = fRegPerson;
-    }
-
-    public String getfReportedPerson() {
-        return fReportedPerson;
-    }
-
-    public void setfReportedPerson(String fReportedPerson) {
-        this.fReportedPerson = fReportedPerson;
-    }
-
-    public String getfType() {
+    public String getFType() {
         return fType;
     }
 
-    public void setfType(String fType) {
+    public void setFType(String fType) {
         this.fType = fType;
     }
 
-    public String getfByReportedAddress() {
-        return fByReportedAddress;
+    public int getFStatus() {
+        return fStatus;
     }
 
-    public void setfByReportedAddress(String fByReportedAddress) {
-        this.fByReportedAddress = fByReportedAddress;
+    public void setFStatus(int fStatus) {
+        this.fStatus = fStatus;
     }
 
-    public String getfRegId() {
-        return fRegId;
+    public SInfoBean getSInfo() {
+        return sInfo;
     }
 
-    public void setfRegId(String fRegId) {
-        this.fRegId = fRegId;
+    public void setSInfo(SInfoBean sInfo) {
+        this.sInfo = sInfo;
     }
 
-    public String getfByReportedTel() {
-        return fByReportedTel;
-    }
-
-    public void setfByReportedTel(String fByReportedTel) {
-        this.fByReportedTel = fByReportedTel;
-    }
-
-    public String getfLongitude() {
-        return fLongitude;
-    }
-
-    public void setfLongitude(String fLongitude) {
-        this.fLongitude = fLongitude;
-    }
-
-    public String getfLatitude() {
-        return fLatitude;
-    }
-
-    public void setfLatitude(String fLatitude) {
-        this.fLatitude = fLatitude;
-    }
-
-    public String getfClassification() {
-        return fClassification;
-    }
-
-    public void setfClassification(String fClassification) {
-        this.fClassification = fClassification;
-    }
-
-    public String getfStation() {
-        return fStation;
-    }
-
-    public void setfStation(String fStation) {
-        this.fStation = fStation;
-    }
-
-    public String getfByReportedName() {
-        return fByReportedName;
-    }
-
-    public void setfByReportedName(String fByReportedName) {
-        this.fByReportedName = fByReportedName;
-    }
-
-    public String getfByReportedGuid() {
-        return fByReportedGuid;
-    }
-
-    public void setfByReportedGuid(String fByReportedGuid) {
-        this.fByReportedGuid = fByReportedGuid;
-    }
-
-    public String getfContent() {
-        return fContent;
-    }
-
-    public void setfContent(String fContent) {
-        this.fContent = fContent;
-    }
-
-    public String getfRegUnit() {
-        return fRegUnit;
-    }
-
-    public void setfRegUnit(String fRegUnit) {
-        this.fRegUnit = fRegUnit;
-    }
-
-    public String getfRegTime() {
+    public long getFRegTime() {
         return fRegTime;
     }
 
-    public void setfRegTime(String fRegTime) {
+    public void setFRegTime(long fRegTime) {
         this.fRegTime = fRegTime;
     }
 
-    public String getfResource() {
-        return fResource;
+    public String getFEntityName() {
+        return fEntityName;
     }
 
-    public void setfResource(String fResource) {
-        this.fResource = fResource;
+    public void setFEntityName(String fEntityName) {
+        this.fEntityName = fEntityName;
+    }
+
+    public static class SInfoBean {
+        /**
+         * x : 106.567433
+         * y : 29.643714
+         * spatialReference : 4490
+         */
+
+        private double x;
+        private double y;
+        private String spatialReference;
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY(double y) {
+            this.y = y;
+        }
+
+        public String getSpatialReference() {
+            return spatialReference;
+        }
+
+        public void setSpatialReference(String spatialReference) {
+            this.spatialReference = spatialReference;
+        }
     }
 }

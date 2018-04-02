@@ -33,7 +33,7 @@ public class HttpTaskEntity implements Serializable {
 	private HttpZtEntity zt;//任务相关主体
 	
 	private List<CheckItemInfoEntity> checkItemList;
-	private ComplaintInfoEntity complaintinfo;
+	private ComplainInfoEntity complaintinfo;
 	
 	public String getGuid() {
 		return guid;
@@ -187,11 +187,11 @@ public class HttpTaskEntity implements Serializable {
 		this.checkItemList = checkItemList;
 	}
 	
-	public ComplaintInfoEntity getComplaintInfo() {
+	public ComplainInfoEntity getComplaintInfo() {
 		return this.complaintinfo;
 	}
 	
-	public void  setComplaintInfo(ComplaintInfoEntity complaintinfo) {
+	public void  setComplaintInfo(ComplainInfoEntity complaintinfo) {
 		this.complaintinfo = complaintinfo;
 	}
 	

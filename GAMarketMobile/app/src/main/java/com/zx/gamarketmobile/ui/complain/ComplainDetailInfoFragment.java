@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.CaseCompDetailInfoAdapter;
-import com.zx.gamarketmobile.entity.ComplainInfoEntity;
+import com.zx.gamarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.gamarketmobile.entity.KeyValueInfo;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +61,8 @@ public class ComplainDetailInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_compInfoById:
-                ComplainInfoEntity compInfoEntity = (ComplainInfoEntity) b.getEntry();
-                getDataList(compInfoEntity);
+                ComplainInfoDetailsBean compInfoEntity = (ComplainInfoDetailsBean) b.getEntry();
+                getDataList(compInfoEntity.getBaseInfo());
                 mCompAdapter.notifyDataSetChanged();
                 break;
             default:
@@ -69,35 +70,35 @@ public class ComplainDetailInfoFragment extends BaseFragment {
         }
     }
 
-    private void getDataList(ComplainInfoEntity compInfoEntity) {
+    private void getDataList(ComplainInfoDetailsBean.BaseInfoBean compInfoEntity) {
         dataInfoList.clear();
-        KeyValueInfo info = new KeyValueInfo("投诉编号: ", compInfoEntity.getfRegId());
+        KeyValueInfo info = new KeyValueInfo("投诉编号: ", compInfoEntity.getFRegId());
         dataInfoList.add(info);
-        info = new KeyValueInfo("登记人: ", compInfoEntity.getfRegPerson());
+        info = new KeyValueInfo("登记人: ", compInfoEntity.getFRegName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("登记单位: ", compInfoEntity.getfRegUnit());
+        info = new KeyValueInfo("登记单位: ", compInfoEntity.getFRegOrg());
         dataInfoList.add(info);
-        info = new KeyValueInfo("信息来源: ", compInfoEntity.getfResource());
+        info = new KeyValueInfo("信息来源: ", compInfoEntity.getFSource());
         dataInfoList.add(info);
-        info = new KeyValueInfo("类型: ", compInfoEntity.getfType());
+        info = new KeyValueInfo("类型: ", compInfoEntity.getFType());
         dataInfoList.add(info);
-        info = new KeyValueInfo("所在乡镇: ", compInfoEntity.getfStation());
+        info = new KeyValueInfo("所在乡镇: ", compInfoEntity.getFStation());
         dataInfoList.add(info);
-        info = new KeyValueInfo("投诉举报人姓名: ", compInfoEntity.getfReportedPerson());
+        info = new KeyValueInfo("投诉举报人姓名: ", compInfoEntity.getFProductName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("投诉举报人联系方式: ", compInfoEntity.getfReportedTel());
+//        info = new KeyValueInfo("投诉举报人联系方式: ", compInfoEntity.getfpro());
+//        dataInfoList.add(info);
+        info = new KeyValueInfo("投诉举报分类: ", compInfoEntity.getFAcrossType());
         dataInfoList.add(info);
-        info = new KeyValueInfo("投诉举报分类: ", compInfoEntity.getfClassification());
-        dataInfoList.add(info);
-        info = new KeyValueInfo("被投诉举报方名称或姓名: ", compInfoEntity.getfByReportedName());
+        info = new KeyValueInfo("被投诉举报方名称或姓名: ", compInfoEntity.getFBrandName());
         dataInfoList.add(info);
 //        info = new KeyValueInfo("被投诉举报方联系方式: ", compInfoEntity.getfByReportedTel());
 //        dataInfoList.add(info);
 //        info = new KeyValueInfo("被投诉方地址: ", compInfoEntity.getfByReportedAddress());
 //        dataInfoList.add(info);
-        info = new KeyValueInfo("登记时间: ", compInfoEntity.getfRegTime());
+        info = new KeyValueInfo("登记时间: ", DateUtil.getDateFromMillis(compInfoEntity.getFRegTime()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("投诉举报内容: ", compInfoEntity.getfContent());
+        info = new KeyValueInfo("投诉举报内容: ", compInfoEntity.getFContent());
         dataInfoList.add(info);
     }
 

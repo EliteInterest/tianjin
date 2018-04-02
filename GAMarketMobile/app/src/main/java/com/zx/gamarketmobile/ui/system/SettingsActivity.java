@@ -142,6 +142,7 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
                         Editor edit = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
                         edit.putString("curuser", "");
                         edit.commit();
+                        userManager.setNoLogin(SettingsActivity.this);
                         MyApplication.getInstance().remove(HomeActivity.class);
                         MyApplication.getInstance().remove(GuideActivity.class);
                         finish();

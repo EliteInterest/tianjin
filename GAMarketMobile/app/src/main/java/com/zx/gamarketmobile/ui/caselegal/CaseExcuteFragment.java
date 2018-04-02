@@ -21,12 +21,10 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.entity.CaseRefeEntity;
-import com.zx.gamarketmobile.entity.HttpLoginEntity;
 import com.zx.gamarketmobile.entity.SelectPopDataList;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.listener.ICommonListener;
-import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
 import com.zx.gamarketmobile.ui.mainbase.LoginActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
@@ -168,7 +166,7 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
         rgPubnish.setOnCheckedChangeListener(this);
 
         //根据环节编码，控制要显示的界面
-        hjbm = mEntity.getfHjBm();
+//        hjbm = mEntity.getfHjBm();
 
         setViewVisableByHjbm(true);
 
@@ -178,7 +176,7 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
 
     //加载下一流程处理人
     private void loadNextPerson() {
-        getNextPerson.loadData(mEntity.getfId(), isPass, mEntity.getfTaskId());
+        getNextPerson.loadData(mEntity.getId(), isPass, mEntity.getTaskId());
     }
 
 
@@ -302,24 +300,24 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
                 }
                 break;
             case "30102"://处罚决定审查
-                rb_case_isPass2.setVisibility(View.VISIBLE);
-                if (isShow) {
-                    llExcute.setVisibility(View.VISIBLE);
-                    llNextPerson.setVisibility(View.VISIBLE);
-                    rlNextPerson.setClickable(true);
-                } else if (isShow == false && isPass == 0) {
-                    llExcute.setVisibility(View.VISIBLE);
-                    llNextPerson.setVisibility(View.VISIBLE);
-                    rlNextPerson.setClickable(true);
-                } else if (isPass == 2) {//重新办理
-                    llNextPerson.setVisibility(View.VISIBLE);
-                    selectListPerson.clear();
-                    fSlrInfo = new SelectPopDataList(mEntity.getfDcqzXzr(), mEntity.getfDcqzZxrId());
-                    selectListPerson.add(fSlrInfo);
-                    rlNextPerson.setClickable(false);
-                    tvNextPerson.setText(mEntity.getfDcqzXzr());
-                    Util.showInfoDialog(getActivity(), "提示", "该操作将转调查取证流程，重新调查");
-                }
+//                rb_case_isPass2.setVisibility(View.VISIBLE);
+//                if (isShow) {
+//                    llExcute.setVisibility(View.VISIBLE);
+//                    llNextPerson.setVisibility(View.VISIBLE);
+//                    rlNextPerson.setClickable(true);
+//                } else if (isShow == false && isPass == 0) {
+//                    llExcute.setVisibility(View.VISIBLE);
+//                    llNextPerson.setVisibility(View.VISIBLE);
+//                    rlNextPerson.setClickable(true);
+//                } else if (isPass == 2) {//重新办理
+//                    llNextPerson.setVisibility(View.VISIBLE);
+//                    selectListPerson.clear();
+//                    fSlrInfo = new SelectPopDataList(mEntity.getfDcqzXzr(), mEntity.getfDcqzZxrId());
+//                    selectListPerson.add(fSlrInfo);
+//                    rlNextPerson.setClickable(false);
+//                    tvNextPerson.setText(mEntity.getfDcqzXzr());
+//                    Util.showInfoDialog(getActivity(), "提示", "该操作将转调查取证流程，重新调查");
+//                }
                 break;
             case "30103"://处罚决定审批
                 if (isShow) {
@@ -357,7 +355,7 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
     private void doExcuteByHjbm() {
         String userId = userInfo.getId();
         String description = etExcuteOpinion.getText().toString().trim();
-        String taskId = mEntity.getfTaskId();
+        String taskId = mEntity.getTaskId();
         //对于结案时不需要选择下一流程处理人
         String name = "", id = "";
         if (fSlrInfo != null) {
@@ -366,23 +364,23 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
         }
         switch (hjbm) {
             case "10101"://立案登记立案审查
-                caseDoExcute.loadData("doLadjSqPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doLadjSqPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "10102"://立案登记立案审查
-                caseDoExcute.loadData("doLadjscPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doLadjscPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "10103"://立案登记立案审核
-                caseDoExcute.loadData("doLadjshPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doLadjshPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "10104"://立案登记立案审批
-                caseDoExcute.loadData("doLadjspPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doLadjspPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20101"://调查取证
                 String fAyBz = "";
                 for (CaseRefeEntity.RowsBean rowsBean : referenceBeans) {
                     fAyBz += rowsBean.getFGuid() + ",";
                 }
-                caseDoExcute.loadData("doDcqzPro", mEntity.getfId(), isPass, id, name, userId, description, taskId,
+                caseDoExcute.loadData("doDcqzPro", mEntity.getId(), isPass, id, name, userId, description, taskId,
                         "fCfyj", isPenalty,
                         "fCfje", etPenaltyMonney.getText().toString().trim(),
                         "fWfsdje", etIllegalMonney.getText().toString().trim(),
@@ -392,37 +390,37 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
                         "fAyBz", fAyBz);
                 break;
             case "20102"://处罚审查
-                caseDoExcute.loadData("doCfscPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doCfscPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20103"://处罚核审
-                caseDoExcute.loadData("doCfhsPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doCfhsPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20104"://案审办初审
-                caseDoExcute.loadData("doAsbcsPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doAsbcsPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20105"://案审合议
-                caseDoExcute.loadData("doAshyPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doAshyPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20106"://集体审批
-                caseDoExcute.loadData("doCfJtsh", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doCfJtsh", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "20107"://处罚审批
-                caseDoExcute.loadData("doCfspPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doCfspPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "30101"://行政处罚决定
-                caseDoExcute.loadData("doXzcfgzPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doXzcfgzPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "30102"://处罚决定审查
-                caseDoExcute.loadData("doXzfjdscPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doXzfjdscPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "30103"://处罚决定审批
-                caseDoExcute.loadData("doXzcfjdspPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doXzcfjdspPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "30104"://行政处罚决定送达
-                caseDoExcute.loadData("doXzcfjdsdPro", mEntity.getfId(), isPass, id, name, userId, description, taskId);
+                caseDoExcute.loadData("doXzcfjdsdPro", mEntity.getId(), isPass, id, name, userId, description, taskId);
                 break;
             case "40101"://执行结案
-                caseDoExcute.loadData("doZxjaPro", mEntity.getfId(), isPass, id, name, userId, description, taskId,
+                caseDoExcute.loadData("doZxjaPro", mEntity.getId(), isPass, id, name, userId, description, taskId,
                         "fSfzx", isDispose,
                         "fFksfwj", isFinishMonney,
                         "fSfgs", isPublish,

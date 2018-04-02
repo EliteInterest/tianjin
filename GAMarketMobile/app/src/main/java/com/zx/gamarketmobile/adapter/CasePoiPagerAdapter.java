@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.listener.PAOnClickListener;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +46,17 @@ public class CasePoiPagerAdapter extends PagerAdapter {
             TextView tvPerson = (TextView) view.findViewById(R.id.tv_case_person);//案件当事人
             TextView tvStage = (TextView) view.findViewById(R.id.tv_case_stage);//案件环节
 
-            tvField.setText(entity.getfAyAjly());
-            tvDate.setText(entity.getfSjCjsj());
-            tvName.setText(entity.getfAyAymc());
-            tvPerson.setText(entity.getfDsrMc());
-            tvStage.setText(entity.getfTaskName().length() > 0 ? entity.getfTaskName() : entity.getfHjMc());
+            tvField.setText(entity.getTypeName());
+            tvDate.setText(DateUtil.getDateFromMillis(entity.getRegDate()));
+            tvName.setText(entity.getCaseName());
+            tvPerson.setText(entity.getEnterpriseName());
+            tvStage.setText(entity.getStatusName());
 
-            if ("工商".equals(entity.getfAyAjly())) {
+            if ("工商".equals(entity.getTypeName())) {
                 ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_gs));
-            } else if ("质监".equals(entity.getfAyAjly())) {
+            } else if ("质监".equals(entity.getTypeName())) {
                 ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_zj));
-            } else if ("食药监".equals(entity.getfAyAjly())) {
+            } else if ("食药监".equals(entity.getTypeName())) {
                 ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_syj));
             } else {
                 ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));

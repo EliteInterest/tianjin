@@ -17,9 +17,7 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.R.id;
 import com.zx.gamarketmobile.entity.GuideFunctionEntity;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
-import com.zx.gamarketmobile.ui.equipment.EquipSearchActivity;
 import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
-import com.zx.gamarketmobile.ui.synergy.SynergyActivity;
 import com.zx.gamarketmobile.ui.system.SettingsActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.MyApplication;
@@ -42,7 +40,7 @@ public class GuideActivity extends BaseActivity {
         addToolBar(false);
 
         guideFunctionEntityList = new ArrayList<>();
-        String[] names = new String[]{"主体查询", "监管任务", "投诉举报", "案件执法", "信息管理", "统计分析", "帮助", "设置"};
+        String[] names = new String[]{"主体查询", "监管任务", "投诉举报", "案件执法", "信息管理", "统计分析", "设置"};
         int[] ids = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
         int[] imgs = new int[]{R.mipmap.guide_search,
                 R.mipmap.guide_supervise,
@@ -50,7 +48,7 @@ public class GuideActivity extends BaseActivity {
                 R.mipmap.guide_case,
                 R.mipmap.guide_sudden,
                 R.mipmap.guide_analysis,
-                R.mipmap.guide_synegy,
+//                R.mipmap.guide_synegy,
 //                R.mipmap.guid_equip,
 //                R.mipmap.guide_msg,
                 R.mipmap.guide_setting};
@@ -112,6 +110,7 @@ public class GuideActivity extends BaseActivity {
                             toHome(4);
                             break;
                         case 6://帮助
+                            startActivity(new Intent(GuideActivity.this, SettingsActivity.class));
 //                            startActivity(new Intent(GuideActivity.this, SynergyActivity.class));
                             break;
                         case 7: //设置

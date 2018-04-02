@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.ComplainFileListAdapter;
-import com.zx.gamarketmobile.entity.CaseFileEntity;
+import com.zx.gamarketmobile.entity.CaseDetailEntity;
 import com.zx.gamarketmobile.entity.FileInfoEntity;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
@@ -41,7 +41,7 @@ public class CaseDetailFileFragment extends BaseFragment {
     private boolean showAll = false;
     private List<FileInfoEntity> picList = new ArrayList<>();
     private List<FileInfoEntity> docList = new ArrayList<>();
-    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_caseGetFileList);
+    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_caseGetAyxxDetailById);
     private ApiData fileDownload = new ApiData(ApiData.FILE_DOWNLOAD);
 
     public static CaseDetailFileFragment newInstance(String fId) {
@@ -78,11 +78,13 @@ public class CaseDetailFileFragment extends BaseFragment {
             public void onClick(View v) {
                 showAll = true;
                 tvMorePic.setVisibility(View.GONE);
-                initImgView();
+//                initImgView();
             }
         });
         getFileById.setLoadingListener(this);
         fileDownload.setLoadingListener(this);
+
+        getFileById.loadData(fId);
         return view;
     }
 
@@ -91,7 +93,7 @@ public class CaseDetailFileFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            getFileById.loadData(fId);
+//            getFileById.loadData(fId);
         }
     }
 
@@ -99,10 +101,9 @@ public class CaseDetailFileFragment extends BaseFragment {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_caseGetFileList:
-                CaseFileEntity fileEntity = (CaseFileEntity) b.getEntry();
-                picList = fileEntity.getPicList();
-                docList = fileEntity.getDocList();
+            case ApiData.HTTP_ID_caseGetAyxxDetailById:
+                CaseDetailEntity caseDetailEntity = (CaseDetailEntity) b.getEntry();
+                docList = caseDetailEntity.getFiles();
                 docList.addAll(0, picList);
 //                initImgView();//加载图片视图，屏蔽
                 mAdapter.notifyDataSetChanged();
@@ -121,29 +122,29 @@ public class CaseDetailFileFragment extends BaseFragment {
 
     //初始化图片视图
     private void initImgView() {
-        if (picList.size() > 0) {
-            if (photoPaths == null) {
-                photoPaths = new ArrayList<>();
-            }
-            photoPaths.clear();
-            int size = picList.size();
-            tvMorePic.setVisibility(View.GONE);
-            if (!showAll && size > 6) {
-                size = 6;
-                tvMorePic.setVisibility(View.VISIBLE);
-            }
-            for (int i = 0; i < size; i++) {
-                String filePath = ConstStrings.INI_PATH + ConstStrings.INI_SUBMIT_FILE_PATH + picList.get(i).getFileName();
-                File file = new File(filePath);
-                if (file.exists()) {
-                    photoPaths.add(filePath);
-                } else {
-                    photoPaths.add("http://" + ApiData.mIp + "/" + picList.get(i).getFilePath());
-//                    photoPaths.add(picList.get(i).getFilePath());
-                }
-            }
-            mprvPhoto.init(getActivity(), MultiPickResultView.ACTION_ONLY_SHOW, photoPaths);
-        }
+//        if (picList.size() > 0) {
+//            if (photoPaths == null) {
+//                photoPaths = new ArrayList<>();
+//            }
+//            photoPaths.clear();
+//            int size = picList.size();
+//            tvMorePic.setVisibility(View.GONE);
+//            if (!showAll && size > 6) {
+//                size = 6;
+//                tvMorePic.setVisibility(View.VISIBLE);
+//            }
+//            for (int i = 0; i < size; i++) {
+//                String filePath = ConstStrings.INI_PATH + ConstStrings.INI_SUBMIT_FILE_PATH + picList.get(i).getFileName();
+//                File file = new File(filePath);
+//                if (file.exists()) {
+//                    photoPaths.add(filePath);
+//                } else {
+//                    photoPaths.add("http://" + ApiData.mIp + "/" + picList.get(i).getFilePath());
+////                    photoPaths.add(picList.get(i).getFilePath());
+//                }
+//            }
+//            mprvPhoto.init(getActivity(), MultiPickResultView.ACTION_ONLY_SHOW, photoPaths);
+//        }
     }
 
 }

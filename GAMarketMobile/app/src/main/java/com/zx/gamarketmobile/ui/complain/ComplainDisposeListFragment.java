@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.ComplainListAdapter;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
-import com.zx.gamarketmobile.entity.HttpLoginEntity;
 import com.zx.gamarketmobile.entity.NormalListEntity;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.listener.LoadMoreListener;
 import com.zx.gamarketmobile.listener.MyItemClickListener;
-import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -55,6 +53,8 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
         return fragment;
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_case_to_do_list, container, false);
@@ -91,6 +91,11 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
     //item点击事件
     @Override
     public void onItemClick(View view, int position) {
+
+        /**
+         * 这里还没确定
+         */
+
         Intent intent = new Intent(getActivity(), ComplainDetailActivity.class);
         intent.putExtra("entity", dataList.get(position));
         intent.putExtra("showExcute", index == 0 ? true : false);
@@ -114,10 +119,10 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_compTaskPage:
-                NormalListEntity normalListEntity = (NormalListEntity) b.getEntry();
-                mTotalNo = normalListEntity.getTotal();
+                NormalListEntity  entity = (NormalListEntity) b.getEntry();
+                mTotalNo = entity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<ComplainInfoEntity> entityList = normalListEntity.getComplainInfoList();
+                List<ComplainInfoEntity> entityList = entity.getComplainInfoList();
                 dataList.clear();
                 dataList.addAll(entityList);
                 mAdapter.notifyDataSetChanged();

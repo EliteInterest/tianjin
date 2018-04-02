@@ -72,7 +72,28 @@ public class CaseMonitorFragment extends BaseFragment {
         TextView tvAllNum = (TextView) view.findViewById(R.id.tvItemTask_allnum);
         TextView tvJjdqNum = (TextView) view.findViewById(R.id.tvItemTask_jjdqnum);
         TextView tvYqNum = (TextView) view.findViewById(R.id.tvItemTask_yqnum);
-        tvName.setText(task.status);
+        switch (task.status) {
+            case "01":
+                tvName.setText(task.status);
+                break;
+            case "N01":
+                tvName.setText(task.status);
+                break;
+            case "Y06":
+                tvName.setText(task.status);
+                break;
+            case "Y10":
+                tvName.setText(task.status);
+                break;
+            case "Y14":
+                tvName.setText(task.status);
+                break;
+            case "02":
+                tvName.setText(task.status);
+                break;
+            default:
+                break;
+        }
         if (task.allCount > 0) {
             tvAllNum.setText(task.allCount + "");
             tvAllNum.setVisibility(View.VISIBLE);
@@ -94,19 +115,19 @@ public class CaseMonitorFragment extends BaseFragment {
         view.findViewById(R.id.tvItemTask_alltxt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSearchActivity(task, "");
+                toSearchActivity(task, "2");
             }
         });
         view.findViewById(R.id.tvItemTask_jjdqtxt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSearchActivity(task, "jjyq");
+                toSearchActivity(task, "1");
             }
         });
         view.findViewById(R.id.tvItemTask_yqtxt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSearchActivity(task, "yq");
+                toSearchActivity(task, "0");
             }
         });
     }

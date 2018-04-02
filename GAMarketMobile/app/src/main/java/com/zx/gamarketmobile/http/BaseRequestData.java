@@ -367,7 +367,6 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                int statusCode = volleyError.networkResponse.statusCode;
                 pHandler.post(new Runnable() {
                     @Override
                     public void run() {

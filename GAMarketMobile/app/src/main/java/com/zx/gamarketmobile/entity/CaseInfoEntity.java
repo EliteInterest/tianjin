@@ -8,257 +8,498 @@ import java.io.Serializable;
  */
 public class CaseInfoEntity implements Serializable {
 
-    private String fId;//id
-    private String fAyAymc;//案源名称
-    private String fAyAjly;//案件领域
-    private String fSjCjsj;//创建时间
-    private String fDsrMc;//当事人名称
-    private String fHjBm;//环节编码
-    private String fTaskName;//流程名
-    private String fHjMc;//环节名称
-    private String fAyXxly;//案件来源
-    private String fAyWflx;//违法类型
-    private String fDsrJgs;//监管地区
-    private String fDsrLx;//当事人类型
-    private String fAyNrzy;//内容摘要
-    private String fSjCjr;//创建人
-    private String fCjrDept;//创建人部门
-    private String fTaskId;//任务id
-    private String Longitude;
-    private String Latitude;
-    private String fDcqzZxrId;//执行人id
-    private String fDcqzXzr;//执行人
-    private String PROC_DEF_ID_;//流程定义ID
-    private boolean fSfxa = false; //是否销案
-    private String fSfyq;//是否延期
-    private String fAyWffg;//定性依据
-    private String fPunishLaw;//处罚依据
-    private boolean fSfys = false;//是否移送
-    private boolean fSfqzcs = false;//强制措施
-    private boolean fYqzt = false;//是否到期
+    /**
+     * provideId : null
+     * provideAddress : 天津泰达
+     * updateDate : 1517901544000
+     * endDate : null
+     * departmentId : 09
+     * latitude : 38.746622
+     * typeName : 投诉、举报
+     * regDate : 1517296851000
+     * provideName : 李四
+     * provideContact : 158111111
+     * regUser : 张三
+     * disDate : null
+     * sysDisUserId : null
+     * enterpriseContact : 15800000000
+     * processId : 12511
+     * enterpriseCreditCode : 911300001043234377
+     * isExpandCheck : null
+     * enterpriseAddress : 天津开发区南港工业区港北路以北、海港路以东
+     * caseTime : 1517901537000
+     * caseName : 案件名称B
+     * id : B56BA551DA10496EB55B3B5C3F03DCFF
+     * sysRegUser : null
+     * disOpinion : null
+     * overdueTime : 1518592744000
+     * isCase : null
+     * enterpriseName : 中国电子系统工程第四建设有限公司（路路达石油项目）
+     * enterpriseBizlicNum : null
+     * longitude : 117.589769
+     * departmentName : 消保科
+     * disUser : null
+     * sysDisUser : null
+     * caseNum : 案件编号20180130152050
+     * updateUserId : f9aea146c8ea11e79fcc000c2934879e
+     * foundDate : 1517296851000
+     * updateUser : admin
+     * isPause : null
+     * completedDate : null
+     * typeCode : 001
+     * enterprisePerson : 万铜良
+     * isExpand : 1
+     * isOverdue : 1
+     * checkTime : 1517901544000
+     * regContent : 案源登记内容--修改
+     * sysRegUserId : null
+     * enterpriseId : 0D4DE56979CF40BBA8844E727152C5AB
+     * assignee : f9aea146c8ea11e79fcc000c2934879e
+     * taskId : 12516
+     * status : 01
+     */
 
-    public String getfAyWffg() {
-        return fAyWffg;
+    private Object provideId;
+    private String provideAddress;
+    private long updateDate;
+    private Object endDate;
+    private String departmentId;
+    private String latitude;
+    private String typeName;
+    private long regDate;
+    private String provideName;
+    private String provideContact;
+    private String regUser;
+    private Object disDate;
+    private Object sysDisUserId;
+    private String enterpriseContact;
+    private String processId;
+    private String enterpriseCreditCode;
+    private Object isExpandCheck;
+    private String enterpriseAddress;
+    private long caseTime;
+    private String caseName;
+    private String id;
+    private Object sysRegUser;
+    private String disOpinion;
+    private long overdueTime;
+    private Object isCase;
+    private String enterpriseName;
+    private Object enterpriseBizlicNum;
+    private String longitude;
+    private String departmentName;
+    private Object disUser;
+    private Object sysDisUser;
+    private String caseNum;
+    private String updateUserId;
+    private long foundDate;
+    private String updateUser;
+    private String isPause;
+    private Object completedDate;
+    private String typeCode;
+    private String enterprisePerson;
+    private int isExpand;
+    private int isOverdue;
+    private long checkTime;
+    private String regContent;
+    private Object sysRegUserId;
+    private String enterpriseId;
+    private String assignee;
+    private String taskId;
+    private String status;
+    private String statusName;
+
+
+
+    public String getStatusName() {
+        return statusName;
     }
 
-    public void setfAyWffg(String fAyWffg) {
-        this.fAyWffg = fAyWffg;
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
-    public String getfPunishLaw() {
-        return fPunishLaw;
+    public Object getProvideId() {
+        return provideId;
     }
 
-    public void setfPunishLaw(String fPunishLaw) {
-        this.fPunishLaw = fPunishLaw;
+    public void setProvideId(Object provideId) {
+        this.provideId = provideId;
     }
 
-    public boolean isfYqzt() {
-        return fYqzt;
+    public String getProvideAddress() {
+        return provideAddress;
     }
 
-    public void setfYqzt(boolean fYqzt) {
-        this.fYqzt = fYqzt;
+    public void setProvideAddress(String provideAddress) {
+        this.provideAddress = provideAddress;
     }
 
-    public String getfDcqzZxrId() {
-        return fDcqzZxrId;
+    public long getUpdateDate() {
+        return updateDate;
     }
 
-    public void setfDcqzZxrId(String fDcqzZxrId) {
-        this.fDcqzZxrId = fDcqzZxrId;
+    public void setUpdateDate(long updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public String getfDcqzXzr() {
-        return fDcqzXzr;
+    public Object getEndDate() {
+        return endDate;
     }
 
-    public void setfDcqzXzr(String fDcqzXzr) {
-        this.fDcqzXzr = fDcqzXzr;
+    public void setEndDate(Object endDate) {
+        this.endDate = endDate;
     }
 
-    public String getLongitude() {
-        return Longitude;
+    public String getDepartmentId() {
+        return departmentId;
     }
 
-    public void setLongitude(String longitude) {
-        Longitude = longitude;
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(String latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
-
-    public boolean isfSfxa() {
-        return fSfxa;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setfSfxa(boolean fSfxa) {
-        this.fSfxa = fSfxa;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
-    public boolean isfSfys() {
-        return fSfys;
+    public long getRegDate() {
+        return regDate;
     }
 
-    public void setfSfys(boolean fSfys) {
-        this.fSfys = fSfys;
+    public void setRegDate(long regDate) {
+        this.regDate = regDate;
     }
 
-    public boolean isfSfqzcs() {
-        return fSfqzcs;
+    public String getProvideName() {
+        return provideName;
     }
 
-    public void setfSfqzcs(boolean fSfqzcs) {
-        this.fSfqzcs = fSfqzcs;
+    public void setProvideName(String provideName) {
+        this.provideName = provideName;
     }
 
-    public String getPROC_DEF_ID_() {
-        return PROC_DEF_ID_;
+    public String getProvideContact() {
+        return provideContact;
     }
 
-    public void setPROC_DEF_ID_(String PROC_DEF_ID_) {
-        this.PROC_DEF_ID_ = PROC_DEF_ID_;
+    public void setProvideContact(String provideContact) {
+        this.provideContact = provideContact;
     }
 
-    public String getfTaskName() {
-        return fTaskName;
+    public String getRegUser() {
+        return regUser;
     }
 
-    public void setfTaskName(String fTaskName) {
-        this.fTaskName = fTaskName;
+    public void setRegUser(String regUser) {
+        this.regUser = regUser;
     }
 
-    public String getfTaskId() {
-        return fTaskId;
+    public Object getDisDate() {
+        return disDate;
     }
 
-    public void setfTaskId(String fTaskId) {
-        this.fTaskId = fTaskId;
+    public void setDisDate(Object disDate) {
+        this.disDate = disDate;
     }
 
-    public String getfAyXxly() {
-        return fAyXxly;
+    public Object getSysDisUserId() {
+        return sysDisUserId;
     }
 
-    public void setfAyXxly(String fAyXxly) {
-        this.fAyXxly = fAyXxly;
+    public void setSysDisUserId(Object sysDisUserId) {
+        this.sysDisUserId = sysDisUserId;
     }
 
-    public String getfAyWflx() {
-        return fAyWflx;
+    public String getEnterpriseContact() {
+        return enterpriseContact;
     }
 
-    public void setfAyWflx(String fAyWflx) {
-        this.fAyWflx = fAyWflx;
+    public void setEnterpriseContact(String enterpriseContact) {
+        this.enterpriseContact = enterpriseContact;
     }
 
-    public String getfDsrJgs() {
-        return fDsrJgs;
+    public String getProcessId() {
+        return processId;
     }
 
-    public void setfDsrJgs(String fDsrJgs) {
-        this.fDsrJgs = fDsrJgs;
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 
-    public String getfDsrLx() {
-        return fDsrLx;
+    public String getEnterpriseCreditCode() {
+        return enterpriseCreditCode;
     }
 
-    public void setfDsrLx(String fDsrLx) {
-        this.fDsrLx = fDsrLx;
+    public void setEnterpriseCreditCode(String enterpriseCreditCode) {
+        this.enterpriseCreditCode = enterpriseCreditCode;
     }
 
-    public String getfAyNrzy() {
-        return fAyNrzy;
+    public Object getIsExpandCheck() {
+        return isExpandCheck;
     }
 
-    public void setfAyNrzy(String fAyNrzy) {
-        this.fAyNrzy = fAyNrzy;
+    public void setIsExpandCheck(Object isExpandCheck) {
+        this.isExpandCheck = isExpandCheck;
     }
 
-    public String getfSjCjr() {
-        return fSjCjr;
+    public String getEnterpriseAddress() {
+        return enterpriseAddress;
     }
 
-    public void setfSjCjr(String fSjCjr) {
-        this.fSjCjr = fSjCjr;
+    public void setEnterpriseAddress(String enterpriseAddress) {
+        this.enterpriseAddress = enterpriseAddress;
     }
 
-    public String getfCjrDept() {
-        return fCjrDept;
+    public long getCaseTime() {
+        return caseTime;
     }
 
-    public void setfCjrDept(String fCjrDept) {
-        this.fCjrDept = fCjrDept;
+    public void setCaseTime(long caseTime) {
+        this.caseTime = caseTime;
     }
 
-    public String getfSfyq() {
-        return fSfyq;
+    public String getCaseName() {
+        return caseName;
     }
 
-    public void setfSfyq(String fSfyq) {
-        this.fSfyq = fSfyq;
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
     }
 
-    public String getfId() {
-        return fId;
+    public String getId() {
+        return id;
     }
 
-    public void setfId(String fId) {
-        this.fId = fId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getfAyAymc() {
-        return fAyAymc;
+    public Object getSysRegUser() {
+        return sysRegUser;
     }
 
-    public void setfAyAymc(String fAyAymc) {
-        this.fAyAymc = fAyAymc;
+    public void setSysRegUser(Object sysRegUser) {
+        this.sysRegUser = sysRegUser;
     }
 
-    public String getfAyAjly() {
-        return fAyAjly;
+    public String getDisOpinion() {
+        return disOpinion;
     }
 
-    public void setfAyAjly(String fAyAjly) {
-        this.fAyAjly = fAyAjly;
+    public void setDisOpinion(String disOpinion) {
+        this.disOpinion = disOpinion;
     }
 
-    public String getfSjCjsj() {
-        return fSjCjsj;
+    public long getOverdueTime() {
+        return overdueTime;
     }
 
-    public void setfSjCjsj(String fSjCjsj) {
-        this.fSjCjsj = fSjCjsj;
+    public void setOverdueTime(long overdueTime) {
+        this.overdueTime = overdueTime;
     }
 
-    public String getfDsrMc() {
-        return fDsrMc;
+    public Object getIsCase() {
+        return isCase;
     }
 
-    public void setfDsrMc(String fDsrMc) {
-        this.fDsrMc = fDsrMc;
+    public void setIsCase(Object isCase) {
+        this.isCase = isCase;
     }
 
-    public String getfHjBm() {
-        return fHjBm;
+    public String getEnterpriseName() {
+        return enterpriseName;
     }
 
-    public void setfHjBm(String fHjBm) {
-        this.fHjBm = fHjBm;
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
-    public String getfHjMc() {
-        return fHjMc;
+    public Object getEnterpriseBizlicNum() {
+        return enterpriseBizlicNum;
     }
 
-    public void setfHjMc(String fHjMc) {
-        this.fHjMc = fHjMc;
+    public void setEnterpriseBizlicNum(Object enterpriseBizlicNum) {
+        this.enterpriseBizlicNum = enterpriseBizlicNum;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public Object getDisUser() {
+        return disUser;
+    }
+
+    public void setDisUser(Object disUser) {
+        this.disUser = disUser;
+    }
+
+    public Object getSysDisUser() {
+        return sysDisUser;
+    }
+
+    public void setSysDisUser(Object sysDisUser) {
+        this.sysDisUser = sysDisUser;
+    }
+
+    public String getCaseNum() {
+        return caseNum;
+    }
+
+    public void setCaseNum(String caseNum) {
+        this.caseNum = caseNum;
+    }
+
+    public String getUpdateUserId() {
+        return updateUserId;
+    }
+
+    public void setUpdateUserId(String updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
+    public long getFoundDate() {
+        return foundDate;
+    }
+
+    public void setFoundDate(long foundDate) {
+        this.foundDate = foundDate;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getIsPause() {
+        return isPause;
+    }
+
+    public void setIsPause(String isPause) {
+        this.isPause = isPause;
+    }
+
+    public Object getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(Object completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
+    public String getEnterprisePerson() {
+        return enterprisePerson;
+    }
+
+    public void setEnterprisePerson(String enterprisePerson) {
+        this.enterprisePerson = enterprisePerson;
+    }
+
+    public int getIsExpand() {
+        return isExpand;
+    }
+
+    public void setIsExpand(int isExpand) {
+        this.isExpand = isExpand;
+    }
+
+    public int getIsOverdue() {
+        return isOverdue;
+    }
+
+    public void setIsOverdue(int isOverdue) {
+        this.isOverdue = isOverdue;
+    }
+
+    public long getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(long checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    public String getRegContent() {
+        return regContent;
+    }
+
+    public void setRegContent(String regContent) {
+        this.regContent = regContent;
+    }
+
+    public Object getSysRegUserId() {
+        return sysRegUserId;
+    }
+
+    public void setSysRegUserId(Object sysRegUserId) {
+        this.sysRegUserId = sysRegUserId;
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
+
+    public String getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

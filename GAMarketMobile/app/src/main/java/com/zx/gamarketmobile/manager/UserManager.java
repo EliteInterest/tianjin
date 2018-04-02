@@ -33,18 +33,12 @@ public class UserManager {
     public boolean isLogin() {
         if (user == null)
             return false;
-        return !"first".equals(user.getLoginCode());
+        return user.isLogin();
     }
 
-    public void setLoginFirst(Context context) {
-        if (user == null) {
-            user = new HttpLoginEntity();
-        }
-        HttpConstant.AppCode = "first";
-        user.setLoginCode(HttpConstant.AppCode);
-        Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString("loginCode", user.getLoginCode());
-        editor.commit();
+    public void setNoLogin(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putBoolean("isLogin", false).commit();
     }
 
     public void init(Context context) {
@@ -64,13 +58,12 @@ public class UserManager {
         user.setAuthority(sp.getString("authority", null));
         // user.setPassword(sp.getParams(id).get("password").toString(), null);
         user.setPassword(sp.getString("fPassword", null));
-        user.setLoginCode(HttpConstant.AppCode);
         user.setGrid(sp.getString("fGrid", null));
+        user.setIsLogin(sp.getBoolean("isLogin", false));
     }
 
     public void setUser(Context context, HttpLoginEntity userinfo) {
         user = userinfo;
-        HttpConstant.AppCode = userinfo.getLoginCode();
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString("fUserId", user.getId());
         editor.putString("fRealName", user.getRealName());
@@ -83,9 +76,9 @@ public class UserManager {
         editor.putString("fDesc", user.getDesc());
         editor.putString("fTelephone", user.getTelphone());
         editor.putString("fPassword", user.getPassword());
-        editor.putString("loginCode", user.getLoginCode());
         editor.putString("authority", user.getAuthority());
         editor.putString("fGrid", user.getGrid());
+        editor.putBoolean("isLogin", user.isLogin());
         editor.commit();
     }
 

@@ -62,7 +62,7 @@
                 android:drawableTop="@mipmap/icon_main_all"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/padding_normal"
-                android:text="@string/all"
+                android:text="未逾期"
                 android:textColor="@color/textgrey" />
 
             <TextView

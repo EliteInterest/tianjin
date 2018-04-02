@@ -28,6 +28,8 @@ android {
         }
         jackOptions {
             enabled true
+            android.compileOptions.sourceCompatibility 1.8
+            android.compileOptions.targetCompatibility 1.8
         }
     }
     signingConfigs {

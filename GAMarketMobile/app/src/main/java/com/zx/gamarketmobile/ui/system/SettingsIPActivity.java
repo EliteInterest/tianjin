@@ -79,7 +79,7 @@ public class SettingsIPActivity extends BaseActivity implements OnClickListener 
 				editor.commit();
 				Util.showToast(this, "设置成功");
 
-				userManager.setLoginFirst(getApplicationContext());
+				userManager.setNoLogin(this);
 //				Intent intent = new Intent(SettingsIPActivity.this, LoginActivity.class);
 //				startActivity(intent);
 //				Util.activity_Out(this);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -50,21 +51,21 @@ public class CaseListAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             CaseInfoEntity entity = mItemList.get(position);
-            myHolder.tvField.setText(entity.getfAyAjly());
-            myHolder.tvDate.setText(entity.getfSjCjsj());
-            myHolder.tvName.setText(entity.getfAyAymc());
-            myHolder.tvPerson.setText(entity.getfDsrMc());
-            myHolder.tvStage.setText(entity.getfTaskName().length() > 0 ? entity.getfTaskName() : entity.getfHjMc());
-            if (showOverdue && entity.isfYqzt()) {//判断是否逾期
+            myHolder.tvField.setText(entity.getTypeName());
+            myHolder.tvDate.setText(DateUtil.getDateFromMillis(entity.getRegDate()));
+            myHolder.tvName.setText(entity.getCaseName());
+            myHolder.tvPerson.setText(entity.getEnterpriseName());
+            myHolder.tvStage.setText(entity.getStatusName());
+            if (showOverdue && entity.getIsOverdue()==0) {//判断是否逾期
                 myHolder.ivOverdue.setVisibility(View.VISIBLE);
             } else {
                 myHolder.ivOverdue.setVisibility(View.GONE);
             }
-            if ("工商".equals(entity.getfAyAjly())) {
+            if ("工商".equals(entity.getTypeName())) {
                 myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_gs));
-            } else if ("质监".equals(entity.getfAyAjly())) {
+            } else if ("质监".equals(entity.getTypeName())) {
                 myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_zj));
-            } else if ("食药监".equals(entity.getfAyAjly())) {
+            } else if ("食药监".equals(entity.getTypeName())) {
                 myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_syj));
             } else {
                 myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));

@@ -50,31 +50,33 @@ public class ComplainListAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             ComplainInfoEntity mEntity = mItemList.get(position);
-            myHolder.tvTaskType.setText(mEntity.getfType());
-            myHolder.tvTaskTime.setText(mEntity.getfRegTime());
-            myHolder.tvTaskName.setText(mEntity.getfRegId());
-            myHolder.tvRegcompany.setText(mEntity.getfByReportedName());
-            if (mEntity.getfStatus().length() != 0) {
+            myHolder.tvTaskType.setText(mEntity.getFType());
+            myHolder.tvTaskTime.setText(mEntity.getFRegTime() + "");
+            myHolder.tvTaskName.setText(mEntity.getFGuid());
+            myHolder.tvRegcompany.setText(mEntity.getFEntityName());
+            if (mEntity.getFStatus() != 0) {
                 myHolder.tvTitleText.setText("流程状态:");
-                myHolder.tvTaskUnit.setText(mEntity.getfStatus());
+                myHolder.tvTaskUnit.setText(mEntity.getFStatus());
             } else {
                 myHolder.tvTitleText.setText("登记单位:");
-                myHolder.tvTaskUnit.setText(mEntity.getfRegUnit());
+//                myHolder.tvTaskUnit.setText(mEntity.getfRegUnit());
+                myHolder.tvTaskUnit.setText("");
             }
-            if ("投诉".equals(mEntity.getfType())) {
+            if ("投诉".equals(mEntity.getFType())) {
                 myHolder.imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_ts));
-            } else if ("举报".equals(mEntity.getfType())) {
+            } else if ("举报".equals(mEntity.getFType())) {
                 myHolder.imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_jb));
-            } else if ("咨询".equals(mEntity.getfType())) {
+            } else if ("咨询".equals(mEntity.getFType())) {
                 myHolder.imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_zx));
             } else {
                 myHolder.imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
             }
-            if (showOverdue && mEntity.isfYqzt()) {//判断是否逾期
-                myHolder.ivOverdue.setVisibility(View.VISIBLE);
-            } else {
-                myHolder.ivOverdue.setVisibility(View.GONE);
-            }
+//            if (showOverdue && mEntity.isfYqzt()) {//判断是否逾期
+//                myHolder.ivOverdue.setVisibility(View.VISIBLE);
+//            } else {
+//                myHolder.ivOverdue.setVisibility(View.GONE);
+//            }
+            myHolder.ivOverdue.setVisibility(View.GONE);
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

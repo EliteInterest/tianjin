@@ -45,23 +45,23 @@ public class CaseDetailFlowFragment extends BaseFragment {
         mRvInfo.setLayoutManager(mLinearLayoutManager);
         mCaseAdapter = new CaseDetailFlowAdapter(getActivity(), dataInfoList);
         mRvInfo.setAdapter(mCaseAdapter);
-        rgCaseFlow.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_case_flow_1://常规流程
-                        fType = "常规流程";
-                        break;
-                    case R.id.rb_case_flow_2://案件延期
-                        fType = "案件延期";
-                        break;
-                    case R.id.rb_case_flow_3://案件销案
-                        fType = "案件销案";
-                        break;
-                }
-                getLcgj.loadData(fId, fType);
-            }
-        });
+//        rgCaseFlow.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.rb_case_flow_1://常规流程
+//                        fType = "常规流程";
+//                        break;
+//                    case R.id.rb_case_flow_2://案件延期
+//                        fType = "案件延期";
+//                        break;
+//                    case R.id.rb_case_flow_3://案件销案
+//                        fType = "案件销案";
+//                        break;
+//                }
+                getLcgj.loadData(fId);
+//            }
+//        });
         return view;
     }
 

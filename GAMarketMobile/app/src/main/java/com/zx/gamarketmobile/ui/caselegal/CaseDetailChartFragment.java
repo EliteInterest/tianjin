@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
+import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
 
 import java.io.InputStream;
@@ -28,6 +30,7 @@ public class CaseDetailChartFragment extends BaseFragment {
     private String fHjbm;
     private String filename;
     private Bitmap image;
+    private String imgUrl;
 
     public static CaseDetailChartFragment newInstance(CaseInfoEntity caseInfo, boolean showExcute) {
         CaseDetailChartFragment details = new CaseDetailChartFragment();
@@ -41,40 +44,16 @@ public class CaseDetailChartFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_case_chart, container, false);
 
-
         CaseInfoEntity caseInfo = (CaseInfoEntity) getArguments().getSerializable("caseInfo");
-        boolean showExcute = getArguments().getBoolean("showEx");
-        fHjbm = caseInfo.getfHjBm();
-        if (showExcute && caseInfo.getPROC_DEF_ID_().indexOf("AJYQLC") != -1) {//延期流程
-            if ("延期申请".equals(caseInfo.getfTaskName())) {
-                filename = "delay_yqsq.png";
-            } else if ("延期审查".equals(caseInfo.getfTaskName())) {
-                filename = "delay_yqsc.png";
-            } else if ("延期审批".equals(caseInfo.getfTaskName())) {
-                filename = "delay_yqsp.png";
-            }
-        } else if (showExcute && caseInfo.getPROC_DEF_ID_().indexOf("AJXALC") != -1) {//销案流程
-            if ("销案申请".equals(caseInfo.getfTaskName())) {
-                filename = "destory_xasq.png";
-            } else if ("销案审查".equals(caseInfo.getfTaskName())) {
-                filename = "destory_xasc.png";
-            } else if ("销案审批".equals(caseInfo.getfTaskName())) {
-                filename = "destory_xasp.png";
-            }
-        }
-        if (filename == null) {
-            filename = "case_" + fHjbm + ".png";
-        }
+        imgUrl = ApiData.baseUrl + "/TJCase/caseFlow/caseflowImg.do?processId=" + caseInfo.getProcessId();
 
         ivChart = (ImageView) view.findViewById(R.id.iv_case_chart);
-        setImgBg();
         ivChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image != null) {
-                    String path = "file:///android_asset/" + filename;
+                if (imgUrl != null&&imgUrl.length()>0) {
                     ArrayList<String> paths = new ArrayList<>();
-                    paths.add(path);
+                    paths.add(imgUrl);
                     PhotoPreview.builder()
                             .setPhotos(paths)
                             .setAction(MultiPickResultView.ACTION_ONLY_SHOW)
@@ -82,6 +61,10 @@ public class CaseDetailChartFragment extends BaseFragment {
                 }
             }
         });
+
+        Glide.with(getActivity())
+                .load(imgUrl)
+                .into(ivChart);
         return view;
     }
 

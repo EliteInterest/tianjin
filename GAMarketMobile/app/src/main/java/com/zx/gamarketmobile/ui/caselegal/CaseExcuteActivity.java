@@ -42,7 +42,7 @@ public class CaseExcuteActivity extends BaseActivity {
         mTabLayout.setVisibility(View.GONE);
         myPagerAdapter.addFragment(CaseExcuteFragment.newInstance(this, mEntity), "处理");
 
-        String hjbm = mEntity.getfHjBm();
+//        String hjbm = mEntity.getfHjBm();
 //        if (hjbm.equals("20101") || hjbm.equals("30101") || hjbm.equals("30104") || hjbm.equals("40101")) {
 //            mTabLayout.setVisibility(View.VISIBLE);
 //            caseImageFragment = CaseImageFragment.newInstance(this, mEntity);

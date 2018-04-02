@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
 import com.zx.gamarketmobile.listener.PAOnClickListener;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,28 +48,28 @@ public class CompPoiPagerAdapter extends PagerAdapter {
             TextView tvTitleText = (TextView) view.findViewById(R.id.tv_comp_titletext);
             ImageView ivOverdue = (ImageView) view.findViewById(R.id.iv_comp_overdue);//逾期图片
 
-            tvTaskType.setText(entity.getfType());
+            tvTaskType.setText(entity.getFType());
 //            int timeType = mEntity.getTimeType();
 //            setDrawable(timeType, "complain", myHolder.imgTimeType);
-            tvTaskTime.setText(entity.getfRegTime());
-            tvTaskName.setText(entity.getfRegId());
-            tvRegcompany.setText(entity.getfByReportedName());
-            if (entity.getfStatus().length() != 0) {
-                tvTitleText.setText("流程状态:");
-                tvTaskUnit.setText(entity.getfStatus());
-            } else {
-                tvTitleText.setText("登记单位:");
-                tvTaskUnit.setText(entity.getfRegUnit());
-            }
-            if ("投诉".equals(entity.getfType())) {
-                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_ts));
-            } else if ("举报".equals(entity.getfType())) {
-                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_jb));
-            } else if ("咨询".equals(entity.getfType())) {
-                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_zx));
-            } else {
-                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
-            }
+            tvTaskTime.setText(DateUtil.getDateFromMillis(entity.getFRegTime()));
+            tvTaskName.setText(entity.getFName());
+            tvRegcompany.setText(entity.getFEntityName());
+//            if (entity.getFStatus().length() != 0) {
+//                tvTitleText.setText("流程状态:");
+//                tvTaskUnit.setText(entity.getfStatus());
+//            } else {
+//                tvTitleText.setText("登记单位:");
+//                tvTaskUnit.setText(entity.getfRegUnit());
+//            }
+//            if ("投诉".equals(entity.getfType())) {
+//                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_ts));
+//            } else if ("举报".equals(entity.getfType())) {
+//                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_jb));
+//            } else if ("咨询".equals(entity.getfType())) {
+//                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_zx));
+//            } else {
+//                imgTimeType.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
+//            }
 
             LinearLayout llmain = (LinearLayout) view.findViewById(R.id.ll_search_comp_result_list_view);
             llmain.setOnClickListener(new OnClickListener() {

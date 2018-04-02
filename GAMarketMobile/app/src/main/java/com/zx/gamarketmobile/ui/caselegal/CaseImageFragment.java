@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.zx.gamarketmobile.R;
-import com.zx.gamarketmobile.entity.CaseFileEntity;
+import com.zx.gamarketmobile.entity.CaseDetailEntity;
 import com.zx.gamarketmobile.entity.CaseInfoEntity;
 import com.zx.gamarketmobile.entity.FileInfoEntity;
 import com.zx.gamarketmobile.http.ApiData;
@@ -40,7 +40,7 @@ public class CaseImageFragment extends BaseFragment {
     private List<FileInfoEntity> picList = new ArrayList<>();
     private ApiData picUpload = new ApiData(ApiData.FILE_UPLOAD);
     private ApiData caseSave = new ApiData(ApiData.HTTP_ID_caseSaveAyfj);
-    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_caseGetFileList);
+    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_caseGetAyxxDetailById);
     private ApiData deleteFile = new ApiData(ApiData.HTTP_ID_Case_Delete_Img);
 
     public static CaseImageFragment newInstance(CaseExcuteActivity activity, CaseInfoEntity mEntity) {
@@ -94,7 +94,7 @@ public class CaseImageFragment extends BaseFragment {
                 }, null);
             }
         });
-        getFileById.loadData(mEntity.getfId());
+        getFileById.loadData(mEntity.getId());
     }
 
     @Override
@@ -117,21 +117,21 @@ public class CaseImageFragment extends BaseFragment {
                     fileNameListStr = fileNameListStr.substring(1);
                     if (!TextUtils.isEmpty(realNameListStr)) {
                         String fUploadPerson = userInfo.getUserName();
-                        if (!TextUtils.isEmpty(mEntity.getfId()) && !TextUtils.isEmpty(fUploadPerson)) {
-                            caseSave.loadData(mEntity.getfId(), userInfo.getId(), realNameListStr, fileNameListStr);
+                        if (!TextUtils.isEmpty(mEntity.getId()) && !TextUtils.isEmpty(fUploadPerson)) {
+                            caseSave.loadData(mEntity.getId(), userInfo.getId(), realNameListStr, fileNameListStr);
                         }
                     }
                 }
                 break;
-            case ApiData.HTTP_ID_caseGetFileList:
-                CaseFileEntity fileEntity = (CaseFileEntity) b.getEntry();
-                picList = fileEntity.getPicList();
+            case ApiData.HTTP_ID_caseGetAyxxDetailById:
+                CaseDetailEntity fileEntity = (CaseDetailEntity) b.getEntry();
+                picList = fileEntity.getFiles();
                 initImgView();
                 dismissProgressDialog();
                 break;
             case ApiData.HTTP_ID_caseSaveAyfj:
                 showToast("上传成功");
-                getFileById.loadData(mEntity.getfId());
+                getFileById.loadData(mEntity.getId());
                 break;
             case ApiData.HTTP_ID_Case_Delete_Img:
                 if (b.isSuccess()) {
@@ -154,9 +154,9 @@ public class CaseImageFragment extends BaseFragment {
             photoPaths.clear();
             int size = picList.size();
             for (int i = 0; i < size; i++) {
-                String path = "http://" + ApiData.mIp + "/" + picList.get(i).getFilePath();
+                String path = "http://" + ApiData.mIp + "/" + picList.get(i).getUrl();
                 photoPaths.add(path);
-                recordFileInfo.put(path, picList.get(i).getFileId());
+                recordFileInfo.put(path, picList.get(i).getId());
             }
         }
         if (mprvPhoto.photoAdapter == null) {
