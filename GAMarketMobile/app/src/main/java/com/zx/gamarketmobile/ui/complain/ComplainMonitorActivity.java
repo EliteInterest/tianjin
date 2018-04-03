@@ -9,6 +9,7 @@ import android.view.View;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.ComplainListAdapter;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
+import com.zx.gamarketmobile.entity.NormalListEntity;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.listener.LoadMoreListener;
@@ -87,14 +88,14 @@ public class ComplainMonitorActivity extends BaseActivity implements LoadMoreLis
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(this, ComplainDetailActivity.class);
-//        intent.putExtra("entity", dataList.get(position));
+        intent.putExtra("entity", dataList.get(position));
         intent.putExtra("monitor", true);
         startActivity(intent);
     }
 
     //数据加载
     private void loadData() {
-        compQuery.loadData(mPageNo, mPageSize, type, yqtype);
+        compQuery.loadData(mPageNo, mPageSize, type);
     }
 
     @Override
@@ -103,13 +104,13 @@ public class ComplainMonitorActivity extends BaseActivity implements LoadMoreLis
         srlSearch.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_compLcjk:
-//                ComplainInfoBean bean = (ComplainInfoBean) b.getEntry();
-//                mTotalNo = bean.getTotal();
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                List<ComplainInfoBean.ListBean> entityList = bean.getList();
-//                dataList.clear();
-//                dataList.addAll(entityList);
-//                mAdapter.notifyDataSetChanged();
+                NormalListEntity bean = (NormalListEntity) b.getEntry();
+                mTotalNo = bean.getTotal();
+                mAdapter.setStatus(0, mPageNo, mTotalNo);
+                List<ComplainInfoEntity> entityList = bean.getComplainInfoList();
+                dataList.clear();
+                dataList.addAll(entityList);
+                mAdapter.notifyDataSetChanged();
                 break;
 
             default:

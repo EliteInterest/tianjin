@@ -18,6 +18,15 @@ public class HttpLoginEntity {
     private boolean isLogin;
     private String authority;//用户权限
     private String grid;//管辖片区
+    private String departmentCode;
+
+    public String getDepartmentCode() {
+        return departmentCode;
+    }
+
+    public void setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+    }
 
     public String getGrid() {
         return grid;

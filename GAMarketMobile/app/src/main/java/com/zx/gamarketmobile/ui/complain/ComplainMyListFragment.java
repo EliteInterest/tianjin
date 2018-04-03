@@ -41,7 +41,8 @@ public class ComplainMyListFragment extends BaseFragment {
         vpCase.setViewPager(((HomeActivity) getActivity()).mVpContent);
         myPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
         myPagerAdapter.addFragment(ComplainDisposeListFragment.newInstance(this, 0), "待办任务");
-        myPagerAdapter.addFragment(ComplainDisposeListFragment.newInstance(this, 1), "已办任务");
+        tbCase.setVisibility(View.GONE);
+//        myPagerAdapter.addFragment(ComplainDisposeListFragment.newInstance(this, 1), "已办任务");
         vpCase.setOffscreenPageLimit(2);
         vpCase.setAdapter(myPagerAdapter);
         tbCase.setupWithViewPager(vpCase);

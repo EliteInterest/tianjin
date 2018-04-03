@@ -77,6 +77,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
     private ApiData caseRecordCount = new ApiData(ApiData.HTTP_ID_statistics_case_queryRecordCount);//案件记录趋势统计
     private ApiData casePunishCount = new ApiData(ApiData.HTTP_ID_statistics_case_queryPunishCount);//案件处罚趋势统计
 
+    private ApiData compDepart = new ApiData(ApiData.HTTP_ID_statistics_comp_countDepartment);//受理部门统计
+    private ApiData compType = new ApiData(ApiData.HTTP_ID_statistics_comp_countType);//投诉类别统计
+    private ApiData compInfo = new ApiData(ApiData.HTTP_ID_statistics_comp_countInfo);//信息来源统计
+    private ApiData compBussiniss = new ApiData(ApiData.HTTP_ID_statistics_comp_countBussiniss);//业务来源统计
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +126,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
         caseCloseCount.setLoadingListener(this);
         caseRecordCount.setLoadingListener(this);
         casePunishCount.setLoadingListener(this);
+        compBussiniss.setLoadingListener(this);
+        compInfo.setLoadingListener(this);
+        compType.setLoadingListener(this);
+        compDepart.setLoadingListener(this);
 
         mItemInfo = (StatisticsItemInfo) getIntent().getSerializableExtra("task");
         setMidText(mItemInfo.name);
@@ -211,7 +219,7 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case "化妆品":
                 countHzpList.loadData(mItemInfo.name);
                 break;
-            case "根据部门统计":
+            case "部门统计":
                 caseDep.loadData("", "");
                 break;
             case "来源统计":
@@ -223,11 +231,23 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case "结案统计":
                 caseIsCase.loadData("");
                 break;
-            case "案件记录趋势统计":
+            case "案件记录趋势":
                 caseRecordCount.loadData("");
                 break;
-            case "案件处罚趋势统计":
+            case "案件处罚趋势":
                 casePunishCount.loadData("");
+                break;
+            case "受理部门":
+                compDepart.loadData("", "");
+                break;
+            case "投诉类别":
+                compType.loadData("", "");
+                break;
+            case "信息来源":
+                compInfo.loadData("", "");
+                break;
+            case "业务来源":
+                compBussiniss.loadData("", "");
                 break;
             default:
                 getChartInfo.loadData(mItemInfo.name);
@@ -331,6 +351,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case ApiData.HTTP_ID_statistics_case_queryIsCase:
             case ApiData.HTTP_ID_statistics_case_queryPunishCount:
             case ApiData.HTTP_ID_statistics_case_queryRecordCount:
+            case ApiData.HTTP_ID_statistics_comp_countDepartment:
+            case ApiData.HTTP_ID_statistics_comp_countType:
+            case ApiData.HTTP_ID_statistics_comp_countBussiniss:
+            case ApiData.HTTP_ID_statistics_comp_countInfo:
                 List<KeyValueInfo> tempList = (List<KeyValueInfo>) b.getEntry();
                 initChart(tempList);
                 keyList.clear();

@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
-import com.zx.gamarketmobile.entity.CompFlowEntity;
+import com.zx.gamarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.gamarketmobile.listener.MyItemClickListener;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -19,10 +20,10 @@ import java.util.List;
  */
 public class ComplainDetailFlowAdapter extends MyRecycleAdapter {
 
-    private List<CompFlowEntity> dataList;
+    private List<ComplainInfoDetailsBean.StatusInfoBean> dataList;
     private Context mContext;
 
-    public ComplainDetailFlowAdapter(Context c, List<CompFlowEntity> complainList) {
+    public ComplainDetailFlowAdapter(Context c, List<ComplainInfoDetailsBean.StatusInfoBean> complainList) {
         this.dataList = complainList;
         this.mContext = c;
     }
@@ -38,11 +39,11 @@ public class ComplainDetailFlowAdapter extends MyRecycleAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Holder myHolder = (Holder) holder;
-        CompFlowEntity mEntify = dataList.get(position);
-        myHolder.tvTime.setText(mEntify.getfHandleDate());
-        myHolder.tvPersion.setText(mEntify.getfHandleUser());
-        myHolder.tvOperate.setText(mEntify.getfStatus());
-        myHolder.tvRemark.setText(mEntify.getfHandleAdvice());
+        ComplainInfoDetailsBean.StatusInfoBean mEntify = dataList.get(position);
+        myHolder.tvTime.setText(DateUtil.getDateFromMillis(mEntify.getFDisposeDate()));
+        myHolder.tvPersion.setText(mEntify.getFRealName());
+        myHolder.tvOperate.setText(mEntify.getFDispose());
+        myHolder.tvRemark.setText(mEntify.getFDisposeRemark());
     }
 
     @Override
