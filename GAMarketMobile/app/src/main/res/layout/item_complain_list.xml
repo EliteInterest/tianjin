@@ -83,7 +83,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="涉及主体:"
+                    android:text="投诉人姓名:"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/text_size_more_micro"/>
 

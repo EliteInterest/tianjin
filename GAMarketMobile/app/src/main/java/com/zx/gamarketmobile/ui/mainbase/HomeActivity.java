@@ -168,21 +168,22 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     private StatisticsInfo createCaseData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "案件执法";
-        dataInfo.itemList.add(new StatisticsItemInfo("根据部门统计", 0, "部门", R.mipmap.statistic_ajfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("部门统计", 0, "部门", R.mipmap.statistic_ajfb));
         dataInfo.itemList.add(new StatisticsItemInfo("来源统计", 0, "来源", R.mipmap.statistic_ajly));
         dataInfo.itemList.add(new StatisticsItemInfo("立案统计", 0, "类别", R.mipmap.statistic_wflx));
         dataInfo.itemList.add(new StatisticsItemInfo("结案统计", 0, "类别", R.mipmap.statistic_jatj));
-        dataInfo.itemList.add(new StatisticsItemInfo("案件记录趋势统计", 0, "类别", R.mipmap.statistic_jatj));
-        dataInfo.itemList.add(new StatisticsItemInfo("案件处罚趋势统计", 0, "类别", R.mipmap.statistic_jatj));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件记录趋势", 0, "类别", R.mipmap.statistic_jatj));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件处罚趋势", 0, "类别", R.mipmap.statistic_jatj));
         return dataInfo;
     }
 
     private StatisticsInfo createCompData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "投诉举报";
-        dataInfo.itemList.add(new StatisticsItemInfo("区域分布", 0, "区域", R.mipmap.statistic_qyfb));
-        dataInfo.itemList.add(new StatisticsItemInfo("举报来源", 0, "来源", R.mipmap.statistic_jbly));
-        dataInfo.itemList.add(new StatisticsItemInfo("举报类型", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("受理部门", 0, "部门", R.mipmap.statistic_qyfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("投诉类别", 0, "类别", R.mipmap.statistic_jbly));
+        dataInfo.itemList.add(new StatisticsItemInfo("信息来源", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("业务来源", 0, "类别", R.mipmap.statistic_jblx));
         return dataInfo;
     }
 

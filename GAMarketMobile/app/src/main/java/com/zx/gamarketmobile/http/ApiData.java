@@ -248,6 +248,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_statistics_case_queryClosedCount = 204;//统计-案件-结案统计
     public static final int HTTP_ID_statistics_case_queryRecordCount = 205;//统计-案件-案件记录趋势统计
     public static final int HTTP_ID_statistics_case_queryPunishCount = 206;//统计-案件-案件处罚趋势统计
+    public static final int HTTP_ID_statistics_comp_countDepartment = 207;//统计-投诉-部门统计
+    public static final int HTTP_ID_statistics_comp_countType = 208;//统计-投诉-投诉类别
+    public static final int HTTP_ID_statistics_comp_countInfo = 209;//统计-投诉-信息来源
+    public static final int HTTP_ID_statistics_comp_countBussiniss = 210;//统计-投诉-业务来源
 
     //TODO
     public static String UUID = "";
@@ -789,10 +793,16 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + LOCAL_HOST_TAG + "/" + "loginout.do");
                     break;
                 case HTTP_ID_getUsersByDept:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getUsersByDept");
-                    params.putParams("dept", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJComplaint/user/getUserPage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", 1);
+                    params.putParams("pageSize", 999);
+                    params.putParams("userName", objects[0]);
+                    params.putParams("realName", objects[1]);
+                    params.putParams("department", objects[2]);
+                    params.putParams("departmentCode", objects[3]);
+                    params.putParams("status", objects[4]);
+                    params.putParams("roles", objects[5]);
                     break;
                 case HTTP_ID_getUserNameByArea:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1039,26 +1049,19 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setRetry(false);//是否在网络不好时，请求第二次，默认为true
                     break;
                 case HTTP_ID_compMonitor:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getComplaintMonitor");
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/countComplaintByStatus.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
                     break;
                 case HTTP_ID_compPageQuery:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "selectComplaintPageInfo");
-                    params.putParams("key", objects[0]);
-                    params.putParams("pageNum", objects[1]);
-                    params.putParams("pageSize", objects[2]);
-                    params.putParams("fStation", objects[3]);
-                    if (objects.length > 4) {
-                        params.putParams("fTimeType", objects[4]);
-                        params.putParams("fStatus", objects[5]);
-                    }
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintPage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("fCondition", objects[4]);
                     break;
                 case HTTP_ID_compInfoById:
                     params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintInfo.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("fGuid", objects[0]);
                     break;
                 case HTTP_ID_compLcgj:
@@ -1068,40 +1071,33 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fRegId", objects[0]);
                     break;
                 case HTTP_ID_compTaskPage:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getMyComplaintsTask");
-                    params.putParams("fType", objects[0]);
-                    params.putParams("pageNum", objects[1]);
-                    params.putParams("pageSize", objects[2]);
-                    params.putParams("fUserId", objects[3]);
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintByStatus.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("fStatus", objects[2]);
+                    params.putParams("sort", objects[3]);
                     break;
                 case HTTP_ID_getAllUserDept:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getAllUserDept");
+                    params.setApiUrl(baseUrl + "/TJsupervise/department/getDepartmentList.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
                     break;
                 case HTTP_ID_compFlowhandle:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/optComplaint.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "flowhandle");
-                    params.putParams("fRegId", objects[0]);
-                    params.putParams("fStatus", objects[1]);
-                    params.putParams("fUserId", objects[2]);
-                    if (objects.length > 3) {
-                        for (int i = 3; i < objects.length; i++) {
-                            params.putParams(objects[i] + "", objects[++i]);
-                        }
-                    }
+                    params.putParams("fGuid", objects[0]);
+                    params.putParams("fDispose", objects[1]);
+                    params.putParams("fDisposeRemark", objects[2]);
+                    params.putParams("fShunt", objects[3]);
+                    params.putParams("fDisposeUser", objects[4]);
                     break;
                 case HTTP_ID_compLcjk:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "pageLcjkComplaints");
-                    params.putParams("pageNum", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintByStatus.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
                     params.putParams("pageSize", objects[1]);
-                    params.putParams("type", objects[2]);
-                    params.putParams("yqtype", objects[3]);
+                    params.putParams("status", objects[2]);
+                    params.putParams("sort", "desc");
                     break;
                 case HTTP_ID_SuperviseTaskPage:
 //                    params.setPort(8030);
@@ -1512,6 +1508,30 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setApiUrl(baseUrl + "/TJCase/statistics/getPunishCount.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_comp_countDepartment:
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaintStat/countByDepartment.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("fRegTimeStart", objects[0]);
+                    params.putParams("fRegTimeEnd", objects[1]);
+                    break;
+                case HTTP_ID_statistics_comp_countType:
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaintStat/countByType.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("fRegTimeStart", objects[0]);
+                    params.putParams("fRegTimeEnd", objects[1]);
+                    break;
+                case HTTP_ID_statistics_comp_countInfo:
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaintStat/countBySource.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("fRegTimeStart", objects[0]);
+                    params.putParams("fRegTimeEnd", objects[1]);
+                    break;
+                case HTTP_ID_statistics_comp_countBussiniss:
+                    params.setApiUrl(baseUrl + "/TJComplaint/complaintStat/countByBusinessSource.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("fRegTimeStart", objects[0]);
+                    params.putParams("fRegTimeEnd", objects[1]);
                     break;
                 default:
                     if (LogUtil.DEBUG) {
@@ -2398,7 +2418,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             List<KeyValueInfo> userList = new ArrayList<>();
                             for (int i = 0; i < array.length(); i++) {
                                 jsonObject = array.getJSONObject(i);
-                                userList.add(new KeyValueInfo(getStringValue(jsonObject, "fRealName"), getStringValue(jsonObject, "fUserId")));
+                                userList.add(new KeyValueInfo(getStringValue(jsonObject, "realName"), getStringValue(jsonObject, "id")));
                             }
                             result.setEntry(userList);
                             break;
@@ -2586,17 +2606,44 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_caseSaveAyfj:
                             break;
                         case HTTP_ID_compMonitor:
-                            jsonArray = getJSONArray(jsonObject, "data");
+                            jsonObject = getJSONObject(jsonObject, "data");
                             List<TaskCountInfo> taskCountInfo = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                jsonObject = jsonArray.getJSONObject(i);
-                                TaskCountInfo countInfo = new TaskCountInfo();
-                                countInfo.status = getStringValue(jsonObject, "fStatus");
-                                countInfo.allCount = getIntValue(jsonObject, "QB");
-                                countInfo.soonCount = getIntValue(jsonObject, "JJYQ");
-                                countInfo.expireCount = getIntValue(jsonObject, "YQ");
-                                taskCountInfo.add(countInfo);
-                            }
+                            TaskCountInfo countInfo = new TaskCountInfo();
+                            countInfo.status = "0";
+                            countInfo.allCount = getIntValue(jsonObject, "0");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "10";
+                            countInfo.allCount = getIntValue(jsonObject, "10");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "20";
+                            countInfo.allCount = getIntValue(jsonObject, "20");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "30";
+                            countInfo.allCount = getIntValue(jsonObject, "30");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "40";
+                            countInfo.allCount = getIntValue(jsonObject, "40");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "50";
+                            countInfo.allCount = getIntValue(jsonObject, "50");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "60";
+                            countInfo.allCount = getIntValue(jsonObject, "60");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "70";
+                            countInfo.allCount = getIntValue(jsonObject, "70");
+                            taskCountInfo.add(countInfo);
+                            countInfo = new TaskCountInfo();
+                            countInfo.status = "80";
+                            countInfo.allCount = getIntValue(jsonObject, "80");
+                            taskCountInfo.add(countInfo);
                             result.setEntry(taskCountInfo);
                             break;
                         case HTTP_ID_compPageQuery:
@@ -2641,7 +2688,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<SelectPopDataList> selectPopDataLists = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                selectPopDataLists.add(new SelectPopDataList(jsonArray.getString(i), jsonArray.getString(i)));
+                                selectPopDataLists.add(new SelectPopDataList(getStringValue(jsonArray.getJSONObject(i),"name"), getStringValue(jsonArray.getJSONObject(i),"id")));
                             }
                             result.setEntry(selectPopDataLists);
                             break;
@@ -2943,6 +2990,33 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 punishCount.add(punishInfo);
                             }
                             result.setEntry(punishCount);
+                            break;
+                        case HTTP_ID_statistics_comp_countType:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> typeInfo = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject typeObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo typeKV = new KeyValueInfo();
+                                typeKV.key = getStringValue(typeObject, "name");
+                                typeKV.value = getStringValue(typeObject, "1");
+//                                typeKV.value1 = getStringValue(typeObject, "0");
+                                typeInfo.add(typeKV);
+                            }
+                            result.setEntry(typeInfo);
+                            break;
+                        case HTTP_ID_statistics_comp_countDepartment:
+                        case HTTP_ID_statistics_comp_countInfo:
+                        case HTTP_ID_statistics_comp_countBussiniss:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> compInfos = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject compObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo compKV = new KeyValueInfo();
+                                compKV.key = getStringValue(compObject, "name");
+                                compKV.value = getStringValue(compObject, "value");
+                                compInfos.add(compKV);
+                            }
+                            result.setEntry(compInfos);
                             break;
                         default:
                             break;

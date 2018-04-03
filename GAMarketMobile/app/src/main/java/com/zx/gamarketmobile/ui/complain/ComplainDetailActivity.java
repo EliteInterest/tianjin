@@ -9,10 +9,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zx.gamarketmobile.R;
+import com.zx.gamarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
+import com.zx.gamarketmobile.http.ApiData;
+import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
+import com.zx.gamarketmobile.util.Util;
 
 /**
  * Create By Xiangb On 2017/3/22
@@ -28,7 +32,7 @@ public class ComplainDetailActivity extends BaseActivity {
     private boolean monitor = false;
     public Dialog dialog = null;
 
-
+    private ApiData getCompById = new ApiData(ApiData.HTTP_ID_compInfoById);
 
 
     @Override
@@ -42,6 +46,7 @@ public class ComplainDetailActivity extends BaseActivity {
         addToolBar(true);
         setMidText("投诉举报详情");
         getRightImg().setOnClickListener(this);
+        getCompById.setLoadingListener(this);
 
         //获取传递的参数
         if (getIntent().hasExtra("entity")) {
@@ -73,12 +78,30 @@ public class ComplainDetailActivity extends BaseActivity {
 
         mTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
-        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(mEntity.getFGuid()), "基本信息");
-        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(mEntity.getFGuid()), "处置动态");
 
-        mVpContent.setOffscreenPageLimit(2);
+        mVpContent.setOffscreenPageLimit(5);
         mVpContent.setAdapter(myPagerAdapter);
+        Util.dynamicSetTabLayoutMode(mTabLayout);
+//        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mVpContent);
+
+        getCompById.loadData(mEntity.getFGuid());
+    }
+
+    @Override
+    public void onLoadComplete(int id, BaseHttpResult baseHttpResult) {
+        super.onLoadComplete(id, baseHttpResult);
+        ComplainInfoDetailsBean compInfoEntity = (ComplainInfoDetailsBean) baseHttpResult.getEntry();
+        myPagerAdapter.fragmentList.clear();
+        myPagerAdapter.fragmentTitleList.clear();
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 0), "登记信息");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 1), "主体信息");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 2), "投诉举报信息");
+        if (mEntity.getFStatus() != 10 && mEntity.getFStatus() != 20) {
+            myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 3), "处置信息");
+        }
+        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(compInfoEntity.getStatusInfo()), "处置动态");
+        myPagerAdapter.notifyDataSetChanged();
     }
 
     @Override

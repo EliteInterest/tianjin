@@ -116,7 +116,7 @@ public class ComplainSearchFragment extends BaseFragment implements LoadMoreList
 
     //数据加载
     private void loadData() {
-        compSearch.loadData(etSearchDetail.getText().toString(), mPageNo, mPageSize, userInfo.getDepartmentAlias());
+        compSearch.loadData(mPageNo, mPageSize, etSearchDetail.getText().toString().trim());
     }
 
     @Override

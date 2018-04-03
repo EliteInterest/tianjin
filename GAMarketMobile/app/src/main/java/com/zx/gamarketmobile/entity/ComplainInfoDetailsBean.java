@@ -1,5 +1,6 @@
 package com.zx.gamarketmobile.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * 说    明：
  * ================================================
  */
-public class ComplainInfoDetailsBean {
+public class ComplainInfoDetailsBean implements Serializable {
 
     /**
      * baseInfo : {"fGuid":"e423a67202e045e09e9f8f6b558f9a84","fRegId":"20151297","fRegTime":1435284393000,"fRegName":"陆建军","fRegOrg":"消保科","fReceiveType":null,"fSource":"12331","fName":"王先生","fGender":"男","fJob":null,"fRegPhone":"15023655736","fNation":"汉族","fLocalConsumer":"是","fNationality":"中国","fTelephone":null,"fCellphone":"15023655736","fFax":null,"fEmail":null,"fContactInfo":null,"fAge":null,"fDisabled":null,"fProviderType":null,"fLicType":"身份证","fLicNum":null,"fWorkOrg":null,"fAddress":null,"fZipcode":null,"fEntityName":"华荣货运市场生活服务区鲜鱼庄","fEntityPhone":"0","fEntityIndustry":"餐饮服务","fEntityAddress":"华荣货运市场生活服务区","fProductName":null,"fBrandName":null,"fProductType":null,"fKeyword":null,"fConsumeType":"服务","fNature":"质量","fUrgency":"一般事件","fSignificant":"否","fSpotNeed":"否","fMoney":"0.0000000","fCaseValue":null,"fEconomyLost":null,"fEventAddress":"华荣货运市场生活服务区","fEventTime":null,"fAffectedPeople":null,"fFollow":"否","fRepeatedly":"否","fGroup":"否","fResponse":"否","fSecrecy":"否","fOpenWeb":"否","fType":"投诉","fLongitude":106.527254,"fLatitude":29.633288,"fPushed":0,"fEntityGuid":null,"fInputUser":"1","fInputTime":1435285352000,"fCount":null,"fLimitTime":1440468393000,"fConsumeType1":"餐饮和住宿服务","fContactBool":"是","fContactAvenue":"电话","fAutocomId":null,"fFilename":null,"fFilepath":null,"fSegment":"流通","fRecoupedeconomyLost":"0","fEntityType":null,"fCompanyType":null,"fMarketName":null,"fGoodsMark":null,"fProducerGrid":null,"fProducer":null,"fParts":null,"fSaleGrid":null,"fSale":null,"fMediationEnddate":null,"fInfringementType":null,"fObligationsFails":null,"fAdjustWay":null,"fFraudLogo":null,"fDisputeAmount":null,"fSpiritAmount":null,"fDoubleCompensation":null,"fMediationId":null,"fAcceptType":null,"fEmergencyState":null,"fHandleDepartment":null,"fUnitType":null,"fAgent":null,"fFeedbackRegistrar":null,"fCaseClues":null,"fConsumeType2":null,"fConsumeType3":null,"fConsumeType4":null,"fNature1":null,"fNature2":null,"fAgentPhone":null,"fTNum":null,"fDelayFlag":"0","fRefundAmount":null,"fConfiscateAmount":null,"fFineAmount":null,"fRefundPeoplenum":null,"fCaseRegister":null,"fCaseType":null,"fCenepunish":null,"fCaseId":null,"fPrograme":null,"fCaseFillingDate":null,"fCaseCloseDate":null,"fCaseGrid":null,"fCaseAmount":null,"fCaseCharacter":null,"fLostMoney":null,"fGainMoney":null,"fIllegalType":null,"fFineMoney":null,"fPunishType":null,"fFake":null,"fForceMeasure":null,"fAzh":null,"fAcrossType":null,"fAcrossAmount":null,"fCasePlace":null,"fHurtType":null,"fHurtNumber":null,"fChangeNumber":null,"fLawerNumber":null,"fVehicleNumber":null,"fMarketNumber":null,"fSaleNumber":null,"fViolence":null,"fInjured":null,"fDead":null,"fCustomType":null,"fReduce":null,"fNone":null,"fCosumeConfirm":null,"fExcuteType":null,"fExcuteDate":null,"fStopDate":null,"fStatus":20,"fNextDeadline":null,"fDisposeUser":null,"fStation":null,"fGrid":null,"fProof":"无","fBriefInfo":null,"fContent":"投诉举报人王先生举报人和华荣市场生活服务区鲜鱼庄卫生条件极差，鱼不清洗就下锅，望调查处理。","fAdvice":null,"fMediationResult":null,"fFeedbackContent":null,"fGist":null,"fPunishResult":null,"fPunishGist":null,"fStopReason":null,"fCancelCondition":null}
@@ -36,7 +37,7 @@ public class ComplainInfoDetailsBean {
         this.statusInfo = statusInfo;
     }
 
-    public static class BaseInfoBean {
+    public static class BaseInfoBean implements Serializable {
         /**
          * fGuid : e423a67202e045e09e9f8f6b558f9a84
          * fRegId : 20151297
@@ -234,6 +235,7 @@ public class ComplainInfoDetailsBean {
         private String fProductName;
         private String fBrandName;
         private String fProductType;
+        private String fDepartMent;
         private String fKeyword;
         private String fConsumeType;
         private String fNature;
@@ -258,9 +260,9 @@ public class ComplainInfoDetailsBean {
         private int fPushed;
         private String fEntityGuid;
         private String fInputUser;
-        private long fInputTime;
+        private String fInputTime;
         private String fCount;
-        private long fLimitTime;
+        private String fLimitTime;
         private String fConsumeType1;
         private String fContactBool;
         private String fContactAvenue;
@@ -360,6 +362,77 @@ public class ComplainInfoDetailsBean {
         private String fPunishGist;
         private String fStopReason;
         private String fCancelCondition;
+        private String fBusinessSource;
+        private String fDisposeUnit;
+        private String fReplyContent;
+        private String fEntityPerson;
+        private String fSalesWay;
+        private String fInfoSource;
+        private String fReviewResult;
+
+        public String getfReviewResult() {
+            return fReviewResult;
+        }
+
+        public void setfReviewResult(String fReviewResult) {
+            this.fReviewResult = fReviewResult;
+        }
+
+        public String getfInfoSource() {
+            return fInfoSource;
+        }
+
+        public void setfInfoSource(String fInfoSource) {
+            this.fInfoSource = fInfoSource;
+        }
+
+        public String getfSalesWay() {
+            return fSalesWay;
+        }
+
+        public void setfSalesWay(String fSalesWay) {
+            this.fSalesWay = fSalesWay;
+        }
+
+        public String getfEntityPerson() {
+            return fEntityPerson;
+        }
+
+        public void setfEntityPerson(String fEntityPerson) {
+            this.fEntityPerson = fEntityPerson;
+        }
+
+        public String getfReplyContent() {
+            return fReplyContent;
+        }
+
+        public void setfReplyContent(String fReplyContent) {
+            this.fReplyContent = fReplyContent;
+        }
+
+        public String getfDisposeUnit() {
+            return fDisposeUnit;
+        }
+
+        public void setfDisposeUnit(String fDisposeUnit) {
+            this.fDisposeUnit = fDisposeUnit;
+        }
+
+        public String getfBusinessSource() {
+            return fBusinessSource;
+        }
+
+        public void setfBusinessSource(String fBusinessSource) {
+            this.fBusinessSource = fBusinessSource;
+        }
+
+        public String getfDepartMent() {
+            return fDepartMent;
+        }
+
+        public void setfDepartMent(String fDepartMent) {
+            this.fDepartMent = fDepartMent;
+        }
 
         public String getFGuid() {
             return fGuid;
@@ -825,11 +898,11 @@ public class ComplainInfoDetailsBean {
             this.fInputUser = fInputUser;
         }
 
-        public long getFInputTime() {
+        public String getFInputTime() {
             return fInputTime;
         }
 
-        public void setFInputTime(long fInputTime) {
+        public void setFInputTime(String fInputTime) {
             this.fInputTime = fInputTime;
         }
 
@@ -841,11 +914,11 @@ public class ComplainInfoDetailsBean {
             this.fCount = fCount;
         }
 
-        public long getFLimitTime() {
+        public String getFLimitTime() {
             return fLimitTime;
         }
 
-        public void setFLimitTime(long fLimitTime) {
+        public void setFLimitTime(String fLimitTime) {
             this.fLimitTime = fLimitTime;
         }
 
@@ -1517,6 +1590,27 @@ public class ComplainInfoDetailsBean {
             return fStatus;
         }
 
+        public String getfStatusString() {
+            if (fStatus == 0) {
+                return "信息录入";
+            } else if (fStatus == 10) {
+                return "待受理";
+            } else if (fStatus == 20) {
+                return "待分流";
+            } else if (fStatus == 30) {
+                return "待指派";
+            } else if (fStatus == 50) {
+                return "待处置";
+            } else if (fStatus == 60) {
+                return "待审核";
+            } else if (fStatus == 80) {
+                return "待办结";
+            } else if (fStatus == 90) {
+                return "已办结";
+            }
+            return fStatus + "";
+        }
+
         public void setFStatus(int fStatus) {
             this.fStatus = fStatus;
         }
@@ -1642,7 +1736,7 @@ public class ComplainInfoDetailsBean {
         }
     }
 
-    public static class StatusInfoBean {
+    public static class StatusInfoBean implements Serializable {
         /**
          * fGuid : e423a67202e045e09e9f8f6b558f9a84
          * fStatus : 10

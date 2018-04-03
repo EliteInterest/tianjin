@@ -1,6 +1,6 @@
 package com.zx.gamarketmobile.ui.base;
 
-import android.app  .ProgressDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -193,6 +193,7 @@ public class BaseActivity extends AppCompatActivity implements BaseRequestData.O
                 return;
             }
         }
+
     }
 
     public void clearLogin() {
@@ -204,6 +205,7 @@ public class BaseActivity extends AppCompatActivity implements BaseRequestData.O
         edit.putString("fUserId", "");
         edit.putBoolean("isLogin", false);
         edit.commit();
+        userManager.setNoLogin(this);
     }
 
     protected void onDestroy() {

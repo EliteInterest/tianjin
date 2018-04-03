@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.entity.ComplainInfoEntity;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -51,12 +52,39 @@ public class ComplainListAdapter extends MyRecycleAdapter {
             myHolder = (Holder) holder;
             ComplainInfoEntity mEntity = mItemList.get(position);
             myHolder.tvTaskType.setText(mEntity.getFType());
-            myHolder.tvTaskTime.setText(mEntity.getFRegTime() + "");
-            myHolder.tvTaskName.setText(mEntity.getFGuid());
-            myHolder.tvRegcompany.setText(mEntity.getFEntityName());
+            myHolder.tvTaskTime.setText(DateUtil.getDateFromMillis(mEntity.getFRegTime()));
+            myHolder.tvTaskName.setText(mEntity.getFEntityName());
+            myHolder.tvRegcompany.setText(mEntity.getFName());
             if (mEntity.getFStatus() != 0) {
                 myHolder.tvTitleText.setText("流程状态:");
-                myHolder.tvTaskUnit.setText(mEntity.getFStatus());
+                switch (mEntity.getFStatus()) {
+                    case 0:
+                        myHolder.tvTaskUnit.setText("信息录入");
+                        break;
+                    case 10:
+                        myHolder.tvTaskUnit.setText("待受理");
+                        break;
+                    case 20:
+                        myHolder.tvTaskUnit.setText("待分流");
+                        break;
+                    case 30:
+                        myHolder.tvTaskUnit.setText("待指派");
+                        break;
+                    case 50:
+                        myHolder.tvTaskUnit.setText("待处置");
+                        break;
+                    case 60:
+                        myHolder.tvTaskUnit.setText("待审核");
+                        break;
+                    case 80:
+                        myHolder.tvTaskUnit.setText("待办结");
+                        break;
+                    case 90:
+                        myHolder.tvTaskUnit.setText("已办结");
+                        break;
+                    default:
+                        break;
+                }
             } else {
                 myHolder.tvTitleText.setText("登记单位:");
 //                myHolder.tvTaskUnit.setText(mEntity.getfRegUnit());

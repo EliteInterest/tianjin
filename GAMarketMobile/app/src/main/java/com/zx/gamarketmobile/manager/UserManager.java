@@ -36,9 +36,10 @@ public class UserManager {
         return user.isLogin();
     }
 
-    public void setNoLogin(Context context){
+    public void setNoLogin(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putBoolean("isLogin", false).commit();
+        user.setIsLogin(false);
     }
 
     public void init(Context context) {
@@ -52,6 +53,7 @@ public class UserManager {
         user.setUserName(sp.getString("fUserName", null));
         user.setDuty(sp.getString("fDuty", null));
         user.setDepartment(sp.getString("fDepartment", null));
+        user.setDepartmentCode(sp.getString("departmentCode", ""));
         user.setDepartmentAlias(sp.getString("fDepartmentAlias", null));
         user.setDesc(sp.getString("fDesc", null));
         user.setTelephone(sp.getString("fTelephone", null));
@@ -79,6 +81,7 @@ public class UserManager {
         editor.putString("authority", user.getAuthority());
         editor.putString("fGrid", user.getGrid());
         editor.putBoolean("isLogin", user.isLogin());
+        editor.putString("departmentCode", user.getDepartmentCode());
         editor.commit();
     }
 

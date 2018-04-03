@@ -72,7 +72,37 @@ public class ComplainMonitorFragment extends BaseFragment {
         TextView tvAllNum = (TextView) view.findViewById(R.id.tvItemTask_allnum);
         TextView tvJjdqNum = (TextView) view.findViewById(R.id.tvItemTask_jjdqnum);
         TextView tvYqNum = (TextView) view.findViewById(R.id.tvItemTask_yqnum);
-        tvName.setText(task.status);
+        switch (task.status) {
+            case "0":
+                tvName.setText("信息录入");
+                break;
+            case "10":
+                tvName.setText("待受理");
+                break;
+            case "20":
+                tvName.setText("待分流");
+                break;
+            case "30":
+                tvName.setText("待指派");
+                break;
+            case "50":
+                tvName.setText("待处置");
+                break;
+            case "60":
+                tvName.setText("待审核");
+                break;
+            case "80":
+                tvName.setText("待办结");
+                break;
+            case "81":
+                tvName.setText("待办结");
+                break;
+            case "90":
+                tvName.setText("已办结");
+                break;
+            default:
+                break;
+        }
         if (task.allCount > 0) {
             tvAllNum.setText(task.allCount + "");
             tvAllNum.setVisibility(View.VISIBLE);

@@ -14,21 +14,28 @@ import java.util.regex.Pattern;
 /**
  * <h3>日期工具类</h3>
  * <p>主要实现了日期的常用操作
- *
  */
 @SuppressLint("SimpleDateFormat")
 public final class DateUtil {
 
-    /** yyyy-MM-dd HH:mm:ss字符串 */
+    /**
+     * yyyy-MM-dd HH:mm:ss字符串
+     */
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    /** yyyy-MM-dd字符串 */
+    /**
+     * yyyy-MM-dd字符串
+     */
     public static final String DEFAULT_FORMAT_DATE = "yyyy-MM-dd";
 
-    /** HH:mm:ss字符串 */
+    /**
+     * HH:mm:ss字符串
+     */
     public static final String DEFAULT_FORMAT_TIME = "HH:mm:ss";
 
-    /** yyyy-MM-dd HH:mm:ss格式 */
+    /**
+     * yyyy-MM-dd HH:mm:ss格式
+     */
     public static final ThreadLocal<SimpleDateFormat> defaultDateTimeFormat = new ThreadLocal<SimpleDateFormat>() {
 
         @Override
@@ -38,7 +45,9 @@ public final class DateUtil {
 
     };
 
-    /** yyyy-MM-dd格式 */
+    /**
+     * yyyy-MM-dd格式
+     */
     public static final ThreadLocal<SimpleDateFormat> defaultDateFormat = new ThreadLocal<SimpleDateFormat>() {
 
         @Override
@@ -48,7 +57,9 @@ public final class DateUtil {
 
     };
 
-    /** HH:mm:ss格式 */
+    /**
+     * HH:mm:ss格式
+     */
     public static final ThreadLocal<SimpleDateFormat> defaultTimeFormat = new ThreadLocal<SimpleDateFormat>() {
 
         @Override
@@ -64,6 +75,7 @@ public final class DateUtil {
 
     /**
      * 将long时间转成yyyy-MM-dd HH:mm:ss字符串<br>
+     *
      * @param timeInMillis 时间long值
      * @return yyyy-MM-dd HH:mm:ss
      */
@@ -73,6 +85,7 @@ public final class DateUtil {
 
     /**
      * 将long时间转成yyyy-MM-dd字符串<br>
+     *
      * @param timeInMillis
      * @return yyyy-MM-dd
      */
@@ -80,11 +93,22 @@ public final class DateUtil {
         return getDateFormat(new Date(timeInMillis));
     }
 
+    public static String getDateFromMillis(String timeInMillis) {
+        try {
+            long time = Long.parseLong(timeInMillis);
+            return getDateFormat(new Date(time));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getDateFormat(new Date(0));
+        }
+    }
+
     /**
      * 将date转成yyyy-MM-dd HH:mm:ss字符串
      * <br>
+     *
      * @param date Date对象
-     * @return  yyyy-MM-dd HH:mm:ss
+     * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getDateTimeFormat(Date date) {
         return dateSimpleFormat(date, defaultDateTimeFormat.get());
@@ -92,11 +116,12 @@ public final class DateUtil {
 
     /**
      * 将年月日的int转成yyyy-MM-dd的字符串
-     * @param year 年
+     *
+     * @param year  年
      * @param month 月 1-12
-     * @param day 日
-     * 注：月表示Calendar的月，比实际小1
-     * 对输入项未做判断
+     * @param day   日
+     *              注：月表示Calendar的月，比实际小1
+     *              对输入项未做判断
      */
     public static String getDateFormat(int year, int month, int day) {
         return getDateFormat(getDate(year, month, day));
@@ -104,6 +129,7 @@ public final class DateUtil {
 
     /**
      * 将date转成yyyy-MM-dd字符串<br>
+     *
      * @param date Date对象
      * @return yyyy-MM-dd
      */
@@ -113,6 +139,7 @@ public final class DateUtil {
 
     /**
      * 获得HH:mm:ss的时间
+     *
      * @param date
      * @return
      */
@@ -122,7 +149,8 @@ public final class DateUtil {
 
     /**
      * 格式化日期显示格式
-     * @param sdate 原始日期格式 "yyyy-MM-dd"
+     *
+     * @param sdate  原始日期格式 "yyyy-MM-dd"
      * @param format 格式化后日期格式
      * @return 格式化后的日期显示
      */
@@ -134,7 +162,8 @@ public final class DateUtil {
 
     /**
      * 格式化日期显示格式
-     * @param date Date对象
+     *
+     * @param date   Date对象
      * @param format 格式化后日期格式
      * @return 格式化后的日期显示
      */
@@ -145,10 +174,11 @@ public final class DateUtil {
 
     /**
      * 将date转成字符串
-     * @param date Date
+     *
+     * @param date   Date
      * @param format SimpleDateFormat
-     * <br>
-     * 注： SimpleDateFormat为空时，采用默认的yyyy-MM-dd HH:mm:ss格式
+     *               <br>
+     *               注： SimpleDateFormat为空时，采用默认的yyyy-MM-dd HH:mm:ss格式
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String dateSimpleFormat(Date date, SimpleDateFormat format) {
@@ -159,6 +189,7 @@ public final class DateUtil {
 
     /**
      * 将"yyyy-MM-dd HH:mm:ss" 格式的字符串转成Date
+     *
      * @param strDate 时间字符串
      * @return Date
      */
@@ -168,6 +199,7 @@ public final class DateUtil {
 
     /**
      * 将"yyyy-MM-dd" 格式的字符串转成Date
+     *
      * @param strDate
      * @return Date
      */
@@ -177,8 +209,9 @@ public final class DateUtil {
 
     /**
      * 将指定格式的时间字符串转成Date对象
+     *
      * @param strDate 时间字符串
-     * @param format 格式化字符串
+     * @param format  格式化字符串
      * @return Date
      */
     public static Date getDateByFormat(String strDate, String format) {
@@ -188,9 +221,10 @@ public final class DateUtil {
     /**
      * 将String字符串按照一定格式转成Date<br>
      * 注： SimpleDateFormat为空时，采用默认的yyyy-MM-dd HH:mm:ss格式
+     *
      * @param strDate 时间字符串
-     * @param format SimpleDateFormat对象
-     * @exception ParseException 日期格式转换出错
+     * @param format  SimpleDateFormat对象
+     * @throws ParseException 日期格式转换出错
      */
     private static Date getDateByFormat(String strDate, SimpleDateFormat format) {
         if (format == null)
@@ -205,10 +239,11 @@ public final class DateUtil {
 
     /**
      * 将年月日的int转成date
-     * @param year 年
+     *
+     * @param year  年
      * @param month 月 1-12
-     * @param day 日
-     * 注：月表示Calendar的月，比实际小1
+     * @param day   日
+     *              注：月表示Calendar的月，比实际小1
      */
     public static Date getDate(int year, int month, int day) {
         Calendar mCalendar = Calendar.getInstance();
@@ -220,7 +255,7 @@ public final class DateUtil {
      * 求两个日期相差天数
      *
      * @param strat 起始日期，格式yyyy-MM-dd
-     * @param end 终止日期，格式yyyy-MM-dd
+     * @param end   终止日期，格式yyyy-MM-dd
      * @return 两个日期相差天数
      */
     public static long getIntervalDays(String strat, String end) {
@@ -230,6 +265,7 @@ public final class DateUtil {
 
     /**
      * 获得当前年份
+     *
      * @return year(int)
      */
     public static int getCurrentYear() {
@@ -239,6 +275,7 @@ public final class DateUtil {
 
     /**
      * 获得当前月份
+     *
      * @return month(int) 1-12
      */
     public static int getCurrentMonth() {
@@ -248,6 +285,7 @@ public final class DateUtil {
 
     /**
      * 获得当月几号
+     *
      * @return day(int)
      */
     public static int getDayOfMonth() {
@@ -257,6 +295,7 @@ public final class DateUtil {
 
     /**
      * 获得今天的日期(格式：yyyy-MM-dd)
+     *
      * @return yyyy-MM-dd
      */
     public static String getToday() {
@@ -266,6 +305,7 @@ public final class DateUtil {
 
     /**
      * 获得昨天的日期(格式：yyyy-MM-dd)
+     *
      * @return yyyy-MM-dd
      */
     public static String getYesterday() {
@@ -276,6 +316,7 @@ public final class DateUtil {
 
     /**
      * 获得前天的日期(格式：yyyy-MM-dd)
+     *
      * @return yyyy-MM-dd
      */
     public static String getBeforeYesterday() {
@@ -286,6 +327,7 @@ public final class DateUtil {
 
     /**
      * 获得几天之前或者几天之后的日期
+     *
      * @param diff 差值：正的往后推，负的往前推
      * @return
      */
@@ -310,7 +352,7 @@ public final class DateUtil {
     /**
      * 取得给定日期加上一定天数后的日期对象.
      *
-     * @param date 给定的日期对象
+     * @param date   给定的日期对象
      * @param amount 需要添加的天数，如果是向前的天数，使用负数就可以.
      * @return Date 加上一定天数以后的Date对象.
      */
@@ -323,6 +365,7 @@ public final class DateUtil {
 
     /**
      * 获得一个计算十分秒之后的日期对象
+     *
      * @param date
      * @param hOffset 时偏移量，可为负
      * @param mOffset 分偏移量，可为负
@@ -342,12 +385,12 @@ public final class DateUtil {
     /**
      * 根据指定的年月日小时分秒，返回一个java.Util.Date对象。
      *
-     * @param year 年
-     * @param month 月 0-11
-     * @param date 日
+     * @param year      年
+     * @param month     月 0-11
+     * @param date      日
      * @param hourOfDay 小时 0-23
-     * @param minute 分 0-59
-     * @param second 秒 0-59
+     * @param minute    分 0-59
+     * @param second    秒 0-59
      * @return 一个Date对象
      */
     public static Date getDate(int year, int month, int date, int hourOfDay,
@@ -359,6 +402,7 @@ public final class DateUtil {
 
     /**
      * 获得年月日数据
+     *
      * @param sDate yyyy-MM-dd格式
      * @return arr[0]:年， arr[1]:月 0-11 , arr[2]日
      */
@@ -368,6 +412,7 @@ public final class DateUtil {
 
     /**
      * 获得年月日数据
+     *
      * @return arr[0]:年， arr[1]:月 0-11 , arr[2]日
      */
     public static int[] getYearMonthAndDayFromDate(Date date) {
@@ -381,31 +426,31 @@ public final class DateUtil {
     }
 
 
-    public static String getFormatDate(EditText editText){
+    public static String getFormatDate(EditText editText) {
         String formatDateStr = "日期格式有误";
         String emptyDateStr = "";
-        if(editText.getText()!=null){
+        if (editText.getText() != null) {
             String content = editText.getText().toString();
-            if (!TextUtils.isEmpty(content)&!"".equals(content)){
+            if (!TextUtils.isEmpty(content) & !"".equals(content)) {
                 if (content.contains("年")
-                        &&content.contains("月")
-                        &&content.contains("日")){
+                        && content.contains("月")
+                        && content.contains("日")) {
                     formatDateStr = content.replaceAll("(?:年|月|日)", "-").trim();
                     String lastChar = formatDateStr.substring(formatDateStr.length() - 1, formatDateStr.length());
-                    if (lastChar.equals("-")){
-                        formatDateStr = formatDateStr.substring(0, formatDateStr.length()-1);
+                    if (lastChar.equals("-")) {
+                        formatDateStr = formatDateStr.substring(0, formatDateStr.length() - 1);
                     }
-                }else{
-                    if (isContainChinese(content)){
+                } else {
+                    if (isContainChinese(content)) {
                         return formatDateStr;
-                    }else{
+                    } else {
                         return content;
                     }
                 }
-            }else{
+            } else {
                 return emptyDateStr;
             }
-        }else{
+        } else {
             return emptyDateStr;
         }
         return formatDateStr;

@@ -110,7 +110,7 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
 
     //数据加载
     private void loadData() {
-        getTaskPage.loadData(fType, mPageNo, mPageSize, userInfo.getId());
+        getTaskPage.loadData(mPageNo, mPageSize, "","desc");
     }
 
     @Override

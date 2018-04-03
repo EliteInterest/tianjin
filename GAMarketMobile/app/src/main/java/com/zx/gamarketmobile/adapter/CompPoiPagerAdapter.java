@@ -52,8 +52,8 @@ public class CompPoiPagerAdapter extends PagerAdapter {
 //            int timeType = mEntity.getTimeType();
 //            setDrawable(timeType, "complain", myHolder.imgTimeType);
             tvTaskTime.setText(DateUtil.getDateFromMillis(entity.getFRegTime()));
-            tvTaskName.setText(entity.getFName());
-            tvRegcompany.setText(entity.getFEntityName());
+            tvTaskName.setText(entity.getFEntityName());
+            tvRegcompany.setText(entity.getFName());
 //            if (entity.getFStatus().length() != 0) {
 //                tvTitleText.setText("流程状态:");
 //                tvTaskUnit.setText(entity.getfStatus());
