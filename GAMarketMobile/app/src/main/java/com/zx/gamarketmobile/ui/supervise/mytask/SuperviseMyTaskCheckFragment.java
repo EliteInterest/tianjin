@@ -128,11 +128,12 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
 //        }else if (index==0){
 //            getMyTaskCheckEmtity.loadData(mEntity.getFTaskId(),userInfo.getId());
 //        }
-        if (mEntity != null && mEntity.getFTaskStatus().equals("待处置")) {
+        if (mEntity != null && mEntity.getStatus() == 3/*待处置*/) {
             addEntity.setVisibility(View.VISIBLE);
-            getMyTaskCheckEmtity.loadData(mEntity.getFTaskId(), userInfo.getId());
+            getMyTaskCheckEmtity.loadData(mEntity.getId(), userInfo.getId());
         } else {
-            getTaskCheckEmtity.loadData(mEntity.getFTaskId(), mPageSize, 1, mPageNo, userInfo.getId());
+//            getTaskCheckEmtity.loadData(mEntity.getFTaskId(), mPageSize, 1, mPageNo, userInfo.getId());
+            getTaskCheckEmtity.loadData(mEntity.getId(), mPageSize, 1, mPageNo, userInfo.getId());
         }
 
     }

@@ -47,10 +47,10 @@ public class SuperviseMyTaskPackageFragment extends BaseFragment {
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         getThisTaskPackageTask.setLoadingListener(this);
         mRvInfo.setLayoutManager(mLinearLayoutManager);
-        fId = mEntity.getFTaskId();
+        fId = mEntity.getId();
         superviseDetialPackageAdapter = new SuperviseDetialPackageAdapter(getActivity(), dataInfoList);
         mRvInfo.setAdapter(superviseDetialPackageAdapter);
-        getThisTaskPackageTask.loadData(fId, mEntity.getF_GUID());
+        getThisTaskPackageTask.loadData(fId, mEntity.getUserId());
 
         return view;
     }

@@ -8,7 +8,7 @@ package com.zx.gamarketmobile.http;
  */
 public abstract class BaseHttpParams<Param> {
     private String apiUrl;
-    private int port = 0;
+    private int port = -1;
     private HTTP_MOTHOD mothod = HTTP_MOTHOD.POST;
     private boolean isRetry = true;//是否请求第二次 默认为true
 
@@ -38,6 +38,10 @@ public abstract class BaseHttpParams<Param> {
      */
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+        if (port != -1) {
+            this.apiUrl += ":";
+            this.apiUrl += port;
+        }
     }
 
     public void setPort(int port) {

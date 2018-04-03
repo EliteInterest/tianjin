@@ -364,7 +364,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                 case HTTP_ID_login:
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
 //                    params.setPort(8030);
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + LOCAL_HOST_TAG + "/" + "login.do");
+                    params.setApiUrl(baseUrl + "/" + LOCAL_HOST_TAG + "/" + "login.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
 //                    params.putParams("method", "login");
 //                    params.putParams("loginname", objects[0]);
@@ -1105,14 +1105,14 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 case HTTP_ID_SuperviseTaskPage:
 //                    params.setPort(8030);
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + "TJsupervise/formulation/queryTaskList.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryTaskList.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
 
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
 //                    params.setRequestMothod(HTTP_MOTHOD.POST);
 //                    params.putParams("method", "getMyTodoTask");
                     params.putParams("pageNo", objects[0]);
-                    params.putParams("pagesize", objects[1]);
+                    params.putParams("pageSize", objects[1]);
                     params.putParams("status", objects[2]);
 //                    params.putParams("fetchNum", objects[2]);
 //                    params.putParams("fUserId", objects[3]);
@@ -1120,11 +1120,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                 case HTTP_ID_SuperviseTaskHisPage:
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
 //                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + "TJsupervise/formulation/queryTaskList.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryTaskList.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
 //                    params.putParams("method", "getMyDone");
                     params.putParams("pageNo", objects[0]);
-                    params.putParams("pagesize", objects[1]);
+                    params.putParams("pageSize", objects[1]);
                     params.putParams("status", objects[2]);
 //                    params.putParams("fetchNum", objects[2]);
 //                    params.putParams("fUserId", objects[3]);
@@ -1147,7 +1147,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fUserId", objects[0]);
                     break;
                 case HTTP_ID_superviseTaskBaseInfo:
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + "TJsupervise/formulation/queryTaskOne.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryTaskOne.do");
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("id", objects[0]);
@@ -1173,21 +1173,24 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 case HTTP_ID_SuperviseTaskCheckEntity:
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + "TJsupervise/formulation/queryItem.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryItem.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
 //                    params.putParams("method", "getEntityByTaskId");
-                    params.putParams("fTaskId", objects[0]);
+                    params.putParams("taskId", objects[0]);
 //                    params.putParams("pageSize", objects[1]);
 //                    params.putParams("fetchNum", objects[2]);
 //                    params.putParams("pageNo", objects[3]);
 //                    params.putParams("fUserId", objects[4]);
                     break;
                 case HTTP_ID_SuperviseMyTaskCheckEntity:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getMyDisposal");
-                    params.putParams("fTaskId", objects[0]);
-                    params.putParams("fUserId", objects[1]);
+//                    params.setApiUrl(baseUrl + "GaClientService.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/queryItemResult.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
+//                    params.setRequestMothod(HTTP_MOTHOD.POST);
+//                    params.putParams("method", "getMyDisposal");
+//                    params.putParams("fTaskId", objects[0]);
+//                    params.putParams("fUserId", objects[1]);
                     break;
                 case HTTP_ID_Supervise_MyTask_sendTask:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1250,16 +1253,21 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fUserId", objects[3]);
                     break;
                 case HTTP_ID_Supervise_MyTask_executeMyTask:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
+//                    params.setApiUrl(baseUrl + "GaClientService.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/saveItemResult.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "executeMyTask");
-                    params.putParams("guid", objects[0]);
+//                    params.putParams("method", "executeMyTask");
+                    params.putParams("id", objects[0]);
                     break;
                 case HTTP_ID_Supervise_MyTask_getCheckResult:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.GET);
-                    params.putParams("method", "getStatusBaseInfo");
-                    params.putParams("fGuid", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/finishTask.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+//                    params.putParams("method", "executeMyTask");
+                    params.putParams("id", objects[0]);
+//                    params.setApiUrl(baseUrl + "GaClientService.do");
+//                    params.setRequestMothod(HTTP_MOTHOD.GET);
+//                    params.putParams("method", "getStatusBaseInfo");
+//                    params.putParams("fGuid", objects[0]);
                     break;
                 case HTTP_ID_Supervise_MyTask_disposalTask:
                     params.setApiUrl(baseUrl + "GaClientService.do");

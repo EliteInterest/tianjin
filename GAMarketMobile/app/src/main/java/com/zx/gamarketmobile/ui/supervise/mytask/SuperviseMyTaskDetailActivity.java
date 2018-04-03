@@ -53,7 +53,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
             mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
             index = getIntent().getIntExtra("index", 0);
             type = getIntent().getIntExtra("type", 0);
-            setMidText(mEntity.getFCreateDepartment());
+            setMidText(mEntity.getDepartmentId());
 //            getIsBackTask.setLoadingListener(this);
             sendBackTask.setLoadingListener(this);
 //            getIsBackTask.loadData(mEntity.getF_GUID(), mEntity.getFTaskId(), userInfo.getId());
@@ -75,7 +75,8 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
             btnExcute.setVisibility(View.GONE);
             btnOther.setVisibility(View.GONE);
         }
-        if ("0".equals(mEntity.getfIsBack())) {
+//        if ("0".equals(mEntity.getfIsBack())) {
+        if ("0".equals(mEntity.getOverdue())) {
             btnOther.setVisibility(View.GONE);
         }
     }
@@ -84,10 +85,10 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
         myCheckfragment = SuperviseMyTaskCheckFragment.newInstance(mEntity, index, type);
-        myPagerAdapter.addFragment(SuperviseMyTaskBaseInfoFragment.newInstance(this,mEntity), "基本信息");
-        myPagerAdapter.addFragment(SuperviseMyTaskFlowFragment.newInstance(this, mEntity), "流程轨迹");
+        myPagerAdapter.addFragment(SuperviseMyTaskBaseInfoFragment.newInstance(this, mEntity), "基本信息");
+//        myPagerAdapter.addFragment(SuperviseMyTaskFlowFragment.newInstance(this, mEntity), "流程轨迹");
         myPagerAdapter.addFragment(myCheckfragment, "检查主体");
-        myPagerAdapter.addFragment(SuperviseMyTaskPackageFragment.newInstance(mEntity), "打包任务");
+//        myPagerAdapter.addFragment(SuperviseMyTaskPackageFragment.newInstance(mEntity), "打包任务");
 
         mVpContent.setOffscreenPageLimit(3);
         mVpContent.setAdapter(myPagerAdapter);
@@ -125,22 +126,23 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
 
                 break;
             case R.id.btnActCase_execute:
-                if (mEntity.getFTaskStatus() != null) {
-                    if (mEntity.getFTaskStatus().equals("待处置")) {//待处置
+//                if (mEntity.getFTaskStatus() != null) {
+                    if (mEntity.getStatus() == 3) {//待处置
                         mVpContent.setCurrentItem(2);
-                    } else if (mEntity.getFTaskStatus().equals("审核未通过")) {
+                    } else if (mEntity.getStatus() == 1)//"审核未通过"))????
+                     {
                         showToast("当前状态审核未通过，请在服务端重新修改提交！");
                     } else {
                         Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
                         intent.putExtra("entity", mEntity);
                         startActivity(intent);
                     }
-                }
+//                }
                 break;
             case R.id.btnActCase_other:
                 if (getIntent().hasExtra("entity")) {
                     mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
-                    sendBackTask.loadData(mEntity.getF_GUID(), mEntity.getFTaskId(), userInfo.getId());
+                    sendBackTask.loadData(mEntity.getUserId(), mEntity.getId(), userInfo.getId());
                 }
                 break;
             default:
@@ -190,7 +192,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (myCheckfragment.addEntityView!=null&&myCheckfragment.addEntityView.dialog!=null){
+        if (myCheckfragment.addEntityView != null && myCheckfragment.addEntityView.dialog != null) {
             myCheckfragment.addEntityView.dialog.hide();
         }
     }
@@ -198,7 +200,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (myCheckfragment.addEntityView!=null&&myCheckfragment.addEntityView.dialog!=null){
+        if (myCheckfragment.addEntityView != null && myCheckfragment.addEntityView.dialog != null) {
             myCheckfragment.addEntityView.dialog.dismiss();
         }
     }

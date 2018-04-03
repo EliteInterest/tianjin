@@ -2,6 +2,7 @@ package com.zx.gamarketmobile.adapter.supervise;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.MyRecycleAdapter;
 import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -19,9 +21,10 @@ import java.util.List;
  * Created by zhouzq on 2017/3/23.
  */
 
-public class SuperviseMyTaskListAdapter extends MyRecycleAdapter{
-
-    private List<MyTaskListEntity.RowsBean> mItemList;
+public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
+    private static final String TAG = "SuperviseMyTaskListAdapter";
+    private List<MyTaskListEntity.RowsBean> mItemList = null;
+    //    private List<MyTaskListTJEntity.RowsBean> mTJItemList = null;
     private Context mContext;
     private boolean showOverdue = false;
     public Holder myHolder;
@@ -50,12 +53,28 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
+//            if (mTJItemList != null) {
             MyTaskListEntity.RowsBean entity = mItemList.get(position);
-            myHolder.tvField.setText(entity.getFTaskStatus());
-            myHolder.tvDate.setText(entity.getFCreateDate());
-            myHolder.tvName.setText(entity.getFTaskName());
-            myHolder.tvPerson.setText(entity.getFCreateName());
-            myHolder.tvStage.setText(entity.getFCreateDepartment());
+            Log.i(TAG, "status is " + entity.getStatus());
+            Log.i(TAG, "getStartDate is " + DateUtil.getDateTimeFromMillis(entity.getStartDate()));
+            Log.i(TAG, "getTaskName is " + entity.getTaskName());
+            Log.i(TAG, "getUserName is " + entity.getUserName());
+            Log.i(TAG, "getDepartmentId is " + entity.getDepartmentId());
+
+
+            myHolder.tvField.setText(String.valueOf(entity.getStatus()));
+            myHolder.tvDate.setText(DateUtil.getDateTimeFromMillis(entity.getStartDate()));
+            myHolder.tvName.setText(entity.getTaskName());
+            myHolder.tvPerson.setText(entity.getUserName());
+            myHolder.tvStage.setText(entity.getDepartmentId());
+//            } else {
+//                MyTaskListEntity.RowsBean entity = mItemList.get(position);
+//                myHolder.tvField.setText(entity.getFTaskStatus());
+//                myHolder.tvDate.setText(entity.getFCreateDate());
+//                myHolder.tvName.setText(entity.getFTaskName());
+//                myHolder.tvPerson.setText(entity.getFCreateName());
+//                myHolder.tvStage.setText(entity.getFCreateDepartment());
+//            }
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

@@ -78,7 +78,7 @@ public class SuperviseMyTaskCheckActivity extends BaseActivity implements View.O
     private RecyclerView checkResultRecycleView;
     private SuperviseMyTaskCheckResultAdapter mAdapter;
     private List<MyTaskCheckResultEntity.DataBean> dataList = new ArrayList<>();
-    private String taskState = "";
+    private int taskState;
     //    private LinearLayout checkExcuteLayout, checkResultLayout;
     private Button checkExcuteBtn;
     private RadioButton radioButtonSecord, radioButtonThird;
@@ -188,7 +188,7 @@ public class SuperviseMyTaskCheckActivity extends BaseActivity implements View.O
         } else {
             checkResultRecycleView.setVisibility(View.GONE);
         }
-        taskState = mTaskBean.getFTaskStatus();
+        taskState = mTaskBean.getStatus();
         radioButtonSecord.setChecked(true);
         radioButtonSecord.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -237,7 +237,7 @@ public class SuperviseMyTaskCheckActivity extends BaseActivity implements View.O
             }
         });
         checkResultRecycleView.setLayoutManager(new InScrollRecylerManager(this));
-        boolean isExcute = (type != 1 && index == 0 && "待处置".equals(taskState));
+        boolean isExcute = (type != 1 && index == 0 && /*"待处置".equals*/taskState == 1);
         mAdapter = new SuperviseMyTaskCheckResultAdapter(dataList, index, isExcute);
         checkResultRecycleView.setAdapter(mAdapter);
 
@@ -701,7 +701,7 @@ public class SuperviseMyTaskCheckActivity extends BaseActivity implements View.O
             typeString = typeString.substring(0, typeString.length() - 1);
             String taskitemjson = new Gson().toJson(dataList);
             disposalTask.loadData(userInfo.getId(),
-                    mTaskBean.getF_GUID(), mEntityBean.getFGuid(),
+                    mTaskBean.getUserId(), mEntityBean.getFGuid(),
                     remark, qualify, taskitemjson, imgUrl, mEntityBean.getFGuid(), typeString,
                     location == null ? "" : location.getLatitude(), location == null ? "" : location.getLongitude());
         }

@@ -50,7 +50,7 @@ public class SuperviseMyTaskFlowFragment extends BaseFragment {
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         getLcgj.setLoadingListener(this);
         mRvInfo.setLayoutManager(mLinearLayoutManager);
-        fId = mEntity.getFTaskId();
+        fId = mEntity.getId();
         superviseDetialFlowAdapter = new SuperviseDetialFlowAdapter(getActivity(), dataInfoList);
         mRvInfo.setAdapter(superviseDetialFlowAdapter);
         getLcgj.loadData(fId, userInfo.getId());

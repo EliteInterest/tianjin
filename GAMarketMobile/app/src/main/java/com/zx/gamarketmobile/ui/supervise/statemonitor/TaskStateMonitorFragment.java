@@ -140,12 +140,12 @@ public class TaskStateMonitorFragment extends BaseFragment implements MyItemClic
             switch (id) {
                 case ApiData.HTTP_ID_supervisetask_getMonitorTask:
                 MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
-                if (myTaskListEntity!=null&&myTaskListEntity.getRows()!=null&&myTaskListEntity.getRows().size()>=0){
+                if (myTaskListEntity!=null&&myTaskListEntity.getList()!=null&&myTaskListEntity.getList().size()>=0){
                     mTotalNo = myTaskListEntity.getTotal();
                     mActivity.setText(mTaskStatus,mTotalNo);
-                    if (myTaskListEntity.getRows().size()>0){
+                    if (myTaskListEntity.getList().size()>0){
                         mTaskAdapter.setStatus(0, mPageNo, mTotalNo);
-                        List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getRows();
+                        List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
                         dataList.clear();
                         dataList.addAll(entityList);
                         mTaskAdapter.notifyDataSetChanged();

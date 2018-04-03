@@ -1,9 +1,11 @@
 package com.zx.gamarketmobile.ui.supervise.mytask;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 
 public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMoreListener, MyItemClickListener {
-
+    private static final String TAG = "SuperviseMyTaskListFragment";
     private RecyclerView rvTodo;
     private SwipeRefreshLayout srlTodo;
     private SuperviseMyTaskListAdapter mAdapter;
@@ -96,17 +98,21 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
     @Override
     public void onResume() {
         super.onResume();
-//        loadData();
+        loadData();
     }
 
     //数据加载
+    @SuppressLint("LongLogTag")
     private void loadData() {
         if (index == 0) {
 //            getTaskPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
-            getTaskPage.loadData(mPageNo, mPageSize, 3);
+            Log.i(TAG, "load has to process");
+//            getTaskPage.loadData(mPageNo, mPageSize, 3);
+            getTaskPage.loadData(mPageNo, mPageSize);
         } else {
 //            getTaskHisPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
-            getTaskPage.loadData(mPageNo, mPageSize, 4);
+            Log.i(TAG, "has aleady processed");
+//            getTaskPage.loadData(mPageNo, mPageSize, 4);
 
         }
     }
@@ -117,16 +123,42 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_SuperviseTaskPage:
-            case ApiData.HTTP_ID_SuperviseTaskHisPage:
                 MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
                 mTotalNo = myTaskListEntity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getRows();
+                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
                 dataList.clear();
                 if (entityList != null) {
                     dataList.addAll(entityList);
                 }
                 mAdapter.notifyDataSetChanged();
+
+                MyTaskListEntity.RowsBean bean = null;
+                for (int j = 0; j < dataList.size(); j++) {
+                    bean = dataList.get(j);
+                    Log.i(TAG, "bean is " + bean.toString());
+                }
+
+//                if (bean != null)
+//                    new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo).loadData(bean.getId());
+
+
+//                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
+//                mTotalNo = myTaskListEntity.getTotal();
+//                Log.i(TAG, "mTotalNo is " + mTotalNo);
+//                mAdapter.setStatus(0, mPageNo, mTotalNo);
+//                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
+//                List<MyTaskListEntity.RowsBean> dataList1 = new ArrayList<>();
+//                dataList1.clear();
+//                if (entityList != null) {
+//                    dataList1.addAll(entityList);
+//                }
+
+//                mAdapter.setStatus(0, mPageNo, mTotalNo);
+//                mAdapter.notifyDataSetChanged();
+                break;
+
+            case ApiData.HTTP_ID_SuperviseTaskHisPage:
                 break;
 
             default:

@@ -231,10 +231,12 @@ public class MyTaskAddEntityView implements BaseRequestData.OnHttpLoadingListene
                 }
                 String latitude = tvLatitude.getText().toString().length() > 17 ? tvLatitude.getText().toString().substring(0, 17) : tvLatitude.getText().toString();
                 String longitude = tvLongitude.getText().toString().length() > 17 ? tvLongitude.getText().toString().substring(0, 17) : tvLongitude.getText().toString();
-                addNewEntity.loadData(mEntity.getFTaskId(), etNewName.getText().toString().trim(), mEntity.getF_GUID(),
+//                addNewEntity.loadData(mEntity.getFTaskId(), etNewName.getText().toString().trim(), mEntity.getF_GUID(),
+                addNewEntity.loadData(mEntity.getId(), etNewName.getText().toString().trim(), mEntity.getUserId(),
                         etNewAddress.getText().toString().trim(), department, "", userInfo.getId(), latitude, longitude);
             } else {
-                addNewEntity.loadData(mEntity.getFTaskId(), mTaskList.get(position).getFEntityName(), mEntity.getF_GUID(), "", "", mTaskList.get(position).getFEntityGuid(), userInfo.getId(), "", "");
+//                addNewEntity.loadData(mEntity.getFTaskId(), mTaskList.get(position).getFEntityName(), mEntity.getF_GUID(), "", "", mTaskList.get(position).getFEntityGuid(), userInfo.getId(), "", "");?
+                addNewEntity.loadData(mEntity.getId(), mTaskList.get(position).getFEntityName(), mEntity.getUserId(), "", "", mTaskList.get(position).getFEntityGuid(), userInfo.getId(), "", "");
             }
         });
     }

@@ -17,6 +17,7 @@ import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseFragment;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,8 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (mEntity != null) {
             if (isVisibleToUser && dataInfoList.size() == 0) {
-                fId = mEntity.getFTaskId();
+//                fId = mEntity.getFTaskId();
+                fId = mEntity.getId();
 //                getTaskBaseInfo.loadData(mEntity.getF_GUID(), mEntity.getFTaskStatus(), fId, userInfo.getId());
                 getTaskBaseInfo.loadData(fId);
             }
@@ -87,23 +89,23 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
 
     private void getDataList(MyTaskBaseInfo myTaskBaseInfo) {
         dataInfoList.clear();
-        KeyValueInfo info = new KeyValueInfo("任务编号: ", myTaskBaseInfo.getFTaskId());
+        KeyValueInfo info = new KeyValueInfo("任务编号: ", myTaskBaseInfo.getId());
         dataInfoList.add(info);
-        info = new KeyValueInfo("任务名称: ", myTaskBaseInfo.getFTaskName());
+        info = new KeyValueInfo("任务名称: ", myTaskBaseInfo.getTaskName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("任务状态: ", myTaskBaseInfo.getFTaskStatus());
+        info = new KeyValueInfo("任务状态: ", String.valueOf(myTaskBaseInfo.getStatus()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("创建部门: ", myTaskBaseInfo.getFCreateDepartment());
+        info = new KeyValueInfo("创建部门: ", myTaskBaseInfo.getDepartmentId());
         dataInfoList.add(info);
-        info = new KeyValueInfo("创建人: ", myTaskBaseInfo.getFCreateName());
+        info = new KeyValueInfo("创建人: ", myTaskBaseInfo.getUserName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("提醒时间: ", myTaskBaseInfo.getFTipsTime());
+        info = new KeyValueInfo("提醒时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getRemindDate()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("创建时间: ", myTaskBaseInfo.getFCreateTime());
+        info = new KeyValueInfo("创建时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getStartDate()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("截止时间: ", myTaskBaseInfo.getFDeadline());
+        info = new KeyValueInfo("截止时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getDeadline()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("任务说明: ", myTaskBaseInfo.getfRemark());
+        info = new KeyValueInfo("任务说明: ", myTaskBaseInfo.getReamrk());
         dataInfoList.add(info);
     }
 

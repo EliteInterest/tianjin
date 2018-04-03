@@ -133,7 +133,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
                 myPagerAdapter.addFragment(StatisticsFragment.newInstance(caseInfo), "统计分析");
                 homeTabLayout.setVisibility(View.VISIBLE);
             case 3://信息管理
-
+                toActivity(InfoManagerActivity.class);
                 break;
 
             case 4://统计分析
