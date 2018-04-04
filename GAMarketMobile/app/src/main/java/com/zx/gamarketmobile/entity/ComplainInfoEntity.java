@@ -13,7 +13,7 @@ public class ComplainInfoEntity implements Serializable {
      * fName : 张元中
      * fType : 投诉
      * fStatus : 10
-     * sInfo : {"x":106.567433,"y":29.643714,"spatialReference":"4490"}
+     * sInfo : {"x":106.567433,"y":29.643714,"spatialReference":4490}
      * fRegTime : 1439949411000
      * fEntityName : 中豪雪弗兰4s店
      */

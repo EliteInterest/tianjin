@@ -49,11 +49,11 @@ public class PaginationAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             final HttpZtEntity mEntity = ztItems.get(position);
-            myHolder.tvZtName.setText(mEntity.getEntityName());
+            myHolder.tvZtName.setText(mEntity.getEnterpriseName());
 //            setDrawable(mEntity, myHolder.imgCreditLevel);
             myHolder.tvZtAddress.setText(mEntity.getAddress());
-            if (!mEntity.getfContactPhone().isEmpty() && !"null".equals(mEntity.getfContactPhone())) {
-                myHolder.tvZtTel.setText(mEntity.getfContactPhone());
+            if (mEntity.getContactInfo() != null) {
+                myHolder.tvZtTel.setText(mEntity.getContactInfo());
                 myHolder.tvZtTel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
@@ -69,10 +69,10 @@ public class PaginationAdapter extends MyRecycleAdapter {
         }
     }
 
-    private void setDrawable(HttpZtEntity zt,ImageView imgCreditLevel) {
-        String creditLevel = zt.getCreditLevel();
+    private void setDrawable(HttpZtEntity zt, ImageView imgCreditLevel) {
+        String creditLevel = zt.getCreditCode();
         // 默认为A级
-        if (creditLevel == null){
+        if (creditLevel == null) {
             imgCreditLevel.setBackgroundResource(R.mipmap.a);
         } else if (creditLevel.equalsIgnoreCase("B")) {
             imgCreditLevel.setBackgroundResource(R.mipmap.b);
@@ -94,7 +94,7 @@ public class PaginationAdapter extends MyRecycleAdapter {
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvZtName, tvZtAddress, tvZtTel;
-        private ImageView imgCreditLevel ;
+        private ImageView imgCreditLevel;
 
         public Holder(View parent) {
             super(parent);

@@ -293,7 +293,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                                     double ptx = Double.valueOf(zt.getLongitude());
                                     double pty = Double.valueOf(zt.getLatitude());
                                     Point pt = new Point(ptx, pty);
-                                    SpatialReference sr4326 = SpatialReference.create(zt.getWkid());
+                                    SpatialReference sr4326 = SpatialReference.create(4490);
                                     Point mappt = (Point) GeometryEngine.project(pt, sr4326,
                                             mMapView.getSpatialReference());
                                     attributes.put(attributenme, index);
@@ -360,11 +360,11 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             Map<String, Object> attributes = new HashMap<String, Object>();
             int id = getMarkId(zt);
             PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, id));
-            if (zt.getLongitude().length() > 0 && zt.getLatitude().length() > 0) {
-                double x = Double.parseDouble(zt.getLongitude());
-                double y = Double.parseDouble(zt.getLatitude());
+            if (zt.getLongitude()!=0 && zt.getLatitude()!=0) {
+                double x = zt.getLongitude();
+                double y = zt.getLatitude();
                 Point pt = new Point(x, y);
-                SpatialReference sr4326 = SpatialReference.create(zt.getWkid());
+                SpatialReference sr4326 = SpatialReference.create(4490);
                 Point mappt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
                 attributes.put(attributenme, i);
                 mMarkersGLayer.addGraphic(new Graphic(mappt, picSymbol, attributes));
@@ -374,8 +374,8 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                     double x1 = Double.valueOf(zt.getLongitude());
                     double y1 = Double.valueOf(zt.getLatitude());
                     Point pt1 = new Point(x1, y1);
-                    SpatialReference sr43261 = SpatialReference.create(zt.getWkid());
-                    Point mappt1 = (Point) GeometryEngine.project(pt1, sr43261, mMapView.getSpatialReference());
+                    SpatialReference sr43261 = SpatialReference.create(4490);
+                    Point mappt1 = (Point) GeometryEngine.project(pt1, sr4326, mMapView.getSpatialReference());
                     attributes.put(attributenme, 0);
                     mCurId = mMarkersGLayer.addGraphic(new Graphic(mappt1, picSymbol1, attributes1));
                 }
@@ -496,15 +496,15 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
     public int getMarkId(HttpZtEntity zt) {
         int id = R.mipmap.xfd;
         try {
-            String creditLevel = zt.creditLevel.toLowerCase();
+            String creditLevel = zt.getCreditCode().toLowerCase();
             if ("b".equals(creditLevel)) {
-                if ("先照后证".equals(zt.fTags)) {
-                    id = R.mipmap.mark_ab;
-                } else if ("无照无证".equals(zt.fTags)) {
-                    id = R.mipmap.mark_bc;
-                } else {
-                    id = R.mipmap.mark_b;
-                }
+//                if ("先照后证".equals(zt.fTags)) {
+//                    id = R.mipmap.mark_ab;
+//                } else if ("无照无证".equals(zt.fTags)) {
+//                    id = R.mipmap.mark_bc;
+//                } else {
+//                    id = R.mipmap.mark_b;
+//                }
             } else {
                 id = activity.getResources().getIdentifier("mark_" + creditLevel, "drawable", activity.getPackageName());
             }
@@ -529,9 +529,9 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                                 int index = mPoiViewPager.getCurrentItem();
                                 zt = mSearchZtEntity.getZtList().get(index);
                                 if (zt != null) {
-                                    setfEntityType(zt.getfEntityType());
+                                    setfEntityType(zt.getEnterpriseType());
                                 }
-                                taskData.loadData(userInfo.getId(), zt.getGuid(), zt.getCreditLevel(), zt.getfEntityType());
+                                taskData.loadData(userInfo.getId(), zt.getId(), zt.getCreditCode(), zt.getEnterpriseName());
                                 break;
                             case ConstStrings.MapType_ZtDetail:// 主体详情查看地图
                                 activity.finish();
@@ -572,13 +572,13 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
 
                     Map<String, Object> attributes = new HashMap<String, Object>();
                     PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, R.mipmap.tjd1));
-                    if (zt.getLongitude().length() == 0 || zt.getLatitude().length() == 0) {
+                    if (zt.getLongitude()==0|| zt.getLatitude()== 0) {
                         activity.showToast("该主体没有坐标信息");
                     } else {
-                        double ptx = Double.parseDouble(zt.getLongitude());
-                        double pty = Double.parseDouble(zt.getLatitude());
+                        double ptx = zt.getLongitude();
+                        double pty = zt.getLatitude();
                         Point pt = new Point(ptx, pty);
-                        SpatialReference sr4326 = SpatialReference.create(zt.getWkid());
+                        SpatialReference sr4326 = SpatialReference.create(4490);
                         Point mappt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
                         attributes.put(attributenme, position);
                         mCurId = mMarkersGLayer.addGraphic(new Graphic(mappt, picSymbol, attributes));
@@ -882,7 +882,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                         return;
                     }
                     try {
-                        Intent intent = Intent.getIntent("androidamap://viewMap?sourceApplication=移动监督管理执法&poiname=" + "贵安执法主体位置" + "&" + "lat=" + endLatitude + "&lon=" + endLongitude + "&dev=0&style=2");
+                        Intent intent = Intent.getIntent("androidamap://viewMap?sourceApplication=移动监督管理执法&poiname=" + "天津执法主体位置" + "&" + "lat=" + endLatitude + "&lon=" + endLongitude + "&dev=0&style=2");
                         activity.startActivity(intent);
                     } catch (Exception e) {
                         Toast.makeText(activity, "请确认手机已安装高德地图!", Toast.LENGTH_SHORT).show();
@@ -948,7 +948,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                     if (mSearchZtEntity.getZtList().size() > 0) {
                         HttpZtEntity zt = mSearchZtEntity.getZtList().get(0);
                         pt.setXY(Double.valueOf(zt.getLongitude()), Double.valueOf(zt.getLatitude()));
-                        SpatialReference sr4326 = SpatialReference.create(zt.getWkid());
+                        SpatialReference sr4326 = SpatialReference.create(4490);
                         pt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
                     }
                     mMapView.setScale(ConstStrings.LocationScale);
@@ -960,9 +960,9 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             case ConstStrings.MapType_ZtDetail:// 任务列表查看地图
                 if (mSearchZtEntity.getZtList().size() > 0) {
                     HttpZtEntity zt = mSearchZtEntity.getZtList().get(0);
-                    if (!TextUtils.isEmpty(zt.getLatitude()) && !TextUtils.isEmpty(zt.getLongitude())) {
+                    if (zt.getLatitude()!=0 && zt.getLongitude()!=0) {
                         pt.setXY(Double.valueOf(zt.getLongitude()), Double.valueOf(zt.getLatitude()));
-                        SpatialReference sr4326 = SpatialReference.create(zt.getWkid());
+                        SpatialReference sr4326 = SpatialReference.create(4490);
                         pt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
                     }
 //                if (Double.valueOf(mMapView.getMaxScale())!=null){
@@ -1084,11 +1084,11 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                 break;
             case ConstStrings.MapType_SearchZt:
                 HttpZtEntity zt = mSearchZtEntity.getZtList().get(index);
-                mChangeposData.loadData(zt.getGuid(), userInfo.getId(), mLongitude, mLatitude, null);
+                mChangeposData.loadData(zt.getId(), userInfo.getId(), mLongitude, mLatitude, null);
                 break;
             case ConstStrings.MapType_ZtDetail:
                 HttpZtEntity zt2 = mSearchZtEntity.getZtList().get(index);
-                mChangeposData.loadData(zt2.getGuid(), userInfo.getId(), mLongitude, mLatitude, null);
+                mChangeposData.loadData(zt2.getId(), userInfo.getId(), mLongitude, mLatitude, null);
                 break;
             default:
                 break;
@@ -1103,14 +1103,14 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
         switch (mType) {
             case ConstStrings.MapType_SearchZt:
                 HttpZtEntity zt = mSearchZtEntity.getZtList().get(index);
-                zt.setLatitude(mLatitude + "");
-                zt.setLongitude(mLongitude + "");
+                zt.setLatitude(mLatitude);
+                zt.setLongitude(mLongitude);
                 addZtMarkers(mSearchZtEntity.getZtList(), index);
                 break;
             case ConstStrings.MapType_ZtDetail:
                 HttpZtEntity zt2 = mSearchZtEntity.getZtList().get(index);
-                zt2.setLatitude(mLatitude + "");
-                zt2.setLongitude(mLongitude + "");
+                zt2.setLatitude(mLatitude);
+                zt2.setLongitude(mLongitude);
                 addZtMarkers(mSearchZtEntity.getZtList(), index);
                 break;
             case ConstStrings.MapType_Task:

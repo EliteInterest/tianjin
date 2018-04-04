@@ -2,7 +2,6 @@ package com.zx.gamarketmobile.adapter.supervise;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,15 +54,10 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
             myHolder = (Holder) holder;
 //            if (mTJItemList != null) {
             MyTaskListEntity.RowsBean entity = mItemList.get(position);
-            Log.i(TAG, "status is " + entity.getStatus());
-            Log.i(TAG, "getStartDate is " + DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            Log.i(TAG, "getTaskName is " + entity.getTaskName());
-            Log.i(TAG, "getUserName is " + entity.getUserName());
-            Log.i(TAG, "getDepartmentId is " + entity.getDepartmentId());
 
 
             myHolder.tvField.setText(String.valueOf(entity.getStatus()));
-            myHolder.tvDate.setText(DateUtil.getDateTimeFromMillis(entity.getStartDate()));
+            myHolder.tvDate.setText(DateUtil.getDateFromMillis(entity.getStartDate()));
             myHolder.tvName.setText(entity.getTaskName());
             myHolder.tvPerson.setText(entity.getUserName());
             myHolder.tvStage.setText(entity.getDepartmentId());

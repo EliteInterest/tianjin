@@ -33,7 +33,6 @@ import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnStatusChangedListener;
 import com.esri.android.runtime.ArcGISRuntime;
-import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polygon;
@@ -42,6 +41,8 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.R.id;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
+import com.zx.gamarketmobile.tianditu.TianDiTuLayer;
+import com.zx.gamarketmobile.tianditu.TianDiTuLayerTypes;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.ui.system.SettingsMapActivity;
 import com.zx.gamarketmobile.util.CQDigitalUtil;
@@ -49,7 +50,6 @@ import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.MapMarkerTool;
 import com.zx.gamarketmobile.util.Util;
 import com.zx.gamarketmobile.view.ArcGISLocalDataLayer;
-import com.zx.gamarketmobile.view.SearcLayer;
 
 import java.io.File;
 import java.io.Serializable;
@@ -110,12 +110,12 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
         mMapView = (MapView) findViewById(R.id.mapview);
         mMapView.setMapBackground(-1, -1, 0.0f, 0.0f);
         //设置地图边框范围
-        Envelope envelope = new Envelope();
-        envelope.setXMax(106.295325);
-        envelope.setYMax(26.525839);
-        envelope.setXMin(106.682293);
-        envelope.setYMin(26.175393);
-        mMapView.setExtent(envelope);
+//        Envelope envelope = new Envelope();
+//        envelope.setXMax(106.295325);
+//        envelope.setYMax(26.525839);
+//        envelope.setXMin(106.682293);
+//        envelope.setYMin(26.175393);
+//        mMapView.setExtent(envelope);
 //        mMapView.setMaxExtent(envelope);
         locManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -168,33 +168,36 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
             break;
             case 2:// 在线地图
             {
-                String ip1 = sp.getString("mapip1", ConstStrings.ip1);
-                String ip2 = sp.getString("mapip2", ConstStrings.ip2);
-                String ip3 = sp.getString("mapip3", ConstStrings.ip3);
-                String ip4 = sp.getString("mapip4", ConstStrings.ip4);
-                ConstStrings.setMapUrl("http://" + ip1 + "." + ip2 + "." + ip3 + "." + ip4 + ":" + ConstStrings.mapport, mapType);
+//                String ip1 = sp.getString("mapip1", ConstStrings.ip1);
+//                String ip2 = sp.getString("mapip2", ConstStrings.ip2);
+//                String ip3 = sp.getString("mapip3", ConstStrings.ip3);
+//                String ip4 = sp.getString("mapip4", ConstStrings.ip4);
+//                ConstStrings.setMapUrl("http://" + ip1 + "." + ip2 + "." + ip3 + "." + ip4 + ":" + ConstStrings.mapport, mapType);
 
-                mVecLayer = new ArcGISTiledMapServiceLayer(ConstStrings.Map_Vec);
-                mVecLayer.setVisible(true);
-                mVecLabLayer = new ArcGISTiledMapServiceLayer(ConstStrings.Map_VecLabel);
-                mVecLabLayer.setVisible(true);
-                mMapView.addLayer(mVecLayer);
-                mMapView.addLayer(mVecLabLayer);
+                TianDiTuLayer tianDiTuLayer = new TianDiTuLayer(TianDiTuLayerTypes.TIANDITU_IMAGE_2000);
+                mMapView.addLayer(tianDiTuLayer);
 
-                mImgLayer = new ArcGISLocalDataLayer(this, ConstStrings.Map_Img);
-                mMapView.addLayer(mImgLayer);
-                mImgLayer.setVisible(false);
-                mImgLabLayer = new ArcGISLocalDataLayer(this, ConstStrings.Map_ImgLabel);
-                mMapView.addLayer(mImgLabLayer);
-                mImgLabLayer.setVisible(false);
+//                mVecLayer = new ArcGISTiledMapServiceLayer(ConstStrings.Map_Vec);
+//                mVecLayer.setVisible(true);
+//                mVecLabLayer = new ArcGISTiledMapServiceLayer(ConstStrings.Map_VecLabel);
+//                mVecLabLayer.setVisible(true);
+//                mMapView.addLayer(mVecLayer);
+//                mMapView.addLayer(mVecLabLayer);
+//
+//                mImgLayer = new ArcGISLocalDataLayer(this, ConstStrings.Map_Img);
+//                mMapView.addLayer(mImgLayer);
+//                mImgLayer.setVisible(false);
+//                mImgLabLayer = new ArcGISLocalDataLayer(this, ConstStrings.Map_ImgLabel);
+//                mMapView.addLayer(mImgLabLayer);
+//                mImgLabLayer.setVisible(false);
             }
             break;
             default:
                 break;
         }
-        String mapIp = sp.getString("topicIp", ConstStrings.MAP_TOPIC);
-        SearcLayer mLayerTopic = new SearcLayer(mapIp);
-        mMapView.addLayer(mLayerTopic);
+//        String mapIp = sp.getString("topicIp", ConstStrings.MAP_TOPIC);
+//        SearcLayer mLayerTopic = new SearcLayer(mapIp);
+//        mMapView.addLayer(mLayerTopic);
         mMapView.setOnStatusChangedListener(new OnStatusChangedListener() {
 
             private static final long serialVersionUID = 1L;

@@ -40,7 +40,7 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
     public int mTotalNo = 0;
     private int currentIndex = -1;
     private ApiData ztsearchData = new ApiData(ApiData.HTTP_ID_searchzt);
-    private ApiData ztSearchJyfwData = new ApiData(ApiData.HTTP_ID_searchzt_Jyfw);
+
     private ApiData taskData = new ApiData(ApiData.HTTP_ID_entity_detail);
     private HttpSearchZtEntity mSearchZtEntity = null;
     private List<HttpZtEntity> mTaskList = new ArrayList<>();
@@ -61,7 +61,6 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
         mTextViewCount = (TextView) findViewById(id.tv_searchzt_count);
 
         ztsearchData.setLoadingListener(this);
-        ztSearchJyfwData.setLoadingListener(this);
         taskData.setLoadingListener(this);
         Intent intent = getIntent();
         if (intent != null) {
@@ -88,10 +87,10 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
                 //监听mRecyclerView是否滑动到最后一个
                 LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 //当RecyclerView不滚动时
-                if (newState==RecyclerView.SCROLL_STATE_IDLE){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
                     int totalItemCount = manager.getItemCount();
-                    if (lastVisibleItem==(totalItemCount-1)){
+                    if (lastVisibleItem == (totalItemCount - 1)) {
                         mAdapter.setStatus(0, mPageNo, mTotalNo);
                     }
                 }
@@ -124,7 +123,8 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
     public void onItemClick(View view, int position) {
         currentIndex = position;
         HttpZtEntity zt = mTaskList.get(position);
-        taskData.loadData(userInfo.getId(), zt.getGuid(), zt.getCreditLevel(), zt.getfEntityType());
+        taskData.loadData(zt.getId());
+//        taskData.loadData(userInfo.getId(), zt.getGuid(), zt.getCreditLevel(), zt.getfEntityType());
 
     }
 
@@ -145,11 +145,7 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
         if (isFirst) {
             mPageNo = 1;
         }
-        ztsearchData.loadData(mPageNo, "10", mKeyword, "", "", "", "", "");
-    }
-
-    public void loadZtJyfwData(String guid,String type) {
-        ztSearchJyfwData.loadData(guid,type);
+        ztsearchData.loadData(mPageNo, "10", mKeyword+"*");
     }
 
     @Override
@@ -198,12 +194,12 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
                 intent.putExtra("type", 2);
                 intent.putExtra("ztEntity", zt);
                 intent.putExtra("entity", mEntityDetail);
-                if(zt!=null){
-                    String fEntityType = zt.getfEntityType();
-                    String fEntityGuid = zt.getGuid();
-                    intent.putExtra("fEntityType", fEntityType);
-                    intent.putExtra("fEntityGuid", fEntityGuid);
-                }
+//                if (zt != null) {
+//                    String fEntityType = zt.getfEntityType();
+//                    String fEntityGuid = zt.getGuid();
+//                    intent.putExtra("fEntityType", fEntityType);
+//                    intent.putExtra("fEntityGuid", fEntityGuid);
+//                }
                 startActivity(intent);
                 Util.activity_In(this);
                 break;

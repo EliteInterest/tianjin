@@ -42,7 +42,7 @@ public class ZtPoiPagerAdapter extends PagerAdapter {
             final HttpZtEntity zt = mPoiZts.get(i);
             //信用等级
             ImageView imgCreditLevel = (ImageView) view.findViewById(R.id.iv_creditlevel);
-            String creditLevel = zt.getCreditLevel();
+            String creditLevel = zt.getCreditCode();
             //默认为A级
             if (creditLevel == null) {
                 imgCreditLevel.setBackgroundResource(R.mipmap.a);
@@ -61,7 +61,7 @@ public class ZtPoiPagerAdapter extends PagerAdapter {
             TextView tvZtName = (TextView) view.findViewById(R.id.tv_zt_name);
             tvZtName.setLines(1);
             tvZtName.setEllipsize(TruncateAt.END);
-            tvZtName.setText(zt.getEntityName());
+            tvZtName.setText(zt.getEnterpriseName());
             //地址
             TextView tvZtAddress = (TextView) view.findViewById(R.id.tv_zt_address);
             tvZtAddress.setText(zt.getAddress());
@@ -76,7 +76,7 @@ public class ZtPoiPagerAdapter extends PagerAdapter {
 //            });
             //电话
             TextView tvZtTel = (TextView) view.findViewById(R.id.tv_zt_tel);
-            final String phonenum = zt.getfContactPhone();
+            final String phonenum = zt.getContactInfo();
             tvZtTel.setText(phonenum);
             tvZtTel.setOnClickListener(new OnClickListener() {
 

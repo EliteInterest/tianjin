@@ -253,6 +253,13 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_statistics_comp_countInfo = 209;//统计-投诉-信息来源
     public static final int HTTP_ID_statistics_comp_countBussiniss = 210;//统计-投诉-业务来源
 
+    public static final int HTTP_ID_statistics_entity_enterpriseType = 211;//统计-主体-企业类型
+    public static final int HTTP_ID_statistics_entity_enterpriseIndustry = 212;//统计-主体-行业结构
+    public static final int HTTP_ID_statistics_entity_equipmentType = 213;//统计-主体-特种设备
+    public static final int HTTP_ID_statistics_entity_enterpriseComplain = 214;//统计-主体-消保维权
+    public static final int HTTP_ID_statistics_entity_enterpriseDev = 215;//统计-主体-主体发展
+    public static final int HTTP_ID_statistics_entity_enterpriseAnn = 216;//统计-主体-年报情况
+    public static final int HTTP_ID_statistics_entity_enterpriseWarning = 217;//统计-主体-许可证预警
     //TODO
     public static String UUID = "";
 
@@ -379,15 +386,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     // params.putParams("passwd", objects[1]);
                     break;
                 case HTTP_ID_searchzt:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "queryEntitiesPageByInfo");
-                    params.putParams("pageno", objects[0]);
-                    params.putParams("pagesize", objects[1]);
-                    params.putParams("name", objects[2]);
-                    params.putParams("fSfrl", objects[3]);
-                    params.putParams("fSfjz", objects[4]);
-                    params.putParams("fStation", objects[5]);
+                    params.setApiUrl(baseUrl + "/TJsupervise/enterprise/getEnterprisePage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("enterpriseName", objects[2]);
                     break;
                 case HTTP_ID_searchall:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -569,13 +572,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("userid", objects[2]);
                     break;
                 case HTTP_ID_entity_detail:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "getEntityByGuid");
-                    params.putParams("userid", objects[0]);
-                    params.putParams("guid", objects[1]);
-                    params.putParams("fCreditLevel", objects[2]);
-                    params.putParams("fEntityType", objects[3]);
+                    params.setApiUrl(baseUrl + "/TJsupervise/enterprise/getEnterpriseInfo.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
                     break;
                 case HTTP_ID_entity_modifycontactinfo:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1100,13 +1099,8 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("sort", "desc");
                     break;
                 case HTTP_ID_SuperviseTaskPage:
-//                    params.setPort(8030);
                     params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryTaskList.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
-
-//                    params.setApiUrl(baseUrl + "GaClientService.do");
-//                    params.setRequestMothod(HTTP_MOTHOD.POST);
-//                    params.putParams("method", "getMyTodoTask");
                     params.putParams("pageNo", objects[0]);
                     params.putParams("pageSize", objects[1]);
                     params.putParams("status", objects[2]);
@@ -1541,6 +1535,36 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fRegTimeStart", objects[0]);
                     params.putParams("fRegTimeEnd", objects[1]);
                     break;
+                case HTTP_ID_statistics_entity_enterpriseType:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByType.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
+                case HTTP_ID_statistics_entity_enterpriseIndustry:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByIndustry.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
+                case HTTP_ID_statistics_entity_equipmentType:
+                    params.setApiUrl(baseUrl + "/TJsupervise/statistics/equipmentType.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
+                case HTTP_ID_statistics_entity_enterpriseComplain:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByComplaint.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
+                case HTTP_ID_statistics_entity_enterpriseDev:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByDev.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_entity_enterpriseAnn:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByAnn.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_entity_enterpriseWarning:
+                    params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByWarning.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -1617,33 +1641,13 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_searchzt: {
                             list = getJSONObject(jsonObject, "data");
                             HttpSearchZtEntity searchZtEntity = new HttpSearchZtEntity();
-                            searchZtEntity.setCurrPageNo(getIntValue(list, "currPageNo"));
+                            searchZtEntity.setCurrPageNo(getIntValue(list, "pageNo"));
                             searchZtEntity.setPageSize(getIntValue(list, "pageSize"));
-                            searchZtEntity.setPageTotal(getIntValue(list, "pageTotal"));
+                            searchZtEntity.setPageTotal(getIntValue(list, "pages"));
                             searchZtEntity.setTotal(getIntValue(list, "total"));
-                            JSONArray dataArray = getJSONArray(list, "rows");
-                            List<HttpZtEntity> ztlist = new ArrayList<>();
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                JSONObject jObj = (JSONObject) dataArray.get(i);
-                                HttpZtEntity zt = new HttpZtEntity();
-                                zt.setGuid(getStringValue(jObj, "fEntityGuid"));
-                                zt.setfEntityType(getStringValue(jObj, "fEntityType"));
-                                zt.setEntityName(getStringValue(jObj, "fEntityName"));
-                                zt.setCreditLevel(getStringValue(jObj, "fCreditLevel"));
-                                zt.setContactInfo(getStringValue(jObj, "fContactInfo"));
-                                zt.setfContactPhone(getStringValue(jObj, "fContactPhone"));
-                                zt.setLegalPerson(getStringValue(jObj, "fLegalPerson"));
-                                zt.setOrgCode(getStringValue(jObj, "fOrgCode"));
-                                zt.setBizlicNum(getStringValue(jObj, "fBizlicNum"));
-                                zt.setLicenses(getStringValue(jObj, "fLicenses").equals("null") ? "" : getStringValue(jObj, "fLicenses"));
-                                zt.setAddress(getStringValue(jObj, "fAddress"));
-                                zt.fTags = getStringValue(jObj, "fTags");
-                                JSONObject jObjsInfo = getJSONObject(jObj, "sInfo");
-                                zt.setWkid(getIntValue(jObjsInfo, "spatialReference"));
-                                zt.setLongitude(getStringValue(jObjsInfo, "x"));
-                                zt.setLatitude(getStringValue(jObjsInfo, "y"));
-                                ztlist.add(zt);
-                            }
+                            JSONArray dataArray = getJSONArray(list, "list");
+                            List<HttpZtEntity> ztlist = gson.fromJson(dataArray.toString(), new TypeToken<List<HttpZtEntity>>() {
+                            }.getType());
                             searchZtEntity.setZtList(ztlist);
                             result.setEntry(searchZtEntity);
                         }
@@ -1657,28 +1661,28 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             searchZtEntity.setTotal(getIntValue(list, "total"));
                             JSONArray dataArray = getJSONArray(list, "rows");
                             List<HttpZtEntity> ztlist = new ArrayList<>();
-                            for (int i = 0; i < dataArray.length(); i++) {
-                                JSONObject jObj = (JSONObject) dataArray.get(i);
-                                HttpZtEntity zt = new HttpZtEntity();
-                                zt.setGuid(getStringValue(jObj, "fEntityGuid"));
-                                zt.setfEntityType(getStringValue(jObj, "fEntityType"));
-                                zt.setEntityName(getStringValue(jObj, "fEntityName"));
-                                zt.setCreditLevel(getStringValue(jObj, "fCreditLevel"));
-                                zt.setContactInfo(getStringValue(jObj, "fContactInfo"));
-                                zt.setfContactPhone(getStringValue(jObj, "fContactPhone"));
-                                zt.setLegalPerson(getStringValue(jObj, "fLegalPerson"));
-                                zt.setOrgCode(getStringValue(jObj, "fOrgCode"));
-                                zt.setBizlicNum(getStringValue(jObj, "fBizlicNum"));
-                                zt.setLicenses(getStringValue(jObj, "fLicenses").equals("null") ? "" : getStringValue(jObj, "fLicenses"));
-                                zt.setAddress(getStringValue(jObj, "fAddress"));
-                                zt.setfType(getStringValue(jObj, "fType"));
-                                zt.fTags = getStringValue(jObj, "fTags");
-                                JSONObject jObjsInfo = getJSONObject(jObj, "sInfo");
-                                zt.setWkid(getIntValue(jObjsInfo, "spatialReference"));
-                                zt.setLongitude(getStringValue(jObjsInfo, "x"));
-                                zt.setLatitude(getStringValue(jObjsInfo, "y"));
-                                ztlist.add(zt);
-                            }
+//                            for (int i = 0; i < dataArray.length(); i++) {
+//                                JSONObject jObj = (JSONObject) dataArray.get(i);
+//                                HttpZtEntity zt = new HttpZtEntity();
+//                                zt.setGuid(getStringValue(jObj, "fEntityGuid"));
+//                                zt.setfEntityType(getStringValue(jObj, "fEntityType"));
+//                                zt.setEntityName(getStringValue(jObj, "fEntityName"));
+//                                zt.setCreditLevel(getStringValue(jObj, "fCreditLevel"));
+//                                zt.setContactInfo(getStringValue(jObj, "fContactInfo"));
+//                                zt.setfContactPhone(getStringValue(jObj, "fContactPhone"));
+//                                zt.setLegalPerson(getStringValue(jObj, "fLegalPerson"));
+//                                zt.setOrgCode(getStringValue(jObj, "fOrgCode"));
+//                                zt.setBizlicNum(getStringValue(jObj, "fBizlicNum"));
+//                                zt.setLicenses(getStringValue(jObj, "fLicenses").equals("null") ? "" : getStringValue(jObj, "fLicenses"));
+//                                zt.setAddress(getStringValue(jObj, "fAddress"));
+//                                zt.setfType(getStringValue(jObj, "fType"));
+//                                zt.fTags = getStringValue(jObj, "fTags");
+//                                JSONObject jObjsInfo = getJSONObject(jObj, "sInfo");
+//                                zt.setWkid(getIntValue(jObjsInfo, "spatialReference"));
+//                                zt.setLongitude(getStringValue(jObjsInfo, "x"));
+//                                zt.setLatitude(getStringValue(jObjsInfo, "y"));
+//                                ztlist.add(zt);
+//                            }
                             searchZtEntity.setZtList(ztlist);
                             result.setEntry(searchZtEntity);
                         }
@@ -1773,20 +1777,20 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             // 相关主体信息
                             HttpZtEntity zt = new HttpZtEntity();
                             if (!list.isNull("entityInfo")) {
-                                JSONObject jsonobjZtinfo = getJSONObject(list, "entityInfo");
-                                if (jsonobjZtinfo != null) {
-                                    zt.setJyfw(getStringValue(jsonobjZtinfo, "fScope"));
-                                    zt.setEntityName(getStringValue(jsonobjZtinfo, "fEntityName"));
-                                    taskEntity.setEntityName(getStringValue(jsonobjZtinfo, "fEntityName"));
-                                    zt.setCreditLevel(getStringValue(jsonobjZtinfo, "fCreditLevel"));
-                                    zt.setContactInfo(getStringValue(jsonobjZtinfo, "fContactInfo"));
-                                    zt.setLegalPerson(getStringValue(jsonobjZtinfo, "fLegalPerson"));
-                                    zt.setOrgCode(getStringValue(jsonobjZtinfo, "fOrgCode"));
-                                    zt.setBizlicNum(getStringValue(jsonobjZtinfo, "fBizlicNum"));
-                                    zt.setLicenses(getStringValue(jsonobjZtinfo, "fLicenses"));
-                                    zt.setAddress(getStringValue(jsonobjZtinfo, "fAddress"));
-                                    taskEntity.setAddress(getStringValue(jsonobjZtinfo, "fAddress"));
-                                }
+//                                JSONObject jsonobjZtinfo = getJSONObject(list, "entityInfo");
+//                                if (jsonobjZtinfo != null) {
+//                                    zt.setJyfw(getStringValue(jsonobjZtinfo, "fScope"));
+//                                    zt.setEntityName(getStringValue(jsonobjZtinfo, "fEntityName"));
+//                                    taskEntity.setEntityName(getStringValue(jsonobjZtinfo, "fEntityName"));
+//                                    zt.setCreditLevel(getStringValue(jsonobjZtinfo, "fCreditLevel"));
+//                                    zt.setContactInfo(getStringValue(jsonobjZtinfo, "fContactInfo"));
+//                                    zt.setLegalPerson(getStringValue(jsonobjZtinfo, "fLegalPerson"));
+//                                    zt.setOrgCode(getStringValue(jsonobjZtinfo, "fOrgCode"));
+//                                    zt.setBizlicNum(getStringValue(jsonobjZtinfo, "fBizlicNum"));
+//                                    zt.setLicenses(getStringValue(jsonobjZtinfo, "fLicenses"));
+//                                    zt.setAddress(getStringValue(jsonobjZtinfo, "fAddress"));
+//                                    taskEntity.setAddress(getStringValue(jsonobjZtinfo, "fAddress"));
+//                                }
                                 taskEntity.setZtEntity(zt);
                             }
                             // 任务操作信息（投诉信息或检查指标）
@@ -1906,31 +1910,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(entityInfo);
                         }
                         break;
-                        case HTTP_ID_searchzt_detail: {
-                            list = getJSONObject(jsonObject, "data");
-                            HttpZtEntity zt = new HttpZtEntity();
-                            zt.setJyfw(getStringValue(list, "fBizScope"));
-                            JSONObject jObj = getJSONObject(list, "info");
-                            if (jObj != null) {
-                                zt.setGuid(getStringValue(jObj, "guid"));
-                                zt.setEntityName(getStringValue(jObj, "fEntityName"));
-                                zt.setCreditLevel(getStringValue(jObj, "fCreditLevel"));
-                                zt.setContactInfo(getStringValue(jObj, "fContactInfo"));
-                                zt.setLegalPerson(getStringValue(jObj, "fLegalPerson"));
-                                zt.setOrgCode(getStringValue(jObj, "fOrgCode"));
-                                zt.setBizlicNum(getStringValue(jObj, "fBizlicNum"));
-                                zt.setLicenses(getStringValue(jObj, "fLicenses").equals("null") ? "" : getStringValue(jObj, "fLicenses"));
-                                zt.setAddress(getStringValue(jObj, "fAddress"));
+                        case HTTP_ID_searchzt_detail:
 
-                                JSONObject jObjsInfo = getJSONObject(jObj, "sInfo");
-                                zt.setWkid(getIntValue(jObjsInfo, "spatialReference"));
-                                zt.setLongitude(getStringValue(jObjsInfo, "x"));
-                                zt.setLatitude(getStringValue(jObjsInfo, "y"));
-                            }
-
-                            result.setEntry(zt);
-                        }
-                        break;
+                            break;
                         case HTTP_ID_event_response:
                             break;
                         case HTTP_ID_event_checkin:
@@ -2696,7 +2678,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<SelectPopDataList> selectPopDataLists = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                selectPopDataLists.add(new SelectPopDataList(getStringValue(jsonArray.getJSONObject(i),"name"), getStringValue(jsonArray.getJSONObject(i),"id")));
+                                selectPopDataLists.add(new SelectPopDataList(getStringValue(jsonArray.getJSONObject(i), "name"), getStringValue(jsonArray.getJSONObject(i), "id")));
                             }
                             result.setEntry(selectPopDataLists);
                             break;
@@ -2961,6 +2943,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_statistics_case_queryType:
                         case HTTP_ID_statistics_case_queryIsCase:
                         case HTTP_ID_statistics_case_queryClosedCount:
+                        case HTTP_ID_statistics_entity_equipmentType:
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<KeyValueInfo> closeCounts = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -3000,6 +2983,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(punishCount);
                             break;
                         case HTTP_ID_statistics_comp_countType:
+                        case HTTP_ID_statistics_entity_enterpriseComplain:
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<KeyValueInfo> typeInfo = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -3015,6 +2999,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_statistics_comp_countDepartment:
                         case HTTP_ID_statistics_comp_countInfo:
                         case HTTP_ID_statistics_comp_countBussiniss:
+                        case HTTP_ID_statistics_entity_enterpriseType:
+                        case HTTP_ID_statistics_entity_enterpriseDev:
+                        case HTTP_ID_statistics_entity_enterpriseIndustry:
+                        case HTTP_ID_statistics_entity_enterpriseAnn:
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<KeyValueInfo> compInfos = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -3025,6 +3013,8 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 compInfos.add(compKV);
                             }
                             result.setEntry(compInfos);
+                            break;
+                        case HTTP_ID_statistics_entity_enterpriseWarning:
                             break;
                         default:
                             break;

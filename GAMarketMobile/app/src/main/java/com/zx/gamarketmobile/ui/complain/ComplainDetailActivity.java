@@ -108,7 +108,7 @@ public class ComplainDetailActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_right:
-                if (mEntity.getSInfo().getX() > 0 && mEntity.getSInfo().getY() > 0) {
+                if (mEntity.getSInfo() != null && mEntity.getSInfo().getX() > 0 && mEntity.getSInfo().getY() > 0) {
                     Intent mapIntent = new Intent(this, WorkInMapShowActivity.class);
                     mapIntent.putExtra("type", ConstStrings.MapType_CompDetail);
                     mapIntent.putExtra("entity", mEntity);

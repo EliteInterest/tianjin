@@ -108,11 +108,11 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
 //            getTaskPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
             Log.i(TAG, "load has to process");
 //            getTaskPage.loadData(mPageNo, mPageSize, 3);
-            getTaskPage.loadData(mPageNo, mPageSize);
+            getTaskPage.loadData(mPageNo, mPageSize,3);
         } else {
 //            getTaskHisPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
             Log.i(TAG, "has aleady processed");
-//            getTaskPage.loadData(mPageNo, mPageSize, 4);
+            getTaskPage.loadData(mPageNo, mPageSize, 4);
 
         }
     }
@@ -136,7 +136,6 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
                 MyTaskListEntity.RowsBean bean = null;
                 for (int j = 0; j < dataList.size(); j++) {
                     bean = dataList.get(j);
-                    Log.i(TAG, "bean is " + bean.toString());
                 }
 
 //                if (bean != null)

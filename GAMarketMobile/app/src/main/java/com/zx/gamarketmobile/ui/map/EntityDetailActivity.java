@@ -7,7 +7,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,16 +17,11 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.R.id;
 import com.zx.gamarketmobile.entity.EntityDetail;
 import com.zx.gamarketmobile.entity.HttpZtEntity;
-import com.zx.gamarketmobile.entity.KeyEntityInfo;
-import com.zx.gamarketmobile.entity.LocationEntity;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
-import com.zx.gamarketmobile.util.GpsTool;
 import com.zx.gamarketmobile.util.Util;
-
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_queryLocationData;
 
 /**
  * Create By Xiangb On 2016/9/22
@@ -38,7 +32,6 @@ public class EntityDetailActivity extends BaseActivity implements OnClickListene
 
     private ApiData mChangeposData = new ApiData(ApiData.HTTP_ID_change_pos);
     private ApiData entityClaimed = new ApiData(ApiData.HTTP_ID_doClaimed);
-    private ApiData queryLocationData = new ApiData(HTTP_ID_queryLocationData);
     private ViewPager mVpContent;
     private LinearLayout llClaimedLayout;
     private Button btnClaimedLocation, btnDoClaimed;
@@ -61,10 +54,9 @@ public class EntityDetailActivity extends BaseActivity implements OnClickListene
         setMidText("主体详情");
         entityClaimed.setLoadingListener(this);
         mChangeposData.setLoadingListener(this);
-        queryLocationData.setLoadingListener(this);
         llClaimedLayout = (LinearLayout) findViewById(id.ll_claimedLayout);
         btnClaimedLocation = (Button) findViewById(id.btn_claimedLocation);
-        btnDoClaimed = (Button) findViewById(id.btn_DoClaimed);
+        btnDoClaimed = (Button) findViewById(R.id.btn_DoClaimed);
         tb_entity = (TabLayout) findViewById(id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(id.vp_normal_pager);
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
@@ -84,19 +76,9 @@ public class EntityDetailActivity extends BaseActivity implements OnClickListene
         mEntityDetail = (EntityDetail) getIntent().getSerializableExtra("entity");
         fEntityType = getIntent().getStringExtra("fEntityType");
         fEntityGuid = getIntent().getStringExtra("fEntityGuid");
-        String str = mEntityDetail.EntityInfo.fCreditLevel;
-        if (!"D".equals(str) && !"Z".equals(str)) {
-            myPagerAdapter.addFragment(EntityFragment.newInstance(0, mEntityDetail.EntityInfo, type, fEntityType), "基本信息");
-            if ("school".equals(fEntityType) || "meidical".equals(fEntityType)) {
-                myPagerAdapter.addFragment(CreditFragment.newInstance(1, mEntityDetail.CreditInfo, mEntityDetail.EntityInfo.fCreditLevel), "信用信息");
-                myPagerAdapter.addFragment(BusinessFragment.newInstance(2, mEntityDetail.BizInfo), "业务信息");
-            }
-            entityImageFragment = EntityImageFragment.newInstance(this, mEntityDetail);
-            myPagerAdapter.addFragment(entityImageFragment, "主体图片");
-        } else {
-            myPagerAdapter.addFragment(AddressFragment.newInstance(0, mEntityDetail.EntityInfo), " ");
-            tb_entity.setVisibility(View.GONE);
-        }
+        myPagerAdapter.addFragment(EntityFragment.newInstance(0, mEntityDetail.getBaseInfo()), "基本信息");
+        myPagerAdapter.addFragment(BusinessFragment.newInstance(0, mEntityDetail.getBusiness()), "业务信息");
+        myPagerAdapter.addFragment(GradeFragment.newInstance(1, mEntityDetail.getGrade()), "等级信息");
         mVpContent.setAdapter(myPagerAdapter);
         mVpContent.setOffscreenPageLimit(4);
         tb_entity.setupWithViewPager(mVpContent);
@@ -115,30 +97,6 @@ public class EntityDetailActivity extends BaseActivity implements OnClickListene
                 Util.dialog.dismiss();
                 finish();
                 break;
-            case ApiData.HTTP_ID_queryLocationData:
-                if (b.getEntry() != null) {
-                    LocationEntity locationEntity = (LocationEntity) b.getEntry();
-                    KeyEntityInfo key = mEntityDetail.EntityInfo;
-                    final HttpZtEntity Ztentity = new HttpZtEntity();
-                    Ztentity.setGuid(key.fEntityGuid);
-                    Ztentity.setAddress(key.fAddress);
-                    Ztentity.setEntityName(key.fEntityName);
-                    Ztentity.setCreditLevel(key.fCreditLevel);
-                    Ztentity.setLatitude(locationEntity.getfLatitude());
-                    Ztentity.setLongitude(locationEntity.getfLongitude());
-                    Ztentity.setContactInfo(key.fContactInfo);
-                    Ztentity.setWkid(4490);
-                    if (TextUtils.isEmpty(Ztentity.getLatitude()) ||
-                            TextUtils.isEmpty(Ztentity.getLongitude())) {
-                        Ztentity.setLongitude(entity.getLongitude());
-                        Ztentity.setLatitude(entity.getLatitude());
-                    }
-                    Intent intent = new Intent(EntityDetailActivity.this, WorkInMapShowActivity.class);
-                    intent.putExtra("entity", Ztentity);
-                    intent.putExtra("type", ConstStrings.MapType_ZtDetail);
-                    startActivity(intent);
-                }
-                break;
             default:
                 break;
         }
@@ -148,32 +106,49 @@ public class EntityDetailActivity extends BaseActivity implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case id.toolbar_right:
-                queryLocationData.loadData(fEntityGuid, fEntityType);
+//                HttpZtEntity Ztentity = new HttpZtEntity();
+//                Ztentity.setGuid(key.fEntityGuid);
+//                Ztentity.setAddress(key.fAddress);
+//                Ztentity.setEntityName(key.fEntityName);
+//                Ztentity.setCreditLevel(key.fCreditLevel);
+//                Ztentity.setLatitude(locationEntity.getfLatitude());
+//                Ztentity.setLongitude(locationEntity.getfLongitude());
+//                Ztentity.setContactInfo(key.fContactInfo);
+//                Ztentity.setWkid(4490);
+//                if (TextUtils.isEmpty(Ztentity.getLatitude()) ||
+//                        TextUtils.isEmpty(Ztentity.getLongitude())) {
+//                    Ztentity.setLongitude(entity.getLongitude());
+//                    Ztentity.setLatitude(entity.getLatitude());
+//                }
+                Intent intent = new Intent(EntityDetailActivity.this, WorkInMapShowActivity.class);
+                intent.putExtra("entity", entity);
+                intent.putExtra("type", ConstStrings.MapType_ZtDetail);
+                startActivity(intent);
                 break;
             case id.btn_claimedLocation://位置纠正
-                if (!GpsTool.isOpen(this)) {
-                    GpsTool.openGPS(this);
-                } else {
-                    location = GpsTool.getGpsLocation(this);
-                    if (location != null) {
-                        Util.showYesOrNoDialog(this, "提示！", "是否将该主体的位置纠正为当前坐标：\n" + location.getLongitude() + "," + location.getLatitude(), "确认", "取消", new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mChangeposData.loadData(entity.getGuid(), userInfo.getId(), location.getLongitude(), location.getLatitude(), null);
-                            }
-                        }, null);
-                    } else {
-                        showToast("当前坐标定位失败，请重试");
-                    }
-                }
+//                if (!GpsTool.isOpen(this)) {
+//                    GpsTool.openGPS(this);
+//                } else {
+//                    location = GpsTool.getGpsLocation(this);
+//                    if (location != null) {
+//                        Util.showYesOrNoDialog(this, "提示！", "是否将该主体的位置纠正为当前坐标：\n" + location.getLongitude() + "," + location.getLatitude(), "确认", "取消", new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                mChangeposData.loadData(entity.getGuid(), userInfo.getId(), location.getLongitude(), location.getLatitude(), null);
+//                            }
+//                        }, null);
+//                    } else {
+//                        showToast("当前坐标定位失败，请重试");
+//                    }
+//                }
                 break;
             case id.btn_DoClaimed://主体认领
-                Util.showYesOrNoDialog(this, "提示！", "是否认领该主体？", "确认", "取消", new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        entityClaimed.loadData(entity.getGuid(), userInfo.getId(), userInfo.getDepartment());
-                    }
-                }, null);
+//                Util.showYesOrNoDialog(this, "提示！", "是否认领该主体？", "确认", "取消", new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        entityClaimed.loadData(entity.getGuid(), userInfo.getId(), userInfo.getDepartment());
+//                    }
+//                }, null);
                 break;
             default:
                 break;

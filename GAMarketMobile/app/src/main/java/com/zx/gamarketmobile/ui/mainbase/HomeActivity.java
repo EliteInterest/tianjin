@@ -24,7 +24,6 @@ import com.zx.gamarketmobile.ui.caselegal.CaseSearchFragment;
 import com.zx.gamarketmobile.ui.complain.ComplainMonitorFragment;
 import com.zx.gamarketmobile.ui.complain.ComplainMyListFragment;
 import com.zx.gamarketmobile.ui.complain.ComplainSearchFragment;
-import com.zx.gamarketmobile.ui.emergency.EmergencyNumFragment;
 import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.gamarketmobile.ui.statistics.StatisticsFragment;
 import com.zx.gamarketmobile.ui.supervise.mytask.SuperviseMyTaskFragment;
@@ -46,7 +45,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     private TabLayout homeTabLayout;
     private TaskNumFragment mComplaintFragment;// 投诉举报
     private TaskNumFragment mSuperviseFragment;// 监管任务
-    private EmergencyNumFragment mEmergencyFragment;// 预警信息
     private int index;
     private StatisticsFragment mStatisticsFragment;// 统计分析
     private SharedPreferences mSharePreferences;
@@ -133,7 +131,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
                 myPagerAdapter.addFragment(StatisticsFragment.newInstance(caseInfo), "统计分析");
                 homeTabLayout.setVisibility(View.VISIBLE);
             case 3://信息管理
-                toActivity(InfoManagerActivity.class);
+//                toActivity(InfoManagerActivity.class);
                 break;
 
             case 4://统计分析
@@ -142,6 +140,9 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
                 List<StatisticsInfo> mDataList = createStatisticeData();
                 for (int i = 0; i < mDataList.size(); i++) {
                     myPagerAdapter.addFragment(StatisticsFragment.newInstance(mDataList.get(i)), mDataList.get(i).labelName);
+                }
+                if (mDataList.size()==0){
+                    homeTabLayout.setVisibility(View.GONE);
                 }
                 break;
 
@@ -196,58 +197,62 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         List<StatisticsInfo> dataList = new ArrayList<>();
         StatisticsInfo info = new StatisticsInfo();
         info.labelName = "市场主体";
-        info.itemList.add(new StatisticsItemInfo("主体数量", 0, "区域", R.mipmap.statistic_ztsl));
-        info.itemList.add(new StatisticsItemInfo("主体类别", 2, "类别", R.mipmap.statistic_asfl));
-        info.itemList.add(new StatisticsItemInfo("行业分类", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("企业类型", 0, "类别", R.mipmap.statistic_ztsl));
+        info.itemList.add(new StatisticsItemInfo("行业结构", 0, "类别", R.mipmap.statistic_asfl));
+        info.itemList.add(new StatisticsItemInfo("特种设备", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("消保维权", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("主体发展", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("年报信息", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("许可证预警", 0, "类别", R.mipmap.statistic_hyfl));
         dataList.add(info);
 
-        info = new StatisticsInfo();
-        info.labelName = "食  品";
-        info.itemList.add(new StatisticsItemInfo("食品经营", 0, "区域", R.mipmap.statistics_spjy));
-        info.itemList.add(new StatisticsItemInfo("食品生产", 0, "区域", R.mipmap.statistics_spsc));
-        info.itemList.add(new StatisticsItemInfo("区级检查", 0, "区域", R.mipmap.statistics_qjjc));
-        dataList.add(info);
-
-        info = new StatisticsInfo();
-        info.labelName = "药 化 医";
-        info.itemList.add(new StatisticsItemInfo("药品生产", 0, "区域", R.mipmap.statistics_ypsc));
-        info.itemList.add(new StatisticsItemInfo("药品经营", 0, "区域", R.mipmap.statistics_ypjy));
-        info.itemList.add(new StatisticsItemInfo("器械经营", 0, "区域", R.mipmap.statistics_qxjy));
-        info.itemList.add(new StatisticsItemInfo("器械生产", 0, "区域", R.mipmap.statistics_qxsc));
-        info.itemList.add(new StatisticsItemInfo("化妆品", 0, "区域", R.mipmap.statistics_hzp));
-        info.itemList.add(new StatisticsItemInfo("药品检查", 0, "类别", R.mipmap.statistics_ypjc));
-        dataList.add(info);
-
-        info = new StatisticsInfo();
-        info.labelName = "特种设备";
-        info.itemList.add(new StatisticsItemInfo("设备结构", 2, "类别", R.mipmap.statistic_sbjg));
-        info.itemList.add(new StatisticsItemInfo("压力容器", 0, "区域", R.mipmap.statistic_ylrq));
-        info.itemList.add(new StatisticsItemInfo("电梯数量", 0, "区域", R.mipmap.statistic_dtsl));
-        info.itemList.add(new StatisticsItemInfo("锅炉", 0, "区域", R.mipmap.statistic_cyry));
-        info.itemList.add(new StatisticsItemInfo("起重机械", 0, "区域", R.mipmap.device_structure));
-        dataList.add(info);
-
-        info = new StatisticsInfo();
-        info.labelName = "质  量";
-        info.itemList.add(new StatisticsItemInfo("工业产品许可", 0, "区域", R.mipmap.statistics_gycpxk));
-        info.itemList.add(new StatisticsItemInfo("监督抽检", 0, "区域", R.mipmap.statistics_jdcj));
-        info.itemList.add(new StatisticsItemInfo("强制性认证", 0, "区域", R.mipmap.statistics_qzrz));
-        info.itemList.add(new StatisticsItemInfo("分类监督", 0, "区域", R.mipmap.statistics_fljd));
-        info.itemList.add(new StatisticsItemInfo("自愿性认证", 0, "区域", R.mipmap.statistics_zyxrz));
-        dataList.add(info);
-
-        info = new StatisticsInfo();
-        info.labelName = "计量相关";
-        info.itemList.add(new StatisticsItemInfo("计量器具", 0, "区域", R.mipmap.statistic_jefj));//TODO
-        dataList.add(info);
-
-        info = new StatisticsInfo();
-        info.labelName = "市场服务";
-        info.itemList.add(new StatisticsItemInfo("商标", 0, "区域", R.mipmap.shangbiao));
-        info.itemList.add(new StatisticsItemInfo("名牌", 0, "区域", R.mipmap.statistics_mp));
-        info.itemList.add(new StatisticsItemInfo("微企", 0, "区域", R.mipmap.statistics_wq));
-        info.itemList.add(new StatisticsItemInfo("农资", 0, "主体标识", R.mipmap.statistics_nz));
-        dataList.add(info);
+//        info = new StatisticsInfo();
+//        info.labelName = "食  品";
+//        info.itemList.add(new StatisticsItemInfo("食品经营", 0, "区域", R.mipmap.statistics_spjy));
+//        info.itemList.add(new StatisticsItemInfo("食品生产", 0, "区域", R.mipmap.statistics_spsc));
+//        info.itemList.add(new StatisticsItemInfo("区级检查", 0, "区域", R.mipmap.statistics_qjjc));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "药 化 医";
+//        info.itemList.add(new StatisticsItemInfo("药品生产", 0, "区域", R.mipmap.statistics_ypsc));
+//        info.itemList.add(new StatisticsItemInfo("药品经营", 0, "区域", R.mipmap.statistics_ypjy));
+//        info.itemList.add(new StatisticsItemInfo("器械经营", 0, "区域", R.mipmap.statistics_qxjy));
+//        info.itemList.add(new StatisticsItemInfo("器械生产", 0, "区域", R.mipmap.statistics_qxsc));
+//        info.itemList.add(new StatisticsItemInfo("化妆品", 0, "区域", R.mipmap.statistics_hzp));
+//        info.itemList.add(new StatisticsItemInfo("药品检查", 0, "类别", R.mipmap.statistics_ypjc));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "特种设备";
+//        info.itemList.add(new StatisticsItemInfo("设备结构", 2, "类别", R.mipmap.statistic_sbjg));
+//        info.itemList.add(new StatisticsItemInfo("压力容器", 0, "区域", R.mipmap.statistic_ylrq));
+//        info.itemList.add(new StatisticsItemInfo("电梯数量", 0, "区域", R.mipmap.statistic_dtsl));
+//        info.itemList.add(new StatisticsItemInfo("锅炉", 0, "区域", R.mipmap.statistic_cyry));
+//        info.itemList.add(new StatisticsItemInfo("起重机械", 0, "区域", R.mipmap.device_structure));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "质  量";
+//        info.itemList.add(new StatisticsItemInfo("工业产品许可", 0, "区域", R.mipmap.statistics_gycpxk));
+//        info.itemList.add(new StatisticsItemInfo("监督抽检", 0, "区域", R.mipmap.statistics_jdcj));
+//        info.itemList.add(new StatisticsItemInfo("强制性认证", 0, "区域", R.mipmap.statistics_qzrz));
+//        info.itemList.add(new StatisticsItemInfo("分类监督", 0, "区域", R.mipmap.statistics_fljd));
+//        info.itemList.add(new StatisticsItemInfo("自愿性认证", 0, "区域", R.mipmap.statistics_zyxrz));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "计量相关";
+//        info.itemList.add(new StatisticsItemInfo("计量器具", 0, "区域", R.mipmap.statistic_jefj));//TODO
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "市场服务";
+//        info.itemList.add(new StatisticsItemInfo("商标", 0, "区域", R.mipmap.shangbiao));
+//        info.itemList.add(new StatisticsItemInfo("名牌", 0, "区域", R.mipmap.statistics_mp));
+//        info.itemList.add(new StatisticsItemInfo("微企", 0, "区域", R.mipmap.statistics_wq));
+//        info.itemList.add(new StatisticsItemInfo("农资", 0, "主体标识", R.mipmap.statistics_nz));
+//        dataList.add(info);
 
 //        info = new StatisticsInfo();
 //        info.labelName = "安全隐患";

@@ -3,84 +3,89 @@ package com.zx.gamarketmobile.entity;
 import java.io.Serializable;
 
 public class HttpZtEntity implements Serializable {
+
     /**
-     *
+     * stationCode :
+     * regMoney : null
+     * contactInfo :
+     * latitude : 39.026658
+     * shopName : null
+     * industry : 批发和零售业
+     * addressMatch : 0
+     * industryCode : F
+     * creditCode : 911201163410689437
+     * industryType : 批发业
+     * legalPerson : 吴虎
+     * station : 开发区工商所（内资、个体）
+     * stree : null
+     * id : d9513e28979d11e781d1000c2934879e
+     * industryTypeCode : F51
+     * enterpriseName : 天津奥光华利贸易有限公司
+     * regType : 私营公司
+     * enterpriseTypeName : null
+     * longitude : 117.702828
+     * address : null
+     * foundDate : 1505981639000
+     * businessScope : null
+     * enterpriseRegType : 1151
+     * enterpriseType : 10
+     * tags : null
+     * bizlicNum : 120116000375822
+     * grid : null
+     * regOrg : null
+     * businessType : 其它类
+     * enterpriseRegTypeName : null
+     * gridCode : null
+     * status : 开业
      */
-    private static final long serialVersionUID = -4848195188747233411L;
-    public String guid;
-    public String entityName;//主体名称
-    public String creditLevel;//信用等级
-    public String contactInfo;//联系方式
-    public String fContactPhone;
-    public String legalPerson;//法定代表人
-    public String bizlicNum;//营业执照注册号
-    public String orgCode;//组织机构代码
-    public String licenses;//许可证
-    public String address;//地址
-    public String fTags;
-    public String fType;
-    public String getfEntityType() {
-        return fEntityType;
+
+    private String stationCode;
+    private Object regMoney;
+    private String contactInfo;
+    private double latitude;
+    private Object shopName;
+    private String industry;
+    private int addressMatch;
+    private String industryCode;
+    private String creditCode;
+    private String industryType;
+    private String legalPerson;
+    private String station;
+    private Object stree;
+    private String id;
+    private String industryTypeCode;
+    private String enterpriseName;
+    private String regType;
+    private Object enterpriseTypeName;
+    private double longitude;
+    private String address;
+    private long foundDate;
+    private Object businessScope;
+    private String enterpriseRegType;
+    private String enterpriseType;
+    private Object tags;
+    private String bizlicNum;
+    private Object grid;
+    private Object regOrg;
+    private String businessType;
+    private Object enterpriseRegTypeName;
+    private Object gridCode;
+    private String status;
+
+    public String getStationCode() {
+        return stationCode;
     }
 
-    public void setfEntityType(String fEntityType) {
-        this.fEntityType = fEntityType;
+    public void setStationCode(String stationCode) {
+        this.stationCode = stationCode;
     }
 
-    public String fEntityType;
-    public String longitude;
-    public String latitude;
-    public int wkid;//投影坐标系ID
-    public boolean selected;
-
-    public boolean isSelected() {
-        return selected;
+    public Object getRegMoney() {
+        return regMoney;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    @Override
-    public String toString() {
-        return "HttpZtEntity [guid=" + guid + ", entityName=" + entityName + ", creditLevel=" + creditLevel
-                + ", contactInfo=" + contactInfo + ", legalPerson=" + legalPerson + ", bizlicNum=" + bizlicNum
-                + ", orgCode=" + orgCode + ", licenses=" + licenses + ", address=" + address + ", longitude="
-                + longitude + ", latitude=" + latitude + ", wkid=" + wkid + ", jyfw=" + jyfw + "]";
-    }
-
-    private String jyfw;//经营范围
-
-    public String getfContactPhone() {
-        return fContactPhone;
-    }
-
-    public void setfContactPhone(String fContactPhone) {
-        this.fContactPhone = fContactPhone;
-    }
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
-    public String getEntityName() {
-        return entityName;
-    }
-
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
-    }
-
-    public String getCreditLevel() {
-        return creditLevel;
-    }
-
-    public void setCreditLevel(String creditLevel) {
-        this.creditLevel = creditLevel;
+    public void setRegMoney(Object regMoney) {
+        this.regMoney = regMoney;
     }
 
     public String getContactInfo() {
@@ -91,6 +96,62 @@ public class HttpZtEntity implements Serializable {
         this.contactInfo = contactInfo;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Object getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(Object shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public int getAddressMatch() {
+        return addressMatch;
+    }
+
+    public void setAddressMatch(int addressMatch) {
+        this.addressMatch = addressMatch;
+    }
+
+    public String getIndustryCode() {
+        return industryCode;
+    }
+
+    public void setIndustryCode(String industryCode) {
+        this.industryCode = industryCode;
+    }
+
+    public String getCreditCode() {
+        return creditCode;
+    }
+
+    public void setCreditCode(String creditCode) {
+        this.creditCode = creditCode;
+    }
+
+    public String getIndustryType() {
+        return industryType;
+    }
+
+    public void setIndustryType(String industryType) {
+        this.industryType = industryType;
+    }
+
     public String getLegalPerson() {
         return legalPerson;
     }
@@ -99,28 +160,68 @@ public class HttpZtEntity implements Serializable {
         this.legalPerson = legalPerson;
     }
 
-    public String getOrgCode() {
-        return orgCode;
+    public String getStation() {
+        return station;
     }
 
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
+    public void setStation(String station) {
+        this.station = station;
     }
 
-    public String getBizlicNum() {
-        return bizlicNum;
+    public Object getStree() {
+        return stree;
     }
 
-    public void setBizlicNum(String bizlicNum) {
-        this.bizlicNum = bizlicNum;
+    public void setStree(Object stree) {
+        this.stree = stree;
     }
 
-    public String getLicenses() {
-        return licenses;
+    public String getId() {
+        return id;
     }
 
-    public void setLicenses(String licenses) {
-        this.licenses = licenses;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIndustryTypeCode() {
+        return industryTypeCode;
+    }
+
+    public void setIndustryTypeCode(String industryTypeCode) {
+        this.industryTypeCode = industryTypeCode;
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+    }
+
+    public String getRegType() {
+        return regType;
+    }
+
+    public void setRegType(String regType) {
+        this.regType = regType;
+    }
+
+    public Object getEnterpriseTypeName() {
+        return enterpriseTypeName;
+    }
+
+    public void setEnterpriseTypeName(Object enterpriseTypeName) {
+        this.enterpriseTypeName = enterpriseTypeName;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getAddress() {
@@ -131,43 +232,99 @@ public class HttpZtEntity implements Serializable {
         this.address = address;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public long getFoundDate() {
+        return foundDate;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setFoundDate(long foundDate) {
+        this.foundDate = foundDate;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public Object getBusinessScope() {
+        return businessScope;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setBusinessScope(Object businessScope) {
+        this.businessScope = businessScope;
     }
 
-    public String getJyfw() {
-        return jyfw;
+    public String getEnterpriseRegType() {
+        return enterpriseRegType;
     }
 
-    public void setJyfw(String jyfw) {
-        this.jyfw = jyfw;
+    public void setEnterpriseRegType(String enterpriseRegType) {
+        this.enterpriseRegType = enterpriseRegType;
     }
 
-    public int getWkid() {
-        return this.wkid;
+    public String getEnterpriseType() {
+        return enterpriseType;
     }
 
-    public void setWkid(int wkid) {
-        this.wkid = wkid;
+    public void setEnterpriseType(String enterpriseType) {
+        this.enterpriseType = enterpriseType;
     }
 
-    public String getfType() {
-        return fType;
+    public Object getTags() {
+        return tags;
     }
 
-    public void setfType(String fType) {
-        this.fType = fType;
+    public void setTags(Object tags) {
+        this.tags = tags;
+    }
+
+    public String getBizlicNum() {
+        return bizlicNum;
+    }
+
+    public void setBizlicNum(String bizlicNum) {
+        this.bizlicNum = bizlicNum;
+    }
+
+    public Object getGrid() {
+        return grid;
+    }
+
+    public void setGrid(Object grid) {
+        this.grid = grid;
+    }
+
+    public Object getRegOrg() {
+        return regOrg;
+    }
+
+    public void setRegOrg(Object regOrg) {
+        this.regOrg = regOrg;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public Object getEnterpriseRegTypeName() {
+        return enterpriseRegTypeName;
+    }
+
+    public void setEnterpriseRegTypeName(Object enterpriseRegTypeName) {
+        this.enterpriseRegTypeName = enterpriseRegTypeName;
+    }
+
+    public Object getGridCode() {
+        return gridCode;
+    }
+
+    public void setGridCode(Object gridCode) {
+        this.gridCode = gridCode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

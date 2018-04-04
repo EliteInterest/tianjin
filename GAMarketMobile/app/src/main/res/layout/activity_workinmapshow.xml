@@ -268,7 +268,7 @@
             android:background="@drawable/ll_buttonstyle"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="20dp"

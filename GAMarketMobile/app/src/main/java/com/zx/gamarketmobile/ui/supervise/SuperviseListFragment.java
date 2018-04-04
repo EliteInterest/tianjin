@@ -217,7 +217,7 @@ public class SuperviseListFragment extends BaseFragment implements MyItemClickLi
                 task.setLatitude(superviseInfo.latitude);
                 task.setLongitude(superviseInfo.longitude);
                 HttpZtEntity zt = new HttpZtEntity();
-                zt.creditLevel = superviseInfo.fCreditLevel;
+                zt.setCreditCode(superviseInfo.fCreditLevel);
                 task.setZtEntity(zt);
                 list.add(task);
             }

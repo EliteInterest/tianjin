@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
-import com.zx.gamarketmobile.entity.BizInfoEntity;
+import com.zx.gamarketmobile.entity.EntityDetail;
 import com.zx.gamarketmobile.listener.MyItemClickListener;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
  * 功能：业务信息适配器
  */
 public class BusinessAdapter extends MyRecycleAdapter {
-    private List<BizInfoEntity> mDataList;
+    private List<EntityDetail.BusinessBean.LicBean> mDataList;
     private Context mContext;
 
-    public BusinessAdapter(Context c, List<BizInfoEntity> complainList) {
+    public BusinessAdapter(Context c, List<EntityDetail.BusinessBean.LicBean> complainList) {
         this.mDataList = complainList;
         this.mContext = c;
     }
@@ -37,9 +37,9 @@ public class BusinessAdapter extends MyRecycleAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Holder myHolder = (Holder) holder;
-        BizInfoEntity task = mDataList.get(position);
-        myHolder.tvName.setText(task.getType() + "：");
-        myHolder.tvRemark.setText("共" + task.getNumber() + "个");
+        EntityDetail.BusinessBean.LicBean task = mDataList.get(position);
+        myHolder.tvName.setText(task.getName() + "：");
+        myHolder.tvRemark.setText("共" + task.getNum() + "个");
     }
 
     @Override

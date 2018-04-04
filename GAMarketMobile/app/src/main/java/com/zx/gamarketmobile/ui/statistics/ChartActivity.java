@@ -82,6 +82,14 @@ public class ChartActivity extends BaseActivity implements IChartListener {
     private ApiData compInfo = new ApiData(ApiData.HTTP_ID_statistics_comp_countInfo);//信息来源统计
     private ApiData compBussiniss = new ApiData(ApiData.HTTP_ID_statistics_comp_countBussiniss);//业务来源统计
 
+    private ApiData enterType = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseType);//主体
+    private ApiData enterIndustry = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseIndustry);
+    private ApiData enterEquipType = new ApiData(ApiData.HTTP_ID_statistics_entity_equipmentType);
+    private ApiData enterComplain = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseComplain);
+    private ApiData enterDev = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseDev);
+    private ApiData enterAnn = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseAnn);
+    private ApiData enterWarning = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseWarning);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +138,13 @@ public class ChartActivity extends BaseActivity implements IChartListener {
         compInfo.setLoadingListener(this);
         compType.setLoadingListener(this);
         compDepart.setLoadingListener(this);
+        enterType.setLoadingListener(this);
+        enterIndustry.setLoadingListener(this);
+        enterEquipType.setLoadingListener(this);
+        enterComplain.setLoadingListener(this);
+        enterDev.setLoadingListener(this);
+        enterAnn.setLoadingListener(this);
+        enterWarning.setLoadingListener(this);
 
         mItemInfo = (StatisticsItemInfo) getIntent().getSerializableExtra("task");
         setMidText(mItemInfo.name);
@@ -249,6 +264,27 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case "业务来源":
                 compBussiniss.loadData("", "");
                 break;
+            case "企业类型":
+                enterType.loadData();
+                break;
+            case "行业结构":
+                enterIndustry.loadData();
+                break;
+            case "特种设备":
+                enterEquipType.loadData();
+                break;
+            case "消保维权":
+                enterComplain.loadData();
+                break;
+            case "主体发展":
+                enterDev.loadData("");
+                break;
+            case "年报信息":
+                enterAnn.loadData("");
+                break;
+            case "许可证预警":
+                enterWarning.loadData();
+                break;
             default:
                 getChartInfo.loadData(mItemInfo.name);
                 break;
@@ -355,6 +391,12 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case ApiData.HTTP_ID_statistics_comp_countType:
             case ApiData.HTTP_ID_statistics_comp_countBussiniss:
             case ApiData.HTTP_ID_statistics_comp_countInfo:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseType:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseDev:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseIndustry:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseAnn:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseComplain:
+            case ApiData.HTTP_ID_statistics_entity_equipmentType:
                 List<KeyValueInfo> tempList = (List<KeyValueInfo>) b.getEntry();
                 initChart(tempList);
                 keyList.clear();

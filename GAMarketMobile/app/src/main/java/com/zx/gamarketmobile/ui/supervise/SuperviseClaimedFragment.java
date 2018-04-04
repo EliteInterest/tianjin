@@ -145,25 +145,25 @@ public class SuperviseClaimedFragment extends BaseFragment implements MyItemClic
                 return false;
             }
         });
-        mAdapter.setOnCheckedChangeListener(new ICheckedChangeListener() {
-            @Override
-            public void CheckedChange(int position, boolean checked) {
-                if (checked) {
-                    if (!checkedTaskIds.contains(mTaskList.get(position).getGuid())) {
-                        checkedTaskIds.add(mTaskList.get(position).getGuid());
-                    }
-                } else {
-                    checkedTaskIds.remove(mTaskList.get(position).getGuid());
-                }
-                setSelectStatus(mSearchZtEntity.getZtList());
-                if (checkedTaskIds.size() > 0) {
-                    tvClaimedCheck_num.setVisibility(View.VISIBLE);
-                    tvClaimedCheck_num.setText(checkedTaskIds.size() + "");
-                } else {
-                    tvClaimedCheck_num.setVisibility(View.GONE);
-                }
-            }
-        });
+//        mAdapter.setOnCheckedChangeListener(new ICheckedChangeListener() {
+//            @Override
+//            public void CheckedChange(int position, boolean checked) {
+//                if (checked) {
+//                    if (!checkedTaskIds.contains(mTaskList.get(position).getGuid())) {
+//                        checkedTaskIds.add(mTaskList.get(position).getGuid());
+//                    }
+//                } else {
+//                    checkedTaskIds.remove(mTaskList.get(position).getGuid());
+//                }
+//                setSelectStatus(mSearchZtEntity.getZtList());
+//                if (checkedTaskIds.size() > 0) {
+//                    tvClaimedCheck_num.setVisibility(View.VISIBLE);
+//                    tvClaimedCheck_num.setText(checkedTaskIds.size() + "");
+//                } else {
+//                    tvClaimedCheck_num.setVisibility(View.GONE);
+//                }
+//            }
+//        });
 
         return view;
     }
@@ -183,7 +183,7 @@ public class SuperviseClaimedFragment extends BaseFragment implements MyItemClic
         currentIndex = position;
         HttpZtEntity zt = mTaskList.get(position);
 //        loadZtJyfwData(zt.getGuid());
-        taskData.loadData(userInfo.getId(), zt.getGuid(), zt.getCreditLevel(), zt.getfType());
+//        taskData.loadData(userInfo.getId(), zt.getGuid(), zt.getCreditLevel(), zt.getfType());
     }
 
     public void loadZtJyfwData(String guid) {
@@ -229,8 +229,8 @@ public class SuperviseClaimedFragment extends BaseFragment implements MyItemClic
                     intent.putExtra("entity", mEntityDetail);
                     intent.putExtra("ztEntity", zt);
                     if (zt != null) {
-                        String fEntityType = zt.getfType();
-                        intent.putExtra("fEntityType", fEntityType);
+//                        String fEntityType = zt.getfType();
+//                        intent.putExtra("fEntityType", fEntityType);
                     }
                     startActivity(intent);
                     Util.activity_In(getActivity());
@@ -259,15 +259,15 @@ public class SuperviseClaimedFragment extends BaseFragment implements MyItemClic
 
     //设置选中属性
     private List<HttpZtEntity> setSelectStatus(List<HttpZtEntity> ztList) {
-        for (int i = 0; i < ztList.size(); i++) {
-            ztList.get(i).setSelected(false);
-            for (int j = 0; j < checkedTaskIds.size(); j++) {
-                if (ztList.get(i).getGuid().equals(checkedTaskIds.get(j))) {
-                    ztList.get(i).setSelected(true);
-                    break;
-                }
-            }
-        }
+//        for (int i = 0; i < ztList.size(); i++) {
+//            ztList.get(i).setSelected(false);
+//            for (int j = 0; j < checkedTaskIds.size(); j++) {
+//                if (ztList.get(i).getGuid().equals(checkedTaskIds.get(j))) {
+//                    ztList.get(i).setSelected(true);
+//                    break;
+//                }
+//            }
+//        }
         return ztList;
     }
 
@@ -362,10 +362,10 @@ public class SuperviseClaimedFragment extends BaseFragment implements MyItemClic
                         if (location != null) {
                             if (mTaskList.size() > 0) {
                                 for (int i = 0; i < mTaskList.size(); i++) {
-                                    if (mTaskList.get(i).getGuid() != null) {
-                                        String guid = mTaskList.get(i).getGuid();
-                                        builder.append(guid).append(",");
-                                    }
+//                                    if (mTaskList.get(i).getGuid() != null) {
+//                                        String guid = mTaskList.get(i).getGuid();
+//                                        builder.append(guid).append(",");
+//                                    }
                                 }
                             }
                             Util.showYesOrNoDialog(getActivity(), "提示！", "是否将这些主体的位置纠正为当前坐标：\n" + location.getLongitude() + "," + location.getLatitude(), "确认", "取消", new View.OnClickListener() {

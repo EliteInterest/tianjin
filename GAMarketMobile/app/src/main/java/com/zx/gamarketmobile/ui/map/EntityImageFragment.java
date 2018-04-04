@@ -62,14 +62,14 @@ public class EntityImageFragment extends BaseFragment {
     private void initData() {
         photoPaths.clear();
         recordFileInfo.clear();
-        for (int i = 0; i < mEntity.getImg().size(); i++) {
-            if (!TextUtils.isEmpty(mEntity.getImg().get(i).getfSaveName())) {
-                String id = mEntity.getImg().get(i).getfGuid();
-                String path = "http://" + ApiData.getmIp() + "/" + mEntity.getImg().get(i).getfSaveName();
-                photoPaths.add(path);
-                recordFileInfo.put(path, id);
-            }
-        }
+//        for (int i = 0; i < mEntity.getImg().size(); i++) {
+//            if (!TextUtils.isEmpty(mEntity.getImg().get(i).getfSaveName())) {
+//                String id = mEntity.getImg().get(i).getfGuid();
+//                String path = "http://" + ApiData.getmIp() + "/" + mEntity.getImg().get(i).getfSaveName();
+//                photoPaths.add(path);
+//                recordFileInfo.put(path, id);
+//            }
+//        }
         mprvPhoto.notifyDataSetChanged();
     }
 
@@ -152,18 +152,18 @@ public class EntityImageFragment extends BaseFragment {
                     }
                     fileNameListStr = realNameBuffer.toString();
                     fileNameListStr = fileNameListStr.substring(1);
-                    if (!TextUtils.isEmpty(realNameListStr)) {
-                        String fEntityGuid = mEntity.EntityInfo.fEntityGuid;
-                        String fUploadPerson = userInfo.getUserName();
-                        if (!TextUtils.isEmpty(fEntityGuid) && !TextUtils.isEmpty(fUploadPerson)) {
-                            savaOfficialPictureInfoData.loadData(fEntityGuid, realNameListStr, fileNameListStr, userInfo.getUserName());
-                        }
-                    }
+//                    if (!TextUtils.isEmpty(realNameListStr)) {
+//                        String fEntityGuid = mEntity.EntityInfo.fEntityGuid;
+//                        String fUploadPerson = userInfo.getUserName();
+//                        if (!TextUtils.isEmpty(fEntityGuid) && !TextUtils.isEmpty(fUploadPerson)) {
+//                            savaOfficialPictureInfoData.loadData(fEntityGuid, realNameListStr, fileNameListStr, userInfo.getUserName());
+//                        }
+//                    }
                 }
                 break;
             case ApiData.HTTP_ID_savaOfficialPicture:
                 showToast("上传成功");
-                taskData.loadData(userInfo.getId(), ztEntity.getGuid(), ztEntity.getCreditLevel(), ztEntity.getfEntityType());
+//                taskData.loadData(userInfo.getId(), ztEntity.getGuid(), ztEntity.getCreditLevel(), ztEntity.getfEntityType());
                 break;
             case ApiData.HTTP_ID_entity_detail:
                 dismissProgressDialog();
