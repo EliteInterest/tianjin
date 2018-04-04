@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.MyRecycleAdapter;
 import com.zx.gamarketmobile.entity.supervise.MyTaskCheckEntity;
+import com.zx.gamarketmobile.util.DateUtil;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
 
-    private List<MyTaskCheckEntity.RowsBean> mItemList;
+    private List<MyTaskCheckEntity> mItemList;
     public Holder myHolder;
 
-    public SuperviseMyTaskCheckListAdapter(List<MyTaskCheckEntity.RowsBean> itemList) {
+    public SuperviseMyTaskCheckListAdapter(List<MyTaskCheckEntity> itemList) {
         mItemList = itemList;
     }
 
@@ -43,10 +44,10 @@ public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
-            MyTaskCheckEntity.RowsBean entity = mItemList.get(position);
-            myHolder.tvField.setText(entity.getFEntityName());
-            myHolder.tvAddress.setText(entity.getfAddress());
-            myHolder.tvState.setText(entity.getFSTATUS());
+            MyTaskCheckEntity entity = mItemList.get(position);
+            myHolder.tvField.setText(entity.getEnterpriseName());
+            myHolder.tvAddress.setText(entity.getLegalPerson());
+            myHolder.tvState.setText(DateUtil.getDateFromMillis(entity.getCheckDate()));
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

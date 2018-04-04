@@ -68,7 +68,7 @@ public class MapViewDialog extends AlertDialog {
     private GraphicsLayer tapLyer;//点击图层
     private PictureMarkerSymbol picSymbol;//图标标记
     private Point tapPoint;//点击点
-    private MyTaskCheckEntity.RowsBean mEntityBean;
+    private MyTaskCheckEntity mEntityBean;
     private List<EntityPointBean> pointList = new ArrayList<>();//点集合
     private Location myLocation;
     private ApiData mChangeposData = new ApiData(ApiData.HTTP_ID_change_pos);
@@ -126,8 +126,8 @@ public class MapViewDialog extends AlertDialog {
                     @Override
                     public void onClick(View v) {
                         UserManager userManager = new UserManager();
-                        mChangeposData.loadData(mEntityBean.getFEntityGuid(), userManager.getUser(activity).getId(), myLocation.getLongitude(), myLocation.getLatitude(),
-                                mEntityBean.getFGuid() );
+                        mChangeposData.loadData(mEntityBean.getId(), userManager.getUser(activity).getId(), myLocation.getLongitude(), myLocation.getLatitude(),
+                                mEntityBean.getTaskId() );
                     }
                 }, null);
             } catch (Exception e) {
@@ -213,7 +213,7 @@ public class MapViewDialog extends AlertDialog {
         this.map = map;
         if (map.containsKey("entity")) {
             llChangePos.setVisibility(View.VISIBLE);
-            mEntityBean = (MyTaskCheckEntity.RowsBean) map.get("entity");
+            mEntityBean = (MyTaskCheckEntity) map.get("entity");
         } else {
             llChangePos.setVisibility(View.GONE);
         }

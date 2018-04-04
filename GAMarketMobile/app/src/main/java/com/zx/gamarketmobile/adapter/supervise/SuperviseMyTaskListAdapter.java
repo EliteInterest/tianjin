@@ -56,11 +56,19 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
             MyTaskListEntity.RowsBean entity = mItemList.get(position);
 
 
-            myHolder.tvField.setText(String.valueOf(entity.getStatus()));
+            String type = "";
+            if (entity.getStatus() == 0) {
+                type = "综合";
+            } else if (entity.getStatus() == 0) {
+                type = "专项";
+            } else {
+                type = "临时";
+            }
+            myHolder.tvField.setText(type);
             myHolder.tvDate.setText(DateUtil.getDateFromMillis(entity.getStartDate()));
             myHolder.tvName.setText(entity.getTaskName());
             myHolder.tvPerson.setText(entity.getUserName());
-            myHolder.tvStage.setText(entity.getDepartmentId());
+            myHolder.tvStage.setText(entity.getTaskNum());
 //            } else {
 //                MyTaskListEntity.RowsBean entity = mItemList.get(position);
 //                myHolder.tvField.setText(entity.getFTaskStatus());

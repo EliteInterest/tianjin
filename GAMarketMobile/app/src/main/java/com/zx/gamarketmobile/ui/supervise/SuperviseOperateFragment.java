@@ -92,22 +92,22 @@ public class SuperviseOperateFragment extends BaseFragment {
             rgCheck.setEnabled(false);
             rbCheckYes.setEnabled(false);
             rbCheckNo.setEnabled(false);
-            if ("0".equals(checkInfo.fValueType)) {
+            if ("0".equals(checkInfo.getType())) {
                 rgCheck.setVisibility(View.VISIBLE);
                 llNum.setVisibility(View.GONE);
-                if ("0".equals(checkInfo.fCheckResult)) {
+                if ("0".equals(checkInfo.getCheckResult())) {
                     rbCheckYes.setChecked(false);
                     rbCheckNo.setChecked(true);
                 } else {
                     rbCheckYes.setChecked(true);
                     rbCheckNo.setChecked(false);
                 }
-            } else if ("1".equals(checkInfo.fValueType)) {
+            } else if ("1".equals(checkInfo.getType())) {
                 rgCheck.setVisibility(View.GONE);
                 llNum.setVisibility(View.VISIBLE);
-                edtNum.setText(checkInfo.fValueMax);
+                edtNum.setText(checkInfo.getMax());
             }
-            tvName.setText((i + 1) + "." + checkInfo.fItemName);
+            tvName.setText((i + 1) + "." + checkInfo.getItemName());
             llCheck.addView(view);
         }
         int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);

@@ -109,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="任务指定部门:"
+                    android:text="任务编号:"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/text_size_more_micro"/>
 

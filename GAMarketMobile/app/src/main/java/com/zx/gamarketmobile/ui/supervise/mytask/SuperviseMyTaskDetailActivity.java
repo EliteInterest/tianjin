@@ -45,6 +45,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     private void initView() {
         instance = this;
         addToolBar(true);
+        setMidText("监管详情");
         isSendBackVisible = false;
         getRightImg().setOnClickListener(this);
         getRightImg().setVisibility(View.GONE);
@@ -53,7 +54,6 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
             mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
             index = getIntent().getIntExtra("index", 0);
             type = getIntent().getIntExtra("type", 0);
-            setMidText(mEntity.getDepartmentId());
 //            getIsBackTask.setLoadingListener(this);
             sendBackTask.setLoadingListener(this);
 //            getIsBackTask.loadData(mEntity.getF_GUID(), mEntity.getFTaskId(), userInfo.getId());
@@ -71,14 +71,16 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         btnOther.setVisibility(View.GONE);
         btnExcute.setText("处理");
         btnOther.setText("退回");
+//        btnExcute.setVisibility(View.GONE);
+//        btnOther.setVisibility(View.GONE);
         if (index == 1) {
             btnExcute.setVisibility(View.GONE);
             btnOther.setVisibility(View.GONE);
         }
 //        if ("0".equals(mEntity.getfIsBack())) {
-        if ("0".equals(mEntity.getOverdue())) {
-            btnOther.setVisibility(View.GONE);
-        }
+//        if ("0".equals(mEntity.getOverdue())) {
+//            btnOther.setVisibility(View.GONE);
+//        }
     }
 
     private void initViewPager() {
@@ -127,16 +129,16 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
                 break;
             case R.id.btnActCase_execute:
 //                if (mEntity.getFTaskStatus() != null) {
-                    if (mEntity.getStatus() == 3) {//待处置
-                        mVpContent.setCurrentItem(2);
-                    } else if (mEntity.getStatus() == 1)//"审核未通过"))????
-                     {
-                        showToast("当前状态审核未通过，请在服务端重新修改提交！");
-                    } else {
-                        Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
-                        intent.putExtra("entity", mEntity);
-                        startActivity(intent);
-                    }
+                if (mEntity.getStatus() == 3) {//待处置
+                    mVpContent.setCurrentItem(2);
+                } else if (mEntity.getStatus() == 1)//"审核未通过"))????
+                {
+                    showToast("当前状态审核未通过，请在服务端重新修改提交！");
+                } else {
+                    Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
+                    intent.putExtra("entity", mEntity);
+                    startActivity(intent);
+                }
 //                }
                 break;
             case R.id.btnActCase_other:

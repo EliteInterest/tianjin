@@ -122,10 +122,10 @@ public class SuperviseDisposeActivity extends BaseActivity implements OnClickLis
                     group.check(checId);
                     switch (checId) {
                         case id.rb_flag_yes_fordispose:
-                            checkInfo.fCheckResult = "1";
+                            checkInfo.setCheckResult("1");
                             break;
                         case id.rb_flag_no_fordispose:
-                            checkInfo.fCheckResult = "0";
+                            checkInfo.setCheckResult("0");
                             break;
                         default:
                             break;
@@ -143,10 +143,10 @@ public class SuperviseDisposeActivity extends BaseActivity implements OnClickLis
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    checkInfo.fCheckResult = s.toString();
+                    checkInfo.setCheckResult(s.toString());
                 }
             });
-            tvName.setText((i + 1) + "." + checkInfo.fItemName);
+            tvName.setText((i + 1) + "." + checkInfo.getItemName());
             llCheck.addView(view);
         }
     }
@@ -228,9 +228,9 @@ public class SuperviseDisposeActivity extends BaseActivity implements OnClickLis
                 case ApiData.HTTP_ID_supervisetask_searchcheck:
                     mCheckList = (List<CheckInfo>) b.getEntry();
                     for (int i = 0; i < mCheckList.size(); i++) {
-                        if (mCheckList.get(i).getfValueType().equals("2")) {
+                        if (mCheckList.get(i).getType().equals("2")) {
                             valueType = 2;
-                        } else if (mCheckList.get(i).getfValueType().equals("1") && valueType != 2) {
+                        } else if (mCheckList.get(i).getType().equals("1") && valueType != 2) {
                             valueType = 1;
                         }
                     }

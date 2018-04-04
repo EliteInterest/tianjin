@@ -69,7 +69,6 @@ import com.zx.gamarketmobile.entity.supervise.MyTaskInfoEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskPageEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskProcessEntity;
-import com.zx.gamarketmobile.entity.supervise.MyTaskTodoCheckBean;
 import com.zx.gamarketmobile.entity.supervise.SuperviseEquimentEntity;
 import com.zx.gamarketmobile.http.BaseHttpParams.HTTP_MOTHOD;
 import com.zx.gamarketmobile.util.ConstStrings;
@@ -260,6 +259,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_statistics_entity_enterpriseDev = 215;//统计-主体-主体发展
     public static final int HTTP_ID_statistics_entity_enterpriseAnn = 216;//统计-主体-年报情况
     public static final int HTTP_ID_statistics_entity_enterpriseWarning = 217;//统计-主体-许可证预警
+
+    public static final int HTTP_ID_statistics_super_countTask = 218;//任务主体
+    public static final int HTTP_ID_statistics_super_countType = 219;//任务类型
+    public static final int HTTP_ID_statistics_super_countEnterprise = 220;//检查主体
+    public static final int HTTP_ID_statistics_super_countDoTask = 221;//统计-监管-执行任务数
     //TODO
     public static String UUID = "";
 
@@ -586,10 +590,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("contactPeople", objects[3]);
                     break;
                 case HTTP_ID_supervisetask_searchcheck:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "executeMyTask");
-                    params.putParams("guid", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryItem.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("taskId", objects[0]);
                     break;
                 case HTTP_ID_supervisetask_save:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1163,14 +1166,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 case HTTP_ID_SuperviseTaskCheckEntity:
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryItem.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryEnterprise.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
-//                    params.putParams("method", "getEntityByTaskId");
-                    params.putParams("taskId", objects[0]);
-//                    params.putParams("pageSize", objects[1]);
-//                    params.putParams("fetchNum", objects[2]);
-//                    params.putParams("pageNo", objects[3]);
-//                    params.putParams("fUserId", objects[4]);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("taskId", objects[2]);
                     break;
                 case HTTP_ID_SuperviseMyTaskCheckEntity:
 //                    params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1564,6 +1564,26 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                 case HTTP_ID_statistics_entity_enterpriseWarning:
                     params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByWarning.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
+                    break;
+                case HTTP_ID_statistics_super_countTask:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/countTaskEnterprise.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("taskId", objects[0]);
+                    break;
+                case HTTP_ID_statistics_super_countType:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/countType.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_super_countEnterprise:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/countEnterprise.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
+                    break;
+                case HTTP_ID_statistics_super_countDoTask:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/countDoTask.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("year", objects[0]);
                     break;
                 default:
                     if (LogUtil.DEBUG) {
@@ -1967,12 +1987,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(entityDetail);
                             break;
                         case HTTP_ID_supervisetask_searchcheck:
-                            List<CheckInfo> checkList = new ArrayList<>();
                             JSONArray array = getJSONArray(jsonObject, "data");
-                            for (int i = 0; i < array.length(); i++) {
-                                CheckInfo checkInfo = new Gson().fromJson(array.getString(i), CheckInfo.class);
-                                checkList.add(checkInfo);
-                            }
+                            List<CheckInfo> checkList = gson.fromJson(array.toString(), new TypeToken<List<CheckInfo>>() {
+                            }.getType());
                             result.setEntry(checkList);
                             break;
                         case HTTP_ID_supervisetasktype_list:
@@ -2065,35 +2082,35 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(entityLisiInfo);
                             break;
                         case HTTP_ID_superviseoperate_detail:
-                            JSONObject superviseOperateJson = getJSONObject(jsonObject, "data");
-                            SuperviseDetailInfo operateInfo = new SuperviseDetailInfo();
-                            List<CheckInfo> checInfokList = new ArrayList<>();
-                            JSONArray operateArray = getJSONArray(superviseOperateJson, "checkitem");
-                            for (int i = 0; i < operateArray.length(); i++) {
-                                JSONObject checkJson = operateArray.getJSONObject(i);
-                                CheckInfo check = new CheckInfo();
-                                check.fCheckResult = getStringValue(checkJson, "fCheckResult");
-                                check.fItemName = getStringValue(checkJson, "fItemName");
-                                check.fValueType = getStringValue(checkJson, "fValueType");
-                                check.fValueMax = getStringValue(checkJson, "fValueMax");
-                                check.fValueMin = getStringValue(checkJson, "fValueMin");
-                                checInfokList.add(check);
-                            }
-                            operateInfo.setCheckList(checInfokList);
-                            JSONObject operateJson = getJSONObject(superviseOperateJson, "task");
-                            operateInfo.setfLeaderUserId(getStringValue(operateJson, "fLeaderUserId"));
-                            operateInfo.setfReviewUserId(getStringValue(operateJson, "fReviewUserId"));
-                            operateInfo.setTaskCode(getStringValue(operateJson, "taskId"));
-                            operateInfo.setTaskName(getStringValue(operateJson, "taskName"));
-                            operateInfo.setTaskResource(getStringValue(operateJson, "source"));
-                            operateInfo.setTaskDispatchTime(getStringValue(operateJson, "startTime"));
-                            operateInfo.setTaskDeadlineTime(getStringValue(operateJson, "endTime"));
-                            operateInfo.setTaskProgress(getStringValue(operateJson, "status"));
-                            operateInfo.setTaskArea(getStringValue(operateJson, "grid"));
-                            operateInfo.setTaskRemark(getStringValue(operateJson, "reamrk"));
-                            operateInfo.setResult(getStringValue(operateJson, "result"));
-                            operateInfo.setLegalPerson(getStringValue(getJSONObject(superviseOperateJson, "entity"), "legalPerson"));
-                            result.setEntry(operateInfo);
+//                            JSONObject superviseOperateJson = getJSONObject(jsonObject, "data");
+//                            SuperviseDetailInfo operateInfo = new SuperviseDetailInfo();
+//                            List<CheckInfo> checInfokList = new ArrayList<>();
+//                            JSONArray operateArray = getJSONArray(superviseOperateJson, "checkitem");
+//                            for (int i = 0; i < operateArray.length(); i++) {
+//                                JSONObject checkJson = operateArray.getJSONObject(i);
+//                                CheckInfo check = new CheckInfo();
+//                                check.fCheckResult = getStringValue(checkJson, "fCheckResult");
+//                                check.fItemName = getStringValue(checkJson, "fItemName");
+//                                check.fValueType = getStringValue(checkJson, "fValueType");
+//                                check.fValueMax = getStringValue(checkJson, "fValueMax");
+//                                check.fValueMin = getStringValue(checkJson, "fValueMin");
+//                                checInfokList.add(check);
+//                            }
+//                            operateInfo.setCheckList(checInfokList);
+//                            JSONObject operateJson = getJSONObject(superviseOperateJson, "task");
+//                            operateInfo.setfLeaderUserId(getStringValue(operateJson, "fLeaderUserId"));
+//                            operateInfo.setfReviewUserId(getStringValue(operateJson, "fReviewUserId"));
+//                            operateInfo.setTaskCode(getStringValue(operateJson, "taskId"));
+//                            operateInfo.setTaskName(getStringValue(operateJson, "taskName"));
+//                            operateInfo.setTaskResource(getStringValue(operateJson, "source"));
+//                            operateInfo.setTaskDispatchTime(getStringValue(operateJson, "startTime"));
+//                            operateInfo.setTaskDeadlineTime(getStringValue(operateJson, "endTime"));
+//                            operateInfo.setTaskProgress(getStringValue(operateJson, "status"));
+//                            operateInfo.setTaskArea(getStringValue(operateJson, "grid"));
+//                            operateInfo.setTaskRemark(getStringValue(operateJson, "reamrk"));
+//                            operateInfo.setResult(getStringValue(operateJson, "result"));
+//                            operateInfo.setLegalPerson(getStringValue(getJSONObject(superviseOperateJson, "entity"), "legalPerson"));
+//                            result.setEntry(operateInfo);
                             break;
                         case HTTP_ID_supervisetasktype_end:
                             break;
@@ -2707,34 +2724,19 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myTaskFlow.getData());
                             break;
                         case HTTP_ID_SuperviseTaskCheckEntity: {
-                            String dataStr = jsonObject.getString("data");
-                            MyTaskCheckEntity myTaskCheckEntity = new Gson().fromJson(dataStr, MyTaskCheckEntity.class);
-                            result.setEntry(myTaskCheckEntity);
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            NormalListEntity superNormalList = new NormalListEntity();
+                            superNormalList.setCurrPageNo(getIntValue(jsonObject, "currPageNo"));
+                            superNormalList.setPageSize(getIntValue(jsonObject, "pageSize"));
+                            superNormalList.setPageTotal(getIntValue(jsonObject, "pageTotal"));
+                            superNormalList.setTotal(getIntValue(jsonObject, "total"));
+                            jsonArray = getJSONArray(jsonObject, "list");
+                            List<MyTaskCheckEntity> myTaskCheckEntity = gson.fromJson(jsonArray.toString(), new TypeToken<List<MyTaskCheckEntity>>() {
+                            }.getType());
+                            superNormalList.setTaskCheckList(myTaskCheckEntity);
+                            result.setEntry(superNormalList);
                         }
                         break;
-                        case HTTP_ID_SuperviseMyTaskCheckEntity:
-                            MyTaskTodoCheckBean todoCheckBean = new Gson().fromJson(jsonObject.toString(), MyTaskTodoCheckBean.class);
-                            MyTaskCheckEntity myTaskCheckEntity = new MyTaskCheckEntity();
-                            List<MyTaskCheckEntity.RowsBean> rowsBeanList = new ArrayList<>();
-                            if (todoCheckBean.getData() != null && todoCheckBean.getData().size() > 0) {
-                                for (int i = 0; i < todoCheckBean.getData().size(); i++) {
-                                    MyTaskTodoCheckBean.DataBean dataBean = todoCheckBean.getData().get(i);
-                                    MyTaskCheckEntity.RowsBean rowsBean = new MyTaskCheckEntity.RowsBean();
-                                    rowsBean.setFGuid(dataBean.getF_GUID());
-                                    rowsBean.setfAddress(dataBean.getF_ADDRESS());
-                                    rowsBean.setFEntityName(dataBean.getF_ENTITY_NAME());
-                                    rowsBean.setFEntityGuid(dataBean.getF_ENTITY_GUID());
-                                    rowsBean.setFSTATUS(dataBean.getF_STATUS());
-                                    rowsBean.setFLatitude(dataBean.getF_LATITUDE());
-                                    rowsBean.setFLongitude(dataBean.getF_LONGITUDE());
-                                    rowsBeanList.add(rowsBean);
-                                }
-                            }
-
-                            myTaskCheckEntity.setRows(rowsBeanList);
-                            result.setEntry(myTaskCheckEntity);
-
-                            break;
                         case HTTP_ID_Supervise_getThisTaskPackageTask:
                             MyTaskPageEntity myTaskPageEntity = new Gson().fromJson(jsonObject.toString(), MyTaskPageEntity.class);
                             result.setEntry(myTaskPageEntity);
@@ -2944,6 +2946,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_statistics_case_queryIsCase:
                         case HTTP_ID_statistics_case_queryClosedCount:
                         case HTTP_ID_statistics_entity_equipmentType:
+                        case HTTP_ID_statistics_super_countTask:
+                        case HTTP_ID_statistics_super_countType:
+                        case HTTP_ID_statistics_super_countDoTask:
+                        case HTTP_ID_statistics_super_countEnterprise:
                             jsonArray = getJSONArray(jsonObject, "data");
                             List<KeyValueInfo> closeCounts = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
