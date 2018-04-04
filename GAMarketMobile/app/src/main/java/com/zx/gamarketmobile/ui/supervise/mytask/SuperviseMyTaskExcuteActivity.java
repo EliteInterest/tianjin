@@ -41,24 +41,31 @@ public class SuperviseMyTaskExcuteActivity extends BaseActivity {
 
     private enum State {
 
-        TOBEISSUED("待下发"),
-        TOBEAUDIT("待审核"),
-        TOBEASSIGNMETN("待指派"),
-        AUDITNOTPASSED("审核未通过"),
-        TOBEREVIEW("待核审"),
-        TOBEFEEDBACK("待反馈"),;
+//        TOBEISSUED("待下发"),
+//        TOBEAUDIT("待审核"),
+//        TOBEASSIGNMETN("待指派"),
+//        AUDITNOTPASSED("审核未通过"),
+//        TOBEREVIEW("待核审"),
+//        TOBEFEEDBACK("待反馈"),;
 
-        private String name;
+        //0待选主体1待选检查项2待下发3任务执行中4.完成
+        TOBEISSUED(0),
+        TOBEAUDIT(1),
+        TOBEASSIGNMETN(2),
+        AUDITNOTPASSED(3),
+        TOBEREVIEW(4),;
 
-        State(String name) {
+        private int name;
+
+        State(int name) {
             this.name = name;
         }
 
-        public String getName() {
+        public int getName() {
             return name;
         }
 
-        public void setName(String name) {
+        public void setName(int name) {
             this.name = name;
         }
 
