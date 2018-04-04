@@ -59,6 +59,17 @@ import com.zx.gamarketmobile.entity.SynergyDTInfoEntity;
 import com.zx.gamarketmobile.entity.SynergyDetailEntity;
 import com.zx.gamarketmobile.entity.SynergyInfoBean;
 import com.zx.gamarketmobile.entity.TaskCountInfo;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerBiaozhun;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerDevice;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerDeviceDetail;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLicense;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLicenseDetail;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLicenseFood;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLegalSelect;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLegalSelectLaw;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerMeasureCustom;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerMeasureDetail;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerMeasureLiebiao;
 import com.zx.gamarketmobile.entity.supervise.MonitorPrecessCountEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskBaseInfo;
 import com.zx.gamarketmobile.entity.supervise.MyTaskCheckEntity;
@@ -260,6 +271,22 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_statistics_entity_enterpriseDev = 215;//统计-主体-主体发展
     public static final int HTTP_ID_statistics_entity_enterpriseAnn = 216;//统计-主体-年报情况
     public static final int HTTP_ID_statistics_entity_enterpriseWarning = 217;//统计-主体-许可证预警
+
+ 	public static final int HTTP_ID_info_manager_biaozhun = 301;//标准信息查询
+    public static final int HTTP_ID_info_manager_device_liebiao = 302;//特种设备-特种设备列表查询
+    public static final int HTTP_ID_info_manager_device_detail = 303;//特种设备-特种设备详情接口
+    public static final int HTTP_ID_info_manager_license_food = 304;//许可证-食品企业列表
+    public static final int HTTP_ID_info_manager_license_drugs = 305;//许可证-药品企业列表
+    public static final int HTTP_ID_info_manager_license_cosmetics = 306;//许可证-化妆品企业列表
+    public static final int HTTP_ID_info_manager_license_instrument = 307;//许可证-医疗器械企业列表
+    public static final int HTTP_ID_info_manager_license_detail = 308;//许可证-许可证详情
+    public static final int HTTP_ID_info_manager_measuring_instruments_custom = 310;//计量器具-自定义表信息接口
+    public static final int HTTP_ID_info_manager_measuring_instruments_liebiao = 311;//计量器具-计量器具列表接口
+    public static final int HTTP_ID_info_manager_measuring_instruments_detail = 312;//计量器具-计量器具详情
+    public static final int HTTP_ID_info_manager_legal_query = 313;//法律法规-查询菜单接口
+    public static final int HTTP_ID_info_manager_legal_search = 314;//法律法规-法律法规搜索接口
+
+
     //TODO
     public static String UUID = "";
 
@@ -1565,6 +1592,118 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setApiUrl(baseUrl + "/TJsupervise/homePage/countEnterpriseByWarning.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     break;
+
+                case HTTP_ID_info_manager_biaozhun:
+                    params.setApiUrl(baseUrl + "/TJsupervise/standard/select.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("enterpriseName", objects[0]);
+                    params.putParams("pageNo", objects[1]);
+                    params.putParams("pageSize", objects[2]);
+//                    params.putParams("fUserId", objects[4]);
+                    break;
+
+                case HTTP_ID_info_manager_device_liebiao:
+                    params.setApiUrl(baseUrl + "/TJsupervise/equipment/getEquipmentPage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("enterpriseName", objects[2]);
+                    params.putParams("registerCode", objects[3]);
+                    params.putParams("typeName", objects[4]);
+                    params.putParams("categoryName", objects[5]);
+                    params.putParams("status", objects[6]);
+                    params.putParams("originNum", objects[7]);
+                    params.putParams("code", objects[8]);
+                    params.putParams("level", objects[9]);
+                    params.putParams("model", objects[10]);
+                    params.putParams("address", objects[11]);
+                    params.putParams("useNum", objects[7]);
+                    params.putParams("ordered", objects[8]);
+                    params.putParams("registerDateStart", objects[9]);
+                    params.putParams("registerDateEnd", objects[10]);
+                    params.putParams("makeDateStart", objects[11]);
+                    params.putParams("makeDateEnd", objects[12]);
+                    params.putParams("radius", objects[13]);
+                    params.putParams("positionList", objects[14]);
+                    break;
+                case HTTP_ID_info_manager_device_detail:
+                    params.setApiUrl(baseUrl + "/TJsupervise/equipment/getEquipmentInfo.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
+                    break;
+                case HTTP_ID_info_manager_license_food:
+                    params.setApiUrl(baseUrl + "/TJsupervise/license/getFoodEnterprisePage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("enterpriseName", objects[2]);
+                    params.putParams("licNum", objects[3]);
+
+                    break;
+                case HTTP_ID_info_manager_license_drugs:
+                    params.setApiUrl(baseUrl + "/TJsupervise/license/getDurgEnterprisePage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("enterpriseName", objects[2]);
+                    params.putParams("licNum", objects[3]);
+                    break;
+                case HTTP_ID_info_manager_license_cosmetics:
+                    params.setApiUrl(baseUrl + "/TJsupervise/license/getCosmeticEnterprisePage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("enterpriseName", objects[2]);
+                    params.putParams("licNum", objects[3]);
+                    break;
+                case HTTP_ID_info_manager_license_instrument://许可证-医疗器械企业列表
+                    params.setApiUrl(baseUrl + "/TJsupervise/license/getEquipmentEnterprisePage.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("tableName", objects[2]);
+                    params.putParams("enterpriseName", objects[3]);
+                    params.putParams("licNum", objects[4]);
+                    break;
+                case HTTP_ID_info_manager_license_detail://许可证-许可证详情
+                    params.setApiUrl(baseUrl + "/TJsupervise/enterprise/getLicensesDetail.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
+                    break;
+                case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
+                    params.setApiUrl(baseUrl + "/TJsupervise/defined/getDefinedTableInfo.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("name", objects[0]);
+                    break;
+                case HTTP_ID_info_manager_measuring_instruments_liebiao://计量器具-计量器具列表接口
+                    params.setApiUrl(baseUrl + "/TJsupervise/defined/getDefinedList.do ");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("pageNo", objects[0]);
+                    params.putParams("pageSize", objects[1]);
+                    params.putParams("tableName", objects[2]);
+                    params.putParams("enterpriseName", objects[3]);
+                    break;
+                case HTTP_ID_info_manager_measuring_instruments_detail:
+                    params.setApiUrl(baseUrl + "/TJsupervise/defined/getDefinedDetails.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
+                    params.putParams("tableName", objects[1]);
+                    break;
+                case HTTP_ID_info_manager_legal_query:
+                    params.setApiUrl(baseUrl + "/TJsupervise/Law/select.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("departmentCode", objects[0]);
+                    params.putParams("id", objects[1]);
+                    break;
+                case HTTP_ID_info_manager_legal_search:
+                    params.setApiUrl(baseUrl + "/TJsupervise/Law/selectLaw.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("content", objects[0]);
+                    params.putParams("lawId", objects[1]);
+                    params.putParams("directoryId", objects[2]);
+                    params.putParams("lawTotalFlag", objects[3]);
+                    params.putParams("id", objects[4]);
+                    params.putParams("departmentCode", objects[5]);
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -3015,6 +3154,73 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(compInfos);
                             break;
                         case HTTP_ID_statistics_entity_enterpriseWarning:
+                            break;
+
+                        case HTTP_ID_info_manager_biaozhun:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerBiaozhun myIncomanagerStandarEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerBiaozhun.class);
+                            result.setEntry(myIncomanagerStandarEntity);
+                            break;
+
+                        case HTTP_ID_info_manager_device_liebiao:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerDevice myIncomanagerDeviceEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerDevice.class);
+                            result.setEntry(myIncomanagerDeviceEntity);
+                            break;
+                        case HTTP_ID_info_manager_device_detail:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerDeviceDetail myDeviceDtailInfo = new Gson().fromJson(jsonObject.toString(), InfoManagerDeviceDetail.class);
+                            result.setEntry(myDeviceDtailInfo);
+                            break;
+                        case HTTP_ID_info_manager_license_food:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerLicenseFood myLisenceFood = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseFood.class);
+                            result.setEntry(myLisenceFood);
+                            break;
+                        case HTTP_ID_info_manager_license_drugs:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerLicense myLisence = new Gson().fromJson(jsonObject.toString(), InfoManagerLicense.class);
+                            result.setEntry(myLisence);
+                            break;
+                        case HTTP_ID_info_manager_license_cosmetics:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            myLisence = new Gson().fromJson(jsonObject.toString(), InfoManagerLicense.class);
+                            result.setEntry(myLisence);
+                            break;
+                        case HTTP_ID_info_manager_license_instrument://许可证-医疗器械企业列表
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            myLisence = new Gson().fromJson(jsonObject.toString(), InfoManagerLicense.class);
+                            result.setEntry(myLisence);
+                            break;
+                        case HTTP_ID_info_manager_license_detail://许可证-许可证详情
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerLicenseDetail myLisenceDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseDetail.class);
+                            result.setEntry(myLisenceDetail);
+                            break;
+                        case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerMeasureCustom myMeasureCustom = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureCustom.class);
+                            result.setEntry(myMeasureCustom);
+                            break;
+                        case HTTP_ID_info_manager_measuring_instruments_liebiao://计量器具-计量器具列表接口
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerMeasureLiebiao myMeasureLiebiao = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureLiebiao.class);
+                            result.setEntry(myMeasureLiebiao);
+                            break;
+                        case HTTP_ID_info_manager_measuring_instruments_detail:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerMeasureDetail myMeasureDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureDetail.class);
+                            result.setEntry(myMeasureDetail);
+                            break;
+                        case HTTP_ID_info_manager_legal_query:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerLegalSelect myLegalSelect = new Gson().fromJson(jsonObject.toString(), InfoManagerLegalSelect.class);
+                            result.setEntry(myLegalSelect);
+                            break;
+                        case HTTP_ID_info_manager_legal_search:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerLegalSelectLaw myLegalSelectLaw = new Gson().fromJson(jsonObject.toString(), InfoManagerLegalSelectLaw.class);
+                            result.setEntry(myLegalSelectLaw);
                             break;
                         default:
                             break;

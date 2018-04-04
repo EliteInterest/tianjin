@@ -1,4 +1,4 @@
-package com.zx.gamarketmobile.adapter.supervise;
+package com.zx.gamarketmobile.adapter.infomanager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,25 +11,22 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.MyRecycleAdapter;
-import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
-import com.zx.gamarketmobile.util.DateUtil;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerBiaozhun;
 
 import java.util.List;
 
-
 /**
- * Created by zhouzq on 2017/3/23.
+ * Create By Stanny On 2017/3/13
+ * 功能：案件详情适配器
  */
-
-public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
-    private static final String TAG = "SuperviseMyTaskListAdapter";
-    private List<MyTaskListEntity.RowsBean> mItemList = null;
-    //    private List<MyTaskListTJEntity.RowsBean> mTJItemList = null;
+public class InfoManagerStandardAdapter extends MyRecycleAdapter {
+    private static final String TAG = "InfoManagerStandardAdapter";
+    private List<InfoManagerBiaozhun.RowsBean> mItemList = null;
     private Context mContext;
     private boolean showOverdue = false;
-    public Holder myHolder;
+    public InfoManagerStandardAdapter.Holder myHolder;
 
-    public SuperviseMyTaskListAdapter(Context mContext, List<MyTaskListEntity.RowsBean> itemList, boolean showOverdue) {
+    public InfoManagerStandardAdapter(Context mContext, List<InfoManagerBiaozhun.RowsBean> itemList, boolean showOverdue) {
         mItemList = itemList;
         this.mContext = mContext;
         this.showOverdue = showOverdue;
@@ -41,7 +38,7 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
         View view = null;
         if (viewType == ITEM_TYPE_NORMAL) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.supervise_mytask_list_item, parent, false);
-            return new Holder(view);
+            return new InfoManagerStandardAdapter.Holder(view);
         } else {//footer
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycle_foot_view, parent, false);
             return new FooterViewHolder(view);
@@ -51,30 +48,21 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
     //从holder中获取控件并设置
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof Holder) {
-            myHolder = (Holder) holder;
-//            if (mTJItemList != null) {
-            MyTaskListEntity.RowsBean entity = mItemList.get(position);
-            Log.i(TAG, "status is " + entity.getStatus());
-            Log.i(TAG, "getStartDate is " + DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            Log.i(TAG, "getTaskName is " + entity.getTaskName());
-            Log.i(TAG, "getUserName is " + entity.getUserName());
-            Log.i(TAG, "getDepartmentId is " + entity.getDepartmentId());
+        if (holder instanceof InfoManagerStandardAdapter.Holder) {
+            myHolder = (InfoManagerStandardAdapter.Holder) holder;
+            InfoManagerBiaozhun.RowsBean entity = mItemList.get(position);
+            Log.i(TAG, "getEnterpriseName is " + entity.getEnterpriseName());
+            Log.i(TAG, "getAgencyCode is " + entity.getAgencyCode());
+            Log.i(TAG, "getAdministrativeDivisions is " + entity.getAdministrativeDivisions());
+            Log.i(TAG, "getRegisteredAddress is " + entity.getRegisteredAddress());
+            Log.i(TAG, "getContactPhone is " + entity.getContactPhone());
 
 
-            myHolder.tvField.setText(String.valueOf(entity.getStatus()));
-            myHolder.tvDate.setText(DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            myHolder.tvName.setText(entity.getTaskName());
-            myHolder.tvPerson.setText(entity.getUserName());
-            myHolder.tvStage.setText(entity.getDepartmentId());
-//            } else {
-//                MyTaskListEntity.RowsBean entity = mItemList.get(position);
-//                myHolder.tvField.setText(entity.getFTaskStatus());
-//                myHolder.tvDate.setText(entity.getFCreateDate());
-//                myHolder.tvName.setText(entity.getFTaskName());
-//                myHolder.tvPerson.setText(entity.getFCreateName());
-//                myHolder.tvStage.setText(entity.getFCreateDepartment());
-//            }
+            myHolder.tvField.setText(entity.getAdministrativeDivisions());
+            myHolder.tvDate.setText(entity.getAgencyCode());
+            myHolder.tvName.setText(entity.getEnterpriseName());
+            myHolder.tvPerson.setText(entity.getRegisteredAddress());
+            myHolder.tvStage.setText(entity.getContactPhone());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

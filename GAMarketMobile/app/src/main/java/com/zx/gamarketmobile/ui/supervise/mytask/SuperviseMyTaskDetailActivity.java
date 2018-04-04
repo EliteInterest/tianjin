@@ -42,6 +42,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         initView();
     }
 
+
     private void initView() {
         instance = this;
         addToolBar(true);
@@ -127,16 +128,21 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
                 break;
             case R.id.btnActCase_execute:
 //                if (mEntity.getFTaskStatus() != null) {
-                    if (mEntity.getStatus() == 3) {//待处置
-                        mVpContent.setCurrentItem(2);
-                    } else if (mEntity.getStatus() == 1)//"审核未通过"))????
-                     {
-                        showToast("当前状态审核未通过，请在服务端重新修改提交！");
-                    } else {
-                        Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
-                        intent.putExtra("entity", mEntity);
-                        startActivity(intent);
-                    }
+
+                Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
+                intent.putExtra("entity", mEntity);
+                startActivity(intent);
+
+//                if (mEntity.getStatus() == 3) {//待处置
+//                    mVpContent.setCurrentItem(2);
+//                } else if (mEntity.getStatus() == 1)//"审核未通过"))????
+//                {
+//                    showToast("当前状态审核未通过，请在服务端重新修改提交！");
+//                } else {
+//                    Intent intent = new Intent(this, SuperviseMyTaskExcuteActivity.class);
+//                    intent.putExtra("entity", mEntity);
+//                    startActivity(intent);
+//                }
 //                }
                 break;
             case R.id.btnActCase_other:
