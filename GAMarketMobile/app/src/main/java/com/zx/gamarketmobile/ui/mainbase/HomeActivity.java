@@ -101,9 +101,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 //                    myPagerAdapter.addFragment(SuperviseMyTaskFragment.newInstance(), "我的任务");
 //                }
 
+                StatisticsInfo superviseInfo = createSuperviseData();
                 myPagerAdapter.addFragment(SuperviseMyTaskFragment.newInstance(), "我的任务");
                 myPagerAdapter.addFragment(TaskNumFragment.newInstance(1), "状态监控");
-//                myPagerAdapter.addFragment(StatisticsFragment.newInstance(null), "统计分析");
+                myPagerAdapter.addFragment(StatisticsFragment.newInstance(superviseInfo), "统计分析");
 
 //                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(0), "坐标纠正");
 //                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(1), "主体认领");
@@ -178,6 +179,9 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         return dataInfo;
     }
 
+    /**
+     * 投诉举报
+     */
     private StatisticsInfo createCompData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "投诉举报";
@@ -185,6 +189,19 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         dataInfo.itemList.add(new StatisticsItemInfo("投诉类别", 0, "类别", R.mipmap.statistic_jbly));
         dataInfo.itemList.add(new StatisticsItemInfo("信息来源", 0, "类别", R.mipmap.statistic_jblx));
         dataInfo.itemList.add(new StatisticsItemInfo("业务来源", 0, "类别", R.mipmap.statistic_jblx));
+        return dataInfo;
+    }
+
+    /**
+    * 监管任务
+    * */
+    private StatisticsInfo createSuperviseData() {
+        StatisticsInfo dataInfo = new StatisticsInfo();
+        dataInfo.labelName = "监管任务";
+        dataInfo.itemList.add(new StatisticsItemInfo("任务主体", 0, "类别", R.mipmap.statistic_qyfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("任务类型", 0, "类别", R.mipmap.statistic_jbly));
+        dataInfo.itemList.add(new StatisticsItemInfo("检查主体", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("执行任务数", 0, "类别", R.mipmap.statistic_jblx));
         return dataInfo;
     }
 

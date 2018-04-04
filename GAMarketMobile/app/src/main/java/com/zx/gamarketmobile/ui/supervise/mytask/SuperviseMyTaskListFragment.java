@@ -104,15 +104,15 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        if (index == 0) {
+        if (index == 0) {//我的待办
 //            getTaskPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
             Log.i(TAG, "load has to process");
 //            getTaskPage.loadData(mPageNo, mPageSize, 3);
-            getTaskPage.loadData(mPageNo, mPageSize,3);
-        } else {
+            getTaskPage.loadData(mPageNo, mPageSize, 3);
+        } else {//我的已办
 //            getTaskHisPage.loadData(mPageNo, mPageSize, 1, userInfo.getId());
             Log.i(TAG, "has aleady processed");
-            getTaskPage.loadData(mPageNo, mPageSize, 4);
+            getTaskHisPage.loadData(mPageNo, mPageSize, 4);
 
         }
     }
@@ -122,7 +122,7 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
         super.onLoadComplete(id, b);
         srlTodo.setRefreshing(false);
         switch (id) {
-            case ApiData.HTTP_ID_SuperviseTaskPage:
+            case ApiData.HTTP_ID_SuperviseTaskPage://协同监管-我的任务-我的待办
                 MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
                 mTotalNo = myTaskListEntity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
@@ -136,10 +136,11 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
                 MyTaskListEntity.RowsBean bean = null;
                 for (int j = 0; j < dataList.size(); j++) {
                     bean = dataList.get(j);
+                    Log.i(TAG, "HTTP_ID_SuperviseTaskPage bean is " + bean.toString());
                 }
 
-//                if (bean != null)
-//                    new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo).loadData(bean.getId());
+                if (bean != null)
+                    new ApiData(ApiData.HTTP_ID_SuperviseTaskPage).loadData(bean.getId());
 
 
 //                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
@@ -157,7 +158,25 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
 //                mAdapter.notifyDataSetChanged();
                 break;
 
-            case ApiData.HTTP_ID_SuperviseTaskHisPage:
+            case ApiData.HTTP_ID_SuperviseTaskHisPage://协同监管-我的任务-我的已办
+                MyTaskListEntity myTaskListHisEntity = (MyTaskListEntity) b.getEntry();
+                mTotalNo = myTaskListHisEntity.getTotal();
+                mAdapter.setStatus(1, mPageNo, mTotalNo);
+                List<MyTaskListEntity.RowsBean> entityHisList = myTaskListHisEntity.getList();
+                dataList.clear();
+                if (entityHisList != null) {
+                    dataList.addAll(entityHisList);
+                }
+                mAdapter.notifyDataSetChanged();
+
+                MyTaskListEntity.RowsBean hisBean = null;
+                for (int j = 0; j < dataList.size(); j++) {
+                    hisBean = dataList.get(j);
+                    Log.i(TAG, "HTTP_ID_SuperviseTaskHisPage bean is " + hisBean.toString());
+                }
+
+                if (hisBean != null)
+                    new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo).loadData(hisBean.getId());
                 break;
 
             default:
