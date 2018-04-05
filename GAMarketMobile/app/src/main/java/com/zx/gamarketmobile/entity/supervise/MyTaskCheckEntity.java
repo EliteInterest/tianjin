@@ -1,6 +1,7 @@
 package com.zx.gamarketmobile.entity.supervise;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by zhouzq on 2017/4/1.
@@ -8,147 +9,154 @@ import java.io.Serializable;
 
 public class MyTaskCheckEntity implements Serializable {
 
+
     /**
-     * id : 4cbd573ac9ed11e79fcc000c2934879e
-     * departmentId : null
-     * taskId : 6B317F3C5EDD48DFABE66DC0AD4234D8
-     * status : 0
-     * illegal : null
-     * remarks : null
-     * checkDate : null
-     * enterpriseId : d97806f2979d11e781d1000c2934879e
-     * enterpriseName : 天津市滨海新区多盈小吃部
-     * licNum : null
-     * bizlicNum : 92120116MA05RPCW53
-     * legalPerson : 汪友胜
-     * contactPerson : null
-     * contactInfo :
+     * total : 4
+     * pageTotal : 1
+     * currPageNo : 1
+     * pageSize : 10
+     * rows : [{"fGuid":"011233F9AA4642A4A8DBDDB2E25C79C7","fEntityGuid":"EABC5DC60A7D442BB011119EE9E9F239","fTaskId":"2017-011","FSTATUS":"待指派","fEntityName":"贵安新区湖潮乡凯旋五金灯饰","ROWNUM_":1},{"fGuid":"B943C40BD33643B4AF5240CD4CE0C13D","fEntityGuid":"C31A28EBCC0D41A181C175EE2C771B42","fLatitude":26.44,"fTaskId":"2017-011","FSTATUS":"待指派","fLongitude":106.5,"fEntityName":"贵州融汇百川贸易有限公司","ROWNUM_":2},{"fGuid":"1A2E6EA0101140D9AD1BFC8D7DCD609C","fEntityGuid":"AB15DB08B6E84A62A0C658C8748A9F21","fLatitude":26.44,"fTaskId":"2017-011","FSTATUS":"待指派","fLongitude":106.5,"fEntityName":"贵州小米果汽车租赁服务有限公司","ROWNUM_":3},{"fGuid":"4EBFBCD90800411E8DD7B2EB2463120A","fEntityGuid":"F1084164984B4BC5BCFFC93586759464","fLatitude":26.44,"fTaskId":"2017-011","FSTATUS":"待指派","fLongitude":106.5,"fEntityName":"贵州贵安新区家腾房屋征收服务有限公司","ROWNUM_":4}]
      */
 
-    private String id;
-    private Object departmentId;
-    private String taskId;
-    private int status;
-    private Object illegal;
-    private Object remarks;
-    private long checkDate;
-    private String enterpriseId;
-    private String enterpriseName;
-    private Object licNum;
-    private String bizlicNum;
-    private String legalPerson;
-    private Object contactPerson;
-    private String contactInfo;
+    private int total;
+    private int pageTotal;
+    private int currPageNo;
+    private int pageSize;
+    private List<RowsBean> rows;
 
-    public String getId() {
-        return id;
+    public int getTotal() {
+        return total;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public Object getDepartmentId() {
-        return departmentId;
+    public int getPageTotal() {
+        return pageTotal;
     }
 
-    public void setDepartmentId(Object departmentId) {
-        this.departmentId = departmentId;
+    public void setPageTotal(int pageTotal) {
+        this.pageTotal = pageTotal;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public int getCurrPageNo() {
+        return currPageNo;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setCurrPageNo(int currPageNo) {
+        this.currPageNo = currPageNo;
     }
 
-    public int getStatus() {
-        return status;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public Object getIllegal() {
-        return illegal;
+    public List<RowsBean> getRows() {
+        return rows;
     }
 
-    public void setIllegal(Object illegal) {
-        this.illegal = illegal;
+    public void setRows(List<RowsBean> rows) {
+        this.rows = rows;
     }
 
-    public Object getRemarks() {
-        return remarks;
-    }
+    public static class RowsBean implements Serializable {
+        /**
+         * fGuid : 011233F9AA4642A4A8DBDDB2E25C79C7
+         * fEntityGuid : EABC5DC60A7D442BB011119EE9E9F239
+         * fTaskId : 2017-011
+         * FSTATUS : 待指派
+         * fEntityName : 贵安新区湖潮乡凯旋五金灯饰
+         * ROWNUM_ : 1
+         * fLatitude : 26.44
+         * fLongitude : 106.5
+         */
 
-    public void setRemarks(Object remarks) {
-        this.remarks = remarks;
-    }
+        private String fGuid;
+        private String fEntityGuid;
+        private String fTaskId;
+        private String FSTATUS;
+        private String fAddress;//F_ADDRESS
+        private String fEntityName;
+        private int ROWNUM_;
+        private double fLatitude;
+        private double fLongitude;
 
-    public long getCheckDate() {
-        return checkDate;
-    }
+        public String getfAddress() {
+            return fAddress;
+        }
 
-    public void setCheckDate(long checkDate) {
-        this.checkDate = checkDate;
-    }
+        public void setfAddress(String fAddress) {
+            this.fAddress = fAddress;
+        }
 
-    public String getEnterpriseId() {
-        return enterpriseId;
-    }
 
-    public void setEnterpriseId(String enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
+        public String getFGuid() {
+            return fGuid;
+        }
 
-    public String getEnterpriseName() {
-        return enterpriseName;
-    }
+        public void setFGuid(String fGuid) {
+            this.fGuid = fGuid;
+        }
 
-    public void setEnterpriseName(String enterpriseName) {
-        this.enterpriseName = enterpriseName;
-    }
+        public String getFEntityGuid() {
+            return fEntityGuid;
+        }
 
-    public Object getLicNum() {
-        return licNum;
-    }
+        public void setFEntityGuid(String fEntityGuid) {
+            this.fEntityGuid = fEntityGuid;
+        }
 
-    public void setLicNum(Object licNum) {
-        this.licNum = licNum;
-    }
+        public String getFTaskId() {
+            return fTaskId;
+        }
 
-    public String getBizlicNum() {
-        return bizlicNum;
-    }
+        public void setFTaskId(String fTaskId) {
+            this.fTaskId = fTaskId;
+        }
 
-    public void setBizlicNum(String bizlicNum) {
-        this.bizlicNum = bizlicNum;
-    }
+        public String getFSTATUS() {
+            return FSTATUS;
+        }
 
-    public String getLegalPerson() {
-        return legalPerson;
-    }
+        public void setFSTATUS(String FSTATUS) {
+            this.FSTATUS = FSTATUS;
+        }
 
-    public void setLegalPerson(String legalPerson) {
-        this.legalPerson = legalPerson;
-    }
+        public String getFEntityName() {
+            return fEntityName;
+        }
 
-    public Object getContactPerson() {
-        return contactPerson;
-    }
+        public void setFEntityName(String fEntityName) {
+            this.fEntityName = fEntityName;
+        }
 
-    public void setContactPerson(Object contactPerson) {
-        this.contactPerson = contactPerson;
-    }
+        public int getROWNUM_() {
+            return ROWNUM_;
+        }
 
-    public String getContactInfo() {
-        return contactInfo;
-    }
+        public void setROWNUM_(int ROWNUM_) {
+            this.ROWNUM_ = ROWNUM_;
+        }
 
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
+        public double getFLatitude() {
+            return fLatitude;
+        }
+
+        public void setFLatitude(double fLatitude) {
+            this.fLatitude = fLatitude;
+        }
+
+        public double getFLongitude() {
+            return fLongitude;
+        }
+
+        public void setFLongitude(double fLongitude) {
+            this.fLongitude = fLongitude;
+        }
     }
 }

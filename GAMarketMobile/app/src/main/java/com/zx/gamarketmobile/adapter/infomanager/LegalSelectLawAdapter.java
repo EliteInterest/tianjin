@@ -1,8 +1,7 @@
-package com.zx.gamarketmobile.adapter.supervise;
+package com.zx.gamarketmobile.adapter.infomanager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +10,23 @@ import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.MyRecycleAdapter;
-import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
-import com.zx.gamarketmobile.util.DateUtil;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLegalSelect;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLegalSelectLaw;
 
 import java.util.List;
 
-
 /**
- * Created by zhouzq on 2017/3/23.
+ * Create By Stanny On 2017/3/13
+ * 功能：案件详情适配器
  */
-
-public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
-    private static final String TAG = "SuperviseMyTaskListAdapter";
-    private List<MyTaskListEntity.RowsBean> mItemList = null;
-    //    private List<MyTaskListTJEntity.RowsBean> mTJItemList = null;
+public class LegalSelectLawAdapter extends MyRecycleAdapter {
+    private static final String TAG = "InfoManagerStandardAdapter";
+    private List<InfoManagerLegalSelectLaw> mItemList = null;
     private Context mContext;
     private boolean showOverdue = false;
-    public Holder myHolder;
+    public LegalSelectLawAdapter.Holder myHolder;
 
-    public SuperviseMyTaskListAdapter(Context mContext, List<MyTaskListEntity.RowsBean> itemList, boolean showOverdue) {
+    public LegalSelectLawAdapter(Context mContext, List<InfoManagerLegalSelectLaw> itemList, boolean showOverdue) {
         mItemList = itemList;
         this.mContext = mContext;
         this.showOverdue = showOverdue;
@@ -41,7 +38,7 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
         View view = null;
         if (viewType == ITEM_TYPE_NORMAL) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.supervise_mytask_list_item, parent, false);
-            return new Holder(view);
+            return new LegalSelectLawAdapter.Holder(view);
         } else {//footer
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycle_foot_view, parent, false);
             return new FooterViewHolder(view);
@@ -51,30 +48,21 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
     //从holder中获取控件并设置
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof Holder) {
-            myHolder = (Holder) holder;
-//            if (mTJItemList != null) {
-            MyTaskListEntity.RowsBean entity = mItemList.get(position);
-            Log.i(TAG, "status is " + entity.getStatus());
-            Log.i(TAG, "getStartDate is " + DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            Log.i(TAG, "getTaskName is " + entity.getTaskName());
-            Log.i(TAG, "getUserName is " + entity.getUserName());
-            Log.i(TAG, "getDepartmentId is " + entity.getDepartmentId());
+        if (holder instanceof LegalSelectLawAdapter.Holder) {
+            myHolder = (LegalSelectLawAdapter.Holder) holder;
+            InfoManagerLegalSelectLaw entity = mItemList.get(position);
+//            Log.i(TAG, "getEnterpriseName is " + entity.getEnterpriseName());
+//            Log.i(TAG, "getAgencyCode is " + entity.getEnterpriseId());
+//            Log.i(TAG, "getAdministrativeDivisions is " + entity.getId());
+//            Log.i(TAG, "getRegisteredAddress is " + String.valueOf(entity.getLatitude()));
+//            Log.i(TAG, "getContactPhone is " + entity.getLicNum());
 
 
-            myHolder.tvField.setText(String.valueOf(entity.getStatus()));
-            myHolder.tvDate.setText(DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            myHolder.tvName.setText(entity.getTaskName());
-            myHolder.tvPerson.setText(entity.getUserName());
-            myHolder.tvStage.setText(entity.getDepartmentId());
-//            } else {
-//                MyTaskListEntity.RowsBean entity = mItemList.get(position);
-//                myHolder.tvField.setText(entity.getFTaskStatus());
-//                myHolder.tvDate.setText(entity.getFCreateDate());
-//                myHolder.tvName.setText(entity.getFTaskName());
-//                myHolder.tvPerson.setText(entity.getFCreateName());
-//                myHolder.tvStage.setText(entity.getFCreateDepartment());
-//            }
+//            myHolder.tvField.setText(entity.getLicNum());
+//            myHolder.tvDate.setText(entity.getEnterpriseId());
+//            myHolder.tvName.setText(entity.getEnterpriseName());
+//            myHolder.tvPerson.setText(entity.getId());
+//            myHolder.tvStage.setText(String.valueOf(entity.getLatitude()));
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

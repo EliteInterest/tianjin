@@ -297,12 +297,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        MyApplication.getInstance().exit();
-    }
-
     private void gotoMainActivity() {
         Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
         startActivity(intent);

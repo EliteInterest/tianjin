@@ -16,10 +16,12 @@ import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.R.id;
 import com.zx.gamarketmobile.R.layout;
 import com.zx.gamarketmobile.R.string;
+import com.zx.gamarketmobile.entity.HttpLoginEntity;
 import com.zx.gamarketmobile.entity.HttpTaskEntity;
 import com.zx.gamarketmobile.entity.SuperviseDetailInfo;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
+import com.zx.gamarketmobile.manager.UserManager;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
 import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
@@ -56,7 +58,7 @@ public class SuperviseDetailActivity extends BaseActivity implements OnClickList
         mBtnExecute = (Button) findViewById(id.btnActSupervise_execute);
         mSuperviseDetailInfo = (SuperviseDetailInfo) getIntent().getSerializableExtra("task");
         mBtnExecute.setOnClickListener(this);
-        mBtnExecute.setOnClickListener(this);
+        findViewById(id.btnActSupervise_execute).setOnClickListener(this);
 
         mStatus = getIntent().getStringExtra("status");
 

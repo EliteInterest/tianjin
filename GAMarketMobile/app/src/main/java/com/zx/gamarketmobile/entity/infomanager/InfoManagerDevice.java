@@ -83,41 +83,25 @@ public class InfoManagerDevice implements Serializable {
          * fTaskName : 测试分页
          */
 
-        private String id;
-        private double latitude;
+        private String latitude;
         private String typeName;
-        private String enterprise_id;
+        private String isMajor;
+        private String id;
+        private String enterpriseId;
         private String enterpriseName;
         private String categoryName;
-        private double longitude;
+        private String enterpriseType;
+        private String longitude;
 
-        public String getId() {
-            return id;
-        }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public double getLatitude() {
+        public String getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(double latitude)
+        public void setLatitude(String latitude)
 
         {
             this.latitude = latitude;
-        }
-
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(double longitude)
-
-        {
-            this.longitude = longitude;
         }
 
         public String getTypeName() {
@@ -128,13 +112,30 @@ public class InfoManagerDevice implements Serializable {
             this.typeName = typeName;
         }
 
-        public String getEnterprise_id() {
-            return enterprise_id;
+        public String getIsMajor() {
+            return isMajor;
         }
 
-        public void setEnterprise_id(String enterprise_id) {
-            this.enterprise_id = enterprise_id;
+        public void setIsMajor(String isMajor) {
+            this.isMajor = isMajor;
         }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getEnterpriseId() {
+            return enterpriseId;
+        }
+
+        public void setEnterpriseId(String enterpriseId) {
+            this.enterpriseId = enterpriseId;
+        }
+
 
         public String getEnterpriseName() {
             return enterpriseName;
@@ -150,6 +151,24 @@ public class InfoManagerDevice implements Serializable {
 
         public void setCategoryName(String categoryName) {
             this.categoryName = categoryName;
+        }
+
+        public String getEnterpriseType() {
+            return enterpriseType;
+        }
+
+        public void setEnterpriseType(String enterpriseType) {
+            this.enterpriseType = enterpriseType;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude)
+
+        {
+            this.longitude = longitude;
         }
 
         @Override

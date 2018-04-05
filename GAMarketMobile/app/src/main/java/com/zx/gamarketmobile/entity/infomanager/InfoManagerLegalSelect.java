@@ -10,63 +10,35 @@ import java.util.List;
 public class InfoManagerLegalSelect implements Serializable {
 
 
-    private int total;
-    private List<RowsBean> list;
-    private int pageNo;
-    private int pageSize;
-    private int pages;
-    private int size;
+    private List<LawBean> commonLaw;
+    private List<LawBean> departmentLaw;
+    private List<LawBean> userLaw;
 
-    public int getTotal() {
-        return total;
+    public List<LawBean> getCommonLaw() {
+        return commonLaw;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setCommonLaw(List<LawBean> commonLaw) {
+        this.commonLaw = commonLaw;
     }
 
-    public List<RowsBean> getList() {
-        return list;
+    public List<LawBean> getDepartmentLaw() {
+        return this.departmentLaw;
     }
 
-    public void setList(List<RowsBean> rows) {
-        this.list = list;
+    public void setDepartmentLaw(List<LawBean> departmentLaw) {
+        this.departmentLaw = departmentLaw;
     }
 
-    public int getPageNo() {
-        return pageNo;
+    public List<LawBean> getUserLaw() {
+        return userLaw;
     }
 
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
+    public void setUserLaw(List<LawBean> userLaw) {
+        this.userLaw = userLaw;
     }
 
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPagesize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-
-    public static class RowsBean implements Serializable {
+    public static class LawBean implements Serializable {
         /**
          * fIsOver : 1
          * fCreateDepartment : 市场监管处
@@ -84,12 +56,16 @@ public class InfoManagerLegalSelect implements Serializable {
          */
 
         private String id;
-        private double latitude;
-        private String typeName;
-        private String enterprise_id;
-        private String enterpriseName;
-        private String categoryName;
-        private double longitude;
+        private String name;
+        private int parentId;
+        private String url;
+        private String icon;
+        private int orders;
+        private String departmentId;
+        private String userId;
+        private String fileId;
+        private List<LawBean> childMenus;
+        private int childMenuTotal;
 
         public String getId() {
             return id;
@@ -99,62 +75,84 @@ public class InfoManagerLegalSelect implements Serializable {
             this.id = id;
         }
 
-        public double getLatitude() {
-            return latitude;
+        public String getName() {
+            return name;
         }
 
-        public void setLatitude(double latitude)
-
-        {
-            this.latitude = latitude;
+        public void setName(String name) {
+            this.name = name;
         }
 
-
-        public double getLongitude() {
-            return longitude;
+        public int getParentId() {
+            return parentId;
         }
 
-        public void setLongitude(double longitude)
-
-        {
-            this.longitude = longitude;
+        public void setParentId(int parentId) {
+            this.parentId = parentId;
         }
 
-        public String getTypeName() {
-            return typeName;
+        public String getUrl() {
+            return url;
         }
 
-        public void setTypeName(String typeName) {
-            this.typeName = typeName;
+        public void setUrl(String url) {
+            this.url = url;
         }
 
-        public String getEnterprise_id() {
-            return enterprise_id;
+        public String getIcon() {
+            return icon;
         }
 
-        public void setEnterprise_id(String enterprise_id) {
-            this.enterprise_id = enterprise_id;
+        public void setIcon(String icon) {
+            this.icon = icon;
         }
 
-        public String getEnterpriseName() {
-            return enterprise_id;
+        public int getOrders() {
+            return orders;
         }
 
-        public void setEnterpriseName(String enterpriseName) {
-            this.enterpriseName = enterpriseName;
+        public void setOrders(int orders) {
+            this.orders = orders;
         }
 
-        public String getCategoryName() {
-            return categoryName;
+        public String getDepartmentId() {
+            return departmentId;
         }
 
-        public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
+        public void setDepartmentId(String departmentId) {
+            this.departmentId = departmentId;
         }
 
-        @Override
-        public String toString() {
-            return "id=" + id + ";enterpriseName" + enterpriseName + ";latitude=" + latitude;
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getFileId() {
+            return fileId;
+        }
+
+        public void setFileId(String fileId) {
+            this.fileId = fileId;
+        }
+
+        public List<LawBean> getChildMenus() {
+            return childMenus;
+        }
+
+        public void setChildMenus(List<LawBean> childMenus) {
+            this.childMenus = childMenus;
+        }
+
+        public int getChildMenuTotal() {
+            return childMenuTotal;
+        }
+
+        public void setChildMenuTotal(int childMenuTotal) {
+            this.childMenus = childMenus;
         }
 
         /**

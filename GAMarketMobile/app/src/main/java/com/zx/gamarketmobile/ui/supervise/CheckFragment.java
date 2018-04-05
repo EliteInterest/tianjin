@@ -47,7 +47,7 @@ public class CheckFragment extends BaseFragment {
 						CheckInfo threeItem = item.threeList.get(i);
 						View secondMenu = View.inflate(getActivity(), R.layout.item_menu_first, null);
 						TextView tvName = (TextView) secondMenu.findViewById(R.id.tvItemMenuFirst_name);
-						tvName.setText((i + 1) + "." + threeItem.getItemName());
+						tvName.setText((i + 1) + "." + threeItem.fItemName);
 						mLlParent.addView(secondMenu);
 					}
 				} else {
@@ -127,7 +127,7 @@ public class CheckFragment extends BaseFragment {
 			View secondMenu = View.inflate(getActivity(), R.layout.item_menu_first, null);
 			TextView tvName = (TextView) secondMenu.findViewById(R.id.tvItemMenuFirst_name);
 			final LinearLayout llContent = (LinearLayout) secondMenu.findViewById(R.id.llItemMenuFirst_content);
-			tvName.setText((i + 1) + "." + threeItem.getItemName());
+			tvName.setText((i + 1) + "." + threeItem.fItemName);
 			llContent.setVisibility(View.GONE);
 			llSecond.addView(secondMenu);
 		}

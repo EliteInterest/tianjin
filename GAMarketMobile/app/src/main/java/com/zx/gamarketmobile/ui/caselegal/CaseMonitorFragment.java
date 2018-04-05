@@ -74,22 +74,22 @@ public class CaseMonitorFragment extends BaseFragment {
         TextView tvYqNum = (TextView) view.findViewById(R.id.tvItemTask_yqnum);
         switch (task.status) {
             case "01":
-                tvName.setText("线索核查");
+                tvName.setText(task.status);
                 break;
             case "N01":
-                tvName.setText("不立案反馈");
+                tvName.setText(task.status);
                 break;
             case "Y06":
-                tvName.setText("初审");
+                tvName.setText(task.status);
                 break;
             case "Y10":
-                tvName.setText("听证");
+                tvName.setText(task.status);
                 break;
             case "Y14":
-                tvName.setText("行政处罚");
+                tvName.setText(task.status);
                 break;
             case "02":
-                tvName.setText("结案");
+                tvName.setText(task.status);
                 break;
             default:
                 break;

@@ -4,101 +4,66 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.zx.gamarketmobile.R;
-import com.zx.gamarketmobile.adapter.infomanager.InfoManagerDeviceAdapter;
-import com.zx.gamarketmobile.adapter.infomanager.InfoManagerStandardAdapter;
-import com.zx.gamarketmobile.adapter.MyRecycleAdapter;
-import com.zx.gamarketmobile.entity.infomanager.InfoManagerBiaozhun;
-import com.zx.gamarketmobile.entity.infomanager.InfoManagerDevice;
-import com.zx.gamarketmobile.http.ApiData;
-import com.zx.gamarketmobile.http.BaseHttpResult;
-import com.zx.gamarketmobile.listener.LoadMoreListener;
-import com.zx.gamarketmobile.listener.MyItemClickListener;
+import com.zx.gamarketmobile.R.id;
+import com.zx.gamarketmobile.adapter.infomanager.MeasureLiebiaoAdapter;
+import com.zx.gamarketmobile.entity.StatisticsInfo;
+import com.zx.gamarketmobile.entity.StatisticsItemInfo;
 import com.zx.gamarketmobile.ui.base.BaseActivity;
+import com.zx.gamarketmobile.ui.caselegal.CaseMonitorFragment;
+import com.zx.gamarketmobile.ui.caselegal.CaseMyListFragment;
+import com.zx.gamarketmobile.ui.caselegal.CaseSearchFragment;
+import com.zx.gamarketmobile.ui.complain.ComplainMonitorFragment;
+import com.zx.gamarketmobile.ui.complain.ComplainMyListFragment;
+import com.zx.gamarketmobile.ui.complain.ComplainSearchFragment;
+import com.zx.gamarketmobile.ui.infomanager.DeviceListFragment;
+import com.zx.gamarketmobile.ui.infomanager.LegalSelectFragment;
+import com.zx.gamarketmobile.ui.infomanager.LegalSelectLawFragment;
+import com.zx.gamarketmobile.ui.infomanager.LisenceCosmeticFragment;
+import com.zx.gamarketmobile.ui.infomanager.LisenceDrugFragment;
+import com.zx.gamarketmobile.ui.infomanager.LisenceEquipmentFragment;
+import com.zx.gamarketmobile.ui.infomanager.LisenceFoodFragment;
+import com.zx.gamarketmobile.ui.infomanager.MeasureCustomFragment;
+import com.zx.gamarketmobile.ui.infomanager.MeasureLiebiaoFragment;
+import com.zx.gamarketmobile.ui.infomanager.StandardMessageSelectFragment;
+import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
+import com.zx.gamarketmobile.ui.statistics.StatisticsFragment;
+import com.zx.gamarketmobile.ui.supervise.mytask.SuperviseMyTaskFragment;
+import com.zx.gamarketmobile.ui.system.HelpActivity;
+import com.zx.gamarketmobile.ui.system.SettingsActivity;
+import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_biaozhun;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_device_detail;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_device_liebiao;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_legal_query;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_legal_search;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_license_cosmetics;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_license_detail;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_license_drugs;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_license_food;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_license_instrument;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_measuring_instruments_custom;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_measuring_instruments_detail;
-import static com.zx.gamarketmobile.http.ApiData.HTTP_ID_info_manager_measuring_instruments_liebiao;
-
 /**
  * Create By Xiangb On 2016/9/19
  * 功能：主界面
  */
-public class InfoHomeActivity extends BaseActivity implements View.OnClickListener, LoadMoreListener, MyItemClickListener {
-    private static String TAG = "HomeActivity";
-    private RecyclerView mInfoManagerRecyclerView;
-    private SwipeRefreshLayout srlTodo;
-    private MyRecycleAdapter mAdapter;
-    private List<InfoManagerBiaozhun.RowsBean> dataList = new ArrayList<>();
-    private List<InfoManagerDevice.RowsBean> dataListDevice = new ArrayList<>();
-
-    private int mPageSize = 2;
-    public int mPageNo = 1;
-    public int mTotalNo = 0;
-
+public class InfoHomeActivity extends BaseActivity implements OnClickListener {
+    private static String TAG = "InfoHomeActivity";
+    public ViewPager mVpContent;
+    private TabLayout homeTabLayout;
+    private TaskNumFragment mComplaintFragment;// 投诉举报
+    private TaskNumFragment mSuperviseFragment;// 监管任务
     private int index;
+    private StatisticsFragment mStatisticsFragment;// 统计分析
     private SharedPreferences mSharePreferences;
-    private EditText infoSearchEdit;
-    private Spinner infoSpinner;
-
-    public LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-
-    private ApiData infoStandard = new ApiData(ApiData.HTTP_ID_info_manager_biaozhun);
-    private ApiData infoDeviceLiebiao = new ApiData(ApiData.HTTP_ID_info_manager_device_liebiao);
-    private ApiData infoDeviceDetail = new ApiData(HTTP_ID_info_manager_device_detail);
-    private ApiData infoLicenseFood = new ApiData(HTTP_ID_info_manager_license_food);
-    private ApiData infoLicenseDrug = new ApiData(HTTP_ID_info_manager_license_drugs);
-    private ApiData infoLicenseCosmetics = new ApiData(HTTP_ID_info_manager_license_cosmetics);
-    private ApiData infoLicenseInstrument = new ApiData(HTTP_ID_info_manager_license_instrument);
-    private ApiData infoLicenseDetail = new ApiData(HTTP_ID_info_manager_license_detail);
-    private ApiData infoLicenseMeasureInstrumentCustom = new ApiData(HTTP_ID_info_manager_measuring_instruments_custom);
-    private ApiData infoLicenseMeasureInstrumentLiebiao = new ApiData(HTTP_ID_info_manager_measuring_instruments_liebiao);
-    private ApiData infoLicenseMeasureInstrumentDetail = new ApiData(ApiData.HTTP_ID_info_manager_measuring_instruments_detail);
-    private ApiData infoLegalQuery = new ApiData(HTTP_ID_info_manager_legal_query);
-    private ApiData infoLegalSearch = new ApiData(ApiData.HTTP_ID_info_manager_legal_search);
-
-
-//    public static final int HTTP_ID_info_manager_biaozhun = 301;//标准信息查询
-//    public static final int HTTP_ID_info_manager_device_liebiao = 302;//特种设备-特种设备列表查询
-//    public static final int HTTP_ID_info_manager_device_detail = 303;//特种设备-特种设备详情接口
-//    public static final int HTTP_ID_info_manager_license_food = 304;//许可证-食品企业列表
-//    public static final int HTTP_ID_info_manager_license_drugs = 305;//许可证-药品企业列表
-//    public static final int HTTP_ID_info_manager_license_cosmetics = 306;//许可证-化妆品企业列表
-//    public static final int HTTP_ID_info_manager_license_instrument = 307;//许可证-医疗器械企业列表
-//    public static final int HTTP_ID_info_manager_license_detail = 308;//许可证-许可证详情
-//    public static final int HTTP_ID_info_manager_measuring_instruments_custom = 310;//计量器具-自定义表信息接口
-//    public static final int HTTP_ID_info_manager_measuring_instruments_liebiao = 311;//计量器具-计量器具列表接口
-//    public static final int HTTP_ID_info_manager_measuring_instruments_detail = 312;//计量器具-计量器具详情
-//    public static final int HTTP_ID_info_manager_legal_query = 313;//法律法规-查询菜单接口
-//    public static final int HTTP_ID_info_manager_legal_search = 314;//法律法规-法律法规搜索接口
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_home);
         setContentView(R.layout.activity_info);
 
         addToolBar(true);
@@ -106,114 +71,202 @@ public class InfoHomeActivity extends BaseActivity implements View.OnClickListen
 
         getRightImg().setOnClickListener(this);
 
+        mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
+        homeTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         index = getIntent().getIntExtra("item", 0);
         initialViewPager();
-        findViewById(R.id.info_case_search).setOnClickListener(this);
-        infoSpinner = findViewById(R.id.info_spinner);
-        infoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
-        infoSearchEdit = findViewById(R.id.llInfoHome_bottom_edit);
-        findViewById(R.id.info_case_search).setOnClickListener(this);
-
-        mInfoManagerRecyclerView = (RecyclerView) findViewById(R.id.rv_normal_view);
-        mInfoManagerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        initialViewPager();
-        srlTodo = (SwipeRefreshLayout) findViewById(R.id.srl_normal_layout);
-        srlTodo.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mPageNo > 1) {
-                    mPageNo--;
-                }
-                loadData(index);
-            }
-        });
+//        findViewById(id.tvActHome_setting).setOnClickListener(this);
+//        findViewById(id.tvActHome_message).setOnClickListener(this);
+//        findViewById(id.tvActHome_help).setOnClickListener(this);
+        mSharePreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        int ii = getIntent().getIntExtra("item", 0);
-        if (index != ii)
-            initialViewPager();
-        else {
-
+        if (index != 3) {
+            loadData();
         }
-        if (index == 1)
-            loadData(index);
     }
 
-    public void loadData(int index, final Object... objects) {
-        switch (index) {
-            case 0:
-                infoStandard.loadData(objects);
-                break;
-            case 1:
-                infoDeviceLiebiao.loadData(1, 2);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
+    public void loadData() {
+//        taskData.loadData(userInfo.getId(), userInfo.getAuthority(), userInfo.getDepartment());
+    }
 
-
-        }
+    public InfoHomeActivity() {
     }
 
     public void initialViewPager() {
         switch (index) {
-            case 0://标准信息
-                setMidText("标准信息");
-                mAdapter = new InfoManagerStandardAdapter(this, dataList, true);
-                mAdapter.setOnLoadMoreListener(this);
-                mInfoManagerRecyclerView.setAdapter(mAdapter);
-                mAdapter.setOnItemClickListener(this);
-                break;
-            case 1://法律法规
-                setMidText("法律法规");
-                break;
-            case 2://许可认证
-                break;
-            case 3://计量器件
+            case 0://监管任务
+                myPagerAdapter.addFragment(StandardMessageSelectFragment.newInstance(), "标准信息查询");
 
                 break;
-
-            case 4://特种设备
-                mAdapter = new InfoManagerDeviceAdapter(this, dataListDevice, true);
-                mAdapter.setOnLoadMoreListener(this);
-                mInfoManagerRecyclerView.setAdapter(mAdapter);
-                mAdapter.setOnItemClickListener(this);
+            case 1://投诉举报
+                myPagerAdapter.addFragment(DeviceListFragment.newInstance(), "特种设备");
+                break;
+            case 2://案件执法
+                myPagerAdapter.addFragment(LisenceFoodFragment.newInstance(), "食品");
+                myPagerAdapter.addFragment(LisenceDrugFragment.newInstance(), "药品");
+                myPagerAdapter.addFragment(LisenceCosmeticFragment.newInstance(), "化妆品");
+                myPagerAdapter.addFragment(LisenceEquipmentFragment.newInstance(), "医疗器械");
+                break;
+//                homeTabLayout.setVisibility(View.VISIBLE);
+            case 3://信息管理
+                myPagerAdapter.addFragment(MeasureCustomFragment.newInstance(), "自定义表信息");
+                myPagerAdapter.addFragment(MeasureLiebiaoFragment.newInstance(), "医疗器械");
                 break;
 
-            default:
+            case 4://统计分析
+                myPagerAdapter.addFragment(LegalSelectFragment.newInstance(), "法律查詢");
+                myPagerAdapter.addFragment(LegalSelectLawFragment.newInstance(), "法律查詢");
                 break;
+
         }
+        mVpContent.setOffscreenPageLimit(myPagerAdapter.getCount());
+        mVpContent.setAdapter(myPagerAdapter);
+        homeTabLayout.setupWithViewPager(mVpContent);
+        Util.dynamicSetTabLayoutMode(homeTabLayout);
+        mVpContent.setCurrentItem(0);
+    }
+
+    /**
+     * 案件执法
+     *
+     * @return
+     */
+    private StatisticsInfo createCaseData() {
+        StatisticsInfo dataInfo = new StatisticsInfo();
+        dataInfo.labelName = "案件执法";
+        dataInfo.itemList.add(new StatisticsItemInfo("部门统计", 0, "部门", R.mipmap.statistic_ajfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("来源统计", 0, "来源", R.mipmap.statistic_ajly));
+        dataInfo.itemList.add(new StatisticsItemInfo("立案统计", 0, "类别", R.mipmap.statistic_wflx));
+        dataInfo.itemList.add(new StatisticsItemInfo("结案统计", 0, "类别", R.mipmap.statistic_jatj));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件记录趋势", 0, "类别", R.mipmap.statistic_jatj));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件处罚趋势", 0, "类别", R.mipmap.statistic_jatj));
+        return dataInfo;
+    }
+
+    /**
+     * 投诉举报
+     */
+    private StatisticsInfo createCompData() {
+        StatisticsInfo dataInfo = new StatisticsInfo();
+        dataInfo.labelName = "投诉举报";
+        dataInfo.itemList.add(new StatisticsItemInfo("受理部门", 0, "部门", R.mipmap.statistic_qyfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("投诉类别", 0, "类别", R.mipmap.statistic_jbly));
+        dataInfo.itemList.add(new StatisticsItemInfo("信息来源", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("业务来源", 0, "类别", R.mipmap.statistic_jblx));
+        return dataInfo;
+    }
+
+    /**
+     * 监管任务
+     */
+    private StatisticsInfo createSuperviseData() {
+        StatisticsInfo dataInfo = new StatisticsInfo();
+        dataInfo.labelName = "监管任务";
+        dataInfo.itemList.add(new StatisticsItemInfo("任务主体", 0, "类别", R.mipmap.statistic_qyfb));
+        dataInfo.itemList.add(new StatisticsItemInfo("任务类型", 0, "类别", R.mipmap.statistic_jbly));
+        dataInfo.itemList.add(new StatisticsItemInfo("检查主体", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("执行任务数", 0, "类别", R.mipmap.statistic_jblx));
+        return dataInfo;
+    }
+
+    /**
+     * 统计分析
+     *
+     * @return
+     */
+    private List<StatisticsInfo> createStatisticeData() {
+        List<StatisticsInfo> dataList = new ArrayList<>();
+        StatisticsInfo info = new StatisticsInfo();
+        info.labelName = "市场主体";
+        info.itemList.add(new StatisticsItemInfo("企业类型", 0, "类别", R.mipmap.statistic_ztsl));
+        info.itemList.add(new StatisticsItemInfo("行业结构", 0, "类别", R.mipmap.statistic_asfl));
+        info.itemList.add(new StatisticsItemInfo("特种设备", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("消保维权", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("主体发展", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("年报信息", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("许可证预警", 0, "类别", R.mipmap.statistic_hyfl));
+        dataList.add(info);
+
+//        info = new StatisticsInfo();
+//        info.labelName = "食  品";
+//        info.itemList.add(new StatisticsItemInfo("食品经营", 0, "区域", R.mipmap.statistics_spjy));
+//        info.itemList.add(new StatisticsItemInfo("食品生产", 0, "区域", R.mipmap.statistics_spsc));
+//        info.itemList.add(new StatisticsItemInfo("区级检查", 0, "区域", R.mipmap.statistics_qjjc));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "药 化 医";
+//        info.itemList.add(new StatisticsItemInfo("药品生产", 0, "区域", R.mipmap.statistics_ypsc));
+//        info.itemList.add(new StatisticsItemInfo("药品经营", 0, "区域", R.mipmap.statistics_ypjy));
+//        info.itemList.add(new StatisticsItemInfo("器械经营", 0, "区域", R.mipmap.statistics_qxjy));
+//        info.itemList.add(new StatisticsItemInfo("器械生产", 0, "区域", R.mipmap.statistics_qxsc));
+//        info.itemList.add(new StatisticsItemInfo("化妆品", 0, "区域", R.mipmap.statistics_hzp));
+//        info.itemList.add(new StatisticsItemInfo("药品检查", 0, "类别", R.mipmap.statistics_ypjc));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "特种设备";
+//        info.itemList.add(new StatisticsItemInfo("设备结构", 2, "类别", R.mipmap.statistic_sbjg));
+//        info.itemList.add(new StatisticsItemInfo("压力容器", 0, "区域", R.mipmap.statistic_ylrq));
+//        info.itemList.add(new StatisticsItemInfo("电梯数量", 0, "区域", R.mipmap.statistic_dtsl));
+//        info.itemList.add(new StatisticsItemInfo("锅炉", 0, "区域", R.mipmap.statistic_cyry));
+//        info.itemList.add(new StatisticsItemInfo("起重机械", 0, "区域", R.mipmap.device_structure));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "质  量";
+//        info.itemList.add(new StatisticsItemInfo("工业产品许可", 0, "区域", R.mipmap.statistics_gycpxk));
+//        info.itemList.add(new StatisticsItemInfo("监督抽检", 0, "区域", R.mipmap.statistics_jdcj));
+//        info.itemList.add(new StatisticsItemInfo("强制性认证", 0, "区域", R.mipmap.statistics_qzrz));
+//        info.itemList.add(new StatisticsItemInfo("分类监督", 0, "区域", R.mipmap.statistics_fljd));
+//        info.itemList.add(new StatisticsItemInfo("自愿性认证", 0, "区域", R.mipmap.statistics_zyxrz));
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "计量相关";
+//        info.itemList.add(new StatisticsItemInfo("计量器具", 0, "区域", R.mipmap.statistic_jefj));//TODO
+//        dataList.add(info);
+//
+//        info = new StatisticsInfo();
+//        info.labelName = "市场服务";
+//        info.itemList.add(new StatisticsItemInfo("商标", 0, "区域", R.mipmap.shangbiao));
+//        info.itemList.add(new StatisticsItemInfo("名牌", 0, "区域", R.mipmap.statistics_mp));
+//        info.itemList.add(new StatisticsItemInfo("微企", 0, "区域", R.mipmap.statistics_wq));
+//        info.itemList.add(new StatisticsItemInfo("农资", 0, "主体标识", R.mipmap.statistics_nz));
+//        dataList.add(info);
+
+//        info = new StatisticsInfo();
+//        info.labelName = "安全隐患";
+//        info.itemList.add(new StatisticsItemInfo("食品隐患", 0, "区域", R.mipmap.statistic_sbjg));
+//        info.itemList.add(new StatisticsItemInfo("药品隐患", 0, "区域", R.mipmap.statistic_sbjg));
+//        info.itemList.add(new StatisticsItemInfo("特种设备隐患", 0, "区域", R.mipmap.statistic_sbjg));
+////        info.itemList.add(new StatisticsItemInfo("许可隐患", 0, 0, R.mipmap.statistic_jefj,null));
+//        dataList.add(info);
+        return dataList;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.info_case_search:
-                loadData(index, infoSearchEdit.getText().toString().trim());
+            case id.toolbar_right:
+                Intent mapIntent = new Intent(InfoHomeActivity.this, WorkInMapShowActivity.class);
+                mapIntent.putExtra("type", ConstStrings.MapType_Main);
+                startActivity(mapIntent);
+                break;
+            case id.tvActHome_setting:
+                toActivity(SettingsActivity.class);
+                break;
+            case id.tvActHome_message:
+                toActivity(MessageCenterActivity.class);
+                break;
+            case id.tvActHome_help:
+                Intent helpIntent = new Intent(InfoHomeActivity.this, HelpActivity.class);
+                helpIntent.putExtra("isToLogin", false);
+                startActivity(helpIntent);
                 break;
             default:
                 break;
@@ -225,86 +278,4 @@ public class InfoHomeActivity extends BaseActivity implements View.OnClickListen
         startActivity(intent);
         Util.activity_In(this);
     }
-
-    //加载更多
-    @Override
-    public void LoadMore() {
-        if (mPageNo * mPageSize < mTotalNo) {
-            mPageNo++;
-            mAdapter.setStatus(1, mPageNo, mTotalNo);
-            loadData(index);
-        }
-    }
-
-    @Override
-    public void onLoadComplete(int id, BaseHttpResult b) {
-        super.onLoadComplete(id, b);
-        srlTodo.setRefreshing(false);
-        switch (id) {
-            case HTTP_ID_info_manager_biaozhun:
-                InfoManagerBiaozhun myTaskListEntity = (InfoManagerBiaozhun) b.getEntry();
-                mTotalNo = myTaskListEntity.getTotal();
-                mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<InfoManagerBiaozhun.RowsBean> entityList = myTaskListEntity.getList();
-                dataList.clear();
-                if (entityList != null) {
-                    dataList.addAll(entityList);
-                }
-                mAdapter.notifyDataSetChanged();
-
-                InfoManagerBiaozhun.RowsBean bean = null;
-                for (int j = 0; j < dataList.size(); j++) {
-                    bean = dataList.get(j);
-                    Log.i(TAG, "bean is " + bean.toString());
-                }
-                break;
-
-            case HTTP_ID_info_manager_device_liebiao:
-                break;
-
-            case HTTP_ID_info_manager_device_detail:
-                break;
-
-            case HTTP_ID_info_manager_license_food:
-                break;
-
-            case HTTP_ID_info_manager_license_drugs:
-                break;
-            case HTTP_ID_info_manager_license_cosmetics:
-                break;
-            case HTTP_ID_info_manager_license_instrument:
-                break;
-            case HTTP_ID_info_manager_license_detail:
-                break;
-            case HTTP_ID_info_manager_measuring_instruments_custom:
-                break;
-            case HTTP_ID_info_manager_measuring_instruments_liebiao:
-                break;
-            case HTTP_ID_info_manager_measuring_instruments_detail:
-                break;
-            case HTTP_ID_info_manager_legal_query:
-                break;
-            case HTTP_ID_info_manager_legal_search:
-                break;
-
-
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        switch (index) {
-            case 1:
-//                Intent intent = new Intent(this, SuperviseMyTaskDetailActivity.class);
-//                intent.putExtra("entity", dataList.get(position));
-//                intent.putExtra("index", index);
-//                intent.putExtra("type", 0);
-//                startActivity(intent);
-                break;
-        }
-
-    }
 }
-

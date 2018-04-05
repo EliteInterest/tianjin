@@ -10,14 +10,18 @@ import java.util.List;
 public class InfoManagerDeviceDetail implements Serializable {
 
     private String code;
-    private double latitude;
+    private long latitude;
     private long maintenanceDate;
+    private String managePhone;
+    private long newEquipmentDate;
     private String typeName;
     private String unitNum;
     private String categoryName;
     private String checkResult;
-    private String directorPhone;
+    private String departmentPerson;
     private String directorPerson;
+    private String directorPhone;
+    private String departmentPhone;
     private String maintenanceCompany;
     private String useNum;
     private String model;
@@ -28,7 +32,7 @@ public class InfoManagerDeviceDetail implements Serializable {
     private String originNum;
     private String registerCode;
     private long replaceDate;
-    private double longitude;
+    private long longitude;
     private long registerDate;
     private String checkType;
     private int ordered;
@@ -44,6 +48,7 @@ public class InfoManagerDeviceDetail implements Serializable {
     private String checkUser;
     private String checkResultNum;
     private String name;
+    private int isMajor;
     private String registerStatus;
     private String manageDepart;
     private String typeId;
@@ -60,11 +65,11 @@ public class InfoManagerDeviceDetail implements Serializable {
         this.code = code;
     }
 
-    public double getLatitude() {
+    public long getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(long latitude) {
         this.latitude = latitude;
     }
 
@@ -74,6 +79,22 @@ public class InfoManagerDeviceDetail implements Serializable {
 
     public void setMaintenanceDate(long maintenanceDate) {
         this.maintenanceDate = maintenanceDate;
+    }
+
+    public String getManagePhone() {
+        return managePhone;
+    }
+
+    public void setManagePhone(String managePhone) {
+        this.managePhone = managePhone;
+    }
+
+    public long getNewEquipmentDate() {
+        return newEquipmentDate;
+    }
+
+    public void setNewEquipmentDate(long newEquipmentDate) {
+        this.newEquipmentDate = newEquipmentDate;
     }
 
     public String getTypeName() {
@@ -108,6 +129,15 @@ public class InfoManagerDeviceDetail implements Serializable {
         this.checkResult = checkResult;
     }
 
+    public String getDepartmentPerson() {
+        return departmentPerson;
+    }
+
+    public void setDepartmentPerson(String departmentPerson) {
+        this.departmentPerson = departmentPerson;
+    }
+
+
     public String getDirectorPerson() {
         return directorPerson;
     }
@@ -122,6 +152,14 @@ public class InfoManagerDeviceDetail implements Serializable {
 
     public void setDirectorPhone(String directorPhone) {
         this.directorPhone = directorPhone;
+    }
+
+    public String getDepartmentPhone() {
+        return departmentPhone;
+    }
+
+    public void setDepartmentPhone(String departmentPhone) {
+        this.departmentPhone = departmentPhone;
     }
 
     public String getMaintenanceCompany() {
@@ -172,6 +210,14 @@ public class InfoManagerDeviceDetail implements Serializable {
         this.enterpriseName = enterpriseName;
     }
 
+    public long getMakeDate() {
+        return makeDate;
+    }
+
+    public void setMakeDate(long makeDate) {
+        this.makeDate = makeDate;
+    }
+
     public String getOriginNum() {
         return originNum;
     }
@@ -188,12 +234,60 @@ public class InfoManagerDeviceDetail implements Serializable {
         this.registerCode = registerCode;
     }
 
+    public long getReplaceDate() {
+        return replaceDate;
+    }
+
+    public void setReplaceDate(long replaceDate) {
+        this.replaceDate = replaceDate;
+    }
+
+    public long getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
+    }
+
+    public long getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(long registerDate) {
+        this.registerDate = registerDate;
+    }
+
     public String getCheckType() {
         return checkType;
     }
 
     public void setCheckType(String checkType) {
         this.checkType = checkType;
+    }
+
+    public int getOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(int ordered) {
+        this.ordered = ordered;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String stataddressus) {
+        this.address = address;
+    }
+
+    public List<RowsBean> getTypeInfo() {
+        return typeInfo;
+    }
+
+    public void setTypeInfo(List<RowsBean> typeInfo) {
+        this.typeInfo = typeInfo;
     }
 
     public String getManagePerson() {
@@ -212,6 +306,15 @@ public class InfoManagerDeviceDetail implements Serializable {
         this.level = level;
     }
 
+    public long getNextCheckDate() {
+        return nextCheckDate;
+    }
+
+    public void setNextCheckDate(long nextCheckDate) {
+        this.nextCheckDate = nextCheckDate;
+    }
+
+
     public String getRegisterCompany() {
         return registerCompany;
     }
@@ -226,6 +329,14 @@ public class InfoManagerDeviceDetail implements Serializable {
 
     public void setMakeCompany(String makeCompany) {
         this.makeCompany = makeCompany;
+    }
+
+    public long getCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(long checkDate) {
+        this.checkDate = checkDate;
     }
 
     public String getMaintenancePhone() {
@@ -243,6 +354,7 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setCheckUser(String checkUser) {
         this.checkUser = checkUser;
     }
+
     public String getCheckResultNum() {
         return checkResultNum;
     }
@@ -250,6 +362,7 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setCheckResultNum(String checkResultNum) {
         this.checkResultNum = checkResultNum;
     }
+
     public String getName() {
         return name;
     }
@@ -257,6 +370,15 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getIsMajor() {
+        return isMajor;
+    }
+
+    public void setIsMajor(int isMajor) {
+        this.isMajor = isMajor;
+    }
+
     public String getRegisterStatus() {
         return registerStatus;
     }
@@ -280,6 +402,7 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
+
     public String getEnterpriseId() {
         return enterpriseId;
     }
@@ -287,13 +410,23 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setEnterpriseId(String enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
+
     public String getCategoryId() {
         return categoryId;
     }
 
-    public void getCategoryId(String categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
+    public long getStopDate() {
+        return stopDate;
+    }
+
+    public void setStopDate(long stopDate) {
+        this.stopDate = stopDate;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -301,106 +434,6 @@ public class InfoManagerDeviceDetail implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setSddress(String stataddressus) {
-        this.address = address;
-    }
-
-
-    public long getMakeDate()
-    {
-        return makeDate;
-    }
-
-    public void setmakeDate(long makeDate)
-    {
-        this.makeDate = makeDate;
-    }
-
-    public long getRegisterDate()
-    {
-        return registerDate;
-    }
-
-    public void setRegisterDate(long registerDate)
-    {
-        this.registerDate = registerDate;
-    }
-
-    public long getNextCheckDate()
-    {
-        return nextCheckDate;
-    }
-
-    public void setNextCheckDate(long nextCheckDate)
-    {
-        this.nextCheckDate = nextCheckDate;
-    }
-
-    public long getCheckDate()
-    {
-        return checkDate;
-    }
-
-    public void setCheckDate(long checkDate)
-    {
-        this.checkDate = checkDate;
-    }
-
-    public long getStopDate()
-    {
-        return stopDate;
-    }
-
-    public void setStopDate(long stopDate)
-    {
-        this.stopDate = stopDate;
-    }
-
-    public long getReplaceDate()
-    {
-        return replaceDate;
-    }
-
-    public void setReplaceDate(long replaceDate)
-    {
-        this.replaceDate = replaceDate;
-    }
-
-    public double getLongitude()
-    {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude)
-    {
-        this.longitude = longitude;
-    }
-
-    public int getOrdered()
-    {
-        return ordered;
-    }
-
-    public void setOrdered(int ordered)
-    {
-        this.ordered = ordered;
-    }
-
-    public List<RowsBean> getTypeInfo()
-    {
-        return typeInfo;
-    }
-
-    public void setTypeInfo(List<RowsBean> typeInfo)
-    {
-        this.typeInfo = typeInfo;
-    }
-
 
     public static class RowsBean implements Serializable {
         /**

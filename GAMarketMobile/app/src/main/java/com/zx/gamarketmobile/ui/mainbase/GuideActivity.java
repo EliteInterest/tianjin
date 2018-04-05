@@ -21,6 +21,7 @@ import com.zx.gamarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.gamarketmobile.ui.system.SettingsActivity;
 import com.zx.gamarketmobile.util.ConstStrings;
 import com.zx.gamarketmobile.util.MyApplication;
+import com.zx.gamarketmobile.util.Util;
 import com.zx.gamarketmobile.zoom.DividerGridItemDecoration;
 
 import java.util.ArrayList;
@@ -104,7 +105,8 @@ public class GuideActivity extends BaseActivity {
                             toHome(2);
                             break;
                         case 4://信息管理
-                            toHome(3);
+//                            toHome(3);
+                            startActivity(new Intent(GuideActivity.this, InfoManagerActivity.class));
                             break;
                         case 5://统计分析
                             toHome(4);

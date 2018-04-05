@@ -56,26 +56,26 @@ public class SuperviseClaimedAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             final HttpZtEntity mEntity = ztItems.get(position);
-            myHolder.tvName.setText(mEntity.getEntityName());
+//            myHolder.tvName.setText(mEntity.getEntityName());
             myHolder.tvAddress.setText(mEntity.getAddress());
-            if (!mEntity.getfContactPhone().isEmpty() && !"null".equals(mEntity.getfContactPhone())) {
-                myHolder.tvTel.setText(mEntity.getfContactPhone());
-                myHolder.tvTel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mEntity.getfContactPhone()));
-                        context.startActivity(phoneIntent);
-                    }
-                });
-            } else {
-                myHolder.tvTel.setText("");
-            }
+//            if (!mEntity.getfContactPhone().isEmpty() && !"null".equals(mEntity.getfContactPhone())) {
+//                myHolder.tvTel.setText(mEntity.getfContactPhone());
+//                myHolder.tvTel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View arg0) {
+//                        Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mEntity.getfContactPhone()));
+//                        context.startActivity(phoneIntent);
+//                    }
+//                });
+//            } else {
+//                myHolder.tvTel.setText("");
+//            }
 //            if (type == 1) {
-                if (mEntity.isSelected()) {
-                    myHolder.cbClaimed.setChecked(true);
-                } else {
-                    myHolder.cbClaimed.setChecked(false);
-                }
+//                if (mEntity.isSelected()) {
+//                    myHolder.cbClaimed.setChecked(true);
+//                } else {
+//                    myHolder.cbClaimed.setChecked(false);
+//                }
 //            }else {
 //                myHolder.cbClaimed.setVisibility(View.GONE);
 //            }

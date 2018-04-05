@@ -35,7 +35,7 @@ public class InfoManagerActivity extends BaseActivity {
         addToolBar(false);
 
         guideFunctionEntityList = new ArrayList<>();
-        String[] names = new String[]{"标准信息", "法律法规", "许可证书", "计量器具", "特种设备"};
+        String[] names = new String[]{"标准信息", "特种设备", "许可证书", "计量器具", "法律法规"};
         int[] ids = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
         int[] imgs = new int[]{R.mipmap.guide_search,
                 R.mipmap.guide_analysis,
@@ -81,14 +81,16 @@ public class InfoManagerActivity extends BaseActivity {
                             toHome(0);
                             break;
                         case 1:
+                            toHome(1);
                             break;
                         case 2:
+                            toHome(2);
                             break;
                         case 3:
+                            toHome(3);
                             break;
                         case 4:
-                            break;
-                        case 5:
+                            toHome(4);
                             break;
                         default:
                             break;
@@ -126,6 +128,7 @@ public class InfoManagerActivity extends BaseActivity {
 
     private void toHome(int item) {
         Intent intent = new Intent(InfoManagerActivity.this, InfoHomeActivity.class);
+//        Intent intent = new Intent(InfoManagerActivity.this, HomeActivity.class);
         intent.putExtra("item", item);
         startActivity(intent);
     }

@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zx.gamarketmobile.R;
-import com.zx.gamarketmobile.adapter.infomanager.InfoManagerStandardAdapter;
-import com.zx.gamarketmobile.adapter.supervise.SuperviseMyTaskListAdapter;
-import com.zx.gamarketmobile.entity.infomanager.InfoManagerBiaozhun;
-import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
+import com.zx.gamarketmobile.adapter.infomanager.InfoManagerDeviceAdapter;
+import com.zx.gamarketmobile.adapter.infomanager.LegalSelectAdapter;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerDevice;
+import com.zx.gamarketmobile.entity.infomanager.InfoManagerLegalSelect;
 import com.zx.gamarketmobile.http.ApiData;
 import com.zx.gamarketmobile.http.BaseHttpResult;
 import com.zx.gamarketmobile.listener.LoadMoreListener;
@@ -27,19 +27,19 @@ import java.util.List;
  * Created by zhouzq on 2017/3/23.
  */
 
-public class StandardMessageSelectFragment extends BaseFragment implements LoadMoreListener, MyItemClickListener {
+public class LegalSelectFragment extends BaseFragment implements LoadMoreListener, MyItemClickListener {
     private static final String TAG = "StandardMessageSelectFragment";
     private RecyclerView rvTodo;
     private SwipeRefreshLayout srlTodo;
-    private InfoManagerStandardAdapter mAdapter;
-    private List<InfoManagerBiaozhun.RowsBean> dataList = new ArrayList<>();
+    private LegalSelectAdapter mAdapter;
+    private List<InfoManagerLegalSelect> dataList = new ArrayList<>();
     private int mPageSize = 10;
     public int mPageNo = 1;
     public int mTotalNo = 0;
-    private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_biaozhun);
+    private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_legal_query);
 
-    public static StandardMessageSelectFragment newInstance() {
-        StandardMessageSelectFragment fragment = new StandardMessageSelectFragment();
+    public static LegalSelectFragment newInstance() {
+        LegalSelectFragment fragment = new LegalSelectFragment();
         return fragment;
     }
 
@@ -51,7 +51,7 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
         srlTodo = (SwipeRefreshLayout) view.findViewById(R.id.srl_normal_layout);
         rvTodo.setLayoutManager(mLinearLayoutManager);
         getInfoStandar.setLoadingListener(this);
-        mAdapter = new InfoManagerStandardAdapter(getActivity(), dataList, true);
+        mAdapter = new LegalSelectAdapter(getActivity(), dataList, true);
         rvTodo.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnLoadMoreListener(this);
@@ -92,7 +92,7 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData("天津康布尔石油技术发展有限公司", mPageNo, mPageSize);
+        getInfoStandar.loadData("04", 1);
     }
 
     @Override
@@ -100,40 +100,23 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
         super.onLoadComplete(id, b);
         srlTodo.setRefreshing(false);
         switch (id) {
-            case ApiData.HTTP_ID_SuperviseTaskPage:
-                InfoManagerBiaozhun myTaskListEntity = (InfoManagerBiaozhun) b.getEntry();
-                mTotalNo = myTaskListEntity.getTotal();
-                mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<InfoManagerBiaozhun.RowsBean> entityList = myTaskListEntity.getList();
-                dataList.clear();
-                if (entityList != null) {
-                    dataList.addAll(entityList);
-                }
-                mAdapter.notifyDataSetChanged();
-
-                InfoManagerBiaozhun.RowsBean bean = null;
-                for (int j = 0; j < dataList.size(); j++) {
-                    bean = dataList.get(j);
-                    Log.i(TAG, "bean is " + bean.getEnterpriseName());
-                }
-
-//                if (bean != null)
-//                    new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo).loadData(bean.getId());
-
-
-//                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
+            case ApiData.HTTP_ID_info_manager_legal_query:
+                InfoManagerLegalSelect myTaskListEntity = (InfoManagerLegalSelect) b.getEntry();
 //                mTotalNo = myTaskListEntity.getTotal();
-//                Log.i(TAG, "mTotalNo is " + mTotalNo);
 //                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
-//                List<MyTaskListEntity.RowsBean> dataList1 = new ArrayList<>();
-//                dataList1.clear();
+//                List<InfoManagerDevice.RowsBean> entityList = myTaskListEntity.getList();
+//                dataList.clear();
 //                if (entityList != null) {
-//                    dataList1.addAll(entityList);
+//                    dataList.addAll(entityList);
+//                }
+//                mAdapter.notifyDataSetChanged();
+//
+//                InfoManagerDevice.RowsBean bean = null;
+//                for (int j = 0; j < dataList.size(); j++) {
+//                    bean = dataList.get(j);
+//                    Log.i(TAG, "bean is " + bean.getEnterpriseName());
 //                }
 
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                mAdapter.notifyDataSetChanged();
                 break;
 
             default:

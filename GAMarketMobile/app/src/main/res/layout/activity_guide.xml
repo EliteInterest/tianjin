@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="center"
-            android:src="@mipmap/logo_login" />
+            android:src="@mipmap/guide_logo" />
     </LinearLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.zx.gamarketmobile.adapter.infomanager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,17 +51,17 @@ public class InfoManagerDeviceAdapter extends MyRecycleAdapter {
         if (holder instanceof InfoManagerDeviceAdapter.Holder) {
             myHolder = (InfoManagerDeviceAdapter.Holder) holder;
             InfoManagerDevice.RowsBean entity = mItemList.get(position);
-//            Log.i(TAG, "getEnterpriseName is " + entity.getEnterpriseName());
-//            Log.i(TAG, "getAgencyCode is " + entity.getAgencyCode());
-//            Log.i(TAG, "getAdministrativeDivisions is " + entity.getAdministrativeDivisions());
-//            Log.i(TAG, "getRegisteredAddress is " + entity.getRegisteredAddress());
-//            Log.i(TAG, "getContactPhone is " + entity.getContactPhone());
+            Log.i(TAG, "getEnterpriseName is " + entity.getEnterpriseName());
+            Log.i(TAG, "getAgencyCode is " + entity.getId());
+            Log.i(TAG, "getAdministrativeDivisions is " + entity.getCategoryName());
+            Log.i(TAG, "getRegisteredAddress is " + entity.getIsMajor());
+            Log.i(TAG, "getContactPhone is " + entity.getLongitude());
 
 
             myHolder.tvField.setText(entity.getCategoryName());
-            myHolder.tvDate.setText(String.valueOf(entity.getLongitude()));
+            myHolder.tvDate.setText(entity.getLongitude());
             myHolder.tvName.setText(entity.getEnterpriseName());
-            myHolder.tvPerson.setText(entity.getEnterprise_id());
+            myHolder.tvPerson.setText(entity.getEnterpriseId());
             myHolder.tvStage.setText(entity.getId());
         } else {
             footerViewHolder = (FooterViewHolder) holder;

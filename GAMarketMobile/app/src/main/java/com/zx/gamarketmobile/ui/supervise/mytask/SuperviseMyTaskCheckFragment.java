@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.zx.gamarketmobile.R;
 import com.zx.gamarketmobile.adapter.supervise.SuperviseMyTaskCheckListAdapter;
-import com.zx.gamarketmobile.entity.NormalListEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskCheckEntity;
 import com.zx.gamarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.gamarketmobile.http.ApiData;
@@ -37,7 +36,7 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
     private SuperviseMyTaskCheckListAdapter mAdapter;
     private int index;//0待办  1已办
     private int type;//0我的任务 1任务监控
-    private List<MyTaskCheckEntity> dataList = new ArrayList<>();
+    private List<MyTaskCheckEntity.RowsBean> dataList = new ArrayList<>();
     private int mPageSize = 10;
     public int mPageNo = 1;
     public int mTotalNo = 0;
@@ -46,6 +45,7 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
     public MyTaskAddEntityView addEntityView;
 
     private ApiData getTaskCheckEmtity = new ApiData(ApiData.HTTP_ID_SuperviseTaskCheckEntity);
+    private ApiData getMyTaskCheckEmtity = new ApiData(ApiData.HTTP_ID_SuperviseMyTaskCheckEntity);
 
     public static SuperviseMyTaskCheckFragment newInstance(MyTaskListEntity.RowsBean rowsBean, int index, int type) {
         SuperviseMyTaskCheckFragment fragment = new SuperviseMyTaskCheckFragment();
@@ -70,6 +70,7 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
         srlTodo = (SwipeRefreshLayout) view.findViewById(R.id.srl_normal_layout);
         rvTodo.setLayoutManager(mLinearLayoutManager);
         getTaskCheckEmtity.setLoadingListener(this);
+        getMyTaskCheckEmtity.setLoadingListener(this);
         mAdapter = new SuperviseMyTaskCheckListAdapter(dataList);
         rvTodo.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
@@ -122,8 +123,18 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
 
     //数据加载
     public void loadData() {
+//        if (index==1){
+//            getTaskCheckEmtity.loadData(mEntity.getFTaskId(),mPageSize, 1,mPageNo, userInfo.getId());
+//        }else if (index==0){
+//            getMyTaskCheckEmtity.loadData(mEntity.getFTaskId(),userInfo.getId());
+//        }
+        if (mEntity != null && mEntity.getStatus() == 3/*待处置*/) {
+            addEntity.setVisibility(View.VISIBLE);
+            getMyTaskCheckEmtity.loadData(mEntity.getId(), userInfo.getId());
+        } else {
 //            getTaskCheckEmtity.loadData(mEntity.getFTaskId(), mPageSize, 1, mPageNo, userInfo.getId());
-        getTaskCheckEmtity.loadData(mPageNo, mPageSize, mEntity.getId());
+            getTaskCheckEmtity.loadData(mEntity.getId(), mPageSize, 1, mPageNo, userInfo.getId());
+        }
 
     }
 
@@ -140,13 +151,25 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
         switch (id) {
             case ApiData.HTTP_ID_SuperviseTaskCheckEntity:
                 srlTodo.setRefreshing(false);
-                NormalListEntity myTaskListEntity = (NormalListEntity) b.getEntry();
+                MyTaskCheckEntity myTaskListEntity = (MyTaskCheckEntity) b.getEntry();
                 mTotalNo = myTaskListEntity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<MyTaskCheckEntity> entityList = myTaskListEntity.getTaskCheckList();
+                List<MyTaskCheckEntity.RowsBean> entityList = myTaskListEntity.getRows();
                 dataList.clear();
                 dataList.addAll(entityList);
                 mAdapter.notifyDataSetChanged();
+                break;
+            case ApiData.HTTP_ID_SuperviseMyTaskCheckEntity:
+                srlTodo.setRefreshing(false);
+                MyTaskCheckEntity myToDoTaskListEntity = (MyTaskCheckEntity) b.getEntry();
+                List<MyTaskCheckEntity.RowsBean> mEntityList = myToDoTaskListEntity.getRows();
+                mAdapter.setStatus(-1, 0, 1);
+                dataList.clear();
+                dataList.addAll(mEntityList);
+                mAdapter.notifyDataSetChanged();
+                if (mEntityList.size() == 0 && isResult) {
+                    addEntity.setVisibility(View.GONE);
+                }
                 break;
             default:
                 break;

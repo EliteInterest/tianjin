@@ -270,14 +270,13 @@ public class BaseActivity extends AppCompatActivity implements BaseRequestData.O
     public void onLoadError(int id, boolean bool, String errorMsg) {
         dismissProgressDialog();
         if (!TextUtils.isEmpty(errorMsg)) {
-            if (errorMsg.equals("未登录或登录超时")) {
+            if (errorMsg.equals("Not login!")) {
                 showToast("登录失效，请重新登录");
                 SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(this).edit();
                 edit.putString("curuser", "");
                 edit.commit();
                 MyApplication.getInstance().remove(HomeActivity.class);
                 MyApplication.getInstance().remove(GuideActivity.class);
-                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (errorMsg.contains("系统")) {
                 showToast("后台服务器错误，请稍候再试");

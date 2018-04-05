@@ -1,141 +1,100 @@
 package com.zx.gamarketmobile.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class CheckInfo implements Serializable {
 
-
 	/**
-	 * departmentName : 消保科
-	 * updateDate : null
-	 * max : null
-	 * departmentId : 0
-	 * orderNum : null
-	 * pId : null
-	 * remark : null
-	 * type : null
-	 * checkResult : null
-	 * itemName : 食品生产日常监督检查要点表
-	 * min : null
-	 * children : [{"departmentName":"消保科","updateDate":null,"max":null,"departmentId":"0","orderNum":null,"pId":"1","remark":null,"type":null,"checkResult":null,"itemName":"进货查验结果\r\n注：①检查原辅料仓库；②原辅料品种随机抽查，不足2种的全部检查。","min":null,"children":[],"id":"1","remark1":null,"updatePerson":null,"remark2":null}]
+	 * 
 	 */
-
-	private String departmentName;
-	private Object updateDate;
-	private String max;
-	private String departmentId;
-	private Object orderNum;
-	private Object pId;
-	private Object remark;
-	private Object type;
-	private String checkResult;
-	private String itemName;
-	private String min;
-	private List<CheckInfo> children;
-	private int index = 0;
-
-	public int getIndex() {
-		return index;
+	private static final long serialVersionUID = -5973239630316062759L;
+	public String fCheckResult;
+	public String fGuid;
+	public String fItemId;
+	public String fItemName;
+	public String getfCheckResult() {
+		return fCheckResult;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
+	public void setfCheckResult(String fCheckResult) {
+		this.fCheckResult = fCheckResult;
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
+	public String getfGuid() {
+		return fGuid;
 	}
 
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setfGuid(String fGuid) {
+		this.fGuid = fGuid;
 	}
 
-	public Object getUpdateDate() {
-		return updateDate;
+	public String getfItemId() {
+		return fItemId;
 	}
 
-	public void setUpdateDate(Object updateDate) {
-		this.updateDate = updateDate;
+	public void setfItemId(String fItemId) {
+		this.fItemId = fItemId;
 	}
 
-	public String getMax() {
-		return max;
+	public String getfItemName() {
+		return fItemName;
 	}
 
-	public void setMax(String max) {
-		this.max = max;
+	public void setfItemName(String fItemName) {
+		this.fItemName = fItemName;
 	}
 
-	public String getDepartmentId() {
-		return departmentId;
+	public String getfValueType() {
+		return fValueType;
 	}
 
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
+	public void setfValueType(String fValueType) {
+		this.fValueType = fValueType;
 	}
 
-	public Object getOrderNum() {
-		return orderNum;
+	public String getfValueMax() {
+		return fValueMax;
 	}
 
-	public void setOrderNum(Object orderNum) {
-		this.orderNum = orderNum;
+	public void setfValueMax(String fValueMax) {
+		this.fValueMax = fValueMax;
 	}
 
-	public Object getPId() {
-		return pId;
+	public String getfValueMin() {
+		return fValueMin;
 	}
 
-	public void setPId(Object pId) {
-		this.pId = pId;
+	public void setfValueMin(String fValueMin) {
+		this.fValueMin = fValueMin;
 	}
 
-	public Object getRemark() {
-		return remark;
+	public String getfDepartment() {
+		return fDepartment;
 	}
 
-	public void setRemark(Object remark) {
-		this.remark = remark;
+	public void setfDepartment(String fDepartment) {
+		this.fDepartment = fDepartment;
 	}
 
-	public Object getType() {
-		return type;
+	public String getfBizType() {
+		return fBizType;
 	}
 
-	public void setType(Object type) {
-		this.type = type;
+	public void setfBizType(String fBizType) {
+		this.fBizType = fBizType;
 	}
 
-	public String getCheckResult() {
-		return checkResult;
+	public String fValueType;
+	public String fValueMax;
+	public String fValueMin;
+	public String fDepartment;
+	public String fBizType;
+	
+	@Override
+	public String toString() {
+		return "CheckInfo [fCheckResult=" + fCheckResult + ", fGuid=" + fGuid + ", fItemId=" + fItemId + ", fItemName="
+				+ fItemName + ", fValueType=" + fValueType + ", fValueMax=" + fValueMax + ", fValueMin=" + fValueMin
+				+ "]";
 	}
-
-	public void setCheckResult(String checkResult) {
-		this.checkResult = checkResult;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public String getMin() {
-		return min;
-	}
-
-	public void setMin(String min) {
-		this.min = min;
-	}
-
-	public List<CheckInfo> getChildren() {
-		return children;
-	}
-
-	public void setChildren(List<CheckInfo> children) {
-		this.children = children;
-	}
+	
 }
