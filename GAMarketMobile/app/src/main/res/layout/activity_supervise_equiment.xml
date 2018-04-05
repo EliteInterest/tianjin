@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zx.gamarketmobile.ui.supervise.mytask.SuperviseEquimentActivity">
+    tools:context="com.zx.tjmarketmobile.ui.supervise.mytask.SuperviseEquimentActivity">
 
     <include
         layout="@layout/normal_swipe_recycler_view"/>

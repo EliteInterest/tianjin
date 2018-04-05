@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zx.gamarketmobile.ui.supervise.mytask.SuperviseEquipmentDetailActivity">
+    tools:context="com.zx.tjmarketmobile.ui.supervise.mytask.SuperviseEquipmentDetailActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_euqipment_detail"

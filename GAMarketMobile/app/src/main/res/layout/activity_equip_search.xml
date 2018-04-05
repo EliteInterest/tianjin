@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zx.gamarketmobile.ui.equipment.EquipSearchActivity">
+    tools:context="com.zx.tjmarketmobile.ui.equipment.EquipSearchActivity">
 
     <LinearLayout
         android:id="@+id/ll_equip_searchview"

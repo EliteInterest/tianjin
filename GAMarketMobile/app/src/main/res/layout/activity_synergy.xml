@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zx.gamarketmobile.ui.synergy.SynergyActivity">
+    tools:context="com.zx.tjmarketmobile.ui.synergy.SynergyActivity">
 
     <include
         layout="@layout/normal_tab_viewpager"

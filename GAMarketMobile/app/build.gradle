@@ -15,11 +15,11 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
     defaultConfig {
-        applicationId "com.zx.gamarketmobile"
+        applicationId "com.zx.ljmarketmobile"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 18
-        versionName "2.5.3"
+        versionCode 1
+        versionName "21.0.0"
         multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {

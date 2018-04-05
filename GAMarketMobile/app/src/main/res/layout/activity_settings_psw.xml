@@ -15,7 +15,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp">
 
-        <com.zx.gamarketmobile.view.ClearEditText
+        <com.zx.tjmarketmobile.view.ClearEditText
             android:id="@+id/old_psw_edit"
             android:background="@drawable/round_corners_more"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp">
 
-        <com.zx.gamarketmobile.view.ClearEditText
+        <com.zx.tjmarketmobile.view.ClearEditText
             android:id="@+id/new_psw_edit"
             android:background="@drawable/round_corners_more"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp">
 
-        <com.zx.gamarketmobile.view.ClearEditText
+        <com.zx.tjmarketmobile.view.ClearEditText
             android:id="@+id/renew_psw_edit"
             android:background="@drawable/round_corners_more"
             android:layout_width="match_parent"

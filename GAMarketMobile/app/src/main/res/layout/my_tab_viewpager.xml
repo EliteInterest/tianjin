@@ -13,7 +13,7 @@
         android:background="@color/guideText"
         app:tabIndicatorHeight="2dp"/>
 
-    <com.zx.gamarketmobile.view.MyViewPager
+    <com.zx.tjmarketmobile.view.MyViewPager
         android:id="@+id/vp_normal_pager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

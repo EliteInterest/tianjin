@@ -44,7 +44,7 @@
             android:layout_height="fill_parent"
             android:layout_centerInParent="true">
 
-            <com.zx.gamarketmobile.zoom.GestureImageView
+            <com.zx.tjmarketmobile.zoom.GestureImageView
                 android:id="@+id/common_image_imageview"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

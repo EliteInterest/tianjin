@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zx.gamarketmobile.view.MyScrollView
+    <com.zx.tjmarketmobile.view.MyScrollView
         android:id="@+id/base_user_info_layout"
         app:ms_maxheight="3"
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
         </LinearLayout>
-    </com.zx.gamarketmobile.view.MyScrollView>
+    </com.zx.tjmarketmobile.view.MyScrollView>
 
     <RelativeLayout
         android:id="@+id/info_report_other_layout"

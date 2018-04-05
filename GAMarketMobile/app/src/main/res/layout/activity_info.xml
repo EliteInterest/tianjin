@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/llActHome_bottom"
+        android:id="@+id/llActHome_type_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvActInfoHome_text"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/llInfoHome_bottom_edit"

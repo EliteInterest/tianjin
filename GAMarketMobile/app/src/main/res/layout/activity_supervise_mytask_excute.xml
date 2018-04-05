@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"/>
 
-            <com.zx.gamarketmobile.view.MultiSpinner
+            <com.zx.tjmarketmobile.view.MultiSpinner
                 android:id="@+id/msp_task_issued"
                 android:layout_marginTop="@dimen/px10"
                 android:visibility="gone"
@@ -167,7 +167,7 @@
                         android:textSize="16sp"/>
                 </LinearLayout>
 
-                <com.zx.gamarketmobile.view.MultiSpinner
+                <com.zx.tjmarketmobile.view.MultiSpinner
                     android:id="@+id/sp_task_xb"
                     android:layout_marginTop="@dimen/px10"
                     android:layout_width="match_parent"
