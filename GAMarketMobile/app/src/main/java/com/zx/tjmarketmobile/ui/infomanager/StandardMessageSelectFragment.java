@@ -1,6 +1,7 @@
 package com.zx.tjmarketmobile.ui.infomanager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -78,7 +79,9 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
     //item点击事件
     @Override
     public void onItemClick(View view, int position) {
-
+        Intent intent = new Intent(getActivity(), DeviceListDetailActivity.class);
+        intent.putExtra("standard", dataList.get(position));
+        startActivity(intent);
     }
 
     @Override

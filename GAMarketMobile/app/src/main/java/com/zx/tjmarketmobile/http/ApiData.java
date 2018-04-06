@@ -289,6 +289,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_info_manager_measuring_instruments_detail = 312;//计量器具-计量器具详情
     public static final int HTTP_ID_info_manager_legal_query = 313;//法律法规-查询菜单接口
     public static final int HTTP_ID_info_manager_legal_search = 314;//法律法规-法律法规搜索接口
+    public static final int HTTP_ID_info_manager_biaozhun_detail = 315;//标准信息展示
     //TODO
     public static String UUID = "";
 
@@ -1611,6 +1612,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("year", objects[0]);
                     break;
                 case HTTP_ID_info_manager_biaozhun:
+                case HTTP_ID_info_manager_biaozhun_detail:
                     params.setApiUrl(baseUrl + "/TJsupervise/standard/select.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("enterpriseName", ((String) objects[0]).toString());
@@ -1618,7 +1620,6 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("pageSize", objects[2]);
 //                    params.putParams("fUserId", objects[4]);
                     break;
-
                 case HTTP_ID_info_manager_device_liebiao:
                     params.setApiUrl(baseUrl + "/TJsupervise/equipment/getEquipmentPage.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
@@ -3164,7 +3165,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             InfoManagerBiaozhun myIncomanagerStandarEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerBiaozhun.class);
                             result.setEntry(myIncomanagerStandarEntity);
                             break;
-
+                        case HTTP_ID_info_manager_biaozhun_detail:
+                            jsonObject = getJSONObject(jsonObject, "data");
+                            InfoManagerBiaozhun myStandarEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerBiaozhun.class);
+                            result.setEntry(myStandarEntity);
+                            break;
                         case HTTP_ID_info_manager_device_liebiao:
                             jsonObject = getJSONObject(jsonObject, "data");
                             InfoManagerDevice myIncomanagerDeviceEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerDevice.class);

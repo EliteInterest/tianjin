@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.CaseCompDetailInfoAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhun;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDevice;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDeviceDetail;
 import com.zx.tjmarketmobile.http.ApiData;
@@ -24,6 +25,7 @@ import java.util.List;
 
 /**
  * Created by zhouzq on 2017/3/23.
+ * 特种设备详情
  */
 
 public class DeviceListBaseInfoFragment extends BaseFragment {

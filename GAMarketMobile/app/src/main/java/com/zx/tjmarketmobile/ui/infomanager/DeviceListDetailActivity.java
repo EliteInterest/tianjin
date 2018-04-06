@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zx.tjmarketmobile.R;
+import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhun;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDevice;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
@@ -25,6 +27,7 @@ public class DeviceListDetailActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private Button btnExcute;
     private Button btnOther;
+    private InfoManagerBiaozhun.RowsBean mStandardEntity;
     private InfoManagerDevice.RowsBean mEntity;
     public Dialog dialog = null;
     public static DeviceListDetailActivity instance = null;
@@ -32,6 +35,7 @@ public class DeviceListDetailActivity extends BaseActivity {
     private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseSendTaskBack);
     private boolean isSendBackVisible = false;
     private DeviceListBaseInfoFragment myCheckfragment;
+    private StandardDeviceBaseInfoFragment myStandardfragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class DeviceListDetailActivity extends BaseActivity {
         getRightImg().setOnClickListener(this);
         getRightImg().setVisibility(View.GONE);
         //获取传递的参数
-        if (getIntent().hasExtra("entity")) {
+        if (getIntent().hasExtra("entity")) {//信息管理 - 特种设备
             mEntity = (InfoManagerDevice.RowsBean) getIntent().getSerializableExtra("entity");
 //            index = getIntent().getIntExtra("index", 0);
 //            type = getIntent().getIntExtra("type", 0);
@@ -56,7 +60,14 @@ public class DeviceListDetailActivity extends BaseActivity {
 //            getIsBackTask.setLoadingListener(this);
             sendBackTask.setLoadingListener(this);
 //            getIsBackTask.loadData(mEntity.getF_GUID(), mEntity.getFTaskId(), userInfo.getId());
-            initViewPager();
+            initViewPager("entity");
+        } else if (getIntent().hasExtra("standard")) {//信息管理 - 标准信息
+            mStandardEntity = (InfoManagerBiaozhun.RowsBean) getIntent().getSerializableExtra("standard");
+            Log.e("fuxueshu", "step 1: mStandardEntity = " + mStandardEntity);
+            setMidText(mStandardEntity.getEnterpriseName());
+            Log.e("fuxueshu", "step 2: getEnterpriseName = " + mStandardEntity.getEnterpriseName());
+            sendBackTask.setLoadingListener(this);
+            initViewPager("standard");
         } else {
             showToast("未获取到信息，请重试");
             finish();
@@ -74,11 +85,17 @@ public class DeviceListDetailActivity extends BaseActivity {
         btnOther.setVisibility(View.GONE);
     }
 
-    private void initViewPager() {
+    private void initViewPager(String mInfomation) {
         mTabLayout = (TabLayout) findViewById(R.id.tb_normal_layout);
         mVpContent = (ViewPager) findViewById(R.id.vp_normal_pager);
-        myCheckfragment = DeviceListBaseInfoFragment.newInstance(this, mEntity);
-        myPagerAdapter.addFragment(myCheckfragment, "基本信息");
+
+        if (mInfomation.equals("entity")) {
+            myCheckfragment = DeviceListBaseInfoFragment.newInstance(this, mEntity);
+            myPagerAdapter.addFragment(myCheckfragment, "基本信息");
+        } else if (mInfomation.equals("standard")) {
+            myStandardfragment = StandardDeviceBaseInfoFragment.newInstance(this, mStandardEntity);
+            myPagerAdapter.addFragment(myStandardfragment, "基本信息");
+        }
 
         mVpContent.setOffscreenPageLimit(3);
         mVpContent.setAdapter(myPagerAdapter);
