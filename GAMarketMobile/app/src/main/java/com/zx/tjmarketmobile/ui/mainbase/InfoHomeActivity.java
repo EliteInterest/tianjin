@@ -193,12 +193,12 @@ public class InfoHomeActivity extends BaseActivity implements OnClickListener {
             case 3://信息管理
                 setMidText("计量器具");
                 measureCustomFragment = MeasureCustomFragment.newInstance();
-//                myPagerAdapter.addFragment(measureCustomFragment, "自定义表信息");
+                myPagerAdapter.addFragment(measureCustomFragment, "自定义表信息");
                 measureLiebiaoFragment = MeasureLiebiaoFragment.newInstance();
                 myPagerAdapter.addFragment(measureLiebiaoFragment, "计量器具");
                 break;
 
-            case 4://统计分析
+            case 4://法律法规
                 setMidText("法律法规");
                 legalSelectFragment = LegalSelectFragment.newInstance();
                 myPagerAdapter.addFragment(legalSelectFragment, "法律查詢");

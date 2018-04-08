@@ -67,7 +67,6 @@ import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLegalSelectLaw;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicense;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicenseDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicenseFood;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureCustom;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureLiebiao;
 import com.zx.tjmarketmobile.entity.supervise.MonitorPrecessCountEntity;
@@ -1779,11 +1778,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             UUID = msg;
                             list = getJSONObject(jsonObject, "data");
                             HttpLoginEntity loginEntity = new HttpLoginEntity();
-                            loginEntity.setId(getStringValue(list, "fUserId"));
-                            loginEntity.setRealName(getStringValue(list, "fRealName"));
+                            loginEntity.setId(getStringValue(list, "id"));
+                            loginEntity.setRealName(getStringValue(list, "realName"));
                             loginEntity.setGender(getStringValue(list, "fGender"));
                             loginEntity.setAge(getStringValue(list, "fAge"));
-                            loginEntity.setUserName(getStringValue(list, "fUserName"));
+                            loginEntity.setUserName(getStringValue(list, "userName"));
                             loginEntity.setDuty(getStringValue(list, "fDuty"));
                             loginEntity.setDepartment(getStringValue(list, "fDepartment"));
                             loginEntity.setDepartmentAlias(getStringValue(list, "fDepartmentAlias"));
@@ -2849,7 +2848,8 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             superMyTask.setPageTotal(getIntValue(jsonObject, "pageTotal"));
                             superMyTask.setTotal(getIntValue(jsonObject, "total"));
                             jsonArray = getJSONArray(jsonObject, "list");
-                            List<MyTaskListEntity> myTaskListEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<MyTaskListEntity>>(){}.getType());
+                            List<MyTaskListEntity> myTaskListEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<MyTaskListEntity>>() {
+                            }.getType());
                             superMyTask.setMyTaskListEntities(myTaskListEntities);
                             result.setEntry(superMyTask);
                             break;
@@ -3212,47 +3212,18 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myLisenceDetail);
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
-//                            jsonObject = getJSONObject(jsonObject, "data");
-//                            Log.i("wangwansheng", "jsonObject is " + jsonObject.toString());
-//                            InfoManagerMeasureCustom myMeasureCustom = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureCustom.class);
-
                             jsonArray = getJSONArray(jsonObject, "data");
-
-//                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.new ArrayList();
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                InfoManagerMeasureCustom measureCustom = gsonMeasure.fromJson(jsonArray.getJSONObject(i).toString(), InfoManagerMeasureCustom.class);
-//                                myMeasureCustom.add(measureCustom);
-//                            }
-
-                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.fromJson(jsonArray.toString(),
-                                    new TypeToken<List<InfoManagerMeasureCustom>>() {
-                                    }.getType());
-//                            InfoManagerMeasureCustom myMeasureCustom = new InfoManagerMeasureCustom();
-//                            List<KeyValueInfo> customInfos = new ArrayList<>();
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject compObject = jsonArray.getJSONObject(i);
-//                                KeyValueInfo compKV = new KeyValueInfo();
-//                                compKV.key = getStringValue(compObject, "name");
-//                                compKV.value1 = String.valueOf(getIntValue(compObject, "type"));
-//                                compKV.value2 = getStringValue(compObject, "col");
-//                                customInfos.add(compKV);
-//                            }
-//
-//
-//                            List<InfoManagerMeasureCustom.RowsBean> dataList = new ArrayList<>();
-//                            for (int j = 0; j < customInfos.size(); j++) {
-//                                InfoManagerMeasureCustom.RowsBean bean = new InfoManagerMeasureCustom.RowsBean();
-//                                bean.setName(customInfos.get(j).key);
-//                                bean.setType(Integer.valueOf(customInfos.get(j).value1));
-//                                bean.setCol(customInfos.get(j).value2);
-//                                dataList.add(bean);
-//                                Log.i("ApiData", "bean is " + bean.getName());
-//                            }
-//
-//                            myMeasureCustom.setList(dataList);
-//
+                            List<KeyValueInfo> myMeasureCustom = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject compObject = jsonArray.getJSONObject(i);
+                                Log.i("wangwansheng", "jsonObject is " + compObject.toString());
+                                KeyValueInfo compKV = new KeyValueInfo();
+                                compKV.key = getStringValue(compObject, "name");
+                                compKV.value = String.valueOf(getIntValue(compObject, "type"));
+                                compKV.value1 = getStringValue(compObject, "col");
+                                myMeasureCustom.add(compKV);
+                            }
                             result.setEntry(myMeasureCustom);
-
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_liebiao://计量器具-计量器具列表接口
                             jsonObject = getJSONObject(jsonObject, "data");

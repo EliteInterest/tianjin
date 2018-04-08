@@ -36,7 +36,7 @@ public class MeasureCustomAdapter extends MyRecycleAdapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         if (viewType == ITEM_TYPE_NORMAL) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.supervise_mytask_list_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.infomanager_list_item, parent, false);
             return new Holder(view);
         } else {//footer
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycle_foot_view, parent, false);
@@ -49,14 +49,13 @@ public class MeasureCustomAdapter extends MyRecycleAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
-//            InfoManagerMeasureCustom.RowsBean entity = mItemList.get(position);
-//            Log.i(TAG, "getEnterpriseName is " + entity.getName());
-//            Log.i(TAG, "getAgencyCode is " + entity.getCol());
-//            Log.i(TAG, "getAdministrativeDivisions is " + entity.getType());
-
             KeyValueInfo mEntify = mItemList.get(position);
+
             myHolder.tvName.setText(mEntify.key);
-            myHolder.tvDate.setText(mEntify.value);
+            myHolder.tvType1.setText("type：");
+            myHolder.tvPerson.setText(mEntify.value);
+            myHolder.tvType2.setText("col：");
+            myHolder.tvStage.setText(mEntify.value1);
 
         } else {
             footerViewHolder = (FooterViewHolder) holder;
@@ -70,7 +69,7 @@ public class MeasureCustomAdapter extends MyRecycleAdapter {
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView ivField, ivOverdue;
-        private TextView tvField, tvDate, tvName, tvPerson, tvStage;
+        private TextView tvField, tvDate, tvName, tvPerson, tvStage, tvType1, tvType2;
 
         public Holder(View parent) {
             super(parent);
@@ -81,6 +80,8 @@ public class MeasureCustomAdapter extends MyRecycleAdapter {
             tvName = (TextView) parent.findViewById(R.id.tv_supervise_name);
             tvPerson = (TextView) parent.findViewById(R.id.tv_supervise_person);
             tvStage = (TextView) parent.findViewById(R.id.tv_supervise_stage);
+            tvType1 = parent.findViewById(R.id.tv_tasktype1);
+            tvType2 = parent.findViewById(R.id.tv_tasktype2);
             parent.setOnClickListener(this);
         }
 
