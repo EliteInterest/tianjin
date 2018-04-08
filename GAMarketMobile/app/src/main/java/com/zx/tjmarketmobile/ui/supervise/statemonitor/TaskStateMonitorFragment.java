@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.supervise.SuperviseMyTaskListAdapter;
+import com.zx.tjmarketmobile.entity.NormalListEntity;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
@@ -31,7 +32,7 @@ import static com.zx.tjmarketmobile.http.ApiData.HTTP_ID_supervisetask_getMonito
 public class TaskStateMonitorFragment extends BaseFragment implements MyItemClickListener, LoadMoreListener {
 
     public SuperviseMyTaskListAdapter mTaskAdapter;
-    public List<MyTaskListEntity.RowsBean> dataList = new ArrayList<>();
+    public List<MyTaskListEntity> dataList = new ArrayList<>();
     private int mTaskStatus;// 筛选状态标识，0代表全部，1代表即将到期，2代表逾期
     private SwipeRefreshLayout SRL_supercise;
     private RecyclerView RV_supercise;
@@ -139,13 +140,13 @@ public class TaskStateMonitorFragment extends BaseFragment implements MyItemClic
         if (b.isSuccess()) {
             switch (id) {
                 case ApiData.HTTP_ID_supervisetask_getMonitorTask:
-                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
-                if (myTaskListEntity!=null&&myTaskListEntity.getList()!=null&&myTaskListEntity.getList().size()>=0){
+                NormalListEntity myTaskListEntity = (NormalListEntity) b.getEntry();
+                if (myTaskListEntity!=null&&myTaskListEntity.getMyTaskListEntities()!=null&&myTaskListEntity.getMyTaskListEntities().size()>=0){
                     mTotalNo = myTaskListEntity.getTotal();
                     mActivity.setText(mTaskStatus,mTotalNo);
-                    if (myTaskListEntity.getList().size()>0){
+                    if (myTaskListEntity.getMyTaskListEntities().size()>0){
                         mTaskAdapter.setStatus(0, mPageNo, mTotalNo);
-                        List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
+                        List<MyTaskListEntity> entityList = myTaskListEntity.getMyTaskListEntities();
                         dataList.clear();
                         dataList.addAll(entityList);
                         mTaskAdapter.notifyDataSetChanged();

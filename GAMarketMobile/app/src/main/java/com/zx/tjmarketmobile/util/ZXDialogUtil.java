@@ -22,6 +22,7 @@ import java.util.List;
  * Created by Xiangb on 2017/3/24.
  * 功能：专用于dialog的工具类
  */
+@SuppressWarnings("deprecation")
 public class ZXDialogUtil {
 
     private static Handler handler = new Handler();

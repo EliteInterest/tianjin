@@ -1,6 +1,7 @@
 package com.zx.tjmarketmobile.entity;
 
 import com.zx.tjmarketmobile.entity.supervise.MyTaskCheckEntity;
+import com.zx.tjmarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.tjmarketmobile.entity.supervise.SuperviseEquimentEntity;
 
 import org.json.JSONObject;
@@ -22,7 +23,16 @@ public class NormalListEntity {
     private List<ComplainInfoEntity> complainInfoList;//投诉举报列表
     private List<JSONObject> chartList;
     private List<MyTaskCheckEntity> taskCheckEntities;
+    private List<MyTaskListEntity> myTaskListEntities;
     private List<SuperviseEquimentEntity> equimentEntityList;//特种设备列表
+
+    public List<MyTaskListEntity> getMyTaskListEntities() {
+        return myTaskListEntities;
+    }
+
+    public void setMyTaskListEntities(List<MyTaskListEntity> myTaskListEntities) {
+        this.myTaskListEntities = myTaskListEntities;
+    }
 
     public List<MyTaskCheckEntity> getTaskCheckEntities() {
         return taskCheckEntities;

@@ -195,6 +195,7 @@ public class CaseDestoryActivity extends BaseActivity implements RadioGroup.OnCh
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);

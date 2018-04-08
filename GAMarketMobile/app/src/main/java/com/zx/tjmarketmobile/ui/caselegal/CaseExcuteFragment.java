@@ -40,7 +40,7 @@ import java.util.List;
  * Created by Xiangb on 2017/4/14.
  * 功能：
  */
-
+@SuppressWarnings("deprecation")
 public class CaseExcuteFragment extends BaseFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private LinearLayout llExcute;//处理意见
     private LinearLayout llPenaltyOpinion;//处罚建议
@@ -556,6 +556,7 @@ public class CaseExcuteFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         if (id != ApiData.FILE_UPLOAD) {
             super.onLoadComplete(id, b);

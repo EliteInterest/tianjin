@@ -27,6 +27,7 @@ import java.util.ArrayList;
  * Create By Stanny On 2016/9/19
  * 功能：BaseFragment
  */
+@SuppressWarnings("deprecation")
 public class BaseFragment extends Fragment implements OnHttpLoadingListener<BaseHttpResult> {
     protected ProgressDialog progressDialog;
     protected Handler handler = new Handler();

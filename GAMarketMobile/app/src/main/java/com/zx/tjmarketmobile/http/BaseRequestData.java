@@ -37,6 +37,7 @@ import java.util.concurrent.TimeoutException;
  * @param<ParamType> loadData 参数类型
  * @param<Result> 返回参数
  */
+@SuppressWarnings("deprecation")
 public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result extends BaseHttpResult> {
     /**
      * 默认所有请求可同时开5线程

@@ -110,12 +110,12 @@ public class ComplainExcuteActivity extends BaseActivity {
             case 60://待审核
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("通过");
-                btnCancel.setText("查看");
+                btnCancel.setText("不通过");
                 break;
             case 80://待办结
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("办结");
-                btnCancel.setText("查看");
+                btnCancel.setText("退回");
                 break;
             default:
                 break;
@@ -218,6 +218,7 @@ public class ComplainExcuteActivity extends BaseActivity {
     };
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {

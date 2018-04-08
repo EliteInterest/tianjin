@@ -17,7 +17,7 @@ import java.util.Calendar;
 /**
  * Created by zhouzq on 2017/2/7.
  */
-
+@SuppressWarnings("deprecation")
 public class DatePickDialogUtil implements DatePicker.OnDateChangedListener {
     private DatePicker datePicker;
     private AlertDialog ad;

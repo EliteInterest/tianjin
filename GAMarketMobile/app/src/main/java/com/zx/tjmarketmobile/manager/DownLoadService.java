@@ -63,6 +63,7 @@ public class DownLoadService extends Service implements OnHttpLoadingListener<Ba
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onLoadComplete(int id, BaseHttpResult b) {
 		if (b.isSuccess()) {
 			mFileList = (List<String>) b.getEntry();

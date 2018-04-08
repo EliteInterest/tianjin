@@ -100,6 +100,7 @@ public class MeasureCustomFragment extends BaseFragment implements LoadMoreListe
     }
 
     @SuppressLint("LongLogTag")
+    @SuppressWarnings("unchecked")
     @Override
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);

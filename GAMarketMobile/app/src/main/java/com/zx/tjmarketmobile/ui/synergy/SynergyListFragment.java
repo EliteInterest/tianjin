@@ -153,6 +153,7 @@ public class SynergyListFragment extends BaseFragment implements MyItemClickList
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {

@@ -56,6 +56,7 @@ public class AddressSelectPopuView {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initWindow(TextView showLocationView, int size) {
 		int height = (int) mContext.getResources().getDimension(R.dimen.select_window_item_heitht);
 		int popupHeight = height * size;

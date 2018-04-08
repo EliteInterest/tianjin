@@ -23,6 +23,7 @@ import java.io.IOException;
  * Created by Xiangb on 2017/3/30.
  * 功能：bitmap处理工具类，包含了drawable等
  */
+@SuppressWarnings("deprecation")
 public class ZXBitmapUtil {
 
     /**

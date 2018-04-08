@@ -42,12 +42,12 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private boolean isResult = false;
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
     public MyTaskAddEntityView addEntityView;
 
     private ApiData getTaskCheckEmtity = new ApiData(ApiData.HTTP_ID_SuperviseTaskCheckEntity);
 
-    public static SuperviseMyTaskCheckFragment newInstance(MyTaskListEntity.RowsBean rowsBean, int index, int type) {
+    public static SuperviseMyTaskCheckFragment newInstance(MyTaskListEntity rowsBean, int index, int type) {
         SuperviseMyTaskCheckFragment fragment = new SuperviseMyTaskCheckFragment();
         Bundle args = new Bundle();
         args.putInt("index", index);
@@ -61,7 +61,7 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_case_to_do_list, container, false);
 
-        mEntity = (MyTaskListEntity.RowsBean) getArguments().getSerializable("mEntity");
+        mEntity = (MyTaskListEntity) getArguments().getSerializable("mEntity");
         index = getArguments().getInt("index");
         type = getArguments().getInt("type");
 

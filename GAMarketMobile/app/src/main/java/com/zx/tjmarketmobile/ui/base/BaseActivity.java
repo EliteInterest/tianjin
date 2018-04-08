@@ -39,6 +39,7 @@ import com.zx.tjmarketmobile.util.Util;
  * Create By Xiangb On 2016/9/13
  * 功能：BaseActivity
  */
+@SuppressWarnings("deprecation")
 public class BaseActivity extends AppCompatActivity implements BaseRequestData.OnHttpLoadingListener<BaseHttpResult>, View.OnClickListener {
     public ProgressDialog progressDialog;
     protected Handler handler = new Handler();

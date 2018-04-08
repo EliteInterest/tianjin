@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Xiangb on 2017/11/2.
  * 功能：
  */
-
+@SuppressWarnings("deprecation")
 public class CaseRefeAdapter extends MyRecycleAdapter {
     private List<CaseRefeEntity.RowsBean> mItemList;
     public Holder myHolder;

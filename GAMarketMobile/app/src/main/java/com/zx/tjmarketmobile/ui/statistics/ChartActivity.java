@@ -163,7 +163,7 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view;
-                tv.setTextColor(getResources().getColor(R.color.darkgrey));    //设置颜色
+                tv.setTextColor(ContextCompat.getColor(mContext, R.color.darkgrey));    //设置颜色
                 tv.setTextSize(12.0f);    //设置大小
                 tv.setGravity(Gravity.CENTER);//设置居中
                 if (position == 0) {
@@ -375,6 +375,7 @@ public class ChartActivity extends BaseActivity implements IChartListener {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {

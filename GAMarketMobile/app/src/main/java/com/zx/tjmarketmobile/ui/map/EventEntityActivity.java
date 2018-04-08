@@ -30,6 +30,7 @@ import com.zx.tjmarketmobile.util.Util;
  * Create By Xiangb On 2016/9/22
  * 功能：事件界面
  */
+@SuppressWarnings("deprecation")
 public class EventEntityActivity extends BaseActivity implements OnClickListener {
     private Button mBtnExcute;//响应、签到、处置按钮
     private TabLayout mTabLayout;

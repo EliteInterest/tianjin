@@ -71,7 +71,6 @@ import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureCustom;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureLiebiao;
 import com.zx.tjmarketmobile.entity.supervise.MonitorPrecessCountEntity;
-import com.zx.tjmarketmobile.entity.supervise.MyTaskBaseInfo;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskCheckEntity;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskCheckResultEntity;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskCheckResultInfoEntity;
@@ -2844,8 +2843,15 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_SuperviseTaskHisPage:
                         case HTTP_ID_supervisetask_getMonitorTask:
                             jsonObject = getJSONObject(jsonObject, "data");
-                            MyTaskListEntity myTaskListEntity = new Gson().fromJson(jsonObject.toString(), MyTaskListEntity.class);
-                            result.setEntry(myTaskListEntity);
+                            NormalListEntity superMyTask = new NormalListEntity();
+                            superMyTask.setCurrPageNo(getIntValue(jsonObject, "currPageNo"));
+                            superMyTask.setPageSize(getIntValue(jsonObject, "pageSize"));
+                            superMyTask.setPageTotal(getIntValue(jsonObject, "pageTotal"));
+                            superMyTask.setTotal(getIntValue(jsonObject, "total"));
+                            jsonArray = getJSONArray(jsonObject, "list");
+                            List<MyTaskListEntity> myTaskListEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<MyTaskListEntity>>(){}.getType());
+                            superMyTask.setMyTaskListEntities(myTaskListEntities);
+                            result.setEntry(superMyTask);
                             break;
                         case HTTP_ID_supervise_countMonitorTask:
                             jsonObject = getJSONObject(jsonObject, "data");
@@ -2855,7 +2861,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             break;
                         case HTTP_ID_superviseTaskBaseInfo:
                             jsonObject = getJSONObject(jsonObject, "data");
-                            MyTaskBaseInfo myTaskBaseInfo = new Gson().fromJson(jsonObject.toString(), MyTaskBaseInfo.class);
+                            MyTaskListEntity myTaskBaseInfo = new Gson().fromJson(jsonObject.toString(), MyTaskListEntity.class);
                             result.setEntry(myTaskBaseInfo);
                             break;
                         case HTTP_ID_superviseGetAyLcgjPageInfo:

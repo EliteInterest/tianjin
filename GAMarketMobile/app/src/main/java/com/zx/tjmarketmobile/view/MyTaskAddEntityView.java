@@ -60,14 +60,14 @@ public class MyTaskAddEntityView implements BaseRequestData.OnHttpLoadingListene
     private MapViewDialog mapViewDialog;
 
     private SuperviseMyTaskCheckFragment mFragment;
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
     private HttpLoginEntity userInfo;
     private String userStation = "";
 
     private ApiData ztsearchData = new ApiData(ApiData.HTTP_ID_superviseQueryEntityByCondition);
     private ApiData addNewEntity = new ApiData(ApiData.HTTP_ID_superviseAppendEntity);
 
-    public MyTaskAddEntityView(SuperviseMyTaskCheckFragment context, MyTaskListEntity.RowsBean mEntity) {
+    public MyTaskAddEntityView(SuperviseMyTaskCheckFragment context, MyTaskListEntity mEntity) {
         this.mFragment = context;
         this.mEntity = mEntity;
         UserManager userManager = new UserManager();

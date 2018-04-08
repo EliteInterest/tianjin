@@ -27,6 +27,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -45,7 +46,7 @@ import java.io.InputStream;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-
+@SuppressWarnings("deprecation")
 public class GestureImageView extends ImageView implements
 		AbsImageDetailIndicator {
 
@@ -445,7 +446,7 @@ public class GestureImageView extends ImageView implements
 		}
 		if (id >= 0) {
 			this.resId = id;
-			setImageDrawable(getContext().getResources().getDrawable(id));
+			setImageDrawable(ContextCompat.getDrawable(getContext(), id));
 		}
 	}
 
@@ -800,7 +801,7 @@ public class GestureImageView extends ImageView implements
 	@Override
 	public void setViewPager(ViewPager pager) {
 		mPage = (ImageDetailViewPager) pager;
-		mPage.setOnPageChangeListener(this);
+		mPage.addOnPageChangeListener(this);
 	}
 
 	private OnPageChangeCallback mCallback;

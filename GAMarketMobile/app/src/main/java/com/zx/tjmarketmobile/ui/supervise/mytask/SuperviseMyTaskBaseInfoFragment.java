@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.CaseCompDetailInfoAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
-import com.zx.tjmarketmobile.entity.supervise.MyTaskBaseInfo;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
@@ -30,13 +29,13 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
 
     private CaseCompDetailInfoAdapter mCaseAdapter;
     private String fId = "";
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
     private RecyclerView rvBaseInfo;
     private ApiData getTaskBaseInfo = new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo);
 
     private List<KeyValueInfo> dataInfoList = new ArrayList<>();
 
-    public static SuperviseMyTaskBaseInfoFragment newInstance(Context context, MyTaskListEntity.RowsBean mEntity) {
+    public static SuperviseMyTaskBaseInfoFragment newInstance(Context context, MyTaskListEntity mEntity) {
         SuperviseMyTaskBaseInfoFragment details = new SuperviseMyTaskBaseInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("mEntity", mEntity);
@@ -49,7 +48,7 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_mytask_baseinfo, container, false);
-        mEntity = (MyTaskListEntity.RowsBean) getArguments().getSerializable("mEntity");
+        mEntity = (MyTaskListEntity) getArguments().getSerializable("mEntity");
 
         rvBaseInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         rvBaseInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -78,7 +77,7 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_superviseTaskBaseInfo:
-                MyTaskBaseInfo myTaskBaseInfo = (MyTaskBaseInfo) b.getEntry();
+                MyTaskListEntity myTaskBaseInfo = (MyTaskListEntity) b.getEntry();
                 getDataList(myTaskBaseInfo);
                 mCaseAdapter.notifyDataSetChanged();
                 break;
@@ -87,23 +86,23 @@ public class SuperviseMyTaskBaseInfoFragment extends BaseFragment {
         }
     }
 
-    private void getDataList(MyTaskBaseInfo myTaskBaseInfo) {
+    private void getDataList(MyTaskListEntity myTaskBaseInfo) {
         dataInfoList.clear();
         KeyValueInfo info = new KeyValueInfo("任务编号: ", myTaskBaseInfo.getId());
         dataInfoList.add(info);
         info = new KeyValueInfo("任务名称: ", myTaskBaseInfo.getTaskName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("任务状态: ", String.valueOf(myTaskBaseInfo.getStatus()));
+        info = new KeyValueInfo("任务类型: ", String.valueOf(myTaskBaseInfo.getTypeString()));
         dataInfoList.add(info);
         info = new KeyValueInfo("创建部门: ", myTaskBaseInfo.getDepartmentId());
         dataInfoList.add(info);
         info = new KeyValueInfo("创建人: ", myTaskBaseInfo.getUserName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("提醒时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getRemindDate()));
+        info = new KeyValueInfo("提醒时间: ", DateUtil.getDateFromMillis(myTaskBaseInfo.getRemindDate()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("创建时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getStartDate()));
+        info = new KeyValueInfo("创建时间: ", DateUtil.getDateFromMillis(myTaskBaseInfo.getStartDate()));
         dataInfoList.add(info);
-        info = new KeyValueInfo("截止时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getDeadline()));
+        info = new KeyValueInfo("截止时间: ", DateUtil.getDateFromMillis(myTaskBaseInfo.getDeadline()));
         dataInfoList.add(info);
         info = new KeyValueInfo("任务说明: ", myTaskBaseInfo.getReamrk());
         dataInfoList.add(info);

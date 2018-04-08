@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.supervise.SuperviseMyTaskListAdapter;
+import com.zx.tjmarketmobile.entity.NormalListEntity;
 import com.zx.tjmarketmobile.entity.supervise.MyTaskListEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
@@ -30,7 +31,7 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
     private SwipeRefreshLayout srlTodo;
     private SuperviseMyTaskListAdapter mAdapter;
     private int index;//0待办  1已办
-    private List<MyTaskListEntity.RowsBean> dataList = new ArrayList<>();
+    private List<MyTaskListEntity> dataList = new ArrayList<>();
     private int mPageSize = 10;
     public int mPageNo = 1;
     public int mTotalNo = 0;
@@ -115,49 +116,17 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_SuperviseTaskPage://协同监管-我的任务-我的待办
-                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
+            case ApiData.HTTP_ID_SuperviseTaskHisPage://协同监管-我的任务-我的已办
+                NormalListEntity myTaskListEntity = (NormalListEntity) b.getEntry();
                 mTotalNo = myTaskListEntity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
+                List<MyTaskListEntity> entityList = myTaskListEntity.getMyTaskListEntities();
                 dataList.clear();
                 if (entityList != null) {
                     dataList.addAll(entityList);
                 }
                 mAdapter.notifyDataSetChanged();
 
-//                MyTaskListEntity myTaskListEntity = (MyTaskListEntity) b.getEntry();
-//                mTotalNo = myTaskListEntity.getTotal();
-//                Log.i(TAG, "mTotalNo is " + mTotalNo);
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                List<MyTaskListEntity.RowsBean> entityList = myTaskListEntity.getList();
-//                List<MyTaskListEntity.RowsBean> dataList1 = new ArrayList<>();
-//                dataList1.clear();
-//                if (entityList != null) {
-//                    dataList1.addAll(entityList);
-//                }
-
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                mAdapter.notifyDataSetChanged();
-                break;
-
-            case ApiData.HTTP_ID_SuperviseTaskHisPage://协同监管-我的任务-我的已办
-                MyTaskListEntity myTaskListHisEntity = (MyTaskListEntity) b.getEntry();
-                mTotalNo = myTaskListHisEntity.getTotal();
-                mAdapter.setStatus(0, mPageNo, mTotalNo);
-                List<MyTaskListEntity.RowsBean> entityHisList = myTaskListHisEntity.getList();
-                dataList.clear();
-                if (entityHisList != null) {
-                    dataList.addAll(entityHisList);
-                }
-                mAdapter.notifyDataSetChanged();
-
-                MyTaskListEntity.RowsBean hisBean = null;
-                for (int j = 0; j < dataList.size(); j++) {
-                    hisBean = dataList.get(j);
-                }
-
-                if (hisBean != null)
-                    new ApiData(ApiData.HTTP_ID_superviseTaskBaseInfo).loadData(hisBean.getId());
                 break;
 
             default:

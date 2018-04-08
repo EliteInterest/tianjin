@@ -39,6 +39,7 @@ import java.util.List;
 /**
  * 导航界面
  */
+@SuppressWarnings("deprecation")
 public class AMapNaviActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
 
     private NaviLatLng mStartLatlng;

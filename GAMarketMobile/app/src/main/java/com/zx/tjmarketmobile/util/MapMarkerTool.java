@@ -63,6 +63,7 @@ import java.util.Map;
  * Created by Xiangb on 2017/3/29.
  * 功能：用于处理从任务进入地图时的界面操作
  */
+@SuppressWarnings("deprecation")
 public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<BaseHttpResult> {
 
     private WorkInMapShowActivity activity;
@@ -132,6 +133,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
     /**
      * 初始化底部及图标
      */
+    @SuppressWarnings("unchecked")
     private void initMarkerAndViewPager() {
         Intent intent = activity.getIntent();
         Bundle bundle = null;
@@ -560,7 +562,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
 
             }
         });
-        mPoiViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mPoiViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
@@ -642,7 +644,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                 }
             }
         });
-        mPoiViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mPoiViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {

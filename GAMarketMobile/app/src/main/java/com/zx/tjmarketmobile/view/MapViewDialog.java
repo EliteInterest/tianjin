@@ -220,6 +220,7 @@ public class MapViewDialog extends AlertDialog {
         loadMap();
     }
 
+    @SuppressWarnings("unchecked")
     private void loadMap() {
         if (mapView.isLoaded() && map != null) {
             if (mapType == MapType.selectPoint) {

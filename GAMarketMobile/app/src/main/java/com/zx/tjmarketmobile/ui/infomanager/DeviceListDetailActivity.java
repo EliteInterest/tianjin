@@ -101,7 +101,7 @@ public class DeviceListDetailActivity extends BaseActivity {
         mVpContent.setAdapter(myPagerAdapter);
         mTabLayout.setVisibility(View.GONE);
         mTabLayout.setupWithViewPager(mVpContent);
-        mVpContent.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mVpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

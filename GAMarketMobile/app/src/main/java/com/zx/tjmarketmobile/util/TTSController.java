@@ -31,6 +31,7 @@ import com.zx.tjmarketmobile.R;
 /**
  * 语音播报组件
  */
+@SuppressWarnings("deprecation")
 public class TTSController implements AMapNaviListener {
 
     private Context mContext;

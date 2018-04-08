@@ -105,6 +105,7 @@ public class SuperviseMyTaskCheckActivity extends BaseActivity implements View.O
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult baseHttpResult) {
         if (id != ApiData.FILE_UPLOAD) {
             super.onLoadComplete(id, baseHttpResult);

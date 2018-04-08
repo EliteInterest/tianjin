@@ -22,6 +22,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("deprecation")
 public class SYSUtil {
 
 	public static State wifiState = null;

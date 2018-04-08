@@ -30,9 +30,9 @@ public class SuperviseMyTaskFlowFragment extends BaseFragment {
     private String fId = "";
     private ApiData getLcgj = new ApiData(ApiData.HTTP_ID_superviseGetAyLcgjPageInfo);
     private List<MyTaskFlow.DataBean> dataInfoList = new ArrayList<>();
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
 
-    public static SuperviseMyTaskFlowFragment newInstance(Context context, MyTaskListEntity.RowsBean rowsBean) {
+    public static SuperviseMyTaskFlowFragment newInstance(Context context, MyTaskListEntity rowsBean) {
         SuperviseMyTaskFlowFragment details = new SuperviseMyTaskFlowFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("mEntity", rowsBean);
@@ -45,7 +45,7 @@ public class SuperviseMyTaskFlowFragment extends BaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supervise_flow, container, false);
-        mEntity = (MyTaskListEntity.RowsBean) getArguments().getSerializable("mEntity");
+        mEntity = (MyTaskListEntity) getArguments().getSerializable("mEntity");
 
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         getLcgj.setLoadingListener(this);
@@ -68,6 +68,7 @@ public class SuperviseMyTaskFlowFragment extends BaseFragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {

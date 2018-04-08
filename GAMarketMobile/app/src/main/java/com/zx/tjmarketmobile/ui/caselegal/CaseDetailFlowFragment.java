@@ -75,6 +75,7 @@ public class CaseDetailFlowFragment extends BaseFragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {

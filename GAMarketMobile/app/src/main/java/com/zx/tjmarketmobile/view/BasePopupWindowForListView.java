@@ -8,7 +8,7 @@ import android.view.View.OnTouchListener;
 import android.widget.PopupWindow;
 
 import java.util.List;
-
+@SuppressWarnings("deprecation")
 public abstract class BasePopupWindowForListView<T> extends PopupWindow
 {
 	/**

@@ -73,6 +73,7 @@ import java.util.regex.Pattern;
  * Create By Stanny On 2016/9/22
  * 功能：工具类
  */
+@SuppressWarnings("deprecation")
 @SuppressLint("SimpleDateFormat")
 public class Util {
     public static final int RESULT_CAPTURE_IMAGE = 1;// 照相的requestCode

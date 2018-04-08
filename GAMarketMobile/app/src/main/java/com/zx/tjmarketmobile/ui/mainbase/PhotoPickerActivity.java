@@ -39,6 +39,7 @@ import java.util.List;
 /**
  * Created by zhouzq on 2016/11/1.
  */
+@SuppressWarnings("deprecation")
 public class PhotoPickerActivity extends Activity implements ListImageDirPopupWindow.OnImageDirSelected {
 
     private ProgressDialog mProgressDialog;

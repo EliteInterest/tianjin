@@ -36,7 +36,7 @@ import java.util.List;
  * Created by Xiangb on 2017/11/1.
  * 功能：
  */
-
+@SuppressWarnings("deprecation")
 public class CaseReferenceView implements BaseRequestData.OnHttpLoadingListener<BaseHttpResult> {
     private CaseExcuteFragment mFragment;
     private Dialog dialog;

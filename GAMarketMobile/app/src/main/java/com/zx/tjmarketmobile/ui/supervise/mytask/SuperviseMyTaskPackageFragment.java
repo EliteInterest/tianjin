@@ -29,9 +29,9 @@ public class SuperviseMyTaskPackageFragment extends BaseFragment {
     private String fId = "";
     private ApiData getThisTaskPackageTask = new ApiData(ApiData.HTTP_ID_Supervise_getThisTaskPackageTask);
     private List<MyTaskPageEntity.DataBean> dataInfoList = new ArrayList<>();
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
 
-    public static SuperviseMyTaskPackageFragment newInstance(MyTaskListEntity.RowsBean rowsBean) {
+    public static SuperviseMyTaskPackageFragment newInstance(MyTaskListEntity rowsBean) {
         SuperviseMyTaskPackageFragment details = new SuperviseMyTaskPackageFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("mEntity", rowsBean);
@@ -42,7 +42,7 @@ public class SuperviseMyTaskPackageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supervise_package, container, false);
 
-        mEntity = (MyTaskListEntity.RowsBean) getArguments().getSerializable("mEntity");
+        mEntity = (MyTaskListEntity) getArguments().getSerializable("mEntity");
 
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         getThisTaskPackageTask.setLoadingListener(this);

@@ -34,7 +34,7 @@ import java.util.List;
 
 public class SuperviseMyTaskExcuteActivity extends BaseActivity {
 
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
     private int taskState = 2;
     private List<MyTaskProcessEntity.DataBean> mProcessingPeopleList = new ArrayList<>();
     private List<MyTaskProcessEntity.DataBean> mSubDirectorList = new ArrayList<>();
@@ -102,7 +102,7 @@ public class SuperviseMyTaskExcuteActivity extends BaseActivity {
         setMidText("任务处理");
         intiView();
         if (getIntent().hasExtra("entity")) {
-            mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
+            mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
             taskState = mEntity.getStatus();
             radioButton0.setChecked(true);
             if (taskState == 0) {//待下发 进去进行下发操作
@@ -344,6 +344,7 @@ public class SuperviseMyTaskExcuteActivity extends BaseActivity {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onLoadComplete(int id, BaseHttpResult baseHttpResult) {
         super.onLoadComplete(id, baseHttpResult);
         switch (id) {

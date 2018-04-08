@@ -29,6 +29,7 @@ import java.util.List;
  * Create By Xiangb On 2016/9/22
  * 功能：主体搜索列表
  */
+@SuppressWarnings("deprecation")
 public class SearchZtListShowActivity extends BaseActivity implements MyItemClickListener, LoadMoreListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;

@@ -25,7 +25,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private Button btnExcute;
     private Button btnOther;
-    private MyTaskListEntity.RowsBean mEntity;
+    private MyTaskListEntity mEntity;
     public Dialog dialog = null;
     private int index;//0待办  1已办
     private int type;//1任务监控
@@ -51,7 +51,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         getRightImg().setVisibility(View.GONE);
         //获取传递的参数
         if (getIntent().hasExtra("entity")) {
-            mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
+            mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
             index = getIntent().getIntExtra("index", 0);
             type = getIntent().getIntExtra("type", 0);
 //            getIsBackTask.setLoadingListener(this);
@@ -95,7 +95,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         mVpContent.setOffscreenPageLimit(3);
         mVpContent.setAdapter(myPagerAdapter);
         mTabLayout.setupWithViewPager(mVpContent);
-        mVpContent.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mVpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -143,7 +143,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
                 break;
             case R.id.btnActCase_other:
                 if (getIntent().hasExtra("entity")) {
-                    mEntity = (MyTaskListEntity.RowsBean) getIntent().getSerializableExtra("entity");
+                    mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
                     sendBackTask.loadData(mEntity.getUserId(), mEntity.getId(), userInfo.getId());
                 }
                 break;

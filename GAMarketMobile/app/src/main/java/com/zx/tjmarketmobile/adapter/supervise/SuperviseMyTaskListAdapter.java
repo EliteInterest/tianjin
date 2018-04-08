@@ -2,7 +2,6 @@ package com.zx.tjmarketmobile.adapter.supervise;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +22,13 @@ import java.util.List;
 
 public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
     private static final String TAG = "SuperviseMyTaskListAdapter";
-    private List<MyTaskListEntity.RowsBean> mItemList = null;
+    private List<MyTaskListEntity> mItemList = null;
     //    private List<MyTaskListTJEntity.RowsBean> mTJItemList = null;
     private Context mContext;
     private boolean showOverdue = false;
     public Holder myHolder;
 
-    public SuperviseMyTaskListAdapter(Context mContext, List<MyTaskListEntity.RowsBean> itemList, boolean showOverdue) {
+    public SuperviseMyTaskListAdapter(Context mContext, List<MyTaskListEntity> itemList, boolean showOverdue) {
         mItemList = itemList;
         this.mContext = mContext;
         this.showOverdue = showOverdue;
@@ -54,19 +53,13 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
 //            if (mTJItemList != null) {
-            MyTaskListEntity.RowsBean entity = mItemList.get(position);
-            Log.i(TAG, "status is " + entity.getStatus());
-            Log.i(TAG, "getStartDate is " + DateUtil.getDateTimeFromMillis(entity.getStartDate()));
-            Log.i(TAG, "getTaskName is " + entity.getTaskName());
-            Log.i(TAG, "getUserName is " + entity.getUserName());
-            Log.i(TAG, "getDepartmentId is " + entity.getDepartmentId());
+            MyTaskListEntity entity = mItemList.get(position);
 
-
-            myHolder.tvField.setText(String.valueOf(entity.getStatus()));
-            myHolder.tvDate.setText(DateUtil.getDateTimeFromMillis(entity.getStartDate()));
+            myHolder.tvField.setText(entity.getTypeString());
+            myHolder.tvDate.setText(DateUtil.getDateFromMillis(entity.getStartDate()));
             myHolder.tvName.setText(entity.getTaskName());
             myHolder.tvPerson.setText(entity.getUserName());
-            myHolder.tvStage.setText(entity.getDepartmentId());
+            myHolder.tvStage.setText(entity.getDepartmentName());
 //            } else {
 //                MyTaskListEntity.RowsBean entity = mItemList.get(position);
 //                myHolder.tvField.setText(entity.getFTaskStatus());

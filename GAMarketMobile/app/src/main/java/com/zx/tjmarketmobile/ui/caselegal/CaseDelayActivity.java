@@ -212,6 +212,7 @@ public class CaseDelayActivity extends BaseActivity implements RadioGroup.OnChec
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);

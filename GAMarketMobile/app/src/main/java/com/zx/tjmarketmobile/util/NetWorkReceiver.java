@@ -23,6 +23,7 @@ public class NetWorkReceiver extends BroadcastReceiver {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void changeServiceStatus(Context context, boolean isStart) {
 		boolean isServiceRunning = false;
 		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

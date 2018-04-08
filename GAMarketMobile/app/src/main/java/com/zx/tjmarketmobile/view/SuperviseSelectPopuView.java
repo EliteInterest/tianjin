@@ -22,6 +22,7 @@ import java.util.List;
  * Create By Xiangb On 2016/9/22
  * 功能：监管选择控件
  */
+@SuppressWarnings("deprecation")
 public class SuperviseSelectPopuView {
 
     private Context mContext;
