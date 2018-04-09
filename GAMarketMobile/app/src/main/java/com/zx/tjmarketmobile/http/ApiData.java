@@ -60,6 +60,7 @@ import com.zx.tjmarketmobile.entity.SynergyDetailEntity;
 import com.zx.tjmarketmobile.entity.SynergyInfoBean;
 import com.zx.tjmarketmobile.entity.TaskCountInfo;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhun;
+import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhunDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDevice;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDeviceDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLegalSelect;
@@ -1610,13 +1611,18 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("year", objects[0]);
                     break;
                 case HTTP_ID_info_manager_biaozhun:
-                case HTTP_ID_info_manager_biaozhun_detail:
-                    params.setApiUrl(baseUrl + "/TJsupervise/standard/selectById.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/standard/select.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("enterpriseName", ((String) objects[0]).toString());
                     params.putParams("pageNo", objects[1]);
                     params.putParams("pageSize", objects[2]);
 //                    params.putParams("fUserId", objects[4]);
+                    break;
+
+                case HTTP_ID_info_manager_biaozhun_detail:
+                    params.setApiUrl(baseUrl + "/TJsupervise/standard/selectById.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
                     break;
                 case HTTP_ID_info_manager_device_liebiao:
                     params.setApiUrl(baseUrl + "/TJsupervise/equipment/getEquipmentPage.do");
@@ -3173,7 +3179,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             break;
                         case HTTP_ID_info_manager_biaozhun_detail:
                             jsonObject = getJSONObject(jsonObject, "data");
-                            InfoManagerBiaozhun myStandarEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerBiaozhun.class);
+                            InfoManagerBiaozhunDetail myStandarEntity = new Gson().fromJson(jsonObject.toString(), InfoManagerBiaozhunDetail.class);
                             result.setEntry(myStandarEntity);
                             break;
                         case HTTP_ID_info_manager_device_liebiao:
@@ -3219,6 +3225,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 InfoManagerLicenseDetail myLisenceDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseDetail.class);
                                 myLicenseDetails.add(myLisenceDetail);
                             }
+
                             result.setEntry(myLicenseDetails);
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口

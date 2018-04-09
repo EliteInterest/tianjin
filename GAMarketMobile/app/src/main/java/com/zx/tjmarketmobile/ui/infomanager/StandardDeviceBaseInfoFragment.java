@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,7 @@ import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.CaseCompDetailInfoAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhun;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDevice;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDeviceDetail;
+import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhunDetail;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.manager.UserManager;
@@ -78,8 +76,7 @@ public class StandardDeviceBaseInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_info_manager_biaozhun_detail:
-                Log.e("fuxueshu", "step 6");
-                InfoManagerBiaozhun.RowsBean myTaskBaseInfo = (InfoManagerBiaozhun.RowsBean) b.getEntry();
+                InfoManagerBiaozhunDetail myTaskBaseInfo = (InfoManagerBiaozhunDetail) b.getEntry();
                 getDataList(myTaskBaseInfo);
                 mCaseAdapter.notifyDataSetChanged();
                 break;
@@ -88,17 +85,13 @@ public class StandardDeviceBaseInfoFragment extends BaseFragment {
         }
     }
 
-    private void getDataList(InfoManagerBiaozhun.RowsBean myTaskBaseInfo) {
-        Log.e("fuxueshu", "step 7");
+    private void getDataList(InfoManagerBiaozhunDetail myTaskBaseInfo) {
         dataInfoList.clear();
         KeyValueInfo info = new KeyValueInfo("设备编号: ", myTaskBaseInfo.getId());
-        Log.e("fuxueshu", "myTaskBaseInfo.getId() = " + myTaskBaseInfo.getId());
         dataInfoList.add(info);
         info = new KeyValueInfo("唯一标识: ", myTaskBaseInfo.getUniquelyIdentifies());
-        Log.e("fuxueshu", "myTaskBaseInfo.getUniquelyIdentifies() = " + myTaskBaseInfo.getUniquelyIdentifies());
         dataInfoList.add(info);
         info = new KeyValueInfo("机构代码: ", myTaskBaseInfo.getAgencyCode());
-        Log.e("fuxueshu", "myTaskBaseInfo.getAgencyCode() = " + myTaskBaseInfo.getAgencyCode());
         dataInfoList.add(info);
         info = new KeyValueInfo("联系电话: ", myTaskBaseInfo.getContactPhone());
         dataInfoList.add(info);
