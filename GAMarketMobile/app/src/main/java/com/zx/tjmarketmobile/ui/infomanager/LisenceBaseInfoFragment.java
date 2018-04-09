@@ -85,9 +85,9 @@ public class LisenceBaseInfoFragment extends BaseFragment {
             if (isVisibleToUser && dataInfoList.size() == 0) {
 //                fId = mEntity.getFTaskId();
                 if (type == 0)
-                    fId = mEntityFood.getId();
+                    fId = mEntityFood.getEnterpriseId();
                 else
-                    fId = mEntity.getId();
+                    fId = mEntity.getEnterpriseId();
 //                getTaskBaseInfo.loadData(mEntity.getF_GUID(), mEntity.getFTaskStatus(), fId, userInfo.getId());
                 getTaskBaseInfo.loadData(fId);
             }
@@ -99,13 +99,47 @@ public class LisenceBaseInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_info_manager_license_detail:
-                InfoManagerLicenseDetail myTaskBaseInfo = (InfoManagerLicenseDetail) b.getEntry();
-                getDataList(myTaskBaseInfo);
-                mCaseAdapter.notifyDataSetChanged();
+//                InfoManagerLicenseDetail myTaskBaseInfo = (InfoManagerLicenseDetail) b.getEntry();
+//                getDataList(myTaskBaseInfo);
+
+                List<InfoManagerLicenseDetail> myTaskBaseInfo = (List<InfoManagerLicenseDetail>) b.getEntry();
+                dataInfoList.clear();
+                for (int i = 0; i < myTaskBaseInfo.size(); i++) {
+                    InfoManagerLicenseDetail detal = myTaskBaseInfo.get(i);
+                    getBaseDataList(detal);
+                    mCaseAdapter.notifyDataSetChanged();
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    private void getBaseDataList(InfoManagerLicenseDetail myTaskBaseInfo) {
+        KeyValueInfo info = new KeyValueInfo("企业类型: ", myTaskBaseInfo.getEnterprise_mode());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("企业名称: ", myTaskBaseInfo.getEnterpriseName());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("许可证编号: ", myTaskBaseInfo.getLicNum());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("企业地址: ", myTaskBaseInfo.getAddress());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("法人: ", myTaskBaseInfo.getLegalPerson());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("发证机关: ", myTaskBaseInfo.getIssueOrg());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("有效期起始: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getExpireStartDate()));
+        dataInfoList.add(info);
+        info = new KeyValueInfo("有效期截止: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getExpireStartDate()));
+        dataInfoList.add(info);
+        info = new KeyValueInfo("发证时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getIsSueDate()));
+        dataInfoList.add(info);
+        info = new KeyValueInfo("类型: ", myTaskBaseInfo.getType());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("企业类别: ", myTaskBaseInfo.getBusiness_category());
+        dataInfoList.add(info);
+        info = new KeyValueInfo("商业模式: ", myTaskBaseInfo.getBusiness_mode());
+        dataInfoList.add(info);
     }
 
     private void getDataList(InfoManagerLicenseDetail myTaskBaseInfo) {
@@ -114,7 +148,7 @@ public class LisenceBaseInfoFragment extends BaseFragment {
         dataInfoList.add(info);
         info = new KeyValueInfo("许可证号: ", myTaskBaseInfo.getLicNum());
         dataInfoList.add(info);
-        info = new KeyValueInfo("发证时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getIssueDate()));
+        info = new KeyValueInfo("发证时间: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getIsSueDate()));
         dataInfoList.add(info);
         info = new KeyValueInfo("有效期起始: ", DateUtil.getDateTimeFromMillis(myTaskBaseInfo.getExpireStartDate()));
         dataInfoList.add(info);

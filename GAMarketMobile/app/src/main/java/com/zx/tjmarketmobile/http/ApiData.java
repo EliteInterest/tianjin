@@ -1611,7 +1611,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 case HTTP_ID_info_manager_biaozhun:
                 case HTTP_ID_info_manager_biaozhun_detail:
-                    params.setApiUrl(baseUrl + "/TJsupervise/standard/select.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/standard/selectById.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("enterpriseName", ((String) objects[0]).toString());
                     params.putParams("pageNo", objects[1]);
@@ -3207,9 +3207,19 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myLisence);
                             break;
                         case HTTP_ID_info_manager_license_detail://许可证-许可证详情
-                            jsonObject = getJSONObject(jsonObject, "data");
-                            InfoManagerLicenseDetail myLisenceDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseDetail.class);
-                            result.setEntry(myLisenceDetail);
+//                            jsonObject = getJSONObject(jsonObject, "data");
+//                            InfoManagerLicenseDetail myLisenceDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseDetail.class);
+//                            result.setEntry(myLisenceDetail);
+
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<InfoManagerLicenseDetail> myLicenseDetails = new ArrayList<>();
+                            int length = jsonArray.length();
+                            for (int i = 0; i < length; i++) {
+                                jsonObject = jsonArray.getJSONObject(i);
+                                InfoManagerLicenseDetail myLisenceDetail = new Gson().fromJson(jsonObject.toString(), InfoManagerLicenseDetail.class);
+                                myLicenseDetails.add(myLisenceDetail);
+                            }
+                            result.setEntry(myLicenseDetails);
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
                             jsonArray = getJSONArray(jsonObject, "data");
