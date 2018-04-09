@@ -15,7 +15,7 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
     defaultConfig {
-        applicationId "com.zx.ljmarketmobile"
+        applicationId "com.zx.tjmarketmobile"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1

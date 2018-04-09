@@ -199,6 +199,7 @@ public class ComplainInfoDetailsBean implements Serializable {
          * fPunishGist : null
          * fStopReason : null
          * fCancelCondition : null
+         * fShuntRole
          */
 
         private String fGuid;
@@ -369,6 +370,15 @@ public class ComplainInfoDetailsBean implements Serializable {
         private String fSalesWay;
         private String fInfoSource;
         private String fReviewResult;
+        private String fShuntRole;
+
+        public String getfShuntRole() {
+            return fShuntRole;
+        }
+
+        public void setfShuntRole(String fShuntRole) {
+            this.fShuntRole = fShuntRole;
+        }
 
         public String getfReviewResult() {
             return fReviewResult;

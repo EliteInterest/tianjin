@@ -128,6 +128,54 @@
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:visibility="gone"/>
+
+            <!--调解情况-->
+            <EditText
+                android:id="@+id/et_comp_feedback1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入答复内容..."
+                android:maxHeight="300dp"
+                android:maxLength="200"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <!--调解情况-->
+            <EditText
+                android:id="@+id/et_comp_feedback2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入回访结果..."
+                android:maxHeight="300dp"
+                android:maxLength="200"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <me.iwf.photopicker.widget.MultiPickResultView
+                android:id="@+id/mprv_complain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+            </me.iwf.photopicker.widget.MultiPickResultView>
         </LinearLayout>
     </ScrollView>
 
@@ -152,6 +200,15 @@
             android:layout_width="0dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/btn_comp_cancel2"
+            style="@style/MyCloseButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:visibility="gone"
             android:text="@string/ok"/>
     </LinearLayout>
 </RelativeLayout>

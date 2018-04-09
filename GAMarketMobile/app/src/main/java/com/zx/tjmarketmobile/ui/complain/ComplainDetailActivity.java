@@ -28,6 +28,7 @@ public class ComplainDetailActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private Button btnExcute;
     private ComplainInfoEntity mEntity;
+    private ComplainInfoDetailsBean detailsBean;
     private boolean showExcute = false;
     private boolean monitor = false;
     public Dialog dialog = null;
@@ -91,16 +92,16 @@ public class ComplainDetailActivity extends BaseActivity {
     @Override
     public void onLoadComplete(int id, BaseHttpResult baseHttpResult) {
         super.onLoadComplete(id, baseHttpResult);
-        ComplainInfoDetailsBean compInfoEntity = (ComplainInfoDetailsBean) baseHttpResult.getEntry();
+        detailsBean = (ComplainInfoDetailsBean) baseHttpResult.getEntry();
         myPagerAdapter.fragmentList.clear();
         myPagerAdapter.fragmentTitleList.clear();
-        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 0), "登记信息");
-        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 1), "主体信息");
-        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 2), "投诉举报信息");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(detailsBean.getBaseInfo(), 0), "登记信息");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(detailsBean.getBaseInfo(), 1), "主体信息");
+        myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(detailsBean.getBaseInfo(), 2), "投诉举报信息");
         if (mEntity.getFStatus() != 10 && mEntity.getFStatus() != 20) {
-            myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(compInfoEntity.getBaseInfo(), 3), "处置信息");
+            myPagerAdapter.addFragment(ComplainDetailInfoFragment.newInstance(detailsBean.getBaseInfo(), 3), "处置信息");
         }
-        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(compInfoEntity.getStatusInfo()), "处置动态");
+        myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(detailsBean.getStatusInfo()), "处置动态");
         myPagerAdapter.notifyDataSetChanged();
     }
 
@@ -119,7 +120,7 @@ public class ComplainDetailActivity extends BaseActivity {
                 break;
             case R.id.btnActComp_execute: {
                 Intent intent = new Intent(this, ComplainExcuteActivity.class);
-                intent.putExtra("entity", mEntity);
+                intent.putExtra("entity", detailsBean);
                 startActivityForResult(intent, 0);
                 break;
             }

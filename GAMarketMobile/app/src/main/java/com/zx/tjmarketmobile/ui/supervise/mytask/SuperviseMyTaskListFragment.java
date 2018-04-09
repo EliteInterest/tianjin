@@ -126,6 +126,9 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
                     dataList.addAll(entityList);
                 }
                 mAdapter.notifyDataSetChanged();
+                if (entityList.size() > 0) {
+                    rvTodo.scrollToPosition(0);
+                }
 
                 break;
 

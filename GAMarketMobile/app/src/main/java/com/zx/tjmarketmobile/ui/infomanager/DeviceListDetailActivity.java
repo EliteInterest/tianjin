@@ -31,8 +31,8 @@ public class DeviceListDetailActivity extends BaseActivity {
     private InfoManagerDevice.RowsBean mEntity;
     public Dialog dialog = null;
     public static DeviceListDetailActivity instance = null;
-    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsBackTaskInfo);
-    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseSendTaskBack);
+    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsCanFinishInfo);
+    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseFinishTask);
     private boolean isSendBackVisible = false;
     private DeviceListBaseInfoFragment myCheckfragment;
     private StandardDeviceBaseInfoFragment myStandardfragment;
@@ -165,13 +165,13 @@ public class DeviceListDetailActivity extends BaseActivity {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_superviseIsBackTaskInfo:
+            case ApiData.HTTP_ID_superviseIsCanFinishInfo:
                 if (b.isSuccess()) {
                     btnOther.setVisibility(View.VISIBLE);
                     isSendBackVisible = true;
                 }
                 break;
-            case ApiData.HTTP_ID_superviseSendTaskBack:
+            case ApiData.HTTP_ID_superviseFinishTask:
                 if (b.isSuccess()) {
                     showToast(b.getMessage());
                     finish();

@@ -28,8 +28,8 @@ public class MeasureDetailActivity extends BaseActivity {
     private InfoManagerMeasureLiebiao.RowsBean mEntity;
     public Dialog dialog = null;
     public static MeasureDetailActivity instance = null;
-    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsBackTaskInfo);
-    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseSendTaskBack);
+    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsCanFinishInfo);
+    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseFinishTask);
     private boolean isSendBackVisible = false;
     private MeasureBaseInfoFragment myCheckfragment;
 
@@ -147,13 +147,13 @@ public class MeasureDetailActivity extends BaseActivity {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_superviseIsBackTaskInfo:
+            case ApiData.HTTP_ID_superviseIsCanFinishInfo:
                 if (b.isSuccess()) {
                     btnOther.setVisibility(View.VISIBLE);
                     isSendBackVisible = true;
                 }
                 break;
-            case ApiData.HTTP_ID_superviseSendTaskBack:
+            case ApiData.HTTP_ID_superviseFinishTask:
                 if (b.isSuccess()) {
                     showToast(b.getMessage());
                     finish();

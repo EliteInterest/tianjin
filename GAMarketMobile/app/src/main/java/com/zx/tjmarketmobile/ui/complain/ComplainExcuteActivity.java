@@ -1,5 +1,6 @@
 package com.zx.tjmarketmobile.ui.complain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zx.tjmarketmobile.R;
-import com.zx.tjmarketmobile.entity.ComplainInfoEntity;
+import com.zx.tjmarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.entity.SelectPopDataList;
 import com.zx.tjmarketmobile.http.ApiData;
@@ -20,7 +21,11 @@ import com.zx.tjmarketmobile.util.ConstStrings;
 import com.zx.tjmarketmobile.view.SuperviseSelectPopuView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import me.iwf.photopicker.widget.MultiPickResultView;
 
 /**
  * Create By Xiangb On 2017/3/22
@@ -30,25 +35,29 @@ import java.util.List;
 public class ComplainExcuteActivity extends BaseActivity {
     private LinearLayout llShunt;//分流
     private LinearLayout llAssign;//指派
-    private EditText etTjOpinion;//调解情况
+    private EditText etTjOpinion, etFeedBack1, etFeedBack2;
     private RelativeLayout rlShunt;//分流
     private TextView tvShunt;//分流
     private RelativeLayout rlAssign;//指派
     private TextView tvAssign;//指派
-    private Button btnExcute, btnCancel;
+    private MultiPickResultView mprvComplain;
+    private Button btnExcute, btnCancel, bntCancel2;
 
     private SuperviseSelectPopuView mPopShunt;//分流
     private List<SelectPopDataList> selectListShunt = new ArrayList<>();//分流
     private SuperviseSelectPopuView mPopAssign;//指派
     private List<SelectPopDataList> selectListAssign = new ArrayList<>();//指派
 
-    private ComplainInfoEntity mEntity;
+    private ComplainInfoDetailsBean mEntity;
     private String fSlrId = "";//受理人id
     private String departId = "";//部门id
+
+    private ArrayList<String> dataPath = new ArrayList<>();
 
     private ApiData getAllDept = new ApiData(ApiData.HTTP_ID_getAllUserDept);
     private ApiData getUserByDept = new ApiData(ApiData.HTTP_ID_getUsersByDept);
     private ApiData compHandle = new ApiData(ApiData.HTTP_ID_compFlowhandle);
+    private ApiData updateImg = new ApiData(ApiData.FILE_UPLOAD);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +69,23 @@ public class ComplainExcuteActivity extends BaseActivity {
 
     private void initView() {
         addToolBar(true);
-        mEntity = (ComplainInfoEntity) getIntent().getSerializableExtra("entity");
-        setMidText(mEntity.getFType());
+        mEntity = (ComplainInfoDetailsBean) getIntent().getSerializableExtra("entity");
+        setMidText("任务处置");
         hideRightImg();
 
         llShunt = findViewById(R.id.ll_comp_shunt);
         llAssign = findViewById(R.id.ll_comp_assign);
         etTjOpinion = findViewById(R.id.et_comp_tjOpinion);
+        etFeedBack1 = findViewById(R.id.et_comp_feedback1);
+        etFeedBack2 = findViewById(R.id.et_comp_feedback2);
         rlShunt = findViewById(R.id.rl_comp_shunt);
         rlAssign = findViewById(R.id.rl_comp_assign);
         tvAssign = findViewById(R.id.tv_comp_assign);
         tvShunt = findViewById(R.id.tv_comp_shunt);
         btnExcute = findViewById(R.id.btn_comp_excute);
         btnCancel = findViewById(R.id.btn_comp_cancel);
+        mprvComplain = findViewById(R.id.mprv_complain);
+        bntCancel2 = findViewById(R.id.btn_comp_cancel2);
 
         btnCancel.setOnClickListener(this);
         rlAssign.setOnClickListener(this);
@@ -81,12 +94,25 @@ public class ComplainExcuteActivity extends BaseActivity {
         getAllDept.setLoadingListener(this);
         getUserByDept.setLoadingListener(this);
         compHandle.setLoadingListener(this);
+        updateImg.setLoadingListener(this);
+        bntCancel2.setOnClickListener(this);
+
+        mprvComplain.setMaxPicNum(9).init(this, MultiPickResultView.ACTION_SELECT, dataPath);
 
         //根据状态显示控件
-        switch (mEntity.getFStatus()) {
+        switch (mEntity.getBaseInfo().getFStatus()) {
             case 10://待受理
                 btnExcute.setText("受理");
-                btnCancel.setText("不受理");
+                if (!"09".equals(userManager.getUser(this).getDepartmentCode())
+                        && mEntity.getBaseInfo().getfShuntRole() != null && mEntity.getBaseInfo().getfShuntRole().length() > 0) {
+                    btnCancel.setText("退回");
+                    btnCancel.setVisibility(View.VISIBLE);
+                } else {
+                    btnCancel.setVisibility(View.GONE);
+                }
+                bntCancel2.setVisibility(View.VISIBLE);
+                mprvComplain.setVisibility(View.GONE);
+                bntCancel2.setText("不受理");
                 break;
             case 20://待分流
                 getAllDept.loadData();
@@ -94,11 +120,13 @@ public class ComplainExcuteActivity extends BaseActivity {
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("分流");
                 btnCancel.setText("不分流");
+                mprvComplain.setVisibility(View.GONE);
                 break;
             case 30://待指派
-                getUserByDept.loadData("", "", "", userInfo.getDepartmentCode(), mEntity.getFStatus(), "1002");
+                getUserByDept.loadData(userInfo.getDepartmentCode(), "1002");
                 llAssign.setVisibility(View.VISIBLE);
                 etTjOpinion.setVisibility(View.VISIBLE);
+                mprvComplain.setVisibility(View.GONE);
                 btnExcute.setText("指派");
                 btnCancel.setText("退回");
                 break;
@@ -106,21 +134,37 @@ public class ComplainExcuteActivity extends BaseActivity {
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("提交");
                 btnCancel.setText("取消");
+                etFeedBack1.setVisibility(View.VISIBLE);
+                etFeedBack2.setVisibility(View.VISIBLE);
+                etTjOpinion.setHint("请输入反馈内容...");
                 break;
             case 60://待审核
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("通过");
                 btnCancel.setText("不通过");
+                mprvComplain.setVisibility(View.GONE);
+                if (!userManager.getUser(this).getRole().contains("1001")) {
+                    showToast("当前用户无审核权限");
+                    finish();
+                    return;
+                }
                 break;
             case 80://待办结
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("办结");
+                mprvComplain.setVisibility(View.GONE);
                 btnCancel.setText("退回");
                 break;
             default:
                 break;
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mprvComplain.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -146,6 +190,9 @@ public class ComplainExcuteActivity extends BaseActivity {
             case R.id.btn_comp_cancel:
                 doSendInfo("return");
                 break;
+            case R.id.btn_comp_cancel2:
+                doSendInfo("not");
+                break;
             default:
                 break;
         }
@@ -153,24 +200,32 @@ public class ComplainExcuteActivity extends BaseActivity {
 
     //进行信息发送
     private void doSendInfo(String dispose) {
-        switch (mEntity.getFStatus()) {
+        switch (mEntity.getBaseInfo().getFStatus()) {
             case 10://待受理
-                compHandle.loadData(mEntity.getFGuid(), dispose, "", "", "");
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, "", "", "", "", "", "");
                 break;
             case 20://待分流
-                compHandle.loadData(mEntity.getFGuid(), dispose, etTjOpinion.getText().toString(), departId, "");
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), departId, "", "", "", "");
                 break;
             case 30://待指派
-                compHandle.loadData(mEntity.getFGuid(), dispose, etTjOpinion.getText().toString(), "", fSlrId);
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", fSlrId, "", "", "");
                 break;
             case 50://待处置
-                compHandle.loadData(mEntity.getFGuid(), dispose, etTjOpinion.getText().toString(), "", "");
+                if (dataPath.size() > 0) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("itemId", mEntity.getBaseInfo().getFGuid());
+                    map.put("tableName", "tComplaintsInfo");
+                    map.put("field", "fFileName");
+                    updateImg.loadData(0, dataPath.toArray(new String[dataPath.size()]), "/TJComplaint/file/uploadFiles.do", map);
+                } else {
+                    compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, "", "", "", etFeedBack2.getText().toString(), etFeedBack1.getText().toString(), etTjOpinion.getText().toString());
+                }
                 break;
             case 60://待审核
-                compHandle.loadData(mEntity.getFGuid(), dispose, etTjOpinion.getText().toString(), "", "");
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", "", "", "", "");
                 break;
             case 80://待办结
-                compHandle.loadData(mEntity.getFGuid(), dispose, etTjOpinion.getText().toString(), "", "");
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", "", "", "", "");
                 break;
             default:
                 break;
@@ -239,6 +294,10 @@ public class ComplainExcuteActivity extends BaseActivity {
                 showToast("处理成功");
                 setResult(ConstStrings.Request_Success, null);
                 finish();
+                break;
+            case ApiData.FILE_UPLOAD:
+                showToast("文件上传成功");
+                compHandle.loadData(mEntity.getBaseInfo().getFGuid(), "pass", "", "", "", etFeedBack2.getText().toString(), etFeedBack1.getText().toString(), etTjOpinion.getText().toString());
                 break;
             default:
                 break;

@@ -33,11 +33,13 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
     private int index = 0;
     private boolean isExcute = false;
     private Context context;
+    private int status;
 
-    public SuperviseMyTaskCheckResultAdapter(List<CheckInfo> dataList, int mindex, boolean isExcute) {
+    public SuperviseMyTaskCheckResultAdapter(List<CheckInfo> dataList, int mindex, boolean isExcute, int status) {
         this.checkItemInfoBeanList = dataList;
         this.index = mindex;
         this.isExcute = isExcute;
+        this.status = status;
     }
 
     @Override
@@ -63,7 +65,12 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
                 mHolder.tvName.setText(checkItemInfoBean.getItemName());
             }
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.width = Util.dip2px(context, 20) * checkItemInfoBean.getIndex();
+            layoutParams.width = Util.dip2px(context, 30) * checkItemInfoBean.getIndex();
+            if (checkItemInfoBean.getIndex() == 0) {
+                mHolder.viewLine.setVisibility(View.VISIBLE);
+            } else {
+                mHolder.viewLine.setVisibility(View.GONE);
+            }
             mHolder.index.setLayoutParams(layoutParams);
             if (checkItemInfoBean.getChildren() != null && checkItemInfoBean.getChildren().size() > 0) {
                 mHolder.valueTypeZeroLayout.setVisibility(View.GONE);
@@ -73,12 +80,15 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
                 mHolder.valueTypeZeroLayout.setVisibility(View.VISIBLE);
                 mHolder.valueTypeFirstLayout.setVisibility(View.GONE);
                 mHolder.valueTypeSecondLayout.setVisibility(View.GONE);
-                if ("1".equals(checkItemInfoBean.getCheckResult())) {
+                if ("是".equals(checkItemInfoBean.getCheckResult())) {
                     mHolder.radioButtonZero.setChecked(true);
                     mHolder.radioButtonFirst.setChecked(false);
-                } else {
+                } else if ("否".equals(checkItemInfoBean.getCheckResult())) {
                     mHolder.radioButtonZero.setChecked(false);
                     mHolder.radioButtonFirst.setChecked(true);
+                } else {
+                    mHolder.radioButtonZero.setChecked(false);
+                    mHolder.radioButtonFirst.setChecked(false);
                 }
                 mHolder.radioButtonZero.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -86,7 +96,7 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
                         if (isChecked) {
                             RadioButton radioButton = (RadioButton) buttonView.getTag();
                             radioButton.setChecked(false);
-                            checkItemInfoBean.setCheckResult(1 + "");
+                            checkItemInfoBean.setCheckResult("是");
                         }
                     }
                 });
@@ -96,7 +106,7 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
                         if (isChecked) {
                             RadioButton radioButton = (RadioButton) buttonView.getTag();
                             radioButton.setChecked(false);
-                            checkItemInfoBean.setCheckResult(0 + "");
+                            checkItemInfoBean.setCheckResult("否");
                         }
                     }
                 });
@@ -146,6 +156,7 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
                     }
                 });
             }
+            // || status == 1
             if (!isExcute) {
                 mHolder.radioButtonFirst.setClickable(false);
                 mHolder.radioButtonZero.setClickable(false);
@@ -166,7 +177,7 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
         private TextView tvName;
         private EditText etValue;
         private EditText etText;
-        private View index;
+        private View index, viewLine;
         private LinearLayout valueTypeZeroLayout, valueTypeFirstLayout, valueTypeSecondLayout;
         private RadioButton radioButtonZero, radioButtonFirst;
 
@@ -184,6 +195,7 @@ public class SuperviseMyTaskCheckResultAdapter extends MyRecycleAdapter {
             etValue.setInputType(InputType.TYPE_CLASS_PHONE);
             etText = (EditText) parent.findViewById(R.id.et_num_text);
             index = parent.findViewById(R.id.view_super_index);
+            viewLine = parent.findViewById(R.id.view_item_line);
         }
 
     }

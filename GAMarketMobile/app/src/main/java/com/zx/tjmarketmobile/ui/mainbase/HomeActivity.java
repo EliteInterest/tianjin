@@ -199,7 +199,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     private StatisticsInfo createSuperviseData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "监管任务";
-        dataInfo.itemList.add(new StatisticsItemInfo("任务主体", 0, "类别", R.mipmap.statistic_qyfb));
+//        dataInfo.itemList.add(new StatisticsItemInfo("任务主体", 0, "类别", R.mipmap.statistic_qyfb));
         dataInfo.itemList.add(new StatisticsItemInfo("任务类型", 0, "类别", R.mipmap.statistic_jbly));
         dataInfo.itemList.add(new StatisticsItemInfo("检查主体", 0, "类别", R.mipmap.statistic_jblx));
         dataInfo.itemList.add(new StatisticsItemInfo("执行任务数", 0, "类别", R.mipmap.statistic_jblx));

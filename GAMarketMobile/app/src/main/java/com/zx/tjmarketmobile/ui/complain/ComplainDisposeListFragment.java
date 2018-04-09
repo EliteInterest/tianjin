@@ -54,7 +54,6 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_case_to_do_list, container, false);
@@ -110,7 +109,7 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
 
     //数据加载
     private void loadData() {
-        getTaskPage.loadData(mPageNo, mPageSize, "","desc");
+        getTaskPage.loadData(mPageNo, mPageSize, "", "desc");
     }
 
     @Override
@@ -119,7 +118,7 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_compTaskPage:
-                NormalListEntity  entity = (NormalListEntity) b.getEntry();
+                NormalListEntity entity = (NormalListEntity) b.getEntry();
                 mTotalNo = entity.getTotal();
                 mAdapter.setStatus(0, mPageNo, mTotalNo);
                 List<ComplainInfoEntity> entityList = entity.getComplainInfoList();
@@ -130,6 +129,9 @@ public class ComplainDisposeListFragment extends BaseFragment implements LoadMor
                     complainMyListFragment.setTabText(0, "待办任务(" + mTotalNo + ")");
                 } else if (index == 1) {
                     complainMyListFragment.setTabText(1, "已办任务(" + mTotalNo + ")");
+                }
+                if (entityList.size() > 0) {
+                    rvTodo.scrollToPosition(0);
                 }
                 break;
 

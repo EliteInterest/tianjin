@@ -42,6 +42,7 @@ import com.zx.tjmarketmobile.entity.HttpTaskEntity;
 import com.zx.tjmarketmobile.entity.HttpTaskListEntity;
 import com.zx.tjmarketmobile.entity.HttpUpdateEntity;
 import com.zx.tjmarketmobile.entity.HttpZtEntity;
+import com.zx.tjmarketmobile.entity.ImageEntity;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.entity.LocationEntity;
 import com.zx.tjmarketmobile.entity.MsgEntity;
@@ -231,8 +232,8 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
 
     public static final int HTTP_ID_Supervise_MyTask_getCheckResult = 123;//获取提交的意见和结论
     public static final int HTTP_ID_SuperviseMyTaskCheckEntity = 124;//我的待办跳转到检查主体后调用的接口
-    public static final int HTTP_ID_superviseIsBackTaskInfo = 125;//监管任务-我的待办-判断任务是否可以退回的接口
-    public static final int HTTP_ID_superviseSendTaskBack = 126;//监管任务-我的待办-退回任务的接口
+    public static final int HTTP_ID_superviseIsCanFinishInfo = 125;//监管任务-我的待办-判断任务是否可以退回的接口
+    public static final int HTTP_ID_superviseFinishTask = 126;//监管任务-我的待办-
     public static final int HTTP_ID_superviseGetTaskImg = 128;//获取图片
     public static final int HTTP_ID_superviseAppendEntity = 129;//添加主体
     public static final int HTTP_ID_superviseQueryEntityByCondition = 130;//根据区县查询主体
@@ -275,6 +276,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_statistics_super_countEnterprise = 220;//检查主体
     public static final int HTTP_ID_statistics_super_countDoTask = 221;//统计-监管-执行任务数
 
+    public static final int HTTP_ID_supervise_saceItemResult = 222;//监管处置
+    public static final int HTTP_ID_supervise_finishItem = 223;//监管完成
+    public static final int HTTP_ID_supervise_getTaskFiles = 224;//监管任务-图片集合
+    public static final int HTTP_ID_supervise_deleteFile = 225;//删除图片
+
     public static final int HTTP_ID_info_manager_biaozhun = 301;//标准信息查询
     public static final int HTTP_ID_info_manager_device_liebiao = 302;//特种设备-特种设备列表查询
     public static final int HTTP_ID_info_manager_device_detail = 303;//特种设备-特种设备详情接口
@@ -301,6 +307,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     }
 
     public static String mIp = "";
+    public static String sessionId = "";
     public static final int HTTP_ID_map_update = 200;// 离线地图更新
 
     private HttpParam params = new HttpParam();
@@ -345,7 +352,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                     listener.onLoadStart(FILE_UPLOAD);
                                 }
                             });
-                            fileUpload((String[]) objects[1], (String) objects[2]);
+                            fileUpload((String[]) objects[1], (String) objects[2], (Map<String, String>) objects[3]);
                         } catch (final CustomException e) {
                             e.printStackTrace();
                             errorMessage = e.getMessage();
@@ -615,9 +622,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("contactPeople", objects[3]);
                     break;
                 case HTTP_ID_supervisetask_searchcheck:
-                    params.setApiUrl(baseUrl + "/TJsupervise/formulation/queryItem.do");
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/queryItemResult.do");
                     params.setRequestMothod(HTTP_MOTHOD.GET);
-                    params.putParams("taskId", objects[0]);
+                    params.putParams("id", objects[0]);
                     break;
                 case HTTP_ID_supervisetask_save:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -824,12 +831,12 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("pageNo", 1);
                     params.putParams("pageSize", 999);
-                    params.putParams("userName", objects[0]);
-                    params.putParams("realName", objects[1]);
-                    params.putParams("department", objects[2]);
-                    params.putParams("departmentCode", objects[3]);
-                    params.putParams("status", objects[4]);
-                    params.putParams("roles", objects[5]);
+//                    params.putParams("userName", objects[0]);
+//                    params.putParams("realName", objects[1]);
+//                    params.putParams("department", objects[2]);
+                    params.putParams("departmentCode", objects[0]);
+//                    params.putParams("status", objects[4]);
+                    params.putParams("roles", objects[1]);
                     break;
                 case HTTP_ID_getUserNameByArea:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -1117,6 +1124,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fDisposeRemark", objects[2]);
                     params.putParams("fShunt", objects[3]);
                     params.putParams("fDisposeUser", objects[4]);
+                    params.putParams("fReviewResult", objects[5]);
+                    params.putParams("fReplyContent", objects[6]);
+                    params.putParams("fFeedbackContent", objects[7]);
                     break;
                 case HTTP_ID_compLcjk:
                     params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintByStatus.do");
@@ -1316,15 +1326,12 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("line", objects[3]);
                     params.putParams("column", objects[4]);
                     break;
-                case HTTP_ID_superviseIsBackTaskInfo:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "isGoBackAssignTask");
-                    params.putParams("fGuid", objects[0]);
-                    params.putParams("fTaskId", objects[1]);
-                    params.putParams("fUserId", objects[2]);
+                case HTTP_ID_superviseIsCanFinishInfo:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/countUntreated.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("taskId", objects[0]);
                     break;
-                case HTTP_ID_superviseSendTaskBack:
+                case HTTP_ID_superviseFinishTask:
                     params.setApiUrl(baseUrl + "GaClientService.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
                     params.putParams("method", "goBackAssignTask");
@@ -1728,6 +1735,28 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("id", objects[4]);
                     params.putParams("departmentCode", objects[5]);
                     break;
+                case HTTP_ID_supervise_saceItemResult:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/saveItemResult.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("resultList", objects[1]);
+                    params.putParams("illegal", objects[2]);
+                    break;
+                case HTTP_ID_supervise_finishItem:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/finishTask.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    break;
+                case HTTP_ID_supervise_getTaskFiles:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/fileList.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("taskId", objects[0]);
+                    break;
+                case HTTP_ID_supervise_deleteFile:
+                    params.setApiUrl(baseUrl + "/TJsupervise/taskDo/deleteFile.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    break;
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -1783,21 +1812,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_login: {
                             UUID = msg;
                             list = getJSONObject(jsonObject, "data");
-                            HttpLoginEntity loginEntity = new HttpLoginEntity();
-                            loginEntity.setId(getStringValue(list, "id"));
-                            loginEntity.setRealName(getStringValue(list, "realName"));
-                            loginEntity.setGender(getStringValue(list, "fGender"));
-                            loginEntity.setAge(getStringValue(list, "fAge"));
-                            loginEntity.setUserName(getStringValue(list, "userName"));
-                            loginEntity.setDuty(getStringValue(list, "fDuty"));
-                            loginEntity.setDepartment(getStringValue(list, "fDepartment"));
-                            loginEntity.setDepartmentAlias(getStringValue(list, "fDepartmentAlias"));
-                            loginEntity.setDesc(getStringValue(list, "fDesc"));
-                            loginEntity.setTelephone(getStringValue(list, "fTelephone"));
-                            // loginEntity.setPassword(params.getParams(id).get("password").toString());
-                            loginEntity.setGrid(getStringValue(list, "fGrid"));
-                            loginEntity.setPassword(getStringValue(list, "fPassword"));
-                            loginEntity.setAuthority(getStringValue(list, "grantCode").replace("[", "").replace("]", "").replace("\"", ""));
+                            HttpLoginEntity loginEntity = gson.fromJson(list.toString(), HttpLoginEntity.class);
                             result.setEntry(loginEntity);
                         }
                         break;
@@ -2564,7 +2579,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(numList);
                             break;
                         case HTTP_ID_getUsersByDept:
-                            array = getJSONArray(jsonObject, "data");
+                            array = getJSONArray(getJSONObject(jsonObject, "data"), "list");
                             List<KeyValueInfo> userList = new ArrayList<>();
                             for (int i = 0; i < array.length(); i++) {
                                 jsonObject = array.getJSONObject(i);
@@ -2940,14 +2955,11 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             statisticsEntity.setChartList(chartList);
                             result.setEntry(statisticsEntity);
                             break;
-                        case HTTP_ID_superviseIsBackTaskInfo:
-                            if ("20000".equals(code)) {
-                                result.setSuccess(true);
-                            } else {
-                                result.setSuccess(false);
-                            }
+                        case HTTP_ID_superviseIsCanFinishInfo:
+                            int num = getIntValue(jsonObject, "data");
+                            result.setEntry(num);
                             break;
-                        case HTTP_ID_superviseSendTaskBack:
+                        case HTTP_ID_superviseFinishTask:
                             if ("20000".equals(code)) {
                                 result.setSuccess(true);
                             } else {
@@ -3229,7 +3241,22 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myLicenseDetails);
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
+//                            jsonObject = getJSONObject(jsonObject, "data");
+//                            Log.i("wangwansheng", "jsonObject is " + jsonObject.toString());
+//                            InfoManagerMeasureCustom myMeasureCustom = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureCustom.class);
+
                             jsonArray = getJSONArray(jsonObject, "data");
+
+//                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.new ArrayList();
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                InfoManagerMeasureCustom measureCustom = gsonMeasure.fromJson(jsonArray.getJSONObject(i).toString(), InfoManagerMeasureCustom.class);
+//                                myMeasureCustom.add(measureCustom);
+//                            }
+
+//                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.fromJson(jsonArray.toString(),
+//                                    new TypeToken<List<InfoManagerMeasureCustom>>() {
+//                                    }.getType());
+//                            InfoManagerMeasureCustom myMeasureCustom = new InfoManagerMeasureCustom();
                             List<KeyValueInfo> myMeasureCustom = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject compObject = jsonArray.getJSONObject(i);
@@ -3240,7 +3267,22 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 compKV.value1 = getStringValue(compObject, "col");
                                 myMeasureCustom.add(compKV);
                             }
+//
+//
+//                            List<InfoManagerMeasureCustom.RowsBean> dataList = new ArrayList<>();
+//                            for (int j = 0; j < customInfos.size(); j++) {
+//                                InfoManagerMeasureCustom.RowsBean bean = new InfoManagerMeasureCustom.RowsBean();
+//                                bean.setName(customInfos.get(j).key);
+//                                bean.setType(Integer.valueOf(customInfos.get(j).value1));
+//                                bean.setCol(customInfos.get(j).value2);
+//                                dataList.add(bean);
+//                                Log.i("ApiData", "bean is " + bean.getName());
+//                            }
+//
+//                            myMeasureCustom.setList(dataList);
+//
                             result.setEntry(myMeasureCustom);
+
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_liebiao://计量器具-计量器具列表接口
                             jsonObject = getJSONObject(jsonObject, "data");
@@ -3261,6 +3303,17 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             jsonObject = getJSONObject(jsonObject, "data");
                             InfoManagerLegalSelectLaw myLegalSelectLaw = new Gson().fromJson(jsonObject.toString(), InfoManagerLegalSelectLaw.class);
                             result.setEntry(myLegalSelectLaw);
+                            break;
+                        case HTTP_ID_supervise_saceItemResult:
+                        case HTTP_ID_supervise_finishItem:
+                        case HTTP_ID_supervise_deleteFile:
+
+                            break;
+                        case HTTP_ID_supervise_getTaskFiles:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<ImageEntity> imageEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<ImageEntity>>() {
+                            }.getType());
+                            result.setEntry(imageEntities);
                             break;
                         default:
                             break;
@@ -3416,7 +3469,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
      * @throws CustomException
      * @throws JSONException
      */
-    private void fileUpload(final String[] paths, String type) throws IOException, URISyntaxException, CustomException, JSONException {
+    private void fileUpload(final String[] paths, String type, Map<String, String> param) throws IOException, URISyntaxException, CustomException, JSONException {
         //实例化HttpUtils对象， 参数设置链接超时
         HttpUtils HTTP_UTILS = new HttpUtils(60 * 1000);
         //实例化RequestParams对象
@@ -3427,18 +3480,21 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
             File file = new File(path);
             if (!file.exists()) {
                 continue;
-//                throw new FileNotFoundException(path + " is not found!!!");
             }
-//            requestParams.addBodyParameter("filedata", file);
             if (file.exists()) {
                 String name = path.substring(path.lastIndexOf("/"), path.length()) + i;
                 requestParams.addBodyParameter(name, file);
             }
         }
-        requestParams.addBodyParameter("type", type);
-        String photoUrl = baseUrl + "eventfileUpload";
+        for (String key : param.keySet()) {
+            requestParams.addBodyParameter(key, param.get(key));
+        }
+        String photoUrl = baseUrl + type;
         //通过HTTP_UTILS来发送post请求， 并书写回调函数
         LogUtil.e(this, "开始上传");
+        if (sessionId.length() > 0) {
+            requestParams.addHeader("Cookie", sessionId);
+        }
         HTTP_UTILS.send(HttpMethod.POST, photoUrl, requestParams, new com.lidroid.xutils.http.callback.RequestCallBack<String>() {
             @Override
             public void onFailure(HttpException httpException, String arg1) {

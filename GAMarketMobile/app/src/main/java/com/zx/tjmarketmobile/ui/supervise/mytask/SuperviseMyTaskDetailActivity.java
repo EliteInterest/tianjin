@@ -30,8 +30,8 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     private int index;//0待办  1已办
     private int type;//1任务监控
     public static SuperviseMyTaskDetailActivity instance = null;
-    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsBackTaskInfo);
-    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseSendTaskBack);
+    private ApiData getIsCanFinishTask = new ApiData(ApiData.HTTP_ID_superviseIsCanFinishInfo);
+    private ApiData finishItem = new ApiData(ApiData.HTTP_ID_supervise_finishItem);
     private boolean isSendBackVisible = false;
     private SuperviseMyTaskCheckFragment myCheckfragment;
 
@@ -54,8 +54,8 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
             mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
             index = getIntent().getIntExtra("index", 0);
             type = getIntent().getIntExtra("type", 0);
-//            getIsBackTask.setLoadingListener(this);
-            sendBackTask.setLoadingListener(this);
+            getIsCanFinishTask.setLoadingListener(this);
+            finishItem.setLoadingListener(this);
 //            getIsBackTask.loadData(mEntity.getF_GUID(), mEntity.getFTaskId(), userInfo.getId());
             initViewPager();
         } else {
@@ -68,9 +68,8 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         btnExcute.setOnClickListener(this);
         btnOther = (Button) findViewById(R.id.btnActCase_other);
         btnOther.setOnClickListener(this);
-        btnOther.setVisibility(View.GONE);
         btnExcute.setText("处理");
-        btnOther.setText("退回");
+        btnOther.setText("完成");
 //        btnExcute.setVisibility(View.GONE);
 //        btnOther.setVisibility(View.GONE);
         if (index == 1) {
@@ -105,12 +104,12 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 if (position == 0 && index == 0) {
                     btnExcute.setVisibility(View.VISIBLE);
-                    if (isSendBackVisible) {
-                        btnOther.setVisibility(View.VISIBLE);
-                    }
+//                    if (isSendBackVisible) {
+//                        btnOther.setVisibility(View.VISIBLE);
+//                    }
                 } else {
                     btnExcute.setVisibility(View.GONE);
-                    btnOther.setVisibility(View.GONE);
+//                    btnOther.setVisibility(View.GONE);
                 }
             }
 
@@ -142,10 +141,7 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
 //                }
                 break;
             case R.id.btnActCase_other:
-                if (getIntent().hasExtra("entity")) {
-                    mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
-                    sendBackTask.loadData(mEntity.getUserId(), mEntity.getId(), userInfo.getId());
-                }
+                getIsCanFinishTask.loadData(mEntity.getId());
                 break;
             default:
                 break;
@@ -165,13 +161,18 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_superviseIsBackTaskInfo:
-                if (b.isSuccess()) {
-                    btnOther.setVisibility(View.VISIBLE);
-                    isSendBackVisible = true;
+            case ApiData.HTTP_ID_superviseIsCanFinishInfo:
+                if (((int) b.getEntry()) > 0) {
+                    showToast("当前还有" + ((int) b.getEntry()) + "个未处置主体");
+                } else {
+                    finishItem.loadData(mEntity.getId());
                 }
                 break;
-            case ApiData.HTTP_ID_superviseSendTaskBack:
+            case ApiData.HTTP_ID_supervise_finishItem:
+                showToast("任务完成成功");
+                finish();
+                break;
+            case ApiData.HTTP_ID_superviseFinishTask:
                 if (b.isSuccess()) {
                     showToast(b.getMessage());
                     finish();

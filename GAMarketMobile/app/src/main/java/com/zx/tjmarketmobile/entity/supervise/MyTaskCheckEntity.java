@@ -29,7 +29,7 @@ public class MyTaskCheckEntity implements Serializable {
     private Object departmentId;
     private String taskId;
     private int status;
-    private Object illegal;
+    private String illegal;
     private Object remarks;
     private long checkDate;
     private String enterpriseId;
@@ -72,11 +72,11 @@ public class MyTaskCheckEntity implements Serializable {
         this.status = status;
     }
 
-    public Object getIllegal() {
+    public String getIllegal() {
         return illegal;
     }
 
-    public void setIllegal(Object illegal) {
+    public void setIllegal(String illegal) {
         this.illegal = illegal;
     }
 

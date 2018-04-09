@@ -90,6 +90,11 @@ public class ChartActivity extends BaseActivity implements IChartListener {
     private ApiData enterAnn = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseAnn);
     private ApiData enterWarning = new ApiData(ApiData.HTTP_ID_statistics_entity_enterpriseWarning);
 
+    private ApiData superCountTask = new ApiData(ApiData.HTTP_ID_statistics_super_countTask);
+    private ApiData superCountType = new ApiData(ApiData.HTTP_ID_statistics_super_countType);
+    private ApiData superEnterprise = new ApiData(ApiData.HTTP_ID_statistics_super_countEnterprise);
+    private ApiData superDoTask = new ApiData(ApiData.HTTP_ID_statistics_super_countDoTask);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +150,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
         enterDev.setLoadingListener(this);
         enterAnn.setLoadingListener(this);
         enterWarning.setLoadingListener(this);
+        superCountTask.setLoadingListener(this);
+        superCountType.setLoadingListener(this);
+        superEnterprise.setLoadingListener(this);
+        superDoTask.setLoadingListener(this);
 
         mItemInfo = (StatisticsItemInfo) getIntent().getSerializableExtra("task");
         setMidText(mItemInfo.name);
@@ -285,6 +294,18 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case "许可证预警":
                 enterWarning.loadData();
                 break;
+            case "任务主体":
+                superCountTask.loadData("");
+                break;
+            case "任务类型":
+                superCountType.loadData("");
+                break;
+            case "检查主体":
+                superEnterprise.loadData("");
+                break;
+            case "执行任务数":
+                superEnterprise.loadData("");
+                break;
             default:
                 getChartInfo.loadData(mItemInfo.name);
                 break;
@@ -398,6 +419,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case ApiData.HTTP_ID_statistics_entity_enterpriseAnn:
             case ApiData.HTTP_ID_statistics_entity_enterpriseComplain:
             case ApiData.HTTP_ID_statistics_entity_equipmentType:
+            case ApiData.HTTP_ID_statistics_super_countTask:
+            case ApiData.HTTP_ID_statistics_super_countType:
+            case ApiData.HTTP_ID_statistics_super_countEnterprise:
+            case ApiData.HTTP_ID_statistics_super_countDoTask:
                 List<KeyValueInfo> tempList = (List<KeyValueInfo>) b.getEntry();
                 initChart(tempList);
                 keyList.clear();

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zx.tjmarketmobile.R;
@@ -48,6 +49,11 @@ public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
             myHolder.tvField.setText(entity.getEnterpriseName());
             myHolder.tvAddress.setText(entity.getLegalPerson());
             myHolder.tvState.setText(DateUtil.getDateFromMillis(entity.getCheckDate()));
+            if (entity.getStatus() == 0) {
+                myHolder.ivOverDue.setVisibility(View.VISIBLE);
+            } else {
+                myHolder.ivOverDue.setVisibility(View.GONE);
+            }
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }
@@ -60,12 +66,14 @@ public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvField, tvAddress, tvState;
+        private ImageView ivOverDue;
 
         public Holder(View parent) {
             super(parent);
             tvField = (TextView) parent.findViewById(R.id.tv_supervise_name);
             tvAddress = (TextView) parent.findViewById(R.id.tv_supervise_address);
-            tvState = (TextView)  parent.findViewById(R.id.tv_supervise_state);
+            tvState = (TextView) parent.findViewById(R.id.tv_supervise_state);
+            ivOverDue = parent.findViewById(R.id.iv_supervise_overdue);
             parent.setOnClickListener(this);
         }
 

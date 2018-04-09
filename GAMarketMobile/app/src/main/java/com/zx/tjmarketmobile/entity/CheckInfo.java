@@ -32,8 +32,17 @@ public class CheckInfo implements Serializable {
 	private String checkResult;
 	private String itemName;
 	private String min;
+	private String id;
 	private List<CheckInfo> children;
 	private int index = 0;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public int getIndex() {
 		return index;

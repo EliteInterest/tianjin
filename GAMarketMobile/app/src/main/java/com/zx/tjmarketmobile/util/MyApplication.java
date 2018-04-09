@@ -91,6 +91,9 @@ public class MyApplication extends Application {
      */
     public final void addSessionCookie(Map<String, String> requestHeaders) {
         String sessionId = preferences.getString(SESSION_COOKIE, "");
+        if (ApiData.sessionId.length() == 0) {
+            ApiData.sessionId = sessionId;
+        }
         if (sessionId.length() > 0) {
             StringBuilder builder = new StringBuilder();
 //            builder.append(SESSION_COOKIE);

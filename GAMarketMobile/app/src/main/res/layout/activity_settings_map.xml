@@ -251,6 +251,7 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_settings_map_ok"
         style="@style/MyButtonStyle"
+        android:layout_marginBottom="10dp"
         android:text="@string/ok"/>
 
 </RelativeLayout>

@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import com.zx.tjmarketmobile.entity.HttpLoginEntity;
 import com.zx.tjmarketmobile.http.HttpConstant;
 
+import java.util.Arrays;
+
 
 /**
  * 用户管理
@@ -46,42 +48,44 @@ public class UserManager {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         HttpConstant.AppCode = sp.getString("loginCode", "first");
         user = new HttpLoginEntity();
-        user.setId(sp.getString("fUserId", null));
-        user.setRealName(sp.getString("fRealName", null));
-        user.setGender(sp.getString("fGender", null));
-        user.setAge(sp.getString("fAge", null));
-        user.setUserName(sp.getString("fUserName", null));
-        user.setDuty(sp.getString("fDuty", null));
-        user.setDepartment(sp.getString("fDepartment", null));
+        user.setId(sp.getString("id", null));
+        user.setRealName(sp.getString("realname", null));
+        user.setGender(sp.getString("gender", null));
+        user.setAge(sp.getString("age", null));
+        user.setUserName(sp.getString("username", null));
+        user.setDuty(sp.getString("duty", null));
+        user.setDepartment(sp.getString("department", null));
         user.setDepartmentCode(sp.getString("departmentCode", ""));
-        user.setDepartmentAlias(sp.getString("fDepartmentAlias", null));
-        user.setDesc(sp.getString("fDesc", null));
-        user.setTelephone(sp.getString("fTelephone", null));
+        user.setDepartmentAlias(sp.getString("departmentAlias", null));
+        user.setDesc(sp.getString("desc", null));
+        user.setTelephone(sp.getString("telephone", null));
         user.setAuthority(sp.getString("authority", null));
         // user.setPassword(sp.getParams(id).get("password").toString(), null);
-        user.setPassword(sp.getString("fPassword", null));
-        user.setGrid(sp.getString("fGrid", null));
+        user.setPassword(sp.getString("password", null));
+        user.setGrid(sp.getString("grid", null));
         user.setIsLogin(sp.getBoolean("isLogin", false));
+        user.setRole(Arrays.asList(sp.getString("role", "").split(",")));
     }
 
     public void setUser(Context context, HttpLoginEntity userinfo) {
         user = userinfo;
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString("fUserId", user.getId());
-        editor.putString("fRealName", user.getRealName());
-        editor.putString("fGender", user.getGender());
-        editor.putString("fAge", user.getAge());
-        editor.putString("fUserName", user.getUserName());
-        editor.putString("fDuty", user.getDuty());
-        editor.putString("fDepartment", user.getDepartment());
-        editor.putString("fDepartmentAlias", user.getDepartmentAlias());
-        editor.putString("fDesc", user.getDesc());
-        editor.putString("fTelephone", user.getTelphone());
-        editor.putString("fPassword", user.getPassword());
+        editor.putString("id", user.getId());
+        editor.putString("realname", user.getRealName());
+        editor.putString("gender", user.getGender());
+        editor.putString("age", user.getAge());
+        editor.putString("username", user.getUserName());
+        editor.putString("duty", user.getDuty());
+        editor.putString("department", user.getDepartment());
+        editor.putString("departmentAlias", user.getDepartmentAlias());
+        editor.putString("desc", user.getDesc());
+        editor.putString("telephone", user.getTelphone());
+        editor.putString("password", user.getPassword());
         editor.putString("authority", user.getAuthority());
-        editor.putString("fGrid", user.getGrid());
+        editor.putString("grid", user.getGrid());
         editor.putBoolean("isLogin", user.isLogin());
         editor.putString("departmentCode", user.getDepartmentCode());
+        editor.putString("role", user.getRoleString());
         editor.commit();
     }
 

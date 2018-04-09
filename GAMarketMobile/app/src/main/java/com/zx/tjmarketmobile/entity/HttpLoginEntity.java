@@ -1,5 +1,7 @@
 package com.zx.tjmarketmobile.entity;
 
+import java.util.List;
+
 /**
  * 命名方式:Http + 协议名 + Entity
  */
@@ -19,6 +21,23 @@ public class HttpLoginEntity {
     private String authority;//用户权限
     private String grid;//管辖片区
     private String departmentCode;
+    private List<String> role;
+
+    public List<String> getRole() {
+        return role;
+    }
+
+    public String getRoleString() {
+        String roleString = "";
+        for (String roleItem : role) {
+            roleString = roleString + roleItem + ",";
+        }
+        return roleString.length() > 0 ? roleString.substring(0, roleString.length() - 1) : roleString;
+    }
+
+    public void setRole(List<String> role) {
+        this.role = role;
+    }
 
     public String getDepartmentCode() {
         return departmentCode;
