@@ -1,8 +1,12 @@
 package com.zx.tjmarketmobile.adapter.infomanager;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +16,9 @@ import android.widget.TextView;
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.MyRecycleAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.ui.infomanager.LegalSelectLawFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +51,19 @@ public class LegalSelectLawAdapter extends MyRecycleAdapter {
         }
     }
 
+    private List<Integer> getChild(String parent, String child) {
+        List<Integer> rets = new ArrayList<>();
+        int count = 0;
+        int index = 0;
+        while ((index = parent.indexOf(child, index)) != -1) {
+            rets.add(index);
+            index = index + child.length();
+            count++;
+        }
+        Log.i("wangwansheng", "匹配个数为" + count);
+        return rets;
+    }
+
     //从holder中获取控件并设置
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -53,9 +72,16 @@ public class LegalSelectLawAdapter extends MyRecycleAdapter {
             KeyValueInfo entity = mItemList.get(position);
 
             myHolder.lawName.setText(entity.key);
-            Log.i("wangwansheng", "value is " + entity.value);
             myHolder.lawContent.setText(Html.fromHtml(entity.value));
+            String content = myHolder.lawContent.getText().toString();
+            SpannableString sStr = new SpannableString(content);
+            List<Integer> indexs = getChild(content, LegalSelectLawFragment.msg);
+            for (int i = 0; i < indexs.size(); i++) {
+                int index = indexs.get(i).intValue();
+                sStr.setSpan(new ForegroundColorSpan(Color.RED), index, index + LegalSelectLawFragment.msg.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
 
+            myHolder.lawContent.setText(sStr);
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

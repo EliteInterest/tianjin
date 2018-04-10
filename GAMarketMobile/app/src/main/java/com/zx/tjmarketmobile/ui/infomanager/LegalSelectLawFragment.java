@@ -31,7 +31,7 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
     private LegalSelectLawAdapter mAdapter;
     private List<KeyValueInfo> dataList = new ArrayList<>();
     private int mPageSize = 10;
-    private String msg = "";
+    public static String msg = "领取";
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_legal_search);
