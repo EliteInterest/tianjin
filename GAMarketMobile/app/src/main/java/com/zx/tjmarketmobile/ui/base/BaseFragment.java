@@ -48,6 +48,9 @@ public class BaseFragment extends Fragment implements OnHttpLoadingListener<Base
         super.onDestroy();
     }
 
+    public void load(final String msg) {
+    }
+
     public void showProgressDialog(String str) {
         if (null == getActivity()) {
             return;

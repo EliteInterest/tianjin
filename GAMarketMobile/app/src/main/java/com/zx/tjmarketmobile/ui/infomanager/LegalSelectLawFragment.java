@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.infomanager.LegalSelectLawAdapter;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLegalSelectLaw;
+import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.LoadMoreListener;
@@ -29,8 +29,9 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
     private RecyclerView rvTodo;
     private SwipeRefreshLayout srlTodo;
     private LegalSelectLawAdapter mAdapter;
-    private List<InfoManagerLegalSelectLaw> dataList = new ArrayList<>();
+    private List<KeyValueInfo> dataList = new ArrayList<>();
     private int mPageSize = 10;
+    private String msg = "";
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_legal_search);
@@ -89,7 +90,15 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData("集贸");
+        if (msg.length() != 0) {
+            getInfoStandar.loadData(msg);
+        } else
+            getInfoStandar.loadData("领取");
+    }
+
+    public void load(final String msg) {
+        this.msg = msg;
+        getInfoStandar.loadData(msg);
     }
 
     @Override
@@ -98,22 +107,10 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_info_manager_legal_search:
-                InfoManagerLegalSelectLaw myTaskListEntity = (InfoManagerLegalSelectLaw) b.getEntry();
-//                mTotalNo = myTaskListEntity.getTotal();
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
-//                List<InfoManagerDevice.RowsBean> entityList = myTaskListEntity.getList();
-//                dataList.clear();
-//                if (entityList != null) {
-//                    dataList.addAll(entityList);
-//                }
-//                mAdapter.notifyDataSetChanged();
-//
-//                InfoManagerDevice.RowsBean bean = null;
-//                for (int j = 0; j < dataList.size(); j++) {
-//                    bean = dataList.get(j);
-//                    Log.i(TAG, "bean is " + bean.getEnterpriseName());
-//                }
-
+                List<KeyValueInfo> myTaskListEntity = (List<KeyValueInfo>) b.getEntry();
+                dataList.clear();
+                dataList.addAll(myTaskListEntity);
+                mAdapter.notifyDataSetChanged();
                 break;
 
             default:

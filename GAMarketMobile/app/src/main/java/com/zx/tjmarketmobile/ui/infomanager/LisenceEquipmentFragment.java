@@ -33,6 +33,7 @@ public class LisenceEquipmentFragment extends BaseFragment implements LoadMoreLi
     private InfoLisenceAdapter mAdapter;
     private List<InfoManagerLicense.RowsBean> dataList = new ArrayList<>();
     private int mPageSize = 10;
+    private String msg = "";
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_license_instrument);
@@ -94,11 +95,25 @@ public class LisenceEquipmentFragment extends BaseFragment implements LoadMoreLi
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData(mPageNo, mPageSize,"t_lic_equipment_sale");
+        if (msg.length() != 0) {
+            String[] value = msg.split(";");
+            if (value.length == 2) {
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
+            } else {
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+            }
+        } else
+            getInfoStandar.loadData(mPageNo, mPageSize, "t_lic_equipment_sale");
     }
 
-    public void load(final Object... objects) {
-        getInfoStandar.loadData( mPageNo, mPageSize, objects);
+    public void load(final String msg) {
+        this.msg = msg;
+        String[] value = msg.split(";");
+        if (value.length == 2) {
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
+        } else {
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+        }
     }
 
     @SuppressLint("LongLogTag")

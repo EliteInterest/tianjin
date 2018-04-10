@@ -33,6 +33,7 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
     private InfoManagerStandardAdapter mAdapter;
     private List<InfoManagerBiaozhun.RowsBean> dataList = new ArrayList<>();
     private int mPageSize = 10;
+    private String msg = "";
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_biaozhun);
@@ -93,10 +94,14 @@ public class StandardMessageSelectFragment extends BaseFragment implements LoadM
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData("", mPageNo, mPageSize);
+        if (msg.length() != 0)
+            getInfoStandar.loadData(msg, mPageNo, mPageSize);
+        else
+            getInfoStandar.loadData("", mPageNo, mPageSize);
     }
 
     public void load(final String msg) {
+        this.msg = msg;
         getInfoStandar.loadData(msg, mPageNo, mPageSize);
     }
 

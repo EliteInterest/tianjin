@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerMeasureLiebiao;
-import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
 
@@ -28,8 +27,6 @@ public class MeasureDetailActivity extends BaseActivity {
     private InfoManagerMeasureLiebiao.RowsBean mEntity;
     public Dialog dialog = null;
     public static MeasureDetailActivity instance = null;
-    //    private ApiData getIsBackTask = new ApiData(ApiData.HTTP_ID_superviseIsCanFinishInfo);
-    private ApiData sendBackTask = new ApiData(ApiData.HTTP_ID_superviseFinishTask);
     private boolean isSendBackVisible = false;
     private MeasureBaseInfoFragment myCheckfragment;
 
@@ -53,7 +50,6 @@ public class MeasureDetailActivity extends BaseActivity {
 
             mEntity = (InfoManagerMeasureLiebiao.RowsBean) getIntent().getSerializableExtra("entity");
             setMidText(mEntity.getEnterpriseName());
-            sendBackTask.setLoadingListener(this);
             initViewPager();
         } else {
             showToast("未获取到信息，请重试");
@@ -147,18 +143,6 @@ public class MeasureDetailActivity extends BaseActivity {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_superviseIsCanFinishInfo:
-                if (b.isSuccess()) {
-                    btnOther.setVisibility(View.VISIBLE);
-                    isSendBackVisible = true;
-                }
-                break;
-            case ApiData.HTTP_ID_superviseFinishTask:
-                if (b.isSuccess()) {
-                    showToast(b.getMessage());
-                    finish();
-                }
-                break;
             default:
                 break;
         }

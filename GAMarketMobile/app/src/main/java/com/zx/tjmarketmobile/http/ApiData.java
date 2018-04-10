@@ -64,8 +64,6 @@ import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhun;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerBiaozhunDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDevice;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerDeviceDetail;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLegalSelect;
-import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLegalSelectLaw;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicense;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicenseDetail;
 import com.zx.tjmarketmobile.entity.infomanager.InfoManagerLicenseFood;
@@ -85,6 +83,7 @@ import com.zx.tjmarketmobile.http.BaseHttpParams.HTTP_MOTHOD;
 import com.zx.tjmarketmobile.util.ConstStrings;
 import com.zx.tjmarketmobile.util.LogUtil;
 import com.zx.tjmarketmobile.util.MD5Util;
+import com.zx.tjmarketmobile.view.ZXExpandBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -1691,7 +1690,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("pageSize", objects[1]);
                     params.putParams("tableName", objects[2]);
                     params.putParams("enterpriseName", objects[3]);
-                    params.putParams("licNum", objects[4]);
+//                    params.putParams("licNum", objects[4]);
                     break;
                 case HTTP_ID_info_manager_license_cosmetics:
                     params.setApiUrl(baseUrl + "/TJsupervise/license/getCosmeticEnterprisePage.do");
@@ -1699,7 +1698,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("pageNo", objects[0]);
                     params.putParams("pageSize", objects[1]);
                     params.putParams("enterpriseName", objects[2]);
-                    params.putParams("licNum", objects[3]);
+//                    params.putParams("licNum", objects[3]);
                     break;
                 case HTTP_ID_info_manager_license_instrument://许可证-医疗器械企业列表
                     params.setApiUrl(baseUrl + "/TJsupervise/license/getEquipmentEnterprisePage.do");
@@ -1708,7 +1707,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("pageSize", objects[1]);
                     params.putParams("tableName", objects[2]);
                     params.putParams("enterpriseName", objects[3]);
-                    params.putParams("licNum", objects[4]);
+//                    params.putParams("licNum", objects[4]);
                     break;
                 case HTTP_ID_info_manager_license_detail://许可证-许可证详情
                     params.setApiUrl(baseUrl + "/TJsupervise/enterprise/getLicensesDetail.do");
@@ -3371,22 +3370,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myLicenseDetails);
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_custom://计量器具-自定义表信息接口
-//                            jsonObject = getJSONObject(jsonObject, "data");
-//                            Log.i("wangwansheng", "jsonObject is " + jsonObject.toString());
-//                            InfoManagerMeasureCustom myMeasureCustom = new Gson().fromJson(jsonObject.toString(), InfoManagerMeasureCustom.class);
-
                             jsonArray = getJSONArray(jsonObject, "data");
-
-//                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.new ArrayList();
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                InfoManagerMeasureCustom measureCustom = gsonMeasure.fromJson(jsonArray.getJSONObject(i).toString(), InfoManagerMeasureCustom.class);
-//                                myMeasureCustom.add(measureCustom);
-//                            }
-
-//                            List<InfoManagerMeasureCustom> myMeasureCustom = gson.fromJson(jsonArray.toString(),
-//                                    new TypeToken<List<InfoManagerMeasureCustom>>() {
-//                                    }.getType());
-//                            InfoManagerMeasureCustom myMeasureCustom = new InfoManagerMeasureCustom();
                             List<KeyValueInfo> myMeasureCustom = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject compObject = jsonArray.getJSONObject(i);
@@ -3397,22 +3381,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 compKV.value1 = getStringValue(compObject, "col");
                                 myMeasureCustom.add(compKV);
                             }
-//
-//
-//                            List<InfoManagerMeasureCustom.RowsBean> dataList = new ArrayList<>();
-//                            for (int j = 0; j < customInfos.size(); j++) {
-//                                InfoManagerMeasureCustom.RowsBean bean = new InfoManagerMeasureCustom.RowsBean();
-//                                bean.setName(customInfos.get(j).key);
-//                                bean.setType(Integer.valueOf(customInfos.get(j).value1));
-//                                bean.setCol(customInfos.get(j).value2);
-//                                dataList.add(bean);
-//                                Log.i("ApiData", "bean is " + bean.getName());
-//                            }
-//
-//                            myMeasureCustom.setList(dataList);
-//
                             result.setEntry(myMeasureCustom);
-
                             break;
                         case HTTP_ID_info_manager_measuring_instruments_liebiao://计量器具-计量器具列表接口
                             jsonObject = getJSONObject(jsonObject, "data");
@@ -3425,13 +3394,34 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myMeasureDetail);
                             break;
                         case HTTP_ID_info_manager_legal_query:
-                            jsonObject = getJSONObject(jsonObject, "data");
-                            InfoManagerLegalSelect myLegalSelect = new Gson().fromJson(jsonObject.toString(), InfoManagerLegalSelect.class);
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<ZXExpandBean> myLegalSelect = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject compObject = jsonArray.getJSONObject(i);
+                                String name = getStringValue(compObject, "name");
+                                ZXExpandBean bean = new ZXExpandBean("data", name);
+                                List<ZXExpandBean> dataList = listBeans(compObject);
+                                if (dataList != null && dataList.size() != 0)
+                                    bean.setChildList(dataList);
+                                myLegalSelect.add(bean);
+                            }
+
                             result.setEntry(myLegalSelect);
                             break;
                         case HTTP_ID_info_manager_legal_search:
+                            List<KeyValueInfo> myLegalSelectLaw = new ArrayList<>();
                             jsonObject = getJSONObject(jsonObject, "data");
-                            InfoManagerLegalSelectLaw myLegalSelectLaw = new Gson().fromJson(jsonObject.toString(), InfoManagerLegalSelectLaw.class);
+                            jsonArray = getJSONArray(jsonObject, "list");
+//                            Log.i("wangwansheng", "jsonArray.length is " + jsonArray.length());
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                KeyValueInfo compKV = new KeyValueInfo();
+                                compKV.key = getStringValue(jsonObject1, "lawName");
+                                JSONArray jsonArray1 = jsonObject1.getJSONArray("law");
+//                                JSONObject jsonObject2 = jsonObject1.getJSONObject("law");
+                                compKV.value = jsonArray1.getString(0);
+                                myLegalSelectLaw.add(compKV);
+                            }
                             result.setEntry(myLegalSelectLaw);
                             break;
                         case HTTP_ID_supervise_saceItemResult:
@@ -3468,6 +3458,36 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
             //TODO
         }
         return result;
+    }
+
+    private List<ZXExpandBean> listBeans(JSONObject jsonObject) {
+        try {
+            List<ZXExpandBean> beanList = new ArrayList<>();
+            if (jsonObject.get("childMenus") == null)
+                return null;
+            JSONArray jsonArray = getJSONArray(jsonObject, "childMenus");
+//            Log.i("wangwansheng","jsonArray length is " +jsonArray.length());
+            if (jsonArray != null && jsonArray.length() != 0) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    String name = getStringValue(jsonObject1, "name");
+//                    Log.i("wangwansheng","jsonObject1  is " +jsonObject1.toString());
+                    ZXExpandBean bean1 = new ZXExpandBean(getStringValue(jsonObject, "name"), name);
+                    beanList.add(bean1);
+                    List<ZXExpandBean> dataList = listBeans(jsonObject1);
+                    if (dataList != null && dataList.size() != 0) {
+                        bean1.setChildList(dataList);
+                    }
+                }
+            } else {
+                Log.e("wangwansheng", "not children!!");
+            }
+            return beanList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void setEmergencyListInfo(JSONObject jsonObject, BaseHttpResult result) throws JSONException {

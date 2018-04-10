@@ -33,6 +33,7 @@ public class DeviceListFragment extends BaseFragment implements LoadMoreListener
     private InfoManagerDeviceAdapter mAdapter;
     private List<InfoManagerDevice.RowsBean> dataList = new ArrayList<>();
     private int mPageSize = 10;
+    private String msg="";
     public int mPageNo = 1;
     public int mTotalNo = 0;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_device_liebiao);
@@ -93,11 +94,15 @@ public class DeviceListFragment extends BaseFragment implements LoadMoreListener
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData(mPageNo, mPageSize);
+        if (msg.length() != 0)
+            getInfoStandar.loadData(mPageNo, mPageSize, msg);
+        else
+            getInfoStandar.loadData(mPageNo, mPageSize);
     }
 
     public void load(final String msg) {
         Log.i("wws", "msg is " + msg);
+        this.msg = msg;
         getInfoStandar.loadData(mPageNo, mPageSize, msg);
     }
 

@@ -35,7 +35,7 @@ public class InfoManagerActivity extends BaseActivity {
 
         guideFunctionEntityList = new ArrayList<>();
         String[] names = new String[]{"标准信息", "特种设备", "许可证书", "计量器具"
-//                , "法律法规"
+                , "法律法规"
         };
         int[] ids = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
         int[] imgs = new int[]{R.mipmap.guide_search,

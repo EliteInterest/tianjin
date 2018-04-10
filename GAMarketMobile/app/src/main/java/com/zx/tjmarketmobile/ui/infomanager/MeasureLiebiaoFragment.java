@@ -31,6 +31,7 @@ public class MeasureLiebiaoFragment extends BaseFragment implements LoadMoreList
     private RecyclerView rvTodo;
     private SwipeRefreshLayout srlTodo;
     private MeasureLiebiaoAdapter mAdapter;
+    private String msg = "";
     private List<InfoManagerMeasureLiebiao.RowsBean> dataList = new ArrayList<>();
     private int mPageSize = 10;
     public int mPageNo = 1;
@@ -94,11 +95,27 @@ public class MeasureLiebiaoFragment extends BaseFragment implements LoadMoreList
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        getInfoStandar.loadData(mPageNo, mPageSize, "t_trading_tools");
+        if (msg.length() != 0)
+        {
+            String[] value = msg.split(";");
+            if (value.length == 2) {
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
+            } else {
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+            }
+        }
+        else
+            getInfoStandar.loadData(mPageNo, mPageSize, "t_trading_tools");
     }
 
-    public void load(final Object... objects) {
-        getInfoStandar.loadData(objects);
+    public void load(final String msg) {
+        this.msg = msg;
+        String[] value = msg.split(";");
+        if (value.length == 2) {
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
+        } else {
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+        }
     }
 
     @SuppressLint("LongLogTag")
