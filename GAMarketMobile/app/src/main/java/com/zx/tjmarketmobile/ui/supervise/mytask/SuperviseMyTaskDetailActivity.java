@@ -47,8 +47,8 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
         addToolBar(true);
         setMidText("监管详情");
         isSendBackVisible = false;
+        hideRightImg();
         getRightImg().setOnClickListener(this);
-        getRightImg().setVisibility(View.GONE);
         //获取传递的参数
         if (getIntent().hasExtra("entity")) {
             mEntity = (MyTaskListEntity) getIntent().getSerializableExtra("entity");
@@ -124,7 +124,15 @@ public class SuperviseMyTaskDetailActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_right:
-
+//                if (mEntity..getLongitude() != null && mEntity.getLatitude() != null
+//                        &&mEntity.getLongitude().length() > 0 && mEntity.getLatitude().length() > 0) {
+//                    Intent mapIntent = new Intent(this, WorkInMapShowActivity.class);
+//                    mapIntent.putExtra("type", ConstStrings.MapType_CaseDetail);
+//                    mapIntent.putExtra("entity", mEntity);
+//                    startActivity(mapIntent);
+//                } else {
+//                    showToast("当前主体未录入坐标信息");
+//                }
                 break;
             case R.id.btnActCase_execute:
 //                if (mEntity.getFTaskStatus() != null) {

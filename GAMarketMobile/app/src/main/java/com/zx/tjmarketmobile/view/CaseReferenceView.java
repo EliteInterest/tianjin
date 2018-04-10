@@ -142,7 +142,7 @@ public class CaseReferenceView implements BaseRequestData.OnHttpLoadingListener<
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                mFragment.setReferenceInfo(mCheckedList);
+//                mFragment.setReferenceInfo(mCheckedList);
                 dialog.dismiss();
                 //TODO
             }

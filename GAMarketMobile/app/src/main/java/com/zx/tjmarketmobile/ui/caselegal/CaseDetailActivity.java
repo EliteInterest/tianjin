@@ -44,6 +44,7 @@ public class CaseDetailActivity extends BaseActivity {
     private void initView() {
         addToolBar(true);
         setMidText("案件详情");
+//        hideRightImg();
         getRightImg().setOnClickListener(this);
 
         //获取传递的参数
@@ -106,21 +107,22 @@ public class CaseDetailActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toolbar_right:
-                if (mEntity.getLongitude().length() > 0 && mEntity.getLatitude().length() > 0) {
+                if (mEntity.getLongitude() != null && mEntity.getLatitude() != null
+                        &&mEntity.getLongitude().length() > 0 && mEntity.getLatitude().length() > 0) {
                     Intent mapIntent = new Intent(this, WorkInMapShowActivity.class);
                     mapIntent.putExtra("type", ConstStrings.MapType_CaseDetail);
                     mapIntent.putExtra("entity", mEntity);
                     startActivity(mapIntent);
                 } else {
-                    showToast("当前案件未录入坐标信息");
+                    showToast("当前主体未录入坐标信息");
                 }
                 break;
             case R.id.btnActCase_execute: {
                 //TODO
 //                if (caseType == 1) {//综合执法
-                    Intent intent = new Intent(this, CaseExcuteActivity.class);
-                    intent.putExtra("entity", mEntity);
-                    startActivityForResult(intent, 0);
+                Intent intent = new Intent(this, CaseExcuteActivity.class);
+                intent.putExtra("entity", mEntity);
+                startActivityForResult(intent, 0);
 //                } else if (caseType == 2) {//案件延期
 //                    Intent intent = new Intent(this, CaseDelayActivity.class);
 //                    intent.putExtra("entity", mEntity);

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.entity.StatisticsItemInfo;
 import com.zx.tjmarketmobile.listener.IChartListener;
 import com.zx.tjmarketmobile.ui.statistics.ChartActivity;
 import com.zx.tjmarketmobile.util.DigitUtil;
@@ -27,10 +28,12 @@ public class ChartTableAdapter extends MyRecycleAdapter {
     private double sum = 0;
     private IChartListener mListener;
     private DecimalFormat df = new DecimalFormat("######0.00");
+    private StatisticsItemInfo statisticsItemInfo;
 
-    public ChartTableAdapter(Context c, List<KeyValueInfo> keyList) {
+    public ChartTableAdapter(Context c, StatisticsItemInfo mItemInfo, List<KeyValueInfo> keyList) {
         this.mDataList = keyList;
         this.mContext = c;
+        this.statisticsItemInfo = mItemInfo;
     }
 
     //创建页面并绑定holder
@@ -57,7 +60,12 @@ public class ChartTableAdapter extends MyRecycleAdapter {
             sum = 1;
         }
 
-        if (mEntity.value1 != null || mEntity.value2 != null) {//此时不是简单的名称-数量-比重的类型
+        if (statisticsItemInfo.chartType == 1) {//折线图
+            myHolder.tvKey.setText(mEntity.key);
+            myHolder.tvValue.setText(mEntity.value);
+            myHolder.tvPercent.setVisibility(View.GONE);
+            myHolder.tvOther.setVisibility(View.GONE);
+        } else if (mEntity.value1 != null || mEntity.value2 != null) {//此时不是简单的名称-数量-比重的类型
             myHolder.tvKey.setText(mEntity.key);
             myHolder.tvValue.setText(mEntity.value);
             myHolder.tvPercent.setText(mEntity.value1);

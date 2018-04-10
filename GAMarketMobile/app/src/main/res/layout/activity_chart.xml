@@ -18,8 +18,29 @@
 
         <!--通用下拉框-->
         <!--<LinearLayout-->
-            <!--android:layout_width=""-->
-            <!--android:layout_height=""></LinearLayout>-->
+        <!--android:layout_width=""-->
+        <!--android:layout_height=""></LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/ll_chart_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择年份"/>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_chart_year"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.AppCompatSpinner>
+        </LinearLayout>
 
         <!--时间查询-->
         <LinearLayout

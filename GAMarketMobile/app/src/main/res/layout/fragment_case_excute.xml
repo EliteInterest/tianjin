@@ -9,550 +9,34 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_case_excute">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--处理意见-->
             <LinearLayout
-                android:id="@+id/ll_case_excute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="10dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="处理意见:"
-                    android:textSize="14sp"/>
-
-                <RadioGroup
-                    android:id="@+id/rg_case_isPass"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_case_isPass1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:checked="true"
-                        android:text="通过"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_isPass0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="退回"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_isPass2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="重新办理"
-                        android:textSize="14sp"
-                        android:visibility="gone"/>
-                </RadioGroup>
-            </LinearLayout>
-
-            <!--处罚建议-->
-            <LinearLayout
-                android:id="@+id/ll_case_penaltyOpinion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
+                    android:layout_marginRight="20dp"
+                    android:text="当前状态"/>
 
                 <TextView
+                    android:id="@+id/tv_case_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="处罚建议:"
-                    android:textSize="14sp"/>
-
-                <RadioGroup
-                    android:id="@+id/rg_case_penalty"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_case_penalty1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:checked="true"
-                        android:text="处罚"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_penalty0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="不处罚"
-                        android:textSize="14sp"/>
-                </RadioGroup>
-
-                <TextView
-                    android:id="@+id/tv_case_reference"
-                    android:layout_width="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="20dp"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:autoLink="all"
-                    android:text="参 考"/>
-            </LinearLayout>
-
-            <!--是否执行-->
-            <LinearLayout
-                android:id="@+id/ll_case_dispose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="是否执行:"
-                    android:textSize="14sp"/>
-
-                <RadioGroup
-                    android:id="@+id/rg_case_dispose"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_case_dispose1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:checked="true"
-                        android:text="执行"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_dispose0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="不执行"
-                        android:textSize="14sp"/>
-                </RadioGroup>
-            </LinearLayout>
-
-            <!--罚款是否完结-->
-            <LinearLayout
-                android:id="@+id/ll_case_monneyFinish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="罚款是否完结:"
-                    android:textSize="14sp"/>
-
-                <RadioGroup
-                    android:id="@+id/rg_case_monneyFinish"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_case_monneyFinish1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:checked="true"
-                        android:text="完结"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_monneyFinish0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="未完结"
-                        android:textSize="14sp"/>
-                </RadioGroup>
-            </LinearLayout>
-
-
-            <!--是否公示-->
-            <LinearLayout
-                android:id="@+id/ll_case_publish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="是否公示:"
-                    android:textSize="14sp"/>
-
-                <RadioGroup
-                    android:id="@+id/rg_case_publish"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_case_publish1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:checked="true"
-                        android:text="公示"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_case_publish0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="不公示"
-                        android:textSize="14sp"/>
-                </RadioGroup>
-            </LinearLayout>
-
-            <!--定性依据-->
-            <LinearLayout
-                android:id="@+id/ll_case_dxyj"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="定性依据:"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/et_case_dxyj"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:gravity="top"
-                    android:hint="请输入定性依据"
-                    android:padding="8dp"
-                    android:textColor="@color/gray"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-            <!--处罚依据-->
-            <LinearLayout
-                android:id="@+id/ll_case_cfyj"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="处罚依据:"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/et_case_cfyj"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:gravity="top"
-                    android:hint="请输入处罚依据"
-                    android:padding="8dp"
-                    android:textColor="@color/gray"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-            <!--罚款金额-->
-            <LinearLayout
-                android:id="@+id/ll_case_penaltyMonney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="罚款金额(万元):"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/et_case_penaltyMonney"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:gravity="top"
-                    android:hint="请输入金额..."
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/tv_case_opinion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxEms="2"
-                    android:text="查看建议"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="9sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
-
-            <!--违法所得金额-->
-            <LinearLayout
-                android:id="@+id/ll_case_illegalMonney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="违法所得金额(万元):"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/et_case_illegalMonney"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:gravity="top"
-                    android:hint="请输入金额..."
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <!--没收金额-->
-            <LinearLayout
-                android:id="@+id/ll_case_confisMonney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="没收金额(万元):"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:id="@+id/et_case_confisMonney"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:gravity="top"
-                    android:hint="请输入金额..."
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <!--下一流程选择-->
-            <LinearLayout
-                android:id="@+id/ll_case_nextFlow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="下一流程选择:"
-                    android:textSize="14sp"/>
-
-                <RelativeLayout
-                    android:id="@+id/rl_case_nextFlow"
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/home_ll_bg"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/tv_case_nextFlow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_toLeftOf="@+id/iv_case_nextFlow"
-                        android:text="下一流程选择"
-                        android:textSize="14sp"/>
-
-                    <ImageView
-                        android:id="@+id/iv_case_nextFlow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/down"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-            <!--下一流程处理人-->
-            <LinearLayout
-                android:id="@+id/ll_case_nextPerson"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="下一流程处理人:"
-                        android:textSize="14sp"/>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_case_nextPerson"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/home_ll_bg"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:id="@+id/tv_case_nextPerson"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_toLeftOf="@+id/iv_case_nextPerson"
-                            android:text="下一流程处理人"
-                            android:textSize="14sp"/>
-
-                        <ImageView
-                            android:id="@+id/iv_case_nextPerson"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/down"/>
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_case_nextPersonRole"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="下一流程角色："
-                    android:textColor="@color/red"
-                    android:textSize="12sp"/>
+                    android:layout_marginLeft="20dp"
+                    android:text="线索核查"
+                    android:textColor="@color/colorAccent"/>
             </LinearLayout>
 
             <!--说明-->
@@ -576,10 +60,26 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_case_excute"
-        style="@style/MyButtonStyle"
+    <LinearLayout
+        android:id="@+id/ll_btnbar_case"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/ok"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_case_excute"
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/btn_case_cancel"
+            style="@style/MyCloseButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="取消"/>
+    </LinearLayout>
 
 </RelativeLayout>

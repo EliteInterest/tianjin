@@ -32,6 +32,7 @@ import org.achartengine.GraphicalView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,8 @@ public class ChartActivity extends BaseActivity implements IChartListener {
     private Spinner mQueryTypeSpinner;
     private LinearLayout mQueryByTypeSpinnerLayout;//按类型选择日期的线性布局
     private LinearLayout mTimeSelectedLayout;
+    private LinearLayout llChartYear;
+    private Spinner spChartyear;
     private TextView mTvStartTime, mTvEndTime, mTvQueryByTime;
     private StatisticsItemInfo mItemInfo;
     private ChartUtil mChartUtil;
@@ -123,6 +126,8 @@ public class ChartActivity extends BaseActivity implements IChartListener {
         mTvStartTime = (TextView) findViewById(R.id.tvActStatistics_starttime);
         mTvEndTime = (TextView) findViewById(R.id.tvActStatistics_endtime);
         mTvQueryByTime = (TextView) findViewById(R.id.tvActStatistics_query);
+        llChartYear = findViewById(R.id.ll_chart_year);
+        spChartyear = findViewById(R.id.sp_chart_year);
 
         getChartInfo.setLoadingListener(this);
         deviceSecurityRiskData.setLoadingListener(this);
@@ -194,34 +199,43 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             }
         });
 
-        mAdapter = new ChartTableAdapter(this, keyList);
+        mAdapter = new ChartTableAdapter(this, mItemInfo, keyList);
         rvChart.setLayoutManager(new LinearLayoutManager(this));
         rvChart.setAdapter(mAdapter);
         mAdapter.setChartListener(this);
 
         switch (mItemInfo.name) {
-            case "特种设备隐患":
-                tvKey.setText("区域");
-                tvValue.setText("安全附件");
-                tvOther.setText("安保合同");
-                tvPercent.setText("下次检修");
-                tvOther.setVisibility(View.VISIBLE);
-                mQueryByTypeSpinnerLayout.setVisibility(View.VISIBLE);
-                break;
-            case "工业产品检查":
-                tvKey.setText("类别");
-                tvValue.setText("检查数");
-                tvPercent.setText("通过数");
-//                mTimeSelectedLayout.setVisibility(View.VISIBLE);
-                break;
-            case "化妆品":
-                tvKey.setText("区域");
-                tvValue.setText("美容");
-                tvPercent.setText("美发");
+            case "任务类型":
+            case "检查主体":
+            case "执行任务数":
+            case "结案统计":
+            case "案件记录趋势":
+            case "案件处罚趋势":
+            case "年报信息":
+            case "主体发展":
+                llChartYear.setVisibility(View.VISIBLE);
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                List<String> yearList = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    yearList.add((year - i) + "");
+                }
+                spChartyear.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, yearList));
                 break;
             default:
                 break;
         }
+        spChartyear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         loadData();
     }
@@ -253,13 +267,15 @@ public class ChartActivity extends BaseActivity implements IChartListener {
                 caseIsCase.loadData("", "");
                 break;
             case "结案统计":
-                caseIsCase.loadData("");
+                caseIsCase.loadData(spChartyear.getSelectedItem());
                 break;
             case "案件记录趋势":
-                caseRecordCount.loadData("");
+                tvPercent.setVisibility(View.GONE);
+                caseRecordCount.loadData(spChartyear.getSelectedItem());
                 break;
             case "案件处罚趋势":
-                casePunishCount.loadData("");
+                tvPercent.setVisibility(View.GONE);
+                casePunishCount.loadData(spChartyear.getSelectedItem());
                 break;
             case "受理部门":
                 compDepart.loadData("", "");
@@ -286,10 +302,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
                 enterComplain.loadData();
                 break;
             case "主体发展":
-                enterDev.loadData("");
+                enterDev.loadData(spChartyear.getSelectedItem());
                 break;
             case "年报信息":
-                enterAnn.loadData("");
+                enterAnn.loadData(spChartyear.getSelectedItem());
                 break;
             case "许可证预警":
                 enterWarning.loadData();
@@ -298,13 +314,13 @@ public class ChartActivity extends BaseActivity implements IChartListener {
                 superCountTask.loadData("");
                 break;
             case "任务类型":
-                superCountType.loadData("");
+                superCountType.loadData(spChartyear.getSelectedItem());
                 break;
             case "检查主体":
-                superEnterprise.loadData("");
+                superEnterprise.loadData(spChartyear.getSelectedItem());
                 break;
             case "执行任务数":
-                superEnterprise.loadData("");
+                superEnterprise.loadData(spChartyear.getSelectedItem());
                 break;
             default:
                 getChartInfo.loadData(mItemInfo.name);
@@ -423,6 +439,7 @@ public class ChartActivity extends BaseActivity implements IChartListener {
             case ApiData.HTTP_ID_statistics_super_countType:
             case ApiData.HTTP_ID_statistics_super_countEnterprise:
             case ApiData.HTTP_ID_statistics_super_countDoTask:
+            case ApiData.HTTP_ID_statistics_entity_enterpriseWarning:
                 List<KeyValueInfo> tempList = (List<KeyValueInfo>) b.getEntry();
                 initChart(tempList);
                 keyList.clear();
@@ -470,6 +487,10 @@ public class ChartActivity extends BaseActivity implements IChartListener {
      * @param keyList
      */
     private void initChart(List<KeyValueInfo> keyList) {
+        llChart.removeAllViews();
+        if (keyList.size() == 0) {
+            return;
+        }
         switch (mItemInfo.chartType) {
             case 0://柱状图
                 drawBarChart(keyList);

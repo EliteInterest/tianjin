@@ -107,7 +107,7 @@ import java.util.Map;
  * @author zx-wt
  */
 public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
-    public static final boolean ISRELEASE = true;//是否正式环境
+    public static final boolean ISRELEASE = false;//是否正式环境
     public static final String LOCAL_HOST = "wenzhe.nat300.top";
     public static final String LOCAL_HOST_TAG = "TJSSO";
     public static final String LOCAL_HOST_CASE = "TJCase";
@@ -280,6 +280,21 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_supervise_finishItem = 223;//监管完成
     public static final int HTTP_ID_supervise_getTaskFiles = 224;//监管任务-图片集合
     public static final int HTTP_ID_supervise_deleteFile = 225;//删除图片
+
+    public static final int HTTP_ID_case_01 = 226;//案件-线索核查
+    public static final int HTTP_ID_case_Y01 = 227;//案件-立案申请
+    public static final int HTTP_ID_case_Y02 = 228;//案件-立案审批
+    public static final int HTTP_ID_case_Y03 = 229;//案件-调查取证
+    public static final int HTTP_ID_case_Y05 = 231;//案件-终结报告
+    public static final int HTTP_ID_case_Y06 = 232;//案件-初审
+    public static final int HTTP_ID_case_Y07 = 233;//案件-委员会集体审理
+    public static final int HTTP_ID_case_Y08 = 234;//案件-行政处罚告知
+    public static final int HTTP_ID_case_Y10 = 235;//案件-听证
+    public static final int HTTP_ID_case_Y11 = 236;//案件-处罚决定
+    public static final int HTTP_ID_case_Y12 = 237;//案件-处罚决定审核
+    public static final int HTTP_ID_case_Y13 = 238;//案件-送达当事人
+    public static final int HTTP_ID_case_Y14 = 239;//案件-行政处罚的执行
+    public static final int HTTP_ID_case_02 = 241;//案件-结案
 
     public static final int HTTP_ID_info_manager_biaozhun = 301;//标准信息查询
     public static final int HTTP_ID_info_manager_device_liebiao = 302;//特种设备-特种设备列表查询
@@ -1757,6 +1772,111 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setRequestMothod(HTTP_MOTHOD.POST);
                     params.putParams("id", objects[0]);
                     break;
+                case HTTP_ID_case_01:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/isCase.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("isCase", objects[2]);
+                    params.putParams("taskId", objects[3]);
+                    break;
+                case HTTP_ID_case_Y01:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/apply.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_Y02:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/auditing.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y03:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/examine.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y05:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/report.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_Y06:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/firstTrial.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y07:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/secondTrial.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y08:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/notice.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y10:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/hearing.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_Y11:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/decide.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_Y12:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/decideAuditing.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    params.putParams("isPass", objects[3]);
+                    break;
+                case HTTP_ID_case_Y13:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/execute.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_Y14:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/closedCase.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
+                case HTTP_ID_case_02:
+                    params.setApiUrl(baseUrl + "/TJCase/caseFlow/endCase.do");
+                    params.setRequestMothod(HTTP_MOTHOD.POST);
+                    params.putParams("id", objects[0]);
+                    params.putParams("remark", objects[1]);
+                    params.putParams("taskId", objects[2]);
+                    break;
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -3183,6 +3303,16 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(compInfos);
                             break;
                         case HTTP_ID_statistics_entity_enterpriseWarning:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<KeyValueInfo> warnings = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject compObject = jsonArray.getJSONObject(i);
+                                KeyValueInfo compKV = new KeyValueInfo();
+                                compKV.key = getStringValue(compObject, "type");
+                                compKV.value = getStringValue(compObject, "overdue");
+                                warnings.add(compKV);
+                            }
+                            result.setEntry(warnings);
                             break;
                         case HTTP_ID_info_manager_biaozhun:
                             jsonObject = getJSONObject(jsonObject, "data");
@@ -3314,6 +3444,21 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             List<ImageEntity> imageEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<ImageEntity>>() {
                             }.getType());
                             result.setEntry(imageEntities);
+                            break;
+                        case HTTP_ID_case_01:
+                        case HTTP_ID_case_Y01:
+                        case HTTP_ID_case_Y02:
+                        case HTTP_ID_case_Y03:
+                        case HTTP_ID_case_Y05:
+                        case HTTP_ID_case_Y06:
+                        case HTTP_ID_case_Y07:
+                        case HTTP_ID_case_Y08:
+                        case HTTP_ID_case_Y10:
+                        case HTTP_ID_case_Y11:
+                        case HTTP_ID_case_Y12:
+                        case HTTP_ID_case_Y13:
+                        case HTTP_ID_case_Y14:
+                        case HTTP_ID_case_02:
                             break;
                         default:
                             break;
