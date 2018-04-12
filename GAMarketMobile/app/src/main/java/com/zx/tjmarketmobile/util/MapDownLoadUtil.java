@@ -55,7 +55,7 @@ public class MapDownLoadUtil {
                                 + mSharePreferences.getString("ip4", ConstStrings.ip4) + ":"
                                 + mSharePreferences.getString("ipport", ConstStrings.ipport);
                     }
-                    downLoadFile(ip + getDownLoadUrl(entity.fUrl), downLoadListener);
+                    downLoadFile(ip + getDownLoadUrl(entity.url), downLoadListener);
                 }
             }
         }.start();
@@ -174,10 +174,10 @@ public class MapDownLoadUtil {
                     break;
                 case UnRarOrZip.end:
                     //写入配置文件
-                    boolean a = TxtUtil.writeTxt(context, CQDigitalUtil.getDataPath() + ConstStrings.VECTOR_DATA_NAME, "mapVersion", entity.fVersionName + ":" + entity.fVersionCode);
+                    boolean a = TxtUtil.writeTxt(context, CQDigitalUtil.getDataPath() + ConstStrings.VECTOR_DATA_NAME, "mapVersion", entity.versionName + ":" + entity.versionCode);
                     Util.closeProgressDialog();
                     Toast.makeText(context, "解压完成!", Toast.LENGTH_SHORT).show();
-                    ((SettingsMapActivity) context).tvMapName.setText("当前版本号:" + entity.fVersionName + ":" + entity.fVersionCode);
+                    ((SettingsMapActivity) context).tvMapName.setText("当前版本号:" + entity.versionName + ":" + entity.versionCode);
                     File file = new File(CQDigitalUtil.getDataPath()
                             + ConstStrings.VECTOR_DATA_NAME
                             + "/"
@@ -214,10 +214,10 @@ public class MapDownLoadUtil {
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    boolean a = TxtUtil.writeTxt(context, CQDigitalUtil.getDataPath() + ConstStrings.VECTOR_DATA_NAME, "mapVersion", entity.fVersionName + ":" + entity.fVersionCode);
+                    boolean a = TxtUtil.writeTxt(context, CQDigitalUtil.getDataPath() + ConstStrings.VECTOR_DATA_NAME, "mapVersion", entity.versionName + ":" + entity.versionCode);
                     Util.closeProgressDialog();
                     Toast.makeText(context, "下载完成!", Toast.LENGTH_SHORT).show();
-                    ((SettingsMapActivity) context).tvMapName.setText("当前版本号:" + entity.fVersionName + ":" + entity.fVersionCode);
+                    ((SettingsMapActivity) context).tvMapName.setText("当前版本号:" + entity.versionName + ":" + entity.versionCode);
 //                    File file = new File(CQDigitalUtil.getDataPath()
 //                            + ConstStrings.VECTOR_DATA_NAME
 //                            +"."+ConstStrings.VECTOR_DATA_TYPE);

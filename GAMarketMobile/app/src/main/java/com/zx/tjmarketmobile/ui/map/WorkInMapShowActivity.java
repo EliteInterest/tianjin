@@ -119,7 +119,7 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
 //        mMapView.setMaxExtent(envelope);
         locManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        int mapType = sp.getInt("maptype", 1);
+        int mapType = sp.getInt("maptype", 2);
         switch (mapType) {
             case 0:// 公共服务平台地图
             {
@@ -330,17 +330,17 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
                         mMapView.centerAt(m_LoctionPt, true);
                         return;
                     }
-                    if (isStartNavi) {
-                        dismissProgressDialog();
-                        isStartNavi = false;
-                        Intent intent = new Intent(mContext, AMapNaviActivity.class);
-                        intent.putExtra("startLatitude", l.getLatitude());
-                        intent.putExtra("startLongitude", l.getLongitude());
-                        intent.putExtra("endLatitude", mapMarkerTool.endLatitude);
-                        intent.putExtra("endLongitude", mapMarkerTool.endLongitude);
-                        mContext.startActivity(intent);
-                        mapMarkerTool.dialog.dismiss();
-                    }
+//                    if (isStartNavi) {
+//                        dismissProgressDialog();
+//                        isStartNavi = false;
+//                        Intent intent = new Intent(mContext, AMapNaviActivity.class);
+//                        intent.putExtra("startLatitude", l.getLatitude());
+//                        intent.putExtra("startLongitude", l.getLongitude());
+//                        intent.putExtra("endLatitude", mapMarkerTool.endLatitude);
+//                        intent.putExtra("endLongitude", mapMarkerTool.endLongitude);
+//                        mContext.startActivity(intent);
+//                        mapMarkerTool.dialog.dismiss();
+//                    }
                     if (bDrawLocation) {
 //                        PictureMarkerSymbol locationPH = new PictureMarkerSymbol(ContextCompat.getDrawable(mContext, R.mipmap.location32));
 //                        locationPH.setOffsetX(7.5f);

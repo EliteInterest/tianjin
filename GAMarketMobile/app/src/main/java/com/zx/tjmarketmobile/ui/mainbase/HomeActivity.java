@@ -109,12 +109,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 //                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(0), "坐标纠正");
 //                myPagerAdapter.addFragment(SuperviseClaimedFragment.newInstance(1), "主体认领");
                 break;
-//            case 1://协同
-//                setMidText("市场监管预警信息");
-//                homeTabLayout.setVisibility(View.GONE);
-//                homeTabLayout.setSelectedTabIndicatorHeight(0);
-//                myPagerAdapter.addFragment(EmergencyNumFragment.newInstance(0), "预警信息");
-//            break;
             case 1://投诉举报
                 setMidText("监管平台投诉举报");
                 StatisticsInfo compInfo = createCompData();
@@ -171,12 +165,12 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     private StatisticsInfo createCaseData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "案件执法";
-        dataInfo.itemList.add(new StatisticsItemInfo("部门统计", 0, "部门", R.mipmap.statistic_ajfb));
-        dataInfo.itemList.add(new StatisticsItemInfo("来源统计", 0, "来源", R.mipmap.statistic_ajly));
-        dataInfo.itemList.add(new StatisticsItemInfo("立案统计", 0, "类别", R.mipmap.statistic_wflx));
-        dataInfo.itemList.add(new StatisticsItemInfo("结案统计", 0, "类别", R.mipmap.statistic_jatj));
-        dataInfo.itemList.add(new StatisticsItemInfo("案件记录趋势", 1, "月份", R.mipmap.statistic_jatj));
-        dataInfo.itemList.add(new StatisticsItemInfo("案件处罚趋势", 1, "月份", R.mipmap.statistic_jatj));
+        dataInfo.itemList.add(new StatisticsItemInfo("部门统计", 0, "部门", R.mipmap.statis_bmtj));
+        dataInfo.itemList.add(new StatisticsItemInfo("来源统计", 0, "来源", R.mipmap.statis_lytj));
+        dataInfo.itemList.add(new StatisticsItemInfo("立案统计", 0, "类别", R.mipmap.statis_latj));
+        dataInfo.itemList.add(new StatisticsItemInfo("结案统计", 0, "类别", R.mipmap.statis_tsjl));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件记录趋势", 1, "月份", R.mipmap.statis_ajjlqs));
+        dataInfo.itemList.add(new StatisticsItemInfo("案件处罚趋势", 1, "月份", R.mipmap.statis_ajcfqs));
         return dataInfo;
     }
 
@@ -186,10 +180,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
     private StatisticsInfo createCompData() {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "投诉举报";
-        dataInfo.itemList.add(new StatisticsItemInfo("受理部门", 0, "部门", R.mipmap.statistic_qyfb));
-        dataInfo.itemList.add(new StatisticsItemInfo("投诉类别", 0, "类别", R.mipmap.statistic_jbly));
-        dataInfo.itemList.add(new StatisticsItemInfo("信息来源", 0, "类别", R.mipmap.statistic_jblx));
-        dataInfo.itemList.add(new StatisticsItemInfo("业务来源", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("受理部门", 0, "部门", R.mipmap.statis_slbm));
+        dataInfo.itemList.add(new StatisticsItemInfo("投诉类别", 0, "类别", R.mipmap.statis_tslx));
+        dataInfo.itemList.add(new StatisticsItemInfo("信息来源", 0, "类别", R.mipmap.statis_xxly));
+        dataInfo.itemList.add(new StatisticsItemInfo("业务来源", 0, "类别", R.mipmap.statis_ywly));
         return dataInfo;
     }
 
@@ -200,9 +194,9 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         StatisticsInfo dataInfo = new StatisticsInfo();
         dataInfo.labelName = "监管任务";
 //        dataInfo.itemList.add(new StatisticsItemInfo("任务主体", 0, "类别", R.mipmap.statistic_qyfb));
-        dataInfo.itemList.add(new StatisticsItemInfo("任务类型", 0, "类别", R.mipmap.statistic_jbly));
-        dataInfo.itemList.add(new StatisticsItemInfo("检查主体", 0, "类别", R.mipmap.statistic_jblx));
-        dataInfo.itemList.add(new StatisticsItemInfo("执行任务数", 0, "类别", R.mipmap.statistic_jblx));
+        dataInfo.itemList.add(new StatisticsItemInfo("任务类型", 0, "类别", R.mipmap.statis_rwlx));
+        dataInfo.itemList.add(new StatisticsItemInfo("检查主体", 0, "类别", R.mipmap.statis_jczt));
+        dataInfo.itemList.add(new StatisticsItemInfo("执行任务数", 0, "类别", R.mipmap.statis_zxrws));
         return dataInfo;
     }
 
@@ -215,13 +209,13 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
         List<StatisticsInfo> dataList = new ArrayList<>();
         StatisticsInfo info = new StatisticsInfo();
         info.labelName = "市场主体";
-        info.itemList.add(new StatisticsItemInfo("企业类型", 0, "类别", R.mipmap.statistic_ztsl));
-        info.itemList.add(new StatisticsItemInfo("行业结构", 0, "类别", R.mipmap.statistic_asfl));
-        info.itemList.add(new StatisticsItemInfo("特种设备", 0, "类别", R.mipmap.statistic_hyfl));
-        info.itemList.add(new StatisticsItemInfo("消保维权", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("企业类型", 0, "类别", R.mipmap.statis_zxrws));
+        info.itemList.add(new StatisticsItemInfo("行业结构", 0, "类别", R.mipmap.statis_rwlx));
+        info.itemList.add(new StatisticsItemInfo("特种设备", 0, "类别", R.mipmap.statis_tzsb));
+        info.itemList.add(new StatisticsItemInfo("消保维权", 0, "类别", R.mipmap.statis_xbwq));
 //        info.itemList.add(new StatisticsItemInfo("主体发展", 0, "类别", R.mipmap.statistic_hyfl));
-        info.itemList.add(new StatisticsItemInfo("年报信息", 0, "类别", R.mipmap.statistic_hyfl));
-        info.itemList.add(new StatisticsItemInfo("许可证预警", 0, "类别", R.mipmap.statistic_hyfl));
+        info.itemList.add(new StatisticsItemInfo("年报信息", 0, "类别", R.mipmap.statis_tsjl));
+        info.itemList.add(new StatisticsItemInfo("许可证预警", 0, "类别", R.mipmap.statistics_qzrz));
         dataList.add(info);
 
 //        info = new StatisticsInfo();

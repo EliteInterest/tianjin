@@ -26,7 +26,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@mipmap/msg_tsjb"
+                android:background="@mipmap/super_zh"
                 android:contentDescription="监管任务"
                 android:scaleType="centerCrop"/>
 

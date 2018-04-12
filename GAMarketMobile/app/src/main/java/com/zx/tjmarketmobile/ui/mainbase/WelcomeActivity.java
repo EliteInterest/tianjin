@@ -66,8 +66,8 @@ public class WelcomeActivity extends BaseActivity {
         ApiData.setBaseUrl(ip);
 
         // pause the update thread to check new version
-//        mUpdateData.loadData(SYSUtil.getAppName(WelcomeActivity.this));
-        gotoActivity();
+        mUpdateData.loadData(SYSUtil.getVersionCode(this));
+//        gotoActivity();
     }
 
     @Override
@@ -88,13 +88,13 @@ public class WelcomeActivity extends BaseActivity {
                     String name = mSharePreferences.getString("curuser", "");
                     String psw = mSharePreferences.getString(name, "");
                     SharedPreferences.Editor edit = mSharePreferences.edit();
-                    if (updateInfo != null && versionCode < updateInfo.fVersionCode) {
+                    if (updateInfo != null && versionCode < updateInfo.versionCode) {
                         edit.putBoolean("update_version", true);
                         Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        intent.putExtra("url", updateInfo.fUrl);
-                        intent.putExtra("version", updateInfo.fVersionName);
-                        intent.putExtra("fRemark", updateInfo.fRemark);
-                        intent.putExtra("fContent", updateInfo.fContent);
+                        intent.putExtra("url", updateInfo.url);
+                        intent.putExtra("version", updateInfo.versionName);
+                        intent.putExtra("remark", updateInfo.remark);
+                        intent.putExtra("content", updateInfo.content);
                         startActivity(intent);
                         finish();
                     } else {

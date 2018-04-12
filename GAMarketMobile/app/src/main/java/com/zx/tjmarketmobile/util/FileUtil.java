@@ -525,7 +525,7 @@ public class FileUtil {
             {".mpg", "video/mpeg"},
             {".mpg4", "video/mp4"},
             {".mpga", "audio/mpeg"},
-            {".msg", "application/vnd.ms-outlook"},
+            {".searchText", "application/vnd.ms-outlook"},
             {".ogg", "audio/ogg"},
             {".pdf", "application/pdf"},
             {".png", "image/png"},

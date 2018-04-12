@@ -56,19 +56,33 @@ public class CaseListAdapter extends MyRecycleAdapter {
             myHolder.tvName.setText(entity.getCaseName());
             myHolder.tvPerson.setText(entity.getEnterpriseName());
             myHolder.tvStage.setText(entity.getStatusName());
-            if (showOverdue && entity.getIsOverdue()==0) {//判断是否逾期
+            if (showOverdue && entity.getIsOverdue() == 0) {//判断是否逾期
                 myHolder.ivOverdue.setVisibility(View.VISIBLE);
             } else {
                 myHolder.ivOverdue.setVisibility(View.GONE);
             }
-            if ("工商".equals(entity.getTypeName())) {
-                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_gs));
-            } else if ("质监".equals(entity.getTypeName())) {
-                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_zj));
-            } else if ("食药监".equals(entity.getTypeName())) {
-                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_syj));
-            } else {
-                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
+            switch (entity.getTypeCode()) {
+                case "01":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_jdjc));
+                    break;
+                case "02":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_jdcy));
+                    break;
+                case "03":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_tsjb));
+                    break;
+                case "04":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_qtjgys));
+                    break;
+                case "05":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_sjjgjb));
+                    break;
+                case "06":
+                    myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
+                    break;
+
+                default:
+                    break;
             }
         } else {
             footerViewHolder = (FooterViewHolder) holder;

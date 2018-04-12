@@ -1,6 +1,7 @@
 package com.zx.tjmarketmobile.adapter.supervise;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,13 @@ public class SuperviseMyTaskListAdapter extends MyRecycleAdapter {
             myHolder.tvName.setText(entity.getTaskName());
             myHolder.tvPerson.setText(entity.getUserName());
             myHolder.tvStage.setText(entity.getDepartmentName());
+            if (entity.getType() == 0) {
+                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.super_zh));
+            } else if (entity.getType() == 1) {
+                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.super_zx));
+            } else if (entity.getType() == 2) {
+                myHolder.ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.super_ls));
+            }
 //            } else {
 //                MyTaskListEntity.RowsBean entity = mItemList.get(position);
 //                myHolder.tvField.setText(entity.getFTaskStatus());

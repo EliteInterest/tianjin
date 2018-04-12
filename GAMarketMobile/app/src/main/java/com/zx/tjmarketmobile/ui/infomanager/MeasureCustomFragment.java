@@ -99,7 +99,7 @@ public class MeasureCustomFragment extends BaseFragment implements LoadMoreListe
     }
 
     public void load(final String msg) {
-        Log.i("wws", "msg is " + msg);
+        Log.i("wws", "searchText is " + msg);
         this.msg = msg;
         getInfoStandar.loadData(msg);
     }
@@ -113,13 +113,14 @@ public class MeasureCustomFragment extends BaseFragment implements LoadMoreListe
         switch (id) {
             case ApiData.HTTP_ID_info_manager_measuring_instruments_custom:
                 List<KeyValueInfo> myTaskListEntity = (List<KeyValueInfo>) b.getEntry();
-                mAdapter.notifyDataSetChanged();
-//                mAdapter.setStatus(0, mPageNo, mTotalNo);
+                mTotalNo = myTaskListEntity.size();
+                mAdapter.setStatus(0, mPageNo, mTotalNo);
 //                List<InfoManagerMeasureCustom.RowsBean> entityList = myTaskListEntity.getList();
                 dataList.clear();
                 if (myTaskListEntity != null) {
                     dataList.addAll(myTaskListEntity);
                 }
+                mAdapter.notifyDataSetChanged();
 //                mAdapter.notifyDataSetChanged();
 //
 //                InfoManagerMeasureCustom.RowsBean bean = null;

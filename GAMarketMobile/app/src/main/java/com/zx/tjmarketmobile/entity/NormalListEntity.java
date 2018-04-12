@@ -24,7 +24,16 @@ public class NormalListEntity {
     private List<JSONObject> chartList;
     private List<MyTaskCheckEntity> taskCheckEntities;
     private List<MyTaskListEntity> myTaskListEntities;
+    private List<KeyValueInfo> keyValueInfoList;
     private List<SuperviseEquimentEntity> equimentEntityList;//特种设备列表
+
+    public List<KeyValueInfo> getKeyValueInfoList() {
+        return keyValueInfoList;
+    }
+
+    public void setKeyValueInfoList(List<KeyValueInfo> keyValueInfoList) {
+        this.keyValueInfoList = keyValueInfoList;
+    }
 
     public List<MyTaskListEntity> getMyTaskListEntities() {
         return myTaskListEntities;

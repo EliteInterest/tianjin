@@ -45,7 +45,7 @@ public class ZXExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ZXExpandBean expandBean = showList.get(position);
         myHolder.tvInfo.setText(expandBean.getItemText());
         ViewGroup.LayoutParams params = myHolder.viewIndex.getLayoutParams();
-        params.width = Util.dip2px(context,30 * expandBean.getIndex());
+        params.width = Util.dip2px(context, 30 * expandBean.getIndex());
         myHolder.viewIndex.setLayoutParams(params);
         if (expandBean.getChildList() == null) {
             myHolder.ivArrow.setVisibility(View.INVISIBLE);
@@ -56,11 +56,12 @@ public class ZXExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             myHolder.ivArrow.setVisibility(View.VISIBLE);
             myHolder.ivArrow.setBackground(ContextCompat.getDrawable(context, R.mipmap.arrow_close));
         }
-        if (!isMultiSelected) {
-            myHolder.ivSelect.setVisibility(View.INVISIBLE);
-        } else if (expandBean.getChildList() != null) {
-            myHolder.ivSelect.setVisibility(View.INVISIBLE);
-        } else if (expandBean.isSelected()) {
+//        if (!isMultiSelected) {
+//            myHolder.ivSelect.setVisibility(View.INVISIBLE);
+//        } else if (expandBean.getChildList() != null) {
+//            myHolder.ivSelect.setVisibility(View.INVISIBLE);
+//        } else
+        if (expandBean.isSelected()) {
             myHolder.ivSelect.setVisibility(View.VISIBLE);
             myHolder.ivSelect.setBackground(ContextCompat.getDrawable(context, R.mipmap.select));
         } else {
@@ -87,7 +88,7 @@ public class ZXExpandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewIndex = itemView.findViewById(R.id.view_index);
             ivArrow = itemView.findViewById(R.id.iv_arrow);
             ivSelect = itemView.findViewById(R.id.iv_select);
-            down=itemView.findViewById(R.id.down);
+            down = itemView.findViewById(R.id.down);
         }
     }
 

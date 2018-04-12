@@ -199,13 +199,17 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
                         if (param instanceof Map) {
 //                            if (id == ApiData.HTTP_ID_login)
                             postJsonRequest(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
-
 //                            else
 //                                postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
                         } else {
-
                             postJson(params.getRequestUrl(id), param.toString(), params.isRetry());
                         }
+
+//                        if (param instanceof Map) {
+//                            postJson(params.getRequestUrl(id), (Map<String, Object>) param, params.isRetry());
+//                        } else {
+//                            postJson(params.getRequestUrl(id), param.toString(), params.isRetry());
+//                        }
                         break;
                     default:
                         throw new IllegalArgumentException("没有此请求方法");
@@ -222,8 +226,6 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
             } catch (SocketTimeoutException e) {
                 error_message = "请求超时";
                 LogUtil.w(e);
-            } catch (JSONException e) {
-
             }
             // catch (ClientProtocolException e) {
             // error_message = "网络协议错误";
@@ -336,8 +338,6 @@ public abstract class BaseRequestData<HttpClientParam, loadDataParam, Result ext
      */
     public void postJsonRequest(String url, final Map<String, Object> params, boolean isRetry) throws URISyntaxException, IOException, NetworkErrorException,
             TimeoutException, JSONException {
-        Log.i(TAG, "url is " + url);
-
         JSONObject jsonObject = new JSONObject(params);
 
         SessionStoreRequest jsonObjectRequest = new SessionStoreRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {

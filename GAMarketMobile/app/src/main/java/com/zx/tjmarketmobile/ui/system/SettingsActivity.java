@@ -1,7 +1,7 @@
 package com.zx.tjmarketmobile.ui.system;
 
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,15 +13,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.zx.tjmarketmobile.R;
-import com.zx.tjmarketmobile.http.ApiData;
-import com.zx.tjmarketmobile.ui.base.BaseActivity;
-import com.zx.tjmarketmobile.ui.mainbase.GuideActivity;
-import com.zx.tjmarketmobile.ui.mainbase.HomeActivity;
 import com.zx.tjmarketmobile.adapter.SettingAdapter;
 import com.zx.tjmarketmobile.entity.HttpUpdateEntity;
 import com.zx.tjmarketmobile.helper.GADBHelper;
+import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.MyItemClickListener;
+import com.zx.tjmarketmobile.ui.base.BaseActivity;
+import com.zx.tjmarketmobile.ui.mainbase.GuideActivity;
+import com.zx.tjmarketmobile.ui.mainbase.HomeActivity;
 import com.zx.tjmarketmobile.util.MyApplication;
 import com.zx.tjmarketmobile.util.SYSUtil;
 import com.zx.tjmarketmobile.util.Util;
@@ -47,6 +47,7 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
     private double fileSize = 0;
     private SettingAdapter settingsAdapter;
     //    private ApiData mUpdateData = new ApiData(ApiData.HTTP_ID_version_update);
+    private ApiData loginOut = new ApiData(ApiData.HTTP_ID_loginOut);
     private List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
     @Override
@@ -69,6 +70,7 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
         settingsAdapter = new SettingAdapter(this, list);
         mRecyclerView.setAdapter(settingsAdapter);
         settingsAdapter.setOnItemClickListener(this);
+        loginOut.setLoadingListener(this);
 
         mBtnLogout = (AppCompatButton) findViewById(R.id.btn_settings_logout);
         mBtnLogout.setOnClickListener(this);
@@ -139,9 +141,10 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
                 Util.showDeleteDialog(SettingsActivity.this, "是否退出当前用户?", null, "确定", "取消", new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Editor edit = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
+                        loginOut.loadData();
+                        SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
                         edit.putString("curuser", "");
-                        edit.commit();
+                        edit.apply();
                         userManager.setNoLogin(SettingsActivity.this);
                         MyApplication.getInstance().remove(HomeActivity.class);
                         MyApplication.getInstance().remove(GuideActivity.class);
@@ -157,10 +160,18 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
     @Override
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
+        switch (id) {
+            case ApiData.HTTP_ID_loginOut:
+
+                break;
+
+            default:
+                break;
+        }
         if (b.isSuccess()) {
             HttpUpdateEntity updateInfo = (HttpUpdateEntity) b.getEntry();
             int versionCode = SYSUtil.getVersionCode(this);
-            if (updateInfo != null && versionCode < updateInfo.fVersionCode) {
+            if (updateInfo != null && versionCode < updateInfo.versionCode) {
 //				showUpdateDialog(updateInfo);
             } else {
                 showToast("暂无更新！");

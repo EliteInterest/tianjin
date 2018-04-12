@@ -51,6 +51,10 @@ public class BaseFragment extends Fragment implements OnHttpLoadingListener<Base
     public void load(final String msg) {
     }
 
+    public void load(final String msg, Object object) {
+
+    }
+
     public void showProgressDialog(String str) {
         if (null == getActivity()) {
             return;

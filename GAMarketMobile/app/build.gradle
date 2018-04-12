@@ -19,7 +19,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "21.0.0"
+        versionName "1.0.0"
         multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
@@ -86,7 +86,6 @@ dependencies {
     compile files('libs/okio-1.6.0.jar')
     compile files('libs/java-unrar-0.5.jar')
     compile files('libs/ant.jar')
-    compile files('libs/AMap3DMap_6.0.0_AMapNavi_6.0.0_AMapLocation_3.8.0_20180211.jar')
     compile project(':PhotoPicker')
     //    compile 'com.github.glassLake:PhotoPicker:1.0.3'
     compile 'com.android.support:appcompat-v7:26.+'

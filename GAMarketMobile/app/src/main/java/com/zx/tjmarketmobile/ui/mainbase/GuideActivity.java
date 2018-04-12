@@ -17,6 +17,7 @@ import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.R.id;
 import com.zx.tjmarketmobile.entity.GuideFunctionEntity;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
+import com.zx.tjmarketmobile.ui.infomanager.InfoManagerActivity;
 import com.zx.tjmarketmobile.ui.map.WorkInMapShowActivity;
 import com.zx.tjmarketmobile.ui.system.SettingsActivity;
 import com.zx.tjmarketmobile.util.ConstStrings;
@@ -46,7 +47,7 @@ public class GuideActivity extends BaseActivity {
                 R.mipmap.guide_supervise,
                 R.mipmap.guide_complain,
                 R.mipmap.guide_case,
-                R.mipmap.guide_sudden,
+                R.mipmap.guide_info,
                 R.mipmap.guide_analysis,
 //                R.mipmap.guide_synegy,
 //                R.mipmap.guid_equip,

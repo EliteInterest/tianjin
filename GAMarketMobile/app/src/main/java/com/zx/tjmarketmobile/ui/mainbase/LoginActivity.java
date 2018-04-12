@@ -124,24 +124,24 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     private void downloadApk(String url) {
         //检查是否为正式环境
-        String ip = "";
-        if (ApiData.ISRELEASE) {
-            ip = "http://" + ConstStrings.ip1 + "." + ConstStrings.ip2 + "." + ConstStrings.ip3 + "." + ConstStrings.ip4 + ":" + ConstStrings.ipport;
-        } else {
-            ip = "http://" + mSharedPreferences.getString("ip1", ConstStrings.ip1) + "."
-                    + mSharedPreferences.getString("ip2", ConstStrings.ip2) + "."
-                    + mSharedPreferences.getString("ip3", ConstStrings.ip3) + "."
-                    + mSharedPreferences.getString("ip4", ConstStrings.ip4) + ":"
-                    + mSharedPreferences.getString("ipport", ConstStrings.ipport);
-        }
-        downLoadFile.loadData(ip + url, "APK/贵安移动监督" + getIntent().getStringExtra("version") + ".apk", true);
+//        String ip = "";
+//        if (ApiData.ISRELEASE) {
+//            ip = "http://" + ConstStrings.ip1 + "." + ConstStrings.ip2 + "." + ConstStrings.ip3 + "." + ConstStrings.ip4 + ":" + ConstStrings.ipport;
+//        } else {
+//            ip = "http://" + mSharedPreferences.getString("ip1", ConstStrings.ip1) + "."
+//                    + mSharedPreferences.getString("ip2", ConstStrings.ip2) + "."
+//                    + mSharedPreferences.getString("ip3", ConstStrings.ip3) + "."
+//                    + mSharedPreferences.getString("ip4", ConstStrings.ip4) + ":"
+//                    + mSharedPreferences.getString("ipport", ConstStrings.ipport);
+//        }
+        downLoadFile.loadData(ApiData.baseUrl + url, "APK/天津移动监督" + getIntent().getStringExtra("version") + ".apk", true);
 
     }
 
     private void showUpdateDialog() {
         String url = getIntent().getStringExtra("url");
-        String fRemark = getIntent().getStringExtra("fRemark");
-        String fContent = getIntent().getStringExtra("fContent");
+        String fRemark = getIntent().getStringExtra("remark");
+        String fContent = getIntent().getStringExtra("content");
         final Dialog dialog = new Dialog(this, R.style.fullDialog);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_update, null);
         dialog.setContentView(view);
@@ -276,7 +276,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 break;
             case ApiData.FILE_DOWNLOAD:
                 Util.closeProgressDialog();
-                String path = ConstStrings.getDownloadPath() + "APK/贵安移动监督" + getIntent().getStringExtra("version") + ".apk";
+                String path = ConstStrings.getDownloadPath() + "APK/天津移动监督" + getIntent().getStringExtra("version") + ".apk";
                 File apkFile = new File(path);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

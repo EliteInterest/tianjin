@@ -111,9 +111,6 @@
         <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseDetailActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseExcuteActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseDelayActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseDestoryActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseTransferActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseForceActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.caselegal.CaseMonitorActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
@@ -138,8 +135,6 @@
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartListActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartDetailActivity"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.supervise.mytask.SuperviseEquimentActivity"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.supervise.mytask.SuperviseEquipmentDetailActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.synergy.SynergyActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.synergy.SynergyDetailActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.equipment.EquipSearchActivity"></activity>
@@ -147,9 +142,9 @@
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.LisenceDetailActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.MeasureDetailActivity"></activity>
         <activity
-            android:name="com.zx.tjmarketmobile.ui.mainbase.InfoHomeActivity"
+            android:name="com.zx.tjmarketmobile.ui.infomanager.InfoHomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.mainbase.InfoManagerActivity"></activity>
+        <activity android:name="com.zx.tjmarketmobile.ui.infomanager.InfoManagerActivity"></activity>
 
     </application>
 

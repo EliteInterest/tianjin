@@ -75,10 +75,10 @@ public class LegalSelectLawAdapter extends MyRecycleAdapter {
             myHolder.lawContent.setText(Html.fromHtml(entity.value));
             String content = myHolder.lawContent.getText().toString();
             SpannableString sStr = new SpannableString(content);
-            List<Integer> indexs = getChild(content, LegalSelectLawFragment.msg);
+            List<Integer> indexs = getChild(content, LegalSelectLawFragment.searchText);
             for (int i = 0; i < indexs.size(); i++) {
                 int index = indexs.get(i).intValue();
-                sStr.setSpan(new ForegroundColorSpan(Color.RED), index, index + LegalSelectLawFragment.msg.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sStr.setSpan(new ForegroundColorSpan(Color.RED), index, index + LegalSelectLawFragment.searchText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             myHolder.lawContent.setText(sStr);

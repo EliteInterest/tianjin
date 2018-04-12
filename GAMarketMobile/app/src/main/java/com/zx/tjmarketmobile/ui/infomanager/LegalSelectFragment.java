@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.infomanager.LegalSelectAdapter;
+import com.zx.tjmarketmobile.entity.LegalEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.LoadMoreListener;
@@ -97,18 +98,25 @@ public class LegalSelectFragment extends BaseFragment implements LoadMoreListene
         switch (id) {
             case ApiData.HTTP_ID_info_manager_legal_query:
                 List<ZXExpandBean> myTaskListEntity = (List<ZXExpandBean>) b.getEntry();
+                ZXExpandRecyclerHelper.getInstance(getActivity())
+                        .withRecycler(rvTodo)
+                        .setData(myTaskListEntity)
+                        .multiSelected(false)
+                        .setItemClickListener(new ZXExpandItemClickListener() {
+                            @Override
+                            public void onItemClick(ZXExpandBean expandBean) {
+                                ((InfoHomeActivity) getActivity()).setLegalRadioStatus(0, ((LegalEntity) expandBean.getCustomData()));
+                            }
 
-                ZXExpandRecyclerHelper.getInstance(getActivity()).withRecycler(rvTodo).setData(myTaskListEntity).setItemClickListener(new ZXExpandItemClickListener() {
-                    @Override
-                    public void onItemClick(ZXExpandBean expandBean) {
-
-                    }
-
-                    @Override
-                    public void onMenuClick(ZXExpandBean expandBean) {
-
-                    }
-                }).build();
+                            @Override
+                            public void onMenuClick(ZXExpandBean expandBean) {
+                                if (expandBean.getIndex() == 0) {
+                                    ((InfoHomeActivity) getActivity()).setLegalRadioStatus(1, ((LegalEntity) expandBean.getCustomData()));
+                                } else {
+                                    ((InfoHomeActivity) getActivity()).setLegalRadioStatus(2, ((LegalEntity) expandBean.getCustomData()));
+                                }
+                            }
+                        }).build();
                 break;
 
             default:

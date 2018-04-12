@@ -1,13 +1,9 @@
 package com.zx.tjmarketmobile.util;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -48,7 +44,6 @@ import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.http.BaseRequestData;
 import com.zx.tjmarketmobile.listener.PAOnClickListener;
 import com.zx.tjmarketmobile.manager.UserManager;
-import com.zx.tjmarketmobile.ui.map.AMapNaviActivity;
 import com.zx.tjmarketmobile.ui.map.EntityDetailActivity;
 import com.zx.tjmarketmobile.ui.map.EventEntityActivity;
 import com.zx.tjmarketmobile.ui.map.WorkInMapShowActivity;
@@ -361,7 +356,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             Map<String, Object> attributes = new HashMap<String, Object>();
             int id = getMarkId(zt);
             PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, id));
-            if (zt.getLongitude()!=0 && zt.getLatitude()!=0) {
+            if (zt.getLongitude() != 0 && zt.getLatitude() != 0) {
                 double x = zt.getLongitude();
                 double y = zt.getLatitude();
                 Point pt = new Point(x, y);
@@ -573,7 +568,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
 
                     Map<String, Object> attributes = new HashMap<String, Object>();
                     PictureMarkerSymbol picSymbol = new PictureMarkerSymbol(ContextCompat.getDrawable(activity, R.mipmap.tjd1));
-                    if (zt.getLongitude()==0|| zt.getLatitude()== 0) {
+                    if (zt.getLongitude() == 0 || zt.getLatitude() == 0) {
                         activity.showToast("该主体没有坐标信息");
                     } else {
                         double ptx = zt.getLongitude();
@@ -901,25 +896,39 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                         dialog.dismiss();
                         return;
                     }
-                    Location l = activity.locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    if (l == null) {
-                        l = activity.locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    }
-                    if (l == null) {
-                        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        }
-                        activity.isStartNavi = true;
-                        activity.showProgressDialog("正在搜索您的位置");
-                        activity.locManager.requestLocationUpdates(activity.bestprovider, 1000, 0.01f, activity.loclistener);
-                    } else {
-                        Intent intent = new Intent(activity, AMapNaviActivity.class);
-                        intent.putExtra("startLatitude", l.getLatitude());
-                        intent.putExtra("startLongitude", l.getLongitude());
-                        intent.putExtra("endLatitude", endLatitude);
-                        intent.putExtra("endLongitude", endLongitude);
+                    try {
+                        Intent intent = Intent.getIntent("baidumap://map/marker?location=" + endLatitude + "," + endLongitude + "&title=移动监督管理执法&content=天津执法主体位置&traffic=on");
+//                        Intent intent = Intent.getIntent("http://api.map.baidu.com/direction?origin=" + latitude + "," + longitude + "&destination=" + endLatitude + "," + endLongitude + "&mode=driving&output=&src=移动监督管理执法&region=天津执法主体位置");
                         activity.startActivity(intent);
-                        dialog.dismiss();
+                    } catch (Exception e) {
+                        Toast.makeText(activity, "请确认手机已安装百度地图!", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
+                    dialog.dismiss();
+//                    if (endLatitude == 0 || endLongitude == 0) {
+//                        Toast.makeText(activity, "主体坐标不存在!", Toast.LENGTH_SHORT).show();
+//                        dialog.dismiss();
+//                        return;
+//                    }
+//                    Location l = activity.locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//                    if (l == null) {
+//                        l = activity.locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                    }
+//                    if (l == null) {
+//                        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                        }
+//                        activity.isStartNavi = true;
+//                        activity.showProgressDialog("正在搜索您的位置");
+//                        activity.locManager.requestLocationUpdates(activity.bestprovider, 1000, 0.01f, activity.loclistener);
+//                    } else {
+//                        Intent intent = new Intent(activity, AMapNaviActivity.class);
+//                        intent.putExtra("startLatitude", l.getLatitude());
+//                        intent.putExtra("startLongitude", l.getLongitude());
+//                        intent.putExtra("endLatitude", endLatitude);
+//                        intent.putExtra("endLongitude", endLongitude);
+//                        activity.startActivity(intent);
+//                        dialog.dismiss();
+//                    }
                 }
             });
             Button naviCancel = (Button) diaView.findViewById(R.id.pop_dialogues_navi_cancel);
@@ -961,7 +970,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
             case ConstStrings.MapType_ZtDetail:// 任务列表查看地图
                 if (mSearchZtEntity.getZtList().size() > 0) {
                     HttpZtEntity zt = mSearchZtEntity.getZtList().get(0);
-                    if (zt.getLatitude()!=0 && zt.getLongitude()!=0) {
+                    if (zt.getLatitude() != 0 && zt.getLongitude() != 0) {
                         pt.setXY(Double.valueOf(zt.getLongitude()), Double.valueOf(zt.getLatitude()));
                         SpatialReference sr4326 = SpatialReference.create(4490);
                         pt = (Point) GeometryEngine.project(pt, sr4326, mMapView.getSpatialReference());
@@ -1016,7 +1025,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
 //                mMapView.setScale(ConstStrings.LocationScale);
 //                mMapView.centerAt(pt, true);
                 activity.doLocation();
-            break;
+                break;
         }
         mMarkersGLayer.removeGraphic(mCurId);
         if (pt.getX() == ConstStrings.Longitude || pt.getY() == ConstStrings.Latitude) {

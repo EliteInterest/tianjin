@@ -365,7 +365,7 @@ public class ZXFileUtil {
         try {
             fromFile = new File(fromFilePath);
         } catch (Exception e) {
-            Log.e("msg", cFromFile + e.getMessage());
+            Log.e("searchText", cFromFile + e.getMessage());
             return null;
         }
 
@@ -375,7 +375,7 @@ public class ZXFileUtil {
                 toFile = new File(toFilePath.endsWith("/") ? toFilePath + fromFile.getName() : toFilePath + "/" + fromFile.getName());
             }
         } catch (Exception e) {
-            Log.e("msg", ctoFile + e.getMessage());
+            Log.e("searchText", ctoFile + e.getMessage());
             return null;
         }
 
@@ -569,7 +569,7 @@ public class ZXFileUtil {
             {".mpg", "video/mpeg"},
             {".mpg4", "video/mp4"},
             {".mpga", "audio/mpeg"},
-            {".msg", "application/vnd.ms-outlook"},
+            {".searchText", "application/vnd.ms-outlook"},
             {".ogg", "audio/ogg"},
             {".pdf", "application/pdf"},
             {".png", "image/png"},

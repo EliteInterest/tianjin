@@ -45,8 +45,14 @@ public class ZXExpandRecyclerHelper {
                             if (id != null && id.length() > 0) {
                                 setShowById(dataList, id);
 
+                                if (!isMultiSelected) {
+                                    for (ZXExpandBean expandBean : showList) {
+                                        expandBean.setSelected(false);
+                                    }
+                                }
+
+                                showList.get(position).setSelected(!showList.get(position).isSelected());
                                 if (showList.get(position).getChildList() == null) {
-                                    showList.get(position).setSelected(!showList.get(position).isSelected());
                                     if (itemClickListener != null) {
                                         itemClickListener.onItemClick(showList.get(position));//数据点击事件
                                     }

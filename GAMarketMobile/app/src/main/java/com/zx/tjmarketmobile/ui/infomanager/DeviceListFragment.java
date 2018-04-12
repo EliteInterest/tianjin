@@ -101,7 +101,7 @@ public class DeviceListFragment extends BaseFragment implements LoadMoreListener
     }
 
     public void load(final String msg) {
-        Log.i("wws", "msg is " + msg);
+        Log.i("wws", "searchText is " + msg);
         this.msg = msg;
         getInfoStandar.loadData(mPageNo, mPageSize, msg);
     }

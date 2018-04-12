@@ -42,7 +42,7 @@ public class SettingsMapActivity extends BaseActivity implements OnClickListener
     private EditText mEdtTopicMapIp3;
     public TextView tvMapName;
     private int mMapType = 0;// 地图设置类型 0：公共服务平台地图 1：离线地图 2：自定义地图
-    private ApiData mapUpdate = new ApiData(ApiData.HTTP_ID_version_update);//离线地图更新
+    private ApiData mapUpdate = new ApiData(ApiData.HTTP_ID_map_update);//离线地图更新
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -232,13 +232,13 @@ public class SettingsMapActivity extends BaseActivity implements OnClickListener
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_version_update:
+            case ApiData.HTTP_ID_map_update:
 
                 final HttpUpdateEntity updateInfo = (HttpUpdateEntity) b.getEntry();
                 String versionName = TxtUtil.readTxt(CQDigitalUtil.getDataPath() + ConstStrings.VECTOR_DATA_NAME, "mapVersion");
                 //判断是否需要下载
                 try {
-                    if (versionName != null && Integer.parseInt(versionName.substring(versionName.lastIndexOf(":") + 1)) >= updateInfo.fVersionCode) {
+                    if (versionName != null && Integer.parseInt(versionName.substring(versionName.lastIndexOf(":") + 1)) >= updateInfo.versionCode) {
                         showToast("当前已是最新版本");
                         return;
                     }

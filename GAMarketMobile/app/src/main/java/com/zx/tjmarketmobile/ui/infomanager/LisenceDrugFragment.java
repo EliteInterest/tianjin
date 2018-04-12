@@ -108,7 +108,7 @@ public class LisenceDrugFragment extends BaseFragment implements LoadMoreListene
 
     public void load(final String msg) {
         this.msg = msg;
-        Log.i("wangwansheng", "msg is " + msg);
+        Log.i("wangwansheng", "searchText is " + msg);
         String[] value = msg.split(";");
         if (value.length == 2) {
             getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);

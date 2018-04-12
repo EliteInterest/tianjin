@@ -56,7 +56,7 @@ public class CaseDisposeListFragment extends BaseFragment implements LoadMoreLis
         rvTodo.setLayoutManager(mLinearLayoutManager);
         getToDoPage.setLoadingListener(this);
         getTaskHisPage.setLoadingListener(this);
-        mAdapter = new CaseListAdapter(getActivity(), dataList, true);
+        mAdapter = new CaseListAdapter(getActivity(), dataList, index == 0 ? true : false);
         rvTodo.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnLoadMoreListener(this);

@@ -44,6 +44,7 @@ import com.zx.tjmarketmobile.entity.HttpUpdateEntity;
 import com.zx.tjmarketmobile.entity.HttpZtEntity;
 import com.zx.tjmarketmobile.entity.ImageEntity;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.entity.LegalEntity;
 import com.zx.tjmarketmobile.entity.LocationEntity;
 import com.zx.tjmarketmobile.entity.MsgEntity;
 import com.zx.tjmarketmobile.entity.NormalListEntity;
@@ -423,17 +424,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
             params.clear();
             switch (id) {
                 case HTTP_ID_login:
-//                    params.setApiUrl(baseUrl + "GaClientService.do");
-//                    params.setPort(8030);
-                    params.setApiUrl(baseUrl + "/" + LOCAL_HOST_TAG + "/" + "login.do");
+                    params.setApiUrl(baseUrl + "/TJSSO/appLogin.do");
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-//                    params.putParams("method", "login");
-//                    params.putParams("loginname", objects[0]);
-//                    params.putParams("passwd", MD5Util.getMD5(MD5Util.getMD5(objects[1].toString())));
                     params.putParams("userName", objects[0]);
                     params.putParams("password", MD5Util.encoderPassword(objects[1].toString()));
-                    //params.putParams("source", "chongqingzxgs_mobile");
-                    // params.putParams("passwd", objects[1]);
                     break;
                 case HTTP_ID_searchzt:
                     params.setApiUrl(baseUrl + "/TJsupervise/enterprise/getEnterprisePage.do");
@@ -591,9 +585,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("fileinfo", objects[1]);
                     break;
                 case HTTP_ID_version_update:
-                    params.setApiUrl(baseUrl + "versionUpdate.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("sysName", objects[0]);
+                    params.setApiUrl(baseUrl + "/TJSSO/queryVersion.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("versionCode", objects[0]);
                     break;
                 case HTTP_ID_user_station:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -837,8 +831,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 case HTTP_ID_loginOut:
                     params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "loginOut");
-                    params.setApiUrl(baseUrl + ((params.getPort() != 0) ? (":" + params.getPort()) : "") + "/" + LOCAL_HOST_TAG + "/" + "loginout.do");
+                    params.setApiUrl(baseUrl + "/TJSSO/appLogout.do");
                     break;
                 case HTTP_ID_getUsersByDept:
                     params.setApiUrl(baseUrl + "/TJComplaint/user/getUserPage.do");
@@ -1883,9 +1876,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 //TODO
             }
-//            if (id != HTTP_ID_login) {
-//                params.putParams("uuid", UUID);
-//            }
+            if (id != HTTP_ID_login) {
+                params.putParams("tokenId", UUID);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             if (LogUtil.DEBUG) {
                 LogUtil.e(this, "请求参数错误 请检查loadData()是否未带参数");
@@ -1929,9 +1922,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                 if (result.isSuccess()) {
                     switch (id) {
                         case HTTP_ID_login: {
-                            UUID = msg;
                             list = getJSONObject(jsonObject, "data");
                             HttpLoginEntity loginEntity = gson.fromJson(list.toString(), HttpLoginEntity.class);
+                            UUID = loginEntity.getTokenId();
                             result.setEntry(loginEntity);
                         }
                         break;
@@ -2223,15 +2216,16 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
 
                         case HTTP_ID_version_update:
                             list = getJSONObject(jsonObject, "data");
-                            HttpUpdateEntity resEntity = new HttpUpdateEntity();
-                            resEntity.fCommitDate = getStringValue(list, "fCommitDate");
-                            resEntity.fGuid = getStringValue(list, "fGuid");
-                            resEntity.fRemark = getStringValue(list, "fRemark");
-                            resEntity.fUrl = getStringValue(list, "fUrl");
-                            resEntity.fVersionName = getStringValue(list, "fVersionName");
-                            resEntity.fVersionCode = getIntValue(list, "fVersionCode");
-                            resEntity.fContent = getStringValue(list, "fContent");
-                            result.setEntry(resEntity);
+                            HttpUpdateEntity updateEntity = gson.fromJson(list.toString(), HttpUpdateEntity.class);
+//                            new HttpUpdateEntity();
+//                            resEntity.fCommitDate = getStringValue(list, "fCommitDate");
+//                            resEntity.fGuid = getStringValue(list, "fGuid");
+//                            resEntity.fRemark = getStringValue(list, "fRemark");
+//                            resEntity.fUrl = getStringValue(list, "fUrl");
+//                            resEntity.fVersionName = getStringValue(list, "fVersionName");
+//                            resEntity.fVersionCode = getIntValue(list, "fVersionCode");
+//                            resEntity.fContent = getStringValue(list, "fContent");
+                            result.setEntry(updateEntity);
                             break;
 
                         case HTTP_ID_user_station:
@@ -3398,8 +3392,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             List<ZXExpandBean> myLegalSelect = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject compObject = jsonArray.getJSONObject(i);
-                                String name = getStringValue(compObject, "name");
-                                ZXExpandBean bean = new ZXExpandBean("data", name);
+                                LegalEntity legalEntity = new Gson().fromJson(compObject.toString(), LegalEntity.class);
+                                String name = legalEntity.getName();
+                                ZXExpandBean bean = new ZXExpandBean(legalEntity, name);
                                 List<ZXExpandBean> dataList = listBeans(compObject);
                                 if (dataList != null && dataList.size() != 0)
                                     bean.setChildList(dataList);
@@ -3409,9 +3404,14 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             result.setEntry(myLegalSelect);
                             break;
                         case HTTP_ID_info_manager_legal_search:
-                            List<KeyValueInfo> myLegalSelectLaw = new ArrayList<>();
                             jsonObject = getJSONObject(jsonObject, "data");
+                            NormalListEntity legalSearch = new NormalListEntity();
+                            legalSearch.setCurrPageNo(getIntValue(jsonObject, "currPageNo"));
+                            legalSearch.setTotal(getIntValue(jsonObject, "total"));
+                            legalSearch.setPageTotal(getIntValue(jsonObject, "pageTotal"));
+                            legalSearch.setPageSize(getIntValue(jsonObject, "pageSize"));
                             jsonArray = getJSONArray(jsonObject, "list");
+                            List<KeyValueInfo> myLegalSelectLaw = new ArrayList<>();
 //                            Log.i("wangwansheng", "jsonArray.length is " + jsonArray.length());
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -3422,7 +3422,8 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 compKV.value = jsonArray1.getString(0);
                                 myLegalSelectLaw.add(compKV);
                             }
-                            result.setEntry(myLegalSelectLaw);
+                            legalSearch.setKeyValueInfoList(myLegalSelectLaw);
+                            result.setEntry(legalSearch);
                             break;
                         case HTTP_ID_supervise_saceItemResult:
                         case HTTP_ID_supervise_finishItem:
@@ -3471,9 +3472,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                 for (int i = 0; i < jsonArray.length(); i++) {
 
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                    String name = getStringValue(jsonObject1, "name");
+                    LegalEntity legalEntity = new Gson().fromJson(jsonObject1.toString(), LegalEntity.class);
+                    String name = legalEntity.getName();
 //                    Log.i("wangwansheng","jsonObject1  is " +jsonObject1.toString());
-                    ZXExpandBean bean1 = new ZXExpandBean(getStringValue(jsonObject, "name"), name);
+                    ZXExpandBean bean1 = new ZXExpandBean(legalEntity, name);
                     beanList.add(bean1);
                     List<ZXExpandBean> dataList = listBeans(jsonObject1);
                     if (dataList != null && dataList.size() != 0) {

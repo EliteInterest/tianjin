@@ -145,30 +145,6 @@ public class CaseDetailActivity extends BaseActivity {
                 dialog.dismiss();
             }
             break;
-            case R.id.pop_dialogues_case_xa://销案
-            {
-                Intent intent = new Intent(this, CaseDestoryActivity.class);
-                intent.putExtra("entity", mEntity);
-                startActivityForResult(intent, 0);
-                dialog.dismiss();
-                break;
-            }
-            case R.id.pop_dialogues_case_ys://移送
-            {
-                Intent intent = new Intent(this, CaseTransferActivity.class);
-                intent.putExtra("entity", mEntity);
-                startActivityForResult(intent, 0);
-                dialog.dismiss();
-                break;
-            }
-            case R.id.pop_dialogues_case_qz://强制措施
-            {
-                Intent intent = new Intent(this, CaseForceActivity.class);
-                intent.putExtra("entity", mEntity);
-                startActivityForResult(intent, 0);
-                dialog.dismiss();
-                break;
-            }
             case R.id.pop_dialogues_case_cancel:
                 dialog.dismiss();
                 break;

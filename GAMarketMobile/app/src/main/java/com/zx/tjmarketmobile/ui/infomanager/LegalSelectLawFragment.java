@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.infomanager.LegalSelectLawAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.entity.LegalEntity;
+import com.zx.tjmarketmobile.entity.NormalListEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.LoadMoreListener;
@@ -31,9 +33,10 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
     private LegalSelectLawAdapter mAdapter;
     private List<KeyValueInfo> dataList = new ArrayList<>();
     private int mPageSize = 10;
-    public static String msg = "领取";
+    public static String searchText = "tempSearch";
     public int mPageNo = 1;
     public int mTotalNo = 0;
+    private LegalEntity legalEntity;
     private ApiData getInfoStandar = new ApiData(ApiData.HTTP_ID_info_manager_legal_search);
 
     public static LegalSelectLawFragment newInstance() {
@@ -62,6 +65,7 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
                 loadData();
             }
         });
+        loadData();
         return view;
     }
 
@@ -81,24 +85,30 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadData();
-    }
-
     //数据加载
     @SuppressLint("LongLogTag")
     private void loadData() {
-        if (msg.length() != 0) {
-            getInfoStandar.loadData(msg);
-        } else
-            getInfoStandar.loadData("领取");
+        if (searchText.length() != 0) {
+            if (legalEntity == null) {
+                getInfoStandar.loadData(searchText, "", "", "", "", "");
+            } else if (legalEntity.getSelecteRadio() == 1) {
+                getInfoStandar.loadData(searchText, legalEntity.getId(), "", "", "", "");
+            } else if (legalEntity.getSelecteRadio() == 2) {
+                getInfoStandar.loadData(searchText, "", legalEntity.getParentId(), "", "", "");
+            } else {
+                getInfoStandar.loadData(searchText, "", "", "", userInfo.getId(), userInfo.getDepartmentCode());
+            }
+        } else {
+            srlTodo.setRefreshing(false);
+        }
+
     }
 
-    public void load(final String msg) {
-        this.msg = msg;
-        getInfoStandar.loadData(msg);
+    public void load(final String msg, Object object) {
+        this.searchText = msg;
+        legalEntity = (LegalEntity) object;
+        loadData();
+//        getInfoStandar.loadData(searchText);
     }
 
     @Override
@@ -107,7 +117,10 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
         srlTodo.setRefreshing(false);
         switch (id) {
             case ApiData.HTTP_ID_info_manager_legal_search:
-                List<KeyValueInfo> myTaskListEntity = (List<KeyValueInfo>) b.getEntry();
+                NormalListEntity legalSearch = (NormalListEntity) b.getEntry();
+                mTotalNo = legalSearch.getTotal();
+                mAdapter.setStatus(0, mPageNo, mTotalNo);
+                List<KeyValueInfo> myTaskListEntity = legalSearch.getKeyValueInfoList();
                 dataList.clear();
                 dataList.addAll(myTaskListEntity);
                 mAdapter.notifyDataSetChanged();

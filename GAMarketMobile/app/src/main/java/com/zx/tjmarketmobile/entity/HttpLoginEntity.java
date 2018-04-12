@@ -22,6 +22,15 @@ public class HttpLoginEntity {
     private String grid;//管辖片区
     private String departmentCode;
     private List<String> role;
+    private String tokenId;
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
 
     public List<String> getRole() {
         return role;

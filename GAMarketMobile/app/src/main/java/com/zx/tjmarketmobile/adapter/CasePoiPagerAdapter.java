@@ -52,14 +52,28 @@ public class CasePoiPagerAdapter extends PagerAdapter {
             tvPerson.setText(entity.getEnterpriseName());
             tvStage.setText(entity.getStatusName());
 
-            if ("工商".equals(entity.getTypeName())) {
-                ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_gs));
-            } else if ("质监".equals(entity.getTypeName())) {
-                ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_zj));
-            } else if ("食药监".equals(entity.getTypeName())) {
-                ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_syj));
-            } else {
-                ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
+            switch (entity.getTypeCode()) {
+                case "01":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_jdjc));
+                    break;
+                case "02":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_jdcy));
+                    break;
+                case "03":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_tsjb));
+                    break;
+                case "04":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_qtjgys));
+                    break;
+                case "05":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.case_sjjgjb));
+                    break;
+                case "06":
+                    ivField.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.comp_more));
+                    break;
+
+                default:
+                    break;
             }
 
             LinearLayout llmain = (LinearLayout) view.findViewById(R.id.ll_search_task_result_list_view);
