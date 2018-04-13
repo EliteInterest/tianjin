@@ -1,10 +1,8 @@
 package com.zx.tjmarketmobile.ui.system;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,9 +18,7 @@ import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.MyItemClickListener;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
-import com.zx.tjmarketmobile.ui.mainbase.GuideActivity;
-import com.zx.tjmarketmobile.ui.mainbase.HomeActivity;
-import com.zx.tjmarketmobile.util.MyApplication;
+import com.zx.tjmarketmobile.ui.camera.CameraActivity;
 import com.zx.tjmarketmobile.util.SYSUtil;
 import com.zx.tjmarketmobile.util.Util;
 
@@ -106,12 +102,12 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
         map = new HashMap<String, String>();
         map.put("name", "密码修改");
         list.add(map);
-        map = new HashMap<String, String>();
-        map.put("name", "关于我们");
-        list.add(map);
-        map = new HashMap<String, String>();
-        map.put("name", "帮助");
-        list.add(map);
+//        map = new HashMap<String, String>();
+//        map.put("name", "关于我们");
+//        list.add(map);
+//        map = new HashMap<String, String>();
+//        map.put("name", "帮助");
+//        list.add(map);
         if (!ApiData.ISRELEASE) {
             map = new HashMap<String, String>();
             map.put("name", "服务器");
@@ -138,23 +134,29 @@ public class SettingsActivity extends BaseActivity implements MyItemClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_settings_logout:// 用户退出登陆
-                Util.showDeleteDialog(SettingsActivity.this, "是否退出当前用户?", null, "确定", "取消", new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loginOut.loadData();
-                        SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
-                        edit.putString("curuser", "");
-                        edit.apply();
-                        userManager.setNoLogin(SettingsActivity.this);
-                        MyApplication.getInstance().remove(HomeActivity.class);
-                        MyApplication.getInstance().remove(GuideActivity.class);
-                        finish();
-                    }
-                }, null);
+                startActivityForResult(new Intent(SettingsActivity.this, CameraActivity.class),RESULT_OK);
+//                Util.showDeleteDialog(SettingsActivity.this, "是否退出当前用户?", null, "确定", "取消", new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        loginOut.loadData();
+//                        SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
+//                        edit.putString("curuser", "");
+//                        edit.apply();
+//                        userManager.setNoLogin(SettingsActivity.this);
+//                        MyApplication.getInstance().remove(HomeActivity.class);
+//                        MyApplication.getInstance().remove(GuideActivity.class);
+//                        finish();
+//                    }
+//                }, null);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

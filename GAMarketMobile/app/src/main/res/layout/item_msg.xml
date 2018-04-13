@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:text="@string/yjtask"
                 android:textColor="@color/bottombgblue"
-                android:textSize="@dimen/text_size_smallest" />
+                android:textSize="@dimen/text_size_normal" />
 
         </LinearLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_marginTop="5dip"
                 android:text="2015-1-30 16:45:06"
                 android:textColor="@color/msgblue"
-                android:textSize="@dimen/text_size_extra_small" />
+                android:textSize="@dimen/text_size_normal" />
 
         </LinearLayout>
     </LinearLayout>

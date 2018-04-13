@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
+            android:visibility="gone"
             android:paddingBottom="5dip">
 
             <ImageView
@@ -56,6 +57,7 @@
             android:layout_marginBottom="5dip"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
+            android:visibility="gone"
             android:layout_marginTop="5dip"
             android:background="@color/gray"/>
 
@@ -74,7 +76,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/text_size_small"/>
+                android:textSize="@dimen/text_size_big"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -88,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:text="地址:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_person"
@@ -98,7 +100,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:text="联系电话:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_stage"
@@ -125,7 +127,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
         </LinearLayout>
 

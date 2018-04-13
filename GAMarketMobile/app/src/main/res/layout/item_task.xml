@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/home_text" 
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_big"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textStyle="bold"
@@ -63,6 +63,7 @@
                 android:gravity="center_horizontal"
                 android:padding="@dimen/padding_normal"
                 android:text="未逾期"
+                android:textSize="@dimen/text_size_normal"
                 android:textColor="@color/textgrey" />
 
             <TextView
@@ -73,7 +74,7 @@
                 android:background="@mipmap/new_bg"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_micro"
+                android:textSize="@dimen/text_size_normal"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -92,6 +93,7 @@
                 android:drawableTop="@mipmap/icon_main_jjdq"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/padding_normal"
+                android:textSize="@dimen/text_size_normal"
                 android:text="@string/jjdq"
                 android:textColor="@color/textgrey" />
 
@@ -104,7 +106,7 @@
                 android:gravity="center"
                 android:text="12"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_micro"
+                android:textSize="@dimen/text_size_normal"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -121,6 +123,7 @@
                 android:drawablePadding="5dp"
                 android:drawableTop="@mipmap/icon_main_yq"
                 android:gravity="center_horizontal"
+                android:textSize="@dimen/text_size_normal"
                 android:padding="@dimen/padding_normal"
                 android:text="@string/yq"
                 android:textColor="@color/textgrey" />
@@ -134,7 +137,7 @@
                 android:gravity="center"
                 android:text="12"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_micro"
+                android:textSize="@dimen/text_size_normal"
                 android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>

@@ -33,7 +33,7 @@
             android:paddingLeft="15dp"
             android:singleLine="true"
             android:text="123123123123"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_normal" />
 
         <ImageView
             android:id="@+id/iv_select"

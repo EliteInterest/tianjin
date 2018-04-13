@@ -57,7 +57,7 @@ public class SuperviseMyTaskListFragment extends BaseFragment implements LoadMor
         rvTodo.setLayoutManager(mLinearLayoutManager);
         getTaskPage.setLoadingListener(this);
         getTaskHisPage.setLoadingListener(this);
-        mAdapter = new SuperviseMyTaskListAdapter(getActivity(), dataList, true);
+        mAdapter = new SuperviseMyTaskListAdapter(getActivity(), dataList, index == 0 ? true : false);
         rvTodo.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnLoadMoreListener(this);

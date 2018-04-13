@@ -12,7 +12,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center_vertical"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_big"
         android:textColor="@color/black"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"/>

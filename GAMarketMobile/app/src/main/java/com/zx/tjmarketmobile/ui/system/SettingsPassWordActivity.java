@@ -96,7 +96,7 @@ public class SettingsPassWordActivity extends BaseActivity implements View.OnCli
             } else if (oldPswStr.equals(newPswStr)) {
                 Util.setRequired(newPswEditText, "新密码与旧密码相同，请重新设置！");
             } else {
-                updatePswData.loadData(useName, oldPswStr, newPswStr);
+                updatePswData.loadData(oldPswStr, newPswStr);
             }
         }
     }

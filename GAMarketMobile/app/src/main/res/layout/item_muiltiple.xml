@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textColor="@color/darkgrey"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_normal" />
 
         <CheckBox
             android:id="@+id/cbItemMultiple_flag"

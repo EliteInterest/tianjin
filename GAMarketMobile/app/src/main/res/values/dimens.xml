@@ -5,9 +5,6 @@
     <dimen name="logo_height">125dp</dimen>
     <dimen name="text_size_largest">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
-    <dimen name="text_size_big">18sp</dimen>
-    <dimen name="text_size_normal">16sp</dimen>
-    <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_extra_small">13sp</dimen>
     <dimen name="text_size_micro">12sp</dimen>
     <dimen name="text_size_more_micro">10sp</dimen>
@@ -66,6 +63,14 @@
     <dimen name="listitem_height">58.0dip</dimen>
     <dimen name="section_text">14.0dip</dimen>
     <dimen name="button_text">14.0dip</dimen>
+
+
+    <!--<dimen name="text_size_big">18sp</dimen>-->
+    <!--<dimen name="text_size_normal">16sp</dimen>-->
+    <!--<dimen name="text_size_small">14sp</dimen>-->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_big">16sp</dimen>
 
     <!-- 尺寸 xtt添加 2014-6-9 -->
     <dimen name="toolbar_height">45.0dip</dimen>

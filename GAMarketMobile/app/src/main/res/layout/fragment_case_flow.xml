@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:checked="true"
             android:text="常规流程"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <RadioButton
             android:id="@+id/rb_case_flow_2"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="案件延期"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <RadioButton
             android:id="@+id/rb_case_flow_3"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="案件销案"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
     </RadioGroup>
 
     <LinearLayout
@@ -57,7 +57,7 @@
             android:padding="5dp"
             android:text="时间"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:layout_width="0dp"
@@ -69,7 +69,7 @@
             android:padding="5dp"
             android:text="处理人员"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:layout_width="0dp"
@@ -81,7 +81,7 @@
             android:padding="5dp"
             android:text="环节"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:id="@+id/tvFmDispose_remark"
@@ -94,7 +94,7 @@
             android:padding="5dp"
             android:text="备注"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

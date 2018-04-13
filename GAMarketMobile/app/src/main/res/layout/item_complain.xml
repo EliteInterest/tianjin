@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:id="@+id/tvItemComplain_value"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_normal" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

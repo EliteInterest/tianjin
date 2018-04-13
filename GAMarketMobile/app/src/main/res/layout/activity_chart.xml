@@ -79,7 +79,7 @@
                     android:tag="year"
                     android:text="2017"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
 
                 <TextView
@@ -92,7 +92,7 @@
                     android:tag="query"
                     android:text="查询"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -122,7 +122,7 @@
                     android:padding="5dp"
                     android:text="选择年份"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tvActStatistics_year"
@@ -137,7 +137,7 @@
                     android:tag="year"
                     android:text="2015"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +155,7 @@
                 <!--android:padding="5dp"-->
                 <!--android:text="开始"-->
                 <!--android:textColor="@color/darkgrey"-->
-                <!--android:textSize="12sp" />-->
+                <!--android:textSize="@dimen/text_size_normal" />-->
 
                 <TextView
                     android:id="@+id/tvActStatistics_starttime"
@@ -170,7 +170,7 @@
                     android:tag="year"
                     android:text="开始时间"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                     android:padding="5dp"
                     android:text="-"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tvActStatistics_endtime"
@@ -194,7 +194,7 @@
                     android:tag="year"
                     android:text="结束时间"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tvActStatistics_query"
@@ -210,7 +210,7 @@
                     android:tag="query"
                     android:text="查询"
                     android:textColor="@color/darkgrey"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -246,7 +246,7 @@
                     android:padding="5dp"
                     android:text="类别"
                     android:textColor="@color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <View
                     android:layout_width="0.5dp"
@@ -263,7 +263,7 @@
                     android:padding="5dp"
                     android:text="数量"
                     android:textColor="@color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <View
                     android:layout_width="0.5dp"
@@ -280,7 +280,7 @@
                     android:padding="5dp"
                     android:text="其他"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_normal"
                     android:visibility="gone"/>
 
                 <View
@@ -298,7 +298,7 @@
                     android:padding="5dp"
                     android:text="所占比重"
                     android:textColor="@color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
             <TextView

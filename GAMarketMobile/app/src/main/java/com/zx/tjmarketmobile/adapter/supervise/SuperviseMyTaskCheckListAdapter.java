@@ -1,5 +1,7 @@
 package com.zx.tjmarketmobile.adapter.supervise;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +24,18 @@ public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
 
     private List<MyTaskCheckEntity> mItemList;
     public Holder myHolder;
+    private boolean showOverDue;
+    private Context context;
 
-    public SuperviseMyTaskCheckListAdapter(List<MyTaskCheckEntity> itemList) {
+    public SuperviseMyTaskCheckListAdapter(List<MyTaskCheckEntity> itemList, boolean showOverDue) {
         mItemList = itemList;
+        this.showOverDue = showOverDue;
     }
 
     //创建页面并绑定holder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = null;
         if (viewType == ITEM_TYPE_NORMAL) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.supervise_mytask_check_item, parent, false);
@@ -49,8 +55,9 @@ public class SuperviseMyTaskCheckListAdapter extends MyRecycleAdapter {
             myHolder.tvField.setText(entity.getEnterpriseName());
             myHolder.tvAddress.setText(entity.getLegalPerson());
             myHolder.tvState.setText(DateUtil.getDateFromMillis(entity.getCheckDate()));
-            if (entity.getStatus() == 0) {
+            if (entity.getStatus() == 0 && showOverDue == true) {
                 myHolder.ivOverDue.setVisibility(View.VISIBLE);
+                myHolder.ivOverDue.setBackground(ContextCompat.getDrawable(context, R.mipmap.not_excute));
             } else {
                 myHolder.ivOverDue.setVisibility(View.GONE);
             }

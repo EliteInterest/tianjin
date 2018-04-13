@@ -116,7 +116,7 @@ public class SettingsMapActivity extends BaseActivity implements OnClickListener
         mBtnOk = (Button) findViewById(R.id.btn_settings_map_ok);
         mBtnOk.setOnClickListener(this);
 
-        mMapType = sp.getInt("maptype", 1);
+        mMapType = sp.getInt("maptype", 2);
         mEtIp1.setText(sp.getString("mapip1", ConstStrings.ip1));
         mEtIp2.setText(sp.getString("mapip2", ConstStrings.ip2));
         mEtIp3.setText(sp.getString("mapip3", ConstStrings.ip3));

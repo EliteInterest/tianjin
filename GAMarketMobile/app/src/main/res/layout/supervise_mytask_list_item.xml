@@ -15,7 +15,7 @@
 
 
         <LinearLayout
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:text="状态"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/text_size_more_micro"/>
+                android:textSize="@dimen/text_size_normal"/>
 
             <TextView
                 android:id="@+id/tv_supervise_date"
@@ -46,7 +46,7 @@
                 android:layout_gravity="center"
                 android:text="时间"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/text_size_smallest"/>
+                android:textSize="@dimen/text_size_small"/>
         </LinearLayout>
 
         <View
@@ -73,7 +73,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/text_size_small"/>
+                android:textSize="@dimen/text_size_big"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="任务制定人:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_person"
@@ -97,7 +97,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:text="任务指定部门:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_stage"
@@ -123,7 +123,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
         </LinearLayout>
 

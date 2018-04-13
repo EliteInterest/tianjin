@@ -921,12 +921,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("method", "countEntityType");
                     break;
                 case HTTP_ID_psw_update:
-                    params.setApiUrl(baseUrl + "GaClientService.do");
-                    params.setRequestMothod(HTTP_MOTHOD.POST);
-                    params.putParams("method", "resetPassword");
-                    params.putParams("loginName", objects[0]);
-                    params.putParams("oldPassword", MD5Util.getMD5(MD5Util.getMD5(objects[1].toString())));
-                    params.putParams("newPassword", MD5Util.getMD5(MD5Util.getMD5(objects[2].toString())));
+                    params.setApiUrl(baseUrl + "/TJSSO/updatePass.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("oldPassword", MD5Util.encoderPassword(objects[0].toString()));
+                    params.putParams("newPassword", MD5Util.encoderPassword(objects[1].toString()));
                     break;
                 case HTTP_ID_doClaimed:
                     params.setApiUrl(baseUrl + "GaClientService.do");
@@ -3450,6 +3448,9 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                         case HTTP_ID_case_Y13:
                         case HTTP_ID_case_Y14:
                         case HTTP_ID_case_02:
+                            break;
+                        case HTTP_ID_psw_update:
+
                             break;
                         default:
                             break;

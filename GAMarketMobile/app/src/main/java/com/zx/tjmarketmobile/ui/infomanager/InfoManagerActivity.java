@@ -31,7 +31,9 @@ public class InfoManagerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_guild);
 
-        addToolBar(false);
+        addToolBar(true);
+        hideRightImg();
+        setMidText("信息管理");
 
         guideFunctionEntityList = new ArrayList<>();
         String[] names = new String[]{"标准信息", "特种设备", "许可证书", "计量器具"

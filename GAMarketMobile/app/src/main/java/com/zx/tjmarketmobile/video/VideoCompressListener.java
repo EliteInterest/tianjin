@@ -1,4 +1,4 @@
-package com.czm.videocompress.video;
+package com.zx.tjmarketmobile.video;
 
 /**
  * Created by caizhiming on 2016/11/8.

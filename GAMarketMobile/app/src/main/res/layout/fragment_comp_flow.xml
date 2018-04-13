@@ -22,7 +22,7 @@
             android:padding="5dp"
             android:text="时间"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:layout_width="0dp"
@@ -34,7 +34,7 @@
             android:padding="5dp"
             android:text="处理人"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:layout_width="0dp"
@@ -46,7 +46,7 @@
             android:padding="5dp"
             android:text="状态"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
 
         <TextView
             android:id="@+id/tvFmDispose_remark"
@@ -59,7 +59,7 @@
             android:padding="5dp"
             android:text="处理意见"
             android:textColor="@color/white"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/text_size_normal"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

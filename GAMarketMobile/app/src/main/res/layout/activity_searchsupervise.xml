@@ -83,7 +83,7 @@
             <!-- android:paddingTop="8dp" -->
             <!-- android:text="任务名称" -->
             <!-- android:textColor="@color/darkgrey" -->
-            <!-- android:textSize="12sp" /> -->
+            <!-- android:textSize="@dimen/text_size_normal" /> -->
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_station"
@@ -97,7 +97,7 @@
                 android:paddingTop="8dp"
                 android:text="小组名称"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_total"
@@ -111,7 +111,7 @@
                 android:paddingTop="8dp"
                 android:text="总数"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_count1"
@@ -125,7 +125,7 @@
                 android:paddingTop="8dp"
                 android:text="办理中"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_count2"
@@ -139,7 +139,7 @@
                 android:paddingTop="8dp"
                 android:text="已初审"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_count3"
@@ -153,7 +153,7 @@
                 android:paddingTop="8dp"
                 android:text="已核审"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tvActSearchSupervise_count4"
@@ -167,7 +167,7 @@
                 android:paddingTop="8dp"
                 android:text="已终审"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_normal"
                 android:visibility="gone" />
         </LinearLayout>
 

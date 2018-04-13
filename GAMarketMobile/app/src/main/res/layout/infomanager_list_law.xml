@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:text="区域"
             android:textColor="@color/gray"
-            android:textSize="@dimen/text_size_micro" />
+            android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:id="@+id/law_content"
@@ -34,6 +34,6 @@
             android:singleLine="false"
             android:text="时间"
             android:textColor="@color/gray"
-            android:textSize="@dimen/text_size_micro" />
+            android:textSize="@dimen/text_size_normal" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -56,7 +56,7 @@ public class VideoCompressor {
      * @param inputFile
      * @param listener
      */
-    public static void compress(final Context context, final String inputFile, final com.czm.videocompress.video.VideoCompressListener listener) {
+    public static void compress(final Context context, final String inputFile, final VideoCompressListener listener) {
         init(context);
         new Thread() {
             public void run() {
@@ -96,7 +96,7 @@ public class VideoCompressor {
         }.start();
     }
 
-    private static void compressByFFmpeg(Context context, String inputFile, final com.czm.videocompress.video.VideoCompressListener listener) {
+    private static void compressByFFmpeg(Context context, String inputFile, final VideoCompressListener listener) {
         SGLog.e("runTranscodingUsingLoader started...");
         vk = new LoadJNI();
         String newFilename = null;

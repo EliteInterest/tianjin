@@ -70,7 +70,7 @@ public class SuperviseMyTaskCheckFragment extends BaseFragment implements LoadMo
         srlTodo = (SwipeRefreshLayout) view.findViewById(R.id.srl_normal_layout);
         rvTodo.setLayoutManager(mLinearLayoutManager);
         getTaskCheckEmtity.setLoadingListener(this);
-        mAdapter = new SuperviseMyTaskCheckListAdapter(dataList);
+        mAdapter = new SuperviseMyTaskCheckListAdapter(dataList, (index == 0 && type == 0) ? true : false);
         rvTodo.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setOnLoadMoreListener(this);

@@ -39,6 +39,7 @@ import com.zx.tjmarketmobile.util.Util;
 import com.zx.tjmarketmobile.util.Worker;
 import com.zx.tjmarketmobile.util.ZXDialogUtil;
 import com.zx.tjmarketmobile.video.ClipUtil;
+import com.zx.tjmarketmobile.video.VideoCompressListener;
 import com.zx.tjmarketmobile.video.VideoCompressor;
 import com.zx.tjmarketmobile.video.VideoSetttingsListener;
 import com.zx.tjmarketmobile.view.VideoSettingsPopuView;
@@ -440,7 +441,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         //对视频进行压缩
         ToastUtil.getLongToastByString(mContext, "开始压缩视频");
         showProgressDialog("正在处理中，请稍后...");
-        VideoCompressor.compress(this, mInputStr, new com.czm.videocompress.video.VideoCompressListener() {
+        VideoCompressor.compress(this, mInputStr, new VideoCompressListener() {
             @Override
             public void onSuccess(final String outputFile, String filename, long duration) {
                 Worker.postMain(new Runnable() {

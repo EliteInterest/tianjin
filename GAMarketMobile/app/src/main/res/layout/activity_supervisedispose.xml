@@ -17,7 +17,7 @@
             android:minHeight="130dp"
             android:padding="8dp"
             android:textColor="@color/darkgrey"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_normal"
             android:visibility="gone" />
 
         <LinearLayout
@@ -33,14 +33,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="当前坐标："
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
             <TextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_normal" />
 
         </LinearLayout>
 

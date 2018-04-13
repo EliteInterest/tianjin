@@ -15,7 +15,7 @@
 
 
         <LinearLayout
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:text="监管任务"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/text_size_more_micro"/>
+                android:textSize="@dimen/text_size_normal"/>
 
         </LinearLayout>
 
@@ -71,7 +71,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_size_small"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
 
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="任务地址:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_big"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_address"
@@ -98,7 +98,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="任务状态:"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
 
                 <TextView
                     android:id="@+id/tv_supervise_state"
@@ -124,7 +124,7 @@
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/text_size_more_micro"/>
+                    android:textSize="@dimen/text_size_normal"/>
             </LinearLayout>
         </LinearLayout>
 

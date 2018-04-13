@@ -78,6 +78,7 @@ public class InfoHomeActivity extends BaseActivity implements OnClickListener {
 
         addToolBar(true);
         showMidPic();
+        hideRightImg();
 
         getRightImg().setOnClickListener(this);
 
@@ -314,8 +315,8 @@ public class InfoHomeActivity extends BaseActivity implements OnClickListener {
                 datas.add("加油站");
                 datas.add("制造计量器具许可");
                 enableSpinner(datas);
-                measureCustomFragment = MeasureCustomFragment.newInstance();
-                myPagerAdapter.addFragment(measureCustomFragment, "自定义表信息");
+//                measureCustomFragment = MeasureCustomFragment.newInstance();
+//                myPagerAdapter.addFragment(measureCustomFragment, "自定义表信息");
                 measureLiebiaoFragment = MeasureLiebiaoFragment.newInstance();
                 myPagerAdapter.addFragment(measureLiebiaoFragment, "计量器具");
                 break;

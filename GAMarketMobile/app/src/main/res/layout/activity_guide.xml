@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="center"
-            android:src="@mipmap/guide_logo" />
+            android:src="@mipmap/logo_login" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +65,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="主体查询"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -94,7 +94,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="统计分析"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -123,7 +123,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="预警信息"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
         <!--</LinearLayout>-->
 
@@ -157,7 +157,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="协同监管"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -186,7 +186,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="投诉举报"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -215,7 +215,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="帮助"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
         <!--</LinearLayout>-->
 
@@ -249,7 +249,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="消息中心"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -279,7 +279,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="设置"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
 
             <!--<ImageView-->
@@ -308,7 +308,7 @@
                     <!--android:layout_marginTop="5dp"-->
                     <!--android:text="主体信息查询"-->
                     <!--android:textColor="@color/guideText"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
             <!--</LinearLayout>-->
         <!--</LinearLayout>-->
     <!--</LinearLayout>-->

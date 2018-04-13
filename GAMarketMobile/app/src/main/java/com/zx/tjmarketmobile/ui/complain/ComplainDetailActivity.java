@@ -115,7 +115,7 @@ public class ComplainDetailActivity extends BaseActivity {
                     mapIntent.putExtra("entity", mEntity);
                     startActivity(mapIntent);
                 } else {
-                    showToast("当前案件未录入坐标信息");
+                    showToast("当前主体未录入坐标信息");
                 }
                 break;
             case R.id.btnActComp_execute: {
