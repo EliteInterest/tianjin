@@ -113,13 +113,8 @@
         <activity android:name="com.zx.tjmarketmobile.ui.supervise.EntityListActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.supervise.SuperviseListActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.supervise.SuperviseOperateActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.emergency.DeviceEmergencyActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.emergency.PermitEmergencyActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.StatisticsActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.map.AMapNaviActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.emergency.DeviceEmergencyDetialActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.mainbase.PermissionsActivity" />
-        <activity android:name="com.zx.tjmarketmobile.ui.emergency.PermitEmergencyDetialActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.system.SettingsPassWordActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.mainbase.PhotoPickerActivity" />
         <activity android:name="com.zx.tjmarketmobile.ui.mainbase.SpaceImageDetailActivity" />
@@ -150,9 +145,6 @@
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartListActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.statistics.ChartDetailActivity"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.synergy.SynergyActivity"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.synergy.SynergyDetailActivity"></activity>
-        <activity android:name="com.zx.tjmarketmobile.ui.equipment.EquipSearchActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.DeviceListDetailActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.LisenceDetailActivity"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.MeasureDetailActivity"></activity>
@@ -160,6 +152,7 @@
             android:name="com.zx.tjmarketmobile.ui.infomanager.InfoHomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity android:name="com.zx.tjmarketmobile.ui.infomanager.InfoManagerActivity"></activity>
+        <activity android:name=".ui.camera.CameraActivity" />
 
         <receiver android:name=".broadcast.TJMarketReceiver">
             <intent-filter>

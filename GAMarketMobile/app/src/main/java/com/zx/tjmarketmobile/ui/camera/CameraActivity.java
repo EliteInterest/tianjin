@@ -2,9 +2,12 @@ package com.zx.tjmarketmobile.ui.camera;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.hardware.Camera;
 import android.media.AudioManager;
@@ -14,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,50 +26,59 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
+import com.zx.tjmarketmobile.util.LogUtil;
 import com.zx.tjmarketmobile.util.SGLog;
 import com.zx.tjmarketmobile.util.ToastUtil;
 import com.zx.tjmarketmobile.util.Util;
 import com.zx.tjmarketmobile.util.Worker;
+import com.zx.tjmarketmobile.util.ZXDialogUtil;
+import com.zx.tjmarketmobile.video.ClipUtil;
 import com.zx.tjmarketmobile.video.VideoCompressor;
+import com.zx.tjmarketmobile.video.VideoSetttingsListener;
+import com.zx.tjmarketmobile.view.VideoSettingsPopuView;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("Registered")
 public class CameraActivity extends BaseActivity implements SurfaceHolder.Callback, View.OnClickListener {
     private static final String TAG = "CameraActivity";
     private Context mContext = null;
     private SurfaceView mSurfaceview;
-    private Button mBtnStartStop;
-    private Button mBtnPlay;
-    private Button mBtnSelect;
     private boolean mStartedFlg = false;//是否正在录像
     private boolean mIsPlay = false;//是否正在播放录像
     private MediaRecorder mRecorder;
     private SurfaceHolder mSurfaceHolder;
-    private ImageView mImageView;
+    private SharedPreferences mSharedPreferences;
     private Camera camera;
     private MediaPlayer mediaPlayer;
     private String path;
     private TextView textView;
-    private int text = 0;
-    private int fromCode;
+    private int timeSencond = 0;
+    private int videoClarity = 0;
+    private ImageView mPlayImage;
+    private ImageView mPlaySelectImage;
+    private ImageView mPlayunSelectImage;
+    private ImageView mPlayunImageSettings;
+
+    private VideoSettingsPopuView mVideoSettings;
+
 
     private android.os.Handler handler = new android.os.Handler();
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            text++;
-//            textView.setText(Util.stringForTime(text));
+            timeSencond++;
+            textView.setText(Util.stringForTime(timeSencond * 1000));
             handler.postDelayed(this, 1000);
-            if (text >= Util.VIDEO_MAX_TIME) {
+            if (timeSencond >= Util.VIDEO_MAX_TIME) {
                 if (mStartedFlg) {
                     try {
                         handler.removeCallbacks(runnable);
@@ -73,13 +86,16 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                         mRecorder.reset();
                         mRecorder.release();
                         mRecorder = null;
-                        mBtnStartStop.setText("录像");
+//                        mBtnStartStop.setText("录像");
+                        mPlayImage.setImageResource(R.mipmap.play);
+                        mPlayImage.setVisibility(View.GONE);
+                        mPlayunImageSettings.setVisibility(View.GONE);
+                        findViewById(R.id.videoImageLayout).setVisibility(View.VISIBLE);
                         if (camera != null) {
                             camera.release();
                             camera = null;
                         }
-
-                        compressVideo(path);
+                        playVideo(path);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -96,37 +112,45 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_camera);
         addToolBar(false);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        videoClarity = mSharedPreferences.getInt("videoClarity", 0);
+        Log.i("wangwansheng", "videoClarity is " + videoClarity);
         mSurfaceview = (SurfaceView) findViewById(R.id.surfaceview);
-        mImageView = (ImageView) findViewById(R.id.imageview);
-        mBtnStartStop = (Button) findViewById(R.id.btnStartStop);
-        mBtnPlay = (Button) findViewById(R.id.btnPlayVideo);
-        mBtnSelect = (Button) findViewById(R.id.btnSelectVideo);
+        mPlayImage = (ImageView) findViewById(R.id.videoImage);
+        mPlaySelectImage = (ImageView) findViewById(R.id.videoImageSelect);
+        mPlayunSelectImage = (ImageView) findViewById(R.id.videoImageCancel);
+        mPlayunImageSettings = (ImageView) findViewById(R.id.videoImageSetting);
         textView = (TextView) findViewById(R.id.text);
-        mBtnStartStop.setOnClickListener(this);
-        mBtnPlay.setOnClickListener(this);
-        mBtnSelect.setOnClickListener(this);
+        mPlayunImageSettings.setOnClickListener(this);
+        mPlaySelectImage.setOnClickListener(this);
+        mPlayunSelectImage.setOnClickListener(this);
+        mPlayImage.setOnClickListener(this);
 
-//        findViewById(R.id.btnDial).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "526"));//跳转到拨号界面，同时传递电话号码
-//                startActivity(dialIntent);
-//
-//                Intent intent = new Intent("com.zx.tjmarketmobile.broadcast.phonestate.start");
-//                mContext.sendBroadcast(intent);
-//            }
-//        });
-//        ZXDialogUtil.showYesNoDialog(this, "视频选择", "", "拍摄", "本地文件", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        }, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        }).show();
+        Dialog dialog = ZXDialogUtil.showYesNoDialog(this, "视频选择", "", "本地文件", "拍摄", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("video/*");//设置类型，选择视频 （mp4 是android支持的视频格式）
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, 1);
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mPlayImage.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+                mPlayunImageSettings.setVisibility(View.VISIBLE);
+            }
+        });
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                dialog.dismiss();
+                CameraActivity.this.finish();
+            }
+        });
+        dialog.show();
 
         SurfaceHolder holder = mSurfaceview.getHolder();
         holder.addCallback(this);
@@ -138,9 +162,9 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     protected void onResume() {
         super.onResume();
         Log.i("wangwansheng", "onResume...");
-        if (!mStartedFlg) {
-            mImageView.setVisibility(View.VISIBLE);
-        }
+//        if (!mStartedFlg) {
+//            mImageView.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
@@ -151,17 +175,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // 是否触发按键为back键
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            // 实例化 Bundle，设置需要传递的参数
-            Intent intent = this.getIntent();
-            intent.putExtra("path", path);
-            setResult(RESULT_OK, intent);
-            this.finish();
-            return true;
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -172,51 +186,52 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     @Override
     public void onClick(View var1) {
         switch (var1.getId()) {
-            case R.id.btnStartStop: {
-                if (mIsPlay) {
-                    if (mediaPlayer != null) {
-                        mIsPlay = false;
-                        mediaPlayer.stop();
-                        mediaPlayer.reset();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
-                    }
-                }
+            case R.id.videoImage:
                 if (!mStartedFlg) {
-                    text = 0;
+                    timeSencond = 0;
                     handler.postDelayed(runnable, 1000);
-                    mImageView.setVisibility(View.GONE);
+                    findViewById(R.id.defaultImageLayout).setVisibility(View.GONE);
                     if (mRecorder == null) {
                         mRecorder = new MediaRecorder();
                     }
-
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
                     if (camera != null) {
                         camera.setDisplayOrientation(90);
                         camera.unlock();
                         mRecorder.setCamera(camera);
                     }
-
                     try {
                         // 这两项需要放在setOutputFormat之前
                         mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
                         mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-
                         // Set output file format
                         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-
                         // 这两项需要放在setOutputFormat之后
                         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                         mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
 
-                        mRecorder.setVideoSize(640, 480);
-                        mRecorder.setVideoFrameRate(30);
-                        mRecorder.setVideoEncodingBitRate(3 * 1024 * 1024);
+                        switch (videoClarity) {
+                            case 0:
+                                mRecorder.setVideoSize(640, 480);
+                                mRecorder.setVideoFrameRate(30);
+                                mRecorder.setVideoEncodingBitRate(3 * 1024 * 1024);
+                                break;
+                            case 1:
+                                mRecorder.setVideoSize(1280, 720);
+                                mRecorder.setVideoFrameRate(30);
+                                mRecorder.setVideoEncodingBitRate(4 * 1024 * 1024);
+                                break;
+                            case 2:
+                                mRecorder.setVideoSize(1920, 1080);
+                                mRecorder.setVideoFrameRate(30);
+                                mRecorder.setVideoEncodingBitRate(5 * 1024 * 1024);
+                                break;
+                        }
+
                         mRecorder.setOrientationHint(90);
                         //设置记录会话的最大持续时间（毫秒）
                         mRecorder.setMaxDuration(30 * 1000);
                         mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
-
                         path = Util.getSDPath();
                         if (path != null) {
                             File dir = new File(Util.Myvideopath);
@@ -225,12 +240,11 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                                 dir.mkdirs();
                             }
                             path = dir + "/" + Util.getDate() + ".mp4";
-                            Log.i("wangwansheng", "path is " + path);
                             mRecorder.setOutputFile(path);
                             mRecorder.prepare();
                             mRecorder.start();
                             mStartedFlg = true;
-                            mBtnStartStop.setText("停止");
+                            mPlayImage.setImageResource(R.mipmap.pause);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -244,102 +258,167 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                             mRecorder.reset();
                             mRecorder.release();
                             mRecorder = null;
-                            mBtnStartStop.setText("录像");
+                            mPlayImage.setImageResource(R.mipmap.play);
+                            mPlayImage.setVisibility(View.GONE);
+                            mPlayunImageSettings.setVisibility(View.GONE);
+                            findViewById(R.id.videoImageLayout).setVisibility(View.VISIBLE);
                             if (camera != null) {
                                 camera.release();
                                 camera = null;
                             }
-
-                            compressVideo(path);
+                            playVideo(path);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                     mStartedFlg = false;
                 }
-            }
-            break;
-            case R.id.btnPlayVideo: {
-                mIsPlay = true;
-                mImageView.setVisibility(View.GONE);
-                if (mediaPlayer == null) {
-                    mediaPlayer = new MediaPlayer();
-                }
-                mediaPlayer.reset();
-                if (path == null || path.length() == 0) {
-                    ToastUtil.getLongToastByString(CameraActivity.this, "no file is found!");
+                break;
+            case R.id.videoImageSelect:
+                compressVideo(path);
+                break;
+
+            case R.id.videoImageCancel:
+                mPlayImage.setVisibility(View.VISIBLE);
+                mPlayunImageSettings.setVisibility(View.VISIBLE);
+                findViewById(R.id.videoImageLayout).setVisibility(View.GONE);
+                if (mIsPlay) {
+                    mIsPlay = false;
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
                 }
 
-                Log.i("wangwansheng", "path is " + path);
+                break;
 
-                Uri uri = Uri.parse(path);
-                mediaPlayer = MediaPlayer.create(CameraActivity.this, uri);
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mediaPlayer.setDisplay(mSurfaceHolder);
-                try {
-                    mediaPlayer.prepare();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                mediaPlayer.start();
-            }
-            break;
-            case R.id.btnSelectVideo: {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("video/*");//设置类型，选择视频 （mp4 是android支持的视频格式）
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent, 1);
-            }
-            break;
+            case R.id.videoImageSetting:
+                List<String> list = new ArrayList<>();
+                list.add("普清");
+                list.add("高清");
+                list.add("超清");
+
+                showSelectWindow(findViewById(R.id.defaultImageLayout), list);
+                break;
         }
+    }
+
+    //打开选择框
+    private boolean showSelectWindow(View view, List<String> list) {
+        if (mVideoSettings == null) {
+            mVideoSettings = new VideoSettingsPopuView(this);
+            mVideoSettings.setDataSelectListener(selectListener);
+        }
+        return mVideoSettings.show(view, view.getWidth(), list, 0);
+
+    }
+
+    VideoSetttingsListener.IOnInfoSelectListener selectListener = new VideoSetttingsListener.IOnInfoSelectListener() {
+        @Override
+        public void onSelect(int pos, View view, int index) {
+            if (index == 0) {
+                if (pos != videoClarity) {
+                    videoClarity = pos;
+                    SharedPreferences.Editor edit = mSharedPreferences.edit();
+                    Log.i("wangwansheng", "pos is " + pos);
+                    edit.putInt("videoClarity", pos);
+                    edit.commit();
+                }
+            }
+        }
+    };
+
+    private void playVideo(String path) {
+        mIsPlay = true;
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+        }
+        mediaPlayer.reset();
+        if (path == null || path.length() == 0) {
+            ToastUtil.getLongToastByString(CameraActivity.this, "no file is found!");
+        }
+
+        Log.i("wangwansheng", "path is " + path);
+
+        Uri uri = Uri.parse(path);
+        mediaPlayer = MediaPlayer.create(CameraActivity.this, uri);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setDisplay(mSurfaceHolder);
+        try {
+            mediaPlayer.prepare();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.start();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String resultPath = "";
-        Log.i("wangwansheng", "resultvode is " + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
-            Log.i("wangwansheng", "1resultvode is " + uri.getPath());
-//            if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
-//                Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
-//                Log.i("wangwansheng", "1resultvode is " + requestCode);
-//                resultPath = uri.getPath();
-//            } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
-//                Log.i("wangwansheng", "22resultvode is " + requestCode);
-//                resultPath = getPath(this, uri);
-//                Toast.makeText(this, path.toString(), Toast.LENGTH_SHORT).show();
-//            } else {//4.4一下系统调用方法
-//                Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
-//                Log.i("wangwansheng", "333resultvode is " + requestCode);
-//                resultPath = getRealPathFromURI(uri);
-//            }
+            resultPath = uri.getPath();
+
+            if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
+                Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
+                resultPath = uri.getPath();
+            } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
+                resultPath = getPath(this, uri);
+                Toast.makeText(this, resultPath, Toast.LENGTH_SHORT).show();
+            } else {//4.4一下系统调用方法
+                Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
+                resultPath = getRealPathFromURI(uri);
+            }
+
         }
-//        if (checkVedioTime(resultPath)) {
-//            //should clip to 30S
-//            ClipUtil clipUtil = new ClipUtil(this);
-//            clipUtil.setFilePath(resultPath);
-//            clipUtil.setWorkingPath(Util.Myvideopath);
-//            clipUtil.setOutName("clip.mp4");
-//            clipUtil.setStartTime(0);
-//            clipUtil.setEndTime(30.0);
-//            clipUtil.clip();
-//        }
+        if (checkVedioTime(resultPath)) {
+            //should clip to 30S
+            String outFileName = Util.getDate() + "_clip.mp4";
+            Log.i("wangwansheng", "should clip");
+            ClipUtil clipUtil = new ClipUtil(this);
+            clipUtil.setFilePath(resultPath);
+//            File file = new File(Util.Myvideopath + "clip.mp4");
+//            if (file.exists())
+//                file.delete();
+            clipUtil.setWorkingPath(Util.Myvideopath);
+            clipUtil.setOutName(outFileName);
+            clipUtil.setStartTime(0);
+            clipUtil.setEndTime(30.0 * 1000);
+            clipUtil.clip();
+            resultPath = Util.Myvideopath + outFileName;
+        } else {
+            Log.i("wangwansheng", "should not clip");
+        }
+
+        compressVideo(resultPath);
+    }
+
+    public static String getRingDuring(String mUri) {
+        String duration = null;
+        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
+
+        try {
+            if (mUri != null) {
+//                HashMap<String, String> headers = null;
+//                if (headers == null) {
+//                    headers = new HashMap<String, String>();
+//                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
+//                }
+//                mmr.setDataSource(mUri, headers);
+                mmr.setDataSource(mUri);
+            }
+
+            duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+        } catch (Exception ex) {
+        } finally {
+            mmr.release();
+        }
+        LogUtil.e("wangwansheng", "duration " + duration);
+        return duration;
     }
 
     private boolean checkVedioTime(String path) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(path);
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int duration = mediaPlayer.getDuration();
-        Log.i("wangwansheng", "duration is " + duration);
-        mediaPlayer.release();
+        int duration = Integer.valueOf(getRingDuring(path)) / 1000;
 
         return duration > Util.VIDEO_MAX_TIME ? true : false;
     }
@@ -360,6 +439,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     private void compressVideo(String mInputStr) {
         //对视频进行压缩
         ToastUtil.getLongToastByString(mContext, "开始压缩视频");
+        showProgressDialog("正在处理中，请稍后...");
         VideoCompressor.compress(this, mInputStr, new com.czm.videocompress.video.VideoCompressListener() {
             @Override
             public void onSuccess(final String outputFile, String filename, long duration) {
@@ -369,6 +449,19 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
 //                        Toast.makeText(mContext, "video compress success:" + outputFile, Toast.LENGTH_SHORT).show();
                         ToastUtil.getLongToastByString(mContext, "压缩完成");
                         SGLog.e("video compress success:" + outputFile);
+
+                        int ret = Util.CopySdcardFile(outputFile, mInputStr);
+                        if (ret == 0) {
+                            File file = new File(outputFile);
+                            file.delete();
+                            dismissProgressDialog();
+                            Intent intent = CameraActivity.this.getIntent();
+                            intent.putExtra("path", mInputStr);
+                            setResult(RESULT_OK, intent);
+                            CameraActivity.this.finish();
+                        } else {
+                            SGLog.e("copy file is fail:");
+                        }
                     }
                 });
             }
@@ -380,7 +473,12 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                     public void run() {
 //                        Toast.makeText(mContext, "video compress failed:" + reason, Toast.LENGTH_SHORT).show();
                         SGLog.e("video compress failed:" + reason);
+                        dismissProgressDialog();
                         ToastUtil.getLongToastByString(mContext, "压缩失败");
+                        Intent intent = CameraActivity.this.getIntent();
+                        intent.putExtra("path", "");
+                        setResult(RESULT_OK, intent);
+                        CameraActivity.this.finish();
                     }
                 });
             }
