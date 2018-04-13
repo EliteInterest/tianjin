@@ -65,7 +65,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 
@@ -79,8 +81,12 @@ public class Util {
     public static final int RESULT_CAPTURE_IMAGE = 1;// 照相的requestCode
     public static final int RESULT_PICKER_IMAGE_PHONE = 2;// 相册的requestCode
     public static final int RESULT_CUSTOM_PICKER_IMAGE_PHONE = 3;// 自定义选择照片的requestCode
-    public static final String Basepath = Environment.getExternalStorageDirectory().toString() + "/GAMarket/";
+    public static final String Basepath = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/TJMarket/";
     public static final String Myphotopath = Basepath + "PIC/";
+    public static final String Myaudiopath = Basepath + "AUDIO/";
+    public static final String Myvideopath = Basepath + "VIDEO/";
+    public static final int VIDEO_MAX_TIME = 30;
+    public static final String SAVE_PATH = Basepath + "VIDEO/save.mp4";
 
     private static HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<>();
 
@@ -229,6 +235,41 @@ public class Util {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 获取系统时间
+     *
+     * @return
+     */
+    public static String getDate() {
+        Calendar ca = Calendar.getInstance();
+        int year = ca.get(Calendar.YEAR);           // 获取年份
+        int month = ca.get(Calendar.MONTH);         // 获取月份
+        int day = ca.get(Calendar.DATE);            // 获取日
+        int minute = ca.get(Calendar.MINUTE);       // 分
+        int hour = ca.get(Calendar.HOUR);           // 小时
+        int second = ca.get(Calendar.SECOND);       // 秒
+
+        String date = "" + year + (month + 1) + day + hour + minute + second;
+        return date;
+    }
+
+    /**
+     * 获取SD path
+     *
+     * @return
+     */
+    public static String getSDPath() {
+        File sdDir = null;
+        boolean sdCardExist = Environment.getExternalStorageState()
+                .equals(android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+        if (sdCardExist) {
+            sdDir = Environment.getExternalStorageDirectory();// 获取跟目录
+            return sdDir.toString();
+        }
+
+        return null;
     }
 
 
@@ -675,9 +716,9 @@ public class Util {
 
     public static boolean checkLocEnabled(final Context context, LocationManager locManager) {
 
-		/*
+        /*
          * 判断定位服务是否开启，没有则引导用户设置
-		 */
+         */
         // 通过GPS卫星定位，定位级别可以精确到街（通过24颗卫星定位，在室外和空旷的地方定位准确、速度快）
         // 通过WLAN或移动网络(3G/2G)确定的位置（也称作AGPS，辅助GPS定位。主要用于在室内或遮盖物（建筑群或茂密的深林等）密集的地方定位）
         boolean network = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -1399,5 +1440,26 @@ public class Util {
         Intent intent = new Intent(activity, PhotoPickerActivity.class);
         activity.startActivityForResult(intent, RESULT_CUSTOM_PICKER_IMAGE_PHONE);
 
+    }
+
+    /**
+     * 把毫秒转换成：1：20：30这样的形式
+     *
+     * @param timeMs
+     * @return
+     */
+    public static String stringForTime(int timeMs) {
+        StringBuilder mFormatBuilder = new StringBuilder();
+        Formatter mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
+        int totalSeconds = timeMs / 1000;
+        int seconds = totalSeconds % 60;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours = totalSeconds / 3600;
+        mFormatBuilder.setLength(0);
+        if (hours > 0) {
+            return mFormatter.format("%02d:%02d:%02d", hours, minutes, seconds).toString();
+        } else {
+            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
+        }
     }
 }

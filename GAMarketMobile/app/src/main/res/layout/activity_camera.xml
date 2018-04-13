@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <SurfaceView
+        android:id="@+id/surfaceview"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/black" />
+
+    <View
+        android:id="@+id/vv"
+        android:layout_width="@dimen/px20"
+        android:layout_height="@dimen/px2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp" />
+
+    <Button
+        android:id="@+id/btnStartStop"
+        style="@style/MyButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/vv"
+        android:text="录像"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnPlayVideo"
+        style="@style/MyButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/btnStartStop"
+        android:text="播放"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnSelectVideo"
+        style="@style/MyButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/btnPlayVideo"
+        android:text="选择"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnDial"
+        style="@style/MyButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/btnSelectVideo"
+        android:text="电话"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/videoImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/px30"
+        android:visibility="gone"
+        android:src="@mipmap/play" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="00:00:00"
+        android:layout_below="@+id/videoImage"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:textSize="10sp" />
+
+</RelativeLayout>
