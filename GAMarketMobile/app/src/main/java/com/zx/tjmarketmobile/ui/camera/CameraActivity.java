@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.hardware.Camera;
 import android.media.AudioManager;
+import android.media.CamcorderProfile;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -70,6 +71,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     private ImageView mPlayunImageSettings;
 
     private VideoSettingsPopuView mVideoSettings;
+    String resultPath = "";
 
 
     private android.os.Handler handler = new android.os.Handler();
@@ -163,9 +165,15 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     protected void onResume() {
         super.onResume();
         Log.i("wangwansheng", "onResume...");
-//        if (!mStartedFlg) {
-//            mImageView.setVisibility(View.VISIBLE);
-//        }
+        if (resultPath != null && resultPath.length() != 0) {
+            final String mInputStr = resultPath;
+//            new Thread() {
+//                @Override
+//                public void run() {
+            compressVideo(mInputStr);
+//                }
+//            }.start();
+        }
     }
 
     @Override
@@ -203,29 +211,63 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                     }
                     try {
                         // 这两项需要放在setOutputFormat之前
-                        mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-                        mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-                        // Set output file format
-                        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                        // 这两项需要放在setOutputFormat之后
-                        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                        mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
+//                        mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+//                        mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+//                        // Set output file format
+//                        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//                        // 这两项需要放在setOutputFormat之后
+//                        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//                        mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
 
                         switch (videoClarity) {
                             case 0:
+                                CamcorderProfile camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_480P);
+                                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+                                mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+                                mRecorder.setProfile(camcorderProfile);
                                 mRecorder.setVideoSize(640, 480);
                                 mRecorder.setVideoFrameRate(30);
                                 mRecorder.setVideoEncodingBitRate(3 * 1024 * 1024);
+
+
+//                                mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);//设置声源
+//                                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);//设置视频源
+//                                mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);//设置音频输出格式为3gp  DEFAULT THREE_GPP
+//                                mRecorder.setVideoFrameRate(100);//每秒3帧
+//                                mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);//录制视频编码 264
+//                                mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);//设置音频编码为amr_nb   AMR_NB DEFAULT AAC
+//                                mRecorder.setVideoSize(640, 480);//设置录制视频尺寸     mWidth   mHeight
+//                                mRecorder.setVideoEncodingBitRate(5 * 1024 * 1024 );
+
                                 break;
                             case 1:
+                                camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_720P);
+                                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+                                mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+                                mRecorder.setProfile(camcorderProfile);
                                 mRecorder.setVideoSize(1280, 720);
                                 mRecorder.setVideoFrameRate(30);
                                 mRecorder.setVideoEncodingBitRate(4 * 1024 * 1024);
+//
+//                                mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);//设置声源
+//                                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);//设置视频源
+//                                mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);//设置音频输出格式为3gp  DEFAULT THREE_GPP
+//                                mRecorder.setVideoFrameRate(30);//每秒3帧
+//                                mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);//录制视频编码 264
+//                                mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);//设置音频编码为amr_nb   AMR_NB DEFAULT AAC
+//                                mRecorder.setVideoSize(1280, 702);//设置录制视频尺寸     mWidth   mHeight
+//                                mRecorder.setVideoEncodingBitRate(4 * 1024 * 1024 );
+
                                 break;
                             case 2:
+                                camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_1080P);
+                                mRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+                                mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+                                mRecorder.setProfile(camcorderProfile);
                                 mRecorder.setVideoSize(1920, 1080);
                                 mRecorder.setVideoFrameRate(30);
                                 mRecorder.setVideoEncodingBitRate(5 * 1024 * 1024);
+
                                 break;
                         }
 
@@ -290,6 +332,10 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                     mediaPlayer.release();
                     mediaPlayer = null;
                 }
+                File file = new File(path);
+                if (file.exists()) {
+                    file.delete();
+                }
 
                 break;
 
@@ -321,7 +367,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                 if (pos != videoClarity) {
                     videoClarity = pos;
                     SharedPreferences.Editor edit = mSharedPreferences.edit();
-                    Log.i("wangwansheng", "pos is " + pos);
                     edit.putInt("videoClarity", pos);
                     edit.commit();
                 }
@@ -339,8 +384,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
             ToastUtil.getLongToastByString(CameraActivity.this, "no file is found!");
         }
 
-        Log.i("wangwansheng", "path is " + path);
-
         Uri uri = Uri.parse(path);
         mediaPlayer = MediaPlayer.create(CameraActivity.this, uri);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -355,10 +398,19 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String resultPath = "";
         if (resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
+            if (uri == null)
+            {
+                finish();
+                return ;
+            }
             resultPath = uri.getPath();
+            if (resultPath == null || resultPath.length() == 0)
+            {
+                finish();
+                return;
+            }
 
             if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
                 Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
@@ -370,7 +422,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                 Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
                 resultPath = getRealPathFromURI(uri);
             }
-
         }
         if (checkVedioTime(resultPath)) {
             //should clip to 30S
@@ -390,8 +441,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         } else {
             Log.i("wangwansheng", "should not clip");
         }
-
-        compressVideo(resultPath);
     }
 
     public static String getRingDuring(String mUri) {
@@ -441,13 +490,14 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         //对视频进行压缩
         ToastUtil.getLongToastByString(mContext, "开始压缩视频");
         showProgressDialog("正在处理中，请稍后...");
+        Log.i("wangwansheng", "compressVideo path is " + mInputStr);
         VideoCompressor.compress(this, mInputStr, new VideoCompressListener() {
             @Override
             public void onSuccess(final String outputFile, String filename, long duration) {
                 Worker.postMain(new Runnable() {
                     @Override
                     public void run() {
-//                        Toast.makeText(mContext, "video compress success:" + outputFile, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "video compress success:" + outputFile, Toast.LENGTH_SHORT).show();
                         ToastUtil.getLongToastByString(mContext, "压缩完成");
                         SGLog.e("video compress success:" + outputFile);
 
@@ -472,7 +522,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                 Worker.postMain(new Runnable() {
                     @Override
                     public void run() {
-//                        Toast.makeText(mContext, "video compress failed:" + reason, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "video compress failed:" + reason, Toast.LENGTH_SHORT).show();
                         SGLog.e("video compress failed:" + reason);
                         dismissProgressDialog();
                         ToastUtil.getLongToastByString(mContext, "压缩失败");
