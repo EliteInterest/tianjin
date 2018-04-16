@@ -376,7 +376,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
 
     private void playVideo(String path) {
         mIsPlay = true;
-        if (mediaPlayer == null) {
+        if (mediaPlayer == null) { 
             mediaPlayer = new MediaPlayer();
         }
         mediaPlayer.reset();
