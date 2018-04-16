@@ -80,13 +80,13 @@ public class VideoCompressor {
                         sleep(50);
                         progress = pc.calcProgress();
                         if (progress != 0 && progress < 100) {
-                            //caizhiming
                             //todo  update progress;
                             SGLog.e("progress=" + progress);
                             listener.onProgress(progress);
                         } else if (progress >= 100) {
                             // compress finish;
-//                            listener.onProgress(100);
+                            listener.onProgress(100);
+                            break;
                         }
                     }
                 } catch (Exception e) {

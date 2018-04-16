@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -33,7 +34,6 @@ import android.widget.Toast;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
-import com.zx.tjmarketmobile.util.LogUtil;
 import com.zx.tjmarketmobile.util.SGLog;
 import com.zx.tjmarketmobile.util.ToastUtil;
 import com.zx.tjmarketmobile.util.Util;
@@ -74,7 +74,43 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     String resultPath = "";
 
 
-    private android.os.Handler handler = new android.os.Handler();
+    private android.os.Handler handler = new android.os.Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            switch (msg.what) {
+                case 0:
+                    ToastUtil.getLongToastByString(mContext, "开始压缩视频");
+                    showProgressDialog("正在处理中，请稍后...");
+                    break;
+
+                case 1:
+                    ToastUtil.getLongToastByString(mContext, "压缩完成");
+                    dismissProgressDialog();
+                    break;
+                case 2:
+                    dismissProgressDialog();
+                    ToastUtil.getLongToastByString(mContext, "压缩失败");
+
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+
+
+            }
+
+        }
+
+    };
+
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -117,7 +153,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         addToolBar(false);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         videoClarity = mSharedPreferences.getInt("videoClarity", 0);
-        Log.i("wangwansheng", "videoClarity is " + videoClarity);
         mSurfaceview = (SurfaceView) findViewById(R.id.surfaceview);
         mPlayImage = (ImageView) findViewById(R.id.videoImage);
         mPlaySelectImage = (ImageView) findViewById(R.id.videoImageSelect);
@@ -164,15 +199,10 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("wangwansheng", "onResume...");
         if (resultPath != null && resultPath.length() != 0) {
             final String mInputStr = resultPath;
-//            new Thread() {
-//                @Override
-//                public void run() {
             compressVideo(mInputStr);
-//                }
-//            }.start();
+        } else {
         }
     }
 
@@ -376,7 +406,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
 
     private void playVideo(String path) {
         mIsPlay = true;
-        if (mediaPlayer == null) { 
+        if (mediaPlayer == null) {
             mediaPlayer = new MediaPlayer();
         }
         mediaPlayer.reset();
@@ -398,16 +428,14 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-            if (uri == null)
-            {
+            if (uri == null) {
                 finish();
-                return ;
+                return;
             }
             resultPath = uri.getPath();
-            if (resultPath == null || resultPath.length() == 0)
-            {
+            if (resultPath == null || resultPath.length() == 0) {
                 finish();
                 return;
             }
@@ -422,24 +450,22 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                 Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
                 resultPath = getRealPathFromURI(uri);
             }
-        }
-        if (checkVedioTime(resultPath)) {
-            //should clip to 30S
-            String outFileName = Util.getDate() + "_clip.mp4";
-            Log.i("wangwansheng", "should clip");
-            ClipUtil clipUtil = new ClipUtil(this);
-            clipUtil.setFilePath(resultPath);
-//            File file = new File(Util.Myvideopath + "clip.mp4");
-//            if (file.exists())
-//                file.delete();
-            clipUtil.setWorkingPath(Util.Myvideopath);
-            clipUtil.setOutName(outFileName);
-            clipUtil.setStartTime(0);
-            clipUtil.setEndTime(30.0 * 1000);
-            clipUtil.clip();
-            resultPath = Util.Myvideopath + outFileName;
+
+            if (checkVedioTime(resultPath)) {
+                //should clip to 30S
+                String outFileName = Util.getDate() + "_clip.mp4";
+                ClipUtil clipUtil = new ClipUtil(this);
+                clipUtil.setFilePath(resultPath);
+                clipUtil.setWorkingPath(Util.Myvideopath);
+                clipUtil.setOutName(outFileName);
+                clipUtil.setStartTime(0);
+                clipUtil.setEndTime(30.0 * 1000);
+                clipUtil.clip();
+                resultPath = Util.Myvideopath + outFileName;
+            } else {
+            }
         } else {
-            Log.i("wangwansheng", "should not clip");
+            finish();
         }
     }
 
@@ -463,7 +489,6 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         } finally {
             mmr.release();
         }
-        LogUtil.e("wangwansheng", "duration " + duration);
         return duration;
     }
 
@@ -486,64 +511,63 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         return res;
     }
 
-    private void compressVideo(String mInputStr) {
-        //对视频进行压缩
-        ToastUtil.getLongToastByString(mContext, "开始压缩视频");
-        showProgressDialog("正在处理中，请稍后...");
-        Log.i("wangwansheng", "compressVideo path is " + mInputStr);
-        VideoCompressor.compress(this, mInputStr, new VideoCompressListener() {
+    private void compressVideo(final String mInputStr) {
+        new Thread() {
             @Override
-            public void onSuccess(final String outputFile, String filename, long duration) {
-                Worker.postMain(new Runnable() {
+            public void run() {//对视频进行压缩
+                handler.sendEmptyMessage(0);
+                VideoCompressor.compress(CameraActivity.this, mInputStr, new VideoCompressListener() {
                     @Override
-                    public void run() {
-                        Toast.makeText(mContext, "video compress success:" + outputFile, Toast.LENGTH_SHORT).show();
-                        ToastUtil.getLongToastByString(mContext, "压缩完成");
-                        SGLog.e("video compress success:" + outputFile);
+                    public void onSuccess(final String outputFile, String filename, long duration) {
+                        Worker.postMain(new Runnable() {
+                            @Override
+                            public void run() {
+                                handler.sendEmptyMessage(1);
+                                SGLog.e("video compress success:" + outputFile);
 
-                        int ret = Util.CopySdcardFile(outputFile, mInputStr);
-                        if (ret == 0) {
-                            File file = new File(outputFile);
-                            file.delete();
-                            dismissProgressDialog();
-                            Intent intent = CameraActivity.this.getIntent();
-                            intent.putExtra("path", mInputStr);
-                            setResult(RESULT_OK, intent);
-                            CameraActivity.this.finish();
-                        } else {
-                            SGLog.e("copy file is fail:");
-                        }
+                                int ret = Util.CopySdcardFile(outputFile, mInputStr);
+                                if (ret == 0) {
+                                    File file = new File(outputFile);
+                                    file.delete();
+                                    Intent intent = CameraActivity.this.getIntent();
+                                    intent.putExtra("path", mInputStr);
+                                    setResult(RESULT_OK, intent);
+                                    CameraActivity.this.finish();
+                                } else {
+                                    SGLog.e("copy file is fail:");
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFail(final String reason) {
+                        Worker.postMain(new Runnable() {
+                            @Override
+                            public void run() {
+                                handler.sendEmptyMessage(2);
+                                SGLog.e("video compress failed:" + reason);
+                                Intent intent = CameraActivity.this.getIntent();
+                                intent.putExtra("path", "");
+                                setResult(RESULT_OK, intent);
+                                CameraActivity.this.finish();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onProgress(final int progress) {
+                        Worker.postMain(new Runnable() {
+                            @Override
+                            public void run() {
+                                SGLog.e("video compress progress:" + progress);
+                            }
+                        });
                     }
                 });
-            }
 
-            @Override
-            public void onFail(final String reason) {
-                Worker.postMain(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, "video compress failed:" + reason, Toast.LENGTH_SHORT).show();
-                        SGLog.e("video compress failed:" + reason);
-                        dismissProgressDialog();
-                        ToastUtil.getLongToastByString(mContext, "压缩失败");
-                        Intent intent = CameraActivity.this.getIntent();
-                        intent.putExtra("path", "");
-                        setResult(RESULT_OK, intent);
-                        CameraActivity.this.finish();
-                    }
-                });
             }
-
-            @Override
-            public void onProgress(final int progress) {
-                Worker.postMain(new Runnable() {
-                    @Override
-                    public void run() {
-                        SGLog.e("video compress progress:" + progress);
-                    }
-                });
-            }
-        });
+        }.start();
     }
 
     /**
