@@ -97,8 +97,10 @@ public class CaseDetailActivity extends BaseActivity {
         myPagerAdapter.addFragment(CaseDetailFileFragment.newInstance(mEntity.getId()), "案件资料");
         myPagerAdapter.addFragment(CaseDetailFlowFragment.newInstance(mEntity.getId()), "流程轨迹");
         myPagerAdapter.addFragment(CaseDetailChartFragment.newInstance(mEntity, showExcute), "流程图");
+        myPagerAdapter.addFragment(CaseDocFragment.newInstance(mEntity.getId()), "案件文书");
 
-        mVpContent.setOffscreenPageLimit(4);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mVpContent.setOffscreenPageLimit(5);
         mVpContent.setAdapter(myPagerAdapter);
         mTabLayout.setupWithViewPager(mVpContent);
     }
@@ -108,7 +110,7 @@ public class CaseDetailActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.toolbar_right:
                 if (mEntity.getLongitude() != null && mEntity.getLatitude() != null
-                        &&mEntity.getLongitude().length() > 0 && mEntity.getLatitude().length() > 0) {
+                        && mEntity.getLongitude().length() > 0 && mEntity.getLatitude().length() > 0) {
                     Intent mapIntent = new Intent(this, WorkInMapShowActivity.class);
                     mapIntent.putExtra("type", ConstStrings.MapType_CaseDetail);
                     mapIntent.putExtra("entity", mEntity);

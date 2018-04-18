@@ -15,9 +15,14 @@ import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.ui.base.BaseFragment;
 import com.zx.tjmarketmobile.util.DateUtil;
+import com.zx.tjmarketmobile.util.PhotoRecordUtil;
+import com.zx.tjmarketmobile.util.ZXItemClickSupport;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Create By Stanny On 2017/3/13
@@ -28,7 +33,9 @@ public class CaseDetailInfoFragment extends BaseFragment {
     private CaseCompDetailInfoAdapter mCaseAdapter;
     private RecyclerView mRvInfo;
     private String fId = "";
+    private CaseDetailEntity caseDetailEntity;
     private ApiData getAyxxById = new ApiData(ApiData.HTTP_ID_caseGetAyxxDetailById);
+    private ApiData updateFile = new ApiData(ApiData.FILE_UPLOAD);
     private List<KeyValueInfo> dataInfoList = new ArrayList<>();
 
     public static CaseDetailInfoFragment newInstance(String fId) {
@@ -42,9 +49,27 @@ public class CaseDetailInfoFragment extends BaseFragment {
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         view.findViewById(R.id.srl_normal_layout).setEnabled(false);
         getAyxxById.setLoadingListener(this);
+        updateFile.setLoadingListener(this);
         mRvInfo.setLayoutManager(mLinearLayoutManager);
         mCaseAdapter = new CaseCompDetailInfoAdapter(getActivity(), dataInfoList);
         mRvInfo.setAdapter(mCaseAdapter);
+        ZXItemClickSupport.addTo(mRvInfo)
+                .setOnItemClickListener(new ZXItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                        if (dataInfoList.get(position).key.contains("电话") && dataInfoList.get(position).value.length() > 0) {
+                            PhotoRecordUtil.doPhotoRecord(getActivity(), dataInfoList.get(position).value, new PhotoRecordUtil.PhotoRecordListener() {
+                                @Override
+                                public void onPhotoRecord(File file) {
+                                    Map<String, String> map = new HashMap<>();
+                                    map.put("caseId", fId);
+                                    map.put("type", "基本资料");
+                                    updateFile.loadData(0, new String[]{file.getPath()}, "/TJCase/case/uploadFile.do", map);
+                                }
+                            });
+                        }
+                    }
+                });
         return view;
     }
 
@@ -62,9 +87,12 @@ public class CaseDetailInfoFragment extends BaseFragment {
         super.onLoadComplete(id, b);
         switch (id) {
             case ApiData.HTTP_ID_caseGetAyxxDetailById:
-                CaseDetailEntity caseDetailEntity = (CaseDetailEntity) b.getEntry();
+                caseDetailEntity = (CaseDetailEntity) b.getEntry();
                 getDataList(caseDetailEntity.getInfo());
                 mCaseAdapter.notifyDataSetChanged();
+                break;
+            case ApiData.FILE_UPLOAD:
+                showToast("录音文件上传成功");
                 break;
             default:
                 break;
@@ -89,7 +117,7 @@ public class CaseDetailInfoFragment extends BaseFragment {
         dataInfoList.add(info);
         info = new KeyValueInfo("提供者姓名名称: ", caseInfoEntity.getProvideName());
         dataInfoList.add(info);
-        info = new KeyValueInfo("提供者联系方式: ", caseInfoEntity.getProvideContact());
+        info = new KeyValueInfo("提供者联系电话: ", caseInfoEntity.getProvideContact());
         dataInfoList.add(info);
         info = new KeyValueInfo("提供者地址: ", caseInfoEntity.getProvideAddress());
         dataInfoList.add(info);

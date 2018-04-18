@@ -55,10 +55,10 @@ public class MeasureLiebiaoAdapter extends MyRecycleAdapter {
             myHolder.tvField.setText(entity.getAccuracy());
             myHolder.tvDate.setText(entity.getDepartment_id());
             myHolder.tvName.setText(entity.getEnterpriseName());
-            myHolder.tvType1.setText("Id：");
-            myHolder.tvPerson.setText(entity.getId());
-            myHolder.tvType2.setText("测量仪器名称：");
-            myHolder.tvStage.setText(entity.getMeasuringInstrumentsName());
+            myHolder.tvType1.setText("联系人：");
+            myHolder.tvPerson.setText(entity.getContact());
+            myHolder.tvType2.setText("联系电话：");
+            myHolder.tvStage.setText(entity.getPhone());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

@@ -87,6 +87,7 @@ public class ConstStrings {
     public static final int MapType_TaskDetail = 4;//从任务（单个）详情打开
     public static final int MapType_CaseDetail = 5;//从案件详情打开
     public static final int MapType_CompDetail = 6;//从投诉详情打开
+    public static final int MapType_FromGuide = 7;
 
     //任务执行
     public static final String Task_Status_ForExecute = "待处置";

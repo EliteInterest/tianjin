@@ -55,12 +55,16 @@ public class ZXDialogUtil {
     }
 
     private static void showSimple(Context context, String message) {
-        loadingDialog = null;
-        loadingDialog = ProgressDialog.show(context, "", message);
-        loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        loadingDialog.setCancelable(true);
-        loadingDialog.setCanceledOnTouchOutside(false);
-        hasProgress = false;
+        try {
+            loadingDialog = null;
+            loadingDialog = ProgressDialog.show(context, "", message);
+            loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            loadingDialog.setCancelable(true);
+            loadingDialog.setCanceledOnTouchOutside(false);
+            hasProgress = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

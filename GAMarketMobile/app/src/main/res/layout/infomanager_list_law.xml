@@ -29,8 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:maxLines="10"
             android:singleLine="false"
             android:text="时间"
             android:textColor="@color/gray"

@@ -100,7 +100,7 @@ public class LisenceEquipmentFragment extends BaseFragment implements LoadMoreLi
             if (value.length == 2) {
                 getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
             } else {
-                getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0],"");
             }
         } else
             getInfoStandar.loadData(mPageNo, mPageSize, "t_lic_equipment_sale");
@@ -112,7 +112,7 @@ public class LisenceEquipmentFragment extends BaseFragment implements LoadMoreLi
         if (value.length == 2) {
             getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
         } else {
-            getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0],"");
         }
     }
 

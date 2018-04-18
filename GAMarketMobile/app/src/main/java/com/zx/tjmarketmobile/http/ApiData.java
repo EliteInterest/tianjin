@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.zx.tjmarketmobile.entity.CaseDetailEntity;
+import com.zx.tjmarketmobile.entity.CaseDocEntity;
 import com.zx.tjmarketmobile.entity.CaseFlowEntity;
 import com.zx.tjmarketmobile.entity.CaseInfoEntity;
 import com.zx.tjmarketmobile.entity.CaseRefeEntity;
@@ -31,6 +32,7 @@ import com.zx.tjmarketmobile.entity.EntityPictureBean;
 import com.zx.tjmarketmobile.entity.EntityPointBean;
 import com.zx.tjmarketmobile.entity.EntitySimpleInfo;
 import com.zx.tjmarketmobile.entity.EquipmentInfoEntity;
+import com.zx.tjmarketmobile.entity.FileInfoEntity;
 import com.zx.tjmarketmobile.entity.HttpLoginEntity;
 import com.zx.tjmarketmobile.entity.HttpMonitor;
 import com.zx.tjmarketmobile.entity.HttpMonitorEntityList;
@@ -295,6 +297,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
     public static final int HTTP_ID_case_Y13 = 238;//案件-送达当事人
     public static final int HTTP_ID_case_Y14 = 239;//案件-行政处罚的执行
     public static final int HTTP_ID_case_02 = 241;//案件-结案
+
+    public static final int HTTP_ID_case_getDocList = 242;//获取案件文书列表
+    public static final int HTTP_ID_case_getDocHtml = 243;//获取案件文书地址
+    public static final int HTTP_ID_case_getFileList = 244;//案件资料
 
     public static final int HTTP_ID_info_manager_biaozhun = 301;//标准信息查询
     public static final int HTTP_ID_info_manager_device_liebiao = 302;//特种设备-特种设备列表查询
@@ -972,7 +978,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("isOverdue", objects[2]);
                     params.putParams("caseName", objects[3]);
                     params.putParams("caseNum", objects[4]);
-                    params.putParams("status", objects[5]);
+//                    params.putParams("status", objects[5]);
                     break;
                 case HTTP_ID_caseTaskPage:
                     params.setApiUrl(baseUrl + "/TJCase/case/queryToDo.do");
@@ -1096,7 +1102,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("pageNo", objects[0]);
                     params.putParams("pageSize", objects[1]);
-                    params.putParams("fCondition", objects[4]);
+                    params.putParams("fCondition", objects[2]);
                     break;
                 case HTTP_ID_compInfoById:
                     params.setApiUrl(baseUrl + "/TJComplaint/complaint/getComplaintInfo.do");
@@ -1735,7 +1741,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.setRequestMothod(HTTP_MOTHOD.GET);
                     params.putParams("content", objects[0]);
                     params.putParams("lawId", objects[1]);
-                    params.putParams("directoryId", objects[2]);
+                    params.putParams("lawDirectoryId", objects[2]);
                     params.putParams("lawTotalFlag", objects[3]);
                     params.putParams("id", objects[4]);
                     params.putParams("departmentCode", objects[5]);
@@ -1867,6 +1873,23 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     params.putParams("remark", objects[1]);
                     params.putParams("taskId", objects[2]);
                     break;
+                case HTTP_ID_case_getDocList:
+                    params.setApiUrl(baseUrl + "/TJCase/caseDoc/queryByCaseId.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("caseId", objects[0]);
+                    break;
+                case HTTP_ID_case_getDocHtml:
+                    params.setApiUrl(baseUrl + "/TJCase/case/docHtml.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("id", objects[0]);
+                    break;
+                case HTTP_ID_case_getFileList:
+                    params.setApiUrl(baseUrl + "/TJCase/case/fileList.do");
+                    params.setRequestMothod(HTTP_MOTHOD.GET);
+                    params.putParams("caseId", objects[0]);
+                    params.putParams("pageNo", "1");
+                    params.putParams("pageSize", "999");
+                    break;
                 default:
                     if (LogUtil.DEBUG) {
                         LogUtil.e(this, "ApiData 请求被遗漏 id:" + id);
@@ -1874,13 +1897,13 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                     break;
                 //TODO
             }
-            if (id != HTTP_ID_login) {
-                params.putParams("tokenId", UUID);
-            }
         } catch (ArrayIndexOutOfBoundsException e) {
             if (LogUtil.DEBUG) {
-                LogUtil.e(this, "请求参数错误 请检查loadData()是否未带参数");
+                LogUtil.e(this, id + ":请求参数错误 请检查loadData()是否未带参数");
             }
+        }
+        if (id != HTTP_ID_login) {
+            params.putParams("tokenId", UUID);
         }
         return params;
     }
@@ -3415,9 +3438,10 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                                 KeyValueInfo compKV = new KeyValueInfo();
                                 compKV.key = getStringValue(jsonObject1, "lawName");
-                                JSONArray jsonArray1 = jsonObject1.getJSONArray("law");
+//                                JSONArray jsonArray1 = jsonObject1.getJSONArray("law");
 //                                JSONObject jsonObject2 = jsonObject1.getJSONObject("law");
-                                compKV.value = jsonArray1.getString(0);
+                                compKV.value = getStringValue(jsonObject1, "law");
+//                                jsonArray1.getString(0);
                                 myLegalSelectLaw.add(compKV);
                             }
                             legalSearch.setKeyValueInfoList(myLegalSelectLaw);
@@ -3451,6 +3475,21 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
                             break;
                         case HTTP_ID_psw_update:
 
+                            break;
+                        case HTTP_ID_case_getDocList:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<CaseDocEntity> docEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<CaseDocEntity>>() {
+                            }.getType());
+                            result.setEntry(docEntities);
+                            break;
+                        case HTTP_ID_case_getDocHtml:
+                            result.setEntry(getStringValue(jsonObject, "data"));
+                            break;
+                        case HTTP_ID_case_getFileList:
+                            jsonArray = getJSONArray(jsonObject, "data");
+                            List<FileInfoEntity> fileInfoEntities = gson.fromJson(jsonArray.toString(), new TypeToken<List<FileInfoEntity>>() {
+                            }.getType());
+                            result.setEntry(fileInfoEntities);
                             break;
                         default:
                             break;
@@ -3663,6 +3702,7 @@ public class ApiData extends BaseRequestData<Object, Object, BaseHttpResult> {
         if (sessionId.length() > 0) {
             requestParams.addHeader("Cookie", sessionId);
         }
+        requestParams.addBodyParameter("tokenId", UUID);
         HTTP_UTILS.send(HttpMethod.POST, photoUrl, requestParams, new com.lidroid.xutils.http.callback.RequestCallBack<String>() {
             @Override
             public void onFailure(HttpException httpException, String arg1) {

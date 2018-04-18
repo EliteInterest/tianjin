@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zx.tjmarketmobile.R;
-import com.zx.tjmarketmobile.adapter.supervise.SuperviseAdapter;
+import com.zx.tjmarketmobile.adapter.supervise.SupervisAdapter;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.entity.SuperviseDetailInfo;
 import com.zx.tjmarketmobile.ui.base.BaseFragment;
@@ -24,7 +24,7 @@ public class SuperviseDetailFragment extends BaseFragment {
 
     private SuperviseDetailInfo mSuperviseDetailInfo;
     private int mDetailFlag;// 0代表任务信息，1代表主体信息，2代表检查指标
-    private SuperviseAdapter mSuperviseAdapter;
+    private SupervisAdapter mSupervisAdapter;
     private RecyclerView mRvInfo;
 
     public static SuperviseDetailFragment newInstance(int index, SuperviseDetailInfo task) {
@@ -43,8 +43,8 @@ public class SuperviseDetailFragment extends BaseFragment {
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         ((SwipeRefreshLayout)view.findViewById(R.id.srl_normal_layout)).setEnabled(false);
         mRvInfo.setLayoutManager(mLinearLayoutManager);
-        mSuperviseAdapter = new SuperviseAdapter(getActivity(), getDataList());
-        mRvInfo.setAdapter(mSuperviseAdapter);
+        mSupervisAdapter = new SupervisAdapter(getActivity(), getDataList());
+        mRvInfo.setAdapter(mSupervisAdapter);
         return view;
     }
 
@@ -123,8 +123,8 @@ public class SuperviseDetailFragment extends BaseFragment {
     public void update(SuperviseDetailInfo superviseDetailInfo) {
         mSuperviseDetailInfo = superviseDetailInfo;
         if (mRvInfo != null) {
-            mSuperviseAdapter = new SuperviseAdapter(getActivity(), getDataList());
-            mRvInfo.setAdapter(mSuperviseAdapter);
+            mSupervisAdapter = new SupervisAdapter(getActivity(), getDataList());
+            mRvInfo.setAdapter(mSupervisAdapter);
         }
     }
 

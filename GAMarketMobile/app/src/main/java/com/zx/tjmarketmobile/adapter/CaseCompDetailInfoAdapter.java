@@ -1,6 +1,7 @@
 package com.zx.tjmarketmobile.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,9 @@ public class CaseCompDetailInfoAdapter extends MyRecycleAdapter {
         KeyValueInfo mEntify = dataList.get(position);
         myHolder.tvName.setText(mEntify.key);
         myHolder.tvRemark.setText(mEntify.value);
+        if (mEntify.key.contains("电话")) {
+            myHolder.tvRemark.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+        }
     }
 
     @Override

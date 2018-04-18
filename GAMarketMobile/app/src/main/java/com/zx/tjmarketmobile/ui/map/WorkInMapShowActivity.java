@@ -535,13 +535,18 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
             @Override
             public boolean onEditorAction(TextView arg0, int arg1, KeyEvent arg2) {
                 if (arg1 == EditorInfo.IME_ACTION_SEARCH) {
-                    Util.closeKeybord(mEditTextSearch, WorkInMapShowActivity.this);
-                    mKeyword = mEditTextSearch.getText().toString().trim();
-                    ztsearchData.loadData("1", "10", mKeyword, "", "", "", "", "");
+//                    Util.closeKeybord(mEditTextSearch, WorkInMapShowActivity.this);
+//                    mKeyword = mEditTextSearch.getText().toString().trim();
+//                    ztsearchData.loadData("1", "10", mKeyword, "", "", "", "", "");
+                mImgBtnSearch.performClick();
                 }
                 return false;
             }
         });
+
+        if (ConstStrings.MapType_FromGuide == getIntent().getIntExtra("type", 0)) {
+            ztsearchData.loadData("1", "10", mKeyword, "", "", "", "", "");
+        }
 
         ztsearchData.setLoadingListener(this);
         ztSearchJyfwData.setLoadingListener(this);
@@ -593,6 +598,7 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
                 Util.closeKeybord(mEditTextSearch, this);
                 mKeyword = mEditTextSearch.getText().toString().trim();
                 ztsearchData.loadData("1", "10", mKeyword, "", "", "", "", "");
+                getIntent().putExtra("type", ConstStrings.MapType_Main);
                 break;
             case id.btn_list:
                 this.finish();
@@ -608,13 +614,22 @@ public class WorkInMapShowActivity extends BaseActivity implements OnClickListen
         switch (id) {
             case ApiData.HTTP_ID_searchzt: {
                 if (b.isSuccess()) {
-                    Intent intent = new Intent(this, SearchZtListShowActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("keyword", mKeyword);
-                    bundle.putSerializable("entity", (Serializable) b.getEntry());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    Util.activity_In(this);
+                    if (ConstStrings.MapType_FromGuide == getIntent().getIntExtra("type", 0)) {
+                        //TODO
+                        Bundle bundle = new Bundle();
+                        bundle.putString("keyword", mKeyword);
+                        bundle.putSerializable("entity", (Serializable) b.getEntry());
+                        getIntent().putExtras(bundle);
+                        mapMarkerTool.initMarkerAndViewPager();
+                    } else {
+                        Intent intent = new Intent(this, SearchZtListShowActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("keyword", mKeyword);
+                        bundle.putSerializable("entity", (Serializable) b.getEntry());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        Util.activity_In(this);
+                    }
                 }
             }
             break;

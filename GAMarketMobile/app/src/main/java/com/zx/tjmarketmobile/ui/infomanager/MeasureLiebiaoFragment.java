@@ -101,7 +101,7 @@ public class MeasureLiebiaoFragment extends BaseFragment implements LoadMoreList
             if (value.length == 2) {
                 getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
             } else {
-                getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0],"");
             }
         }
         else
@@ -114,7 +114,7 @@ public class MeasureLiebiaoFragment extends BaseFragment implements LoadMoreList
         if (value.length == 2) {
             getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
         } else {
-            getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0],"");
         }
     }
 

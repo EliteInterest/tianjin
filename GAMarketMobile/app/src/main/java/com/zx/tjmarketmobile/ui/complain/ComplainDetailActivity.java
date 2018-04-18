@@ -103,6 +103,7 @@ public class ComplainDetailActivity extends BaseActivity {
         }
         myPagerAdapter.addFragment(ComplainDetailFlowFragment.newInstance(detailsBean.getStatusInfo()), "处置动态");
         myPagerAdapter.notifyDataSetChanged();
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     @Override

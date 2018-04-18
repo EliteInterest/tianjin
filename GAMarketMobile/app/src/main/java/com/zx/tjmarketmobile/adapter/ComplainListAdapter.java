@@ -77,6 +77,7 @@ public class ComplainListAdapter extends MyRecycleAdapter {
                         myHolder.tvTaskUnit.setText("待审核");
                         break;
                     case 80:
+                    case 81:
                         myHolder.tvTaskUnit.setText("待办结");
                         break;
                     case 90:

@@ -67,24 +67,28 @@ public class InfoManagerDevice implements Serializable {
 
 
     public static class RowsBean implements Serializable {
+
+
         /**
-         * fIsOver : 1
-         * fCreateDepartment : 市场监管处
-         * fTaskStatus : 待下发
-         * fCreateName : 刘天
-         * fDeadLine : 2017-03-30
-         * F_GUID : 0FD32E7EE622481AB45699B4840DB81B
-         * ROWNUM_ : 1
-         * fSource : 年报抽查
-         * F_DEADLINE : 1490803200000
-         * fCreateDate : 2017-03-30
-         * fTaskId : 2017-009
-         * F_CREATE_TIME : 1490861732000
-         * fTaskName : 测试分页
+         * directorPerson : null
+         * directorPhone : null
+         * latitude : 39.026658
+         * typeName : 场(厂)内专用机动车辆
+         * name : 蓄电池平衡重式叉车
+         * isMajor : 1
+         * id : e21914c4c86f11e79fcc000c2934879e
+         * enterpriseId : d974639e979d11e781d1000c2934879e
+         * enterpriseName : 鑫鑫同达（天津）精密模具研发制造有限公司
+         * categoryName : 叉车
+         * enterpriseType : null
+         * longitude : 117.702828
          */
 
+        private String directorPerson;
+        private String directorPhone;
         private String latitude;
         private String typeName;
+        private String name;
         private String isMajor;
         private String id;
         private String enterpriseId;
@@ -93,14 +97,27 @@ public class InfoManagerDevice implements Serializable {
         private String enterpriseType;
         private String longitude;
 
+        public String getDirectorPerson() {
+            return directorPerson;
+        }
+
+        public void setDirectorPerson(String directorPerson) {
+            this.directorPerson = directorPerson;
+        }
+
+        public String getDirectorPhone() {
+            return directorPhone;
+        }
+
+        public void setDirectorPhone(String directorPhone) {
+            this.directorPhone = directorPhone;
+        }
 
         public String getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(String latitude)
-
-        {
+        public void setLatitude(String latitude) {
             this.latitude = latitude;
         }
 
@@ -110,6 +127,14 @@ public class InfoManagerDevice implements Serializable {
 
         public void setTypeName(String typeName) {
             this.typeName = typeName;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getIsMajor() {
@@ -135,7 +160,6 @@ public class InfoManagerDevice implements Serializable {
         public void setEnterpriseId(String enterpriseId) {
             this.enterpriseId = enterpriseId;
         }
-
 
         public String getEnterpriseName() {
             return enterpriseName;
@@ -165,24 +189,8 @@ public class InfoManagerDevice implements Serializable {
             return longitude;
         }
 
-        public void setLongitude(String longitude)
-
-        {
+        public void setLongitude(String longitude) {
             this.longitude = longitude;
         }
-
-        @Override
-        public String toString() {
-            return "id=" + id + ";enterpriseName" + enterpriseName + ";latitude=" + latitude;
-        }
-
-        /**
-         * total : 8
-         * pageTotal : 1
-         * currPageNo : 1
-         * pageSize : 10
-         * rows : [{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"0FD32E7EE622481AB45699B4840DB81B","ROWNUM_":1,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-009","F_CREATE_TIME":1490861732000,"fTaskName":"测试分页"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"41EE6CC68C7747688558EBEBB22B1D79","ROWNUM_":2,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-012","F_CREATE_TIME":1490861790000,"fTaskName":"测试分页6"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"9670DBDB538F4DEFBBD640B2FD70C9E1","ROWNUM_":3,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-011","F_CREATE_TIME":1490861771000,"fTaskName":"测试分页5"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"E884F94595454CBABF3F3505DFA948CC","ROWNUM_":4,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-007","F_CREATE_TIME":1490861690000,"fTaskName":"测试分页"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"9869143CCD8440589B54A4EFA3628D42","ROWNUM_":5,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-008","F_CREATE_TIME":1490861710000,"fTaskName":"测试分页1"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"AFAF77B6026E4624BB2143A43A1CD5D1","ROWNUM_":6,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-013","F_CREATE_TIME":1490861810000,"fTaskName":"测试分页7"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"CE8C2F71F30144C4BFC0C5E9FB9347EA","ROWNUM_":7,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-014","F_CREATE_TIME":1490861826000,"fTaskName":"测试分页9"},{"fIsOver":"1","fCreateDepartment":"市场监管处","fTaskStatus":"待下发","fCreateName":"刘天","fDeadLine":"2017-03-30","F_GUID":"985483FB98FF467B85D9BE59F273835A","ROWNUM_":8,"fSource":"年报抽查","F_DEADLINE":1490803200000,"fCreateDate":"2017-03-30","fTaskId":"2017-010","F_CREATE_TIME":1490861753000,"fTaskName":"测试分页4"}]
-         */
-
     }
 }

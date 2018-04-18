@@ -155,6 +155,7 @@ public class InfoManagerMeasureLiebiao implements Serializable {
         private String factory;
         private String numbering;
         private String accuracy;
+        private String contact;
         private String identificationAgencies;
         private long identificationDate;
         private int type;
@@ -162,6 +163,14 @@ public class InfoManagerMeasureLiebiao implements Serializable {
         private String col2;
         private List<RowsBean1> list;//??
 
+
+        public String getContact() {
+            return contact;
+        }
+
+        public void setContact(String contact) {
+            this.contact = contact;
+        }
 
         public String getOpen_id()
 

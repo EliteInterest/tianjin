@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zx.tjmarketmobile.R;
-import com.zx.tjmarketmobile.adapter.ComplainFileListAdapter;
-import com.zx.tjmarketmobile.entity.CaseDetailEntity;
+import com.zx.tjmarketmobile.adapter.CaseFileListAdapter;
 import com.zx.tjmarketmobile.entity.FileInfoEntity;
 import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
@@ -35,13 +34,13 @@ public class CaseDetailFileFragment extends BaseFragment {
     private ArrayList<String> photoPaths;
     private MultiPickResultView mprvPhoto;
     private RecyclerView rvDoc;
-    private ComplainFileListAdapter mAdapter;
+    private CaseFileListAdapter mAdapter;
     private String filePath = "";
     private TextView tvMorePic;
     private boolean showAll = false;
     private List<FileInfoEntity> picList = new ArrayList<>();
     private List<FileInfoEntity> docList = new ArrayList<>();
-    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_caseGetAyxxDetailById);
+    private ApiData getFileById = new ApiData(ApiData.HTTP_ID_case_getFileList);
     private ApiData fileDownload = new ApiData(ApiData.FILE_DOWNLOAD);
 
     public static CaseDetailFileFragment newInstance(String fId) {
@@ -56,21 +55,21 @@ public class CaseDetailFileFragment extends BaseFragment {
         tvMorePic = (TextView) view.findViewById(R.id.tv_case_morePic);
         rvDoc = (RecyclerView) view.findViewById(R.id.rv_docList);
         rvDoc.setLayoutManager(mLinearLayoutManager);
-        mAdapter = new ComplainFileListAdapter(getActivity(), docList);
+        mAdapter = new CaseFileListAdapter(getActivity(), docList);
         rvDoc.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new MyItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-                showToast("该文件不允许在移动端下载，请前往PC端查看");
-//                Util.showYesOrNoDialog(getActivity(), "提示", "是否进行下载", "下载", "取消", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String downloadUrl = "http://" + ApiData.mIp + "/" + docList.get(position).getFilePath();
-//                        filePath = "file/" + docList.get(position).getFileName();
-//                        fileDownload.loadData(downloadUrl, filePath, false);
-//                        Util.dialog.dismiss();
-//                    }
-//                }, null);
+//                showToast("该文件不允许在移动端下载，请前往PC端查看");
+                Util.showYesOrNoDialog(getActivity(), "提示", "是否进行下载", "下载", "取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String downloadUrl = ApiData.baseUrl + docList.get(position).getUrl();
+                        filePath = "file/" + docList.get(position).getName();
+                        fileDownload.loadData(downloadUrl, filePath, false);
+                        Util.dialog.dismiss();
+                    }
+                }, null);
             }
         });
         tvMorePic.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +100,9 @@ public class CaseDetailFileFragment extends BaseFragment {
     public void onLoadComplete(int id, BaseHttpResult b) {
         super.onLoadComplete(id, b);
         switch (id) {
-            case ApiData.HTTP_ID_caseGetAyxxDetailById:
-                CaseDetailEntity caseDetailEntity = (CaseDetailEntity) b.getEntry();
-                docList = caseDetailEntity.getFiles();
-                docList.addAll(0, picList);
+            case ApiData.HTTP_ID_case_getFileList:
+                List<FileInfoEntity> fileInfoEntities = (List<FileInfoEntity>) b.getEntry();
+                docList.addAll(fileInfoEntities);
 //                initImgView();//加载图片视图，屏蔽
                 mAdapter.notifyDataSetChanged();
                 break;

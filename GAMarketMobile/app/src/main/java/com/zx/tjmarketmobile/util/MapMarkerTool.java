@@ -129,7 +129,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
      * 初始化底部及图标
      */
     @SuppressWarnings("unchecked")
-    private void initMarkerAndViewPager() {
+    public void initMarkerAndViewPager() {
         Intent intent = activity.getIntent();
         Bundle bundle = null;
         if (intent != null) {
@@ -144,6 +144,17 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                 activity.mLlChangePos.setVisibility(View.GONE);
                 activity.mTVList.setVisibility(View.GONE);
                 mLlPoi.setVisibility(View.GONE);
+                break;
+            case ConstStrings.MapType_FromGuide:
+                activity.mLlChangePos.setVisibility(View.VISIBLE);
+                activity.mTVList.setVisibility(View.GONE);
+                if (bundle != null) {
+                    mSearchZtEntity = (HttpSearchZtEntity) bundle.getSerializable("entity");
+                    if (mSearchZtEntity != null && mSearchZtEntity.getZtList().size() > 0) {
+                        mLlPoi.setVisibility(View.VISIBLE);
+                        initZtInfo(mSearchZtEntity.getZtList());
+                    }
+                }
                 break;
             case ConstStrings.MapType_SearchZt:// 主体列表查看地图
                 activity.mLlChangePos.setVisibility(View.VISIBLE);
@@ -521,6 +532,7 @@ public class MapMarkerTool implements BaseRequestData.OnHttpLoadingListener<Base
                 switch (resid) {
                     case R.id.ll_search_result_list_view:
                         switch (mType) {
+                            case ConstStrings.MapType_FromGuide:
                             case ConstStrings.MapType_SearchZt:// 主体列表查看地图
                                 int index = mPoiViewPager.getCurrentItem();
                                 zt = mSearchZtEntity.getZtList().get(index);

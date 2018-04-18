@@ -98,7 +98,7 @@ public class LisenceCosmeticFragment extends BaseFragment implements LoadMoreLis
         if (msg.length() != 0)
             getInfoStandar.loadData(mPageNo, mPageSize, msg);
         else
-            getInfoStandar.loadData(mPageNo, mPageSize);
+            getInfoStandar.loadData(mPageNo, mPageSize,"");
     }
 
     public void load(final String msg) {

@@ -100,10 +100,10 @@ public class LisenceDrugFragment extends BaseFragment implements LoadMoreListene
             if (value.length == 2) {
                 getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
             } else {
-                getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+                getInfoStandar.loadData(mPageNo, mPageSize, value[0], "");
             }
         } else
-            getInfoStandar.loadData(mPageNo, mPageSize, "t_lic_drug_sale");
+            getInfoStandar.loadData(mPageNo, mPageSize, "t_lic_drug_sale","");
     }
 
     public void load(final String msg) {
@@ -113,7 +113,7 @@ public class LisenceDrugFragment extends BaseFragment implements LoadMoreListene
         if (value.length == 2) {
             getInfoStandar.loadData(mPageNo, mPageSize, value[0], value[1]);
         } else {
-            getInfoStandar.loadData(mPageNo, mPageSize, value[0]);
+            getInfoStandar.loadData(mPageNo, mPageSize, value[0],"");
         }
     }
 

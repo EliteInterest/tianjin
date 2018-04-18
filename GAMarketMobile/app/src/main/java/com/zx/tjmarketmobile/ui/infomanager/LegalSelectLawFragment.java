@@ -90,11 +90,11 @@ public class LegalSelectLawFragment extends BaseFragment implements LoadMoreList
     private void loadData() {
         if (searchText.length() != 0) {
             if (legalEntity == null) {
-                getInfoStandar.loadData(searchText, "", "", "", "", "");
+                getInfoStandar.loadData(searchText, "", "", "", userInfo.getId(), userInfo.getDepartmentCode());
             } else if (legalEntity.getSelecteRadio() == 1) {
                 getInfoStandar.loadData(searchText, legalEntity.getId(), "", "", "", "");
             } else if (legalEntity.getSelecteRadio() == 2) {
-                getInfoStandar.loadData(searchText, "", legalEntity.getParentId(), "", "", "");
+                getInfoStandar.loadData(searchText, "", legalEntity.getParentId(), "", userInfo.getId(), userInfo.getDepartmentCode());
             } else {
                 getInfoStandar.loadData(searchText, "", "", "", userInfo.getId(), userInfo.getDepartmentCode());
             }

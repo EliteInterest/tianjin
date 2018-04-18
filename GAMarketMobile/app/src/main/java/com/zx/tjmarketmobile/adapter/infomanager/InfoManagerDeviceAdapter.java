@@ -54,10 +54,10 @@ public class InfoManagerDeviceAdapter extends MyRecycleAdapter {
             myHolder.tvField.setText(entity.getCategoryName());
             myHolder.tvDate.setText("");
             myHolder.tvName.setText(entity.getEnterpriseName());
-            myHolder.tvType1.setText("类别：");
-            myHolder.tvPerson.setText(entity.getTypeName());
-            myHolder.tvType2.setText("Id：");
-            myHolder.tvStage.setText(entity.getId());
+            myHolder.tvType1.setText("主管负责人：");
+            myHolder.tvPerson.setText(entity.getDirectorPerson());
+            myHolder.tvType2.setText("电话：");
+            myHolder.tvStage.setText(entity.getDirectorPhone());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

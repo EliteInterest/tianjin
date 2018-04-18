@@ -2,6 +2,8 @@ package com.zx.tjmarketmobile.ui.complain;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zx.tjmarketmobile.R;
+import com.zx.tjmarketmobile.adapter.CompVideoAdapter;
 import com.zx.tjmarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
 import com.zx.tjmarketmobile.entity.SelectPopDataList;
@@ -17,7 +20,10 @@ import com.zx.tjmarketmobile.http.ApiData;
 import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.listener.ICommonListener;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
+import com.zx.tjmarketmobile.ui.camera.CameraActivity;
 import com.zx.tjmarketmobile.util.ConstStrings;
+import com.zx.tjmarketmobile.util.ZXFileUtil;
+import com.zx.tjmarketmobile.util.ZXItemClickSupport;
 import com.zx.tjmarketmobile.view.SuperviseSelectPopuView;
 
 import java.util.ArrayList;
@@ -40,6 +46,9 @@ public class ComplainExcuteActivity extends BaseActivity {
     private TextView tvShunt;//分流
     private RelativeLayout rlAssign;//指派
     private TextView tvAssign;//指派
+    private RelativeLayout rlVidelContent;
+    private RecyclerView rvVideo;
+    private LinearLayout llVideo;
     private MultiPickResultView mprvComplain;
     private Button btnExcute, btnCancel, bntCancel2;
 
@@ -52,12 +61,15 @@ public class ComplainExcuteActivity extends BaseActivity {
     private String fSlrId = "";//受理人id
     private String departId = "";//部门id
 
+    private CompVideoAdapter videoAdapter;
+
+    private List<KeyValueInfo> videoList = new ArrayList<>();
     private ArrayList<String> dataPath = new ArrayList<>();
 
     private ApiData getAllDept = new ApiData(ApiData.HTTP_ID_getAllUserDept);
     private ApiData getUserByDept = new ApiData(ApiData.HTTP_ID_getUsersByDept);
     private ApiData compHandle = new ApiData(ApiData.HTTP_ID_compFlowhandle);
-    private ApiData updateImg = new ApiData(ApiData.FILE_UPLOAD);
+    private ApiData updateFile = new ApiData(ApiData.FILE_UPLOAD);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +98,9 @@ public class ComplainExcuteActivity extends BaseActivity {
         btnCancel = findViewById(R.id.btn_comp_cancel);
         mprvComplain = findViewById(R.id.mprv_complain);
         bntCancel2 = findViewById(R.id.btn_comp_cancel2);
+        rlVidelContent = findViewById(R.id.rl_videoContent);
+        rvVideo = findViewById(R.id.rv_video);
+        llVideo = findViewById(R.id.ll_vedio);
 
         btnCancel.setOnClickListener(this);
         rlAssign.setOnClickListener(this);
@@ -94,10 +109,24 @@ public class ComplainExcuteActivity extends BaseActivity {
         getAllDept.setLoadingListener(this);
         getUserByDept.setLoadingListener(this);
         compHandle.setLoadingListener(this);
-        updateImg.setLoadingListener(this);
+        updateFile.setLoadingListener(this);
         bntCancel2.setOnClickListener(this);
+        llVideo.setOnClickListener(this);
 
         mprvComplain.setMaxPicNum(9).init(this, MultiPickResultView.ACTION_SELECT, dataPath);
+        rvVideo.setLayoutManager(new LinearLayoutManager(this));
+        videoAdapter = new CompVideoAdapter(videoList);
+        rvVideo.setAdapter(videoAdapter);
+        ZXItemClickSupport.addTo(rvVideo)
+                .setOnItemClickListener(new ZXItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                        Intent intent = new Intent(ComplainExcuteActivity.this, CameraActivity.class);
+                        intent.putExtra("type", "play");
+                        intent.putExtra("path", videoList.get(position).key);
+                        startActivity(intent);
+                    }
+                });
 
         //根据状态显示控件
         switch (mEntity.getBaseInfo().getFStatus()) {
@@ -136,6 +165,7 @@ public class ComplainExcuteActivity extends BaseActivity {
                 btnCancel.setText("取消");
                 etFeedBack1.setVisibility(View.VISIBLE);
                 etFeedBack2.setVisibility(View.VISIBLE);
+                rlVidelContent.setVisibility(View.VISIBLE);
                 etTjOpinion.setHint("请输入反馈内容...");
                 break;
             case 60://待审核
@@ -150,6 +180,7 @@ public class ComplainExcuteActivity extends BaseActivity {
                 }
                 break;
             case 80://待办结
+            case 81:
                 etTjOpinion.setVisibility(View.VISIBLE);
                 btnExcute.setText("办结");
                 mprvComplain.setVisibility(View.GONE);
@@ -164,7 +195,15 @@ public class ComplainExcuteActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mprvComplain.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 101) {
+            String path = data.getStringExtra("path");
+            if (path.length() > 0 && ZXFileUtil.isFileExists(path)) {
+                videoList.add(new KeyValueInfo(path, ""));
+                videoAdapter.notifyDataSetChanged();
+            }
+        } else {
+            mprvComplain.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -193,6 +232,9 @@ public class ComplainExcuteActivity extends BaseActivity {
             case R.id.btn_comp_cancel2:
                 doSendInfo("not");
                 break;
+            case R.id.ll_vedio:
+                startActivityForResult(new Intent(this, CameraActivity.class), 1);
+                break;
             default:
                 break;
         }
@@ -211,12 +253,17 @@ public class ComplainExcuteActivity extends BaseActivity {
                 compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", fSlrId, "", "", "");
                 break;
             case 50://待处置
-                if (dataPath.size() > 0) {
+                if (dataPath.size() > 0 || videoList.size() > 0) {
                     Map<String, String> map = new HashMap<>();
                     map.put("itemId", mEntity.getBaseInfo().getFGuid());
                     map.put("tableName", "tComplaintsInfo");
                     map.put("field", "fFileName");
-                    updateImg.loadData(0, dataPath.toArray(new String[dataPath.size()]), "/TJComplaint/file/uploadFiles.do", map);
+                    List<String> filePaths = new ArrayList<>();
+                    filePaths.addAll(dataPath);
+                    for (KeyValueInfo video : videoList) {
+                        filePaths.add(video.key);
+                    }
+                    updateFile.loadData(0, filePaths.toArray(new String[filePaths.size()]), "/TJComplaint/file/uploadFiles.do", map);
                 } else {
                     compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, "", "", "", etFeedBack2.getText().toString(), etFeedBack1.getText().toString(), etTjOpinion.getText().toString());
                 }
@@ -225,6 +272,7 @@ public class ComplainExcuteActivity extends BaseActivity {
                 compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", "", "", "", "");
                 break;
             case 80://待办结
+            case 81:
                 compHandle.loadData(mEntity.getBaseInfo().getFGuid(), dispose, etTjOpinion.getText().toString(), "", "", "", "", "");
                 break;
             default:

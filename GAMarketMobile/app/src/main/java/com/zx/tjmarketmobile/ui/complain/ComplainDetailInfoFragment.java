@@ -11,11 +11,18 @@ import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.adapter.CaseCompDetailInfoAdapter;
 import com.zx.tjmarketmobile.entity.ComplainInfoDetailsBean;
 import com.zx.tjmarketmobile.entity.KeyValueInfo;
+import com.zx.tjmarketmobile.http.ApiData;
+import com.zx.tjmarketmobile.http.BaseHttpResult;
 import com.zx.tjmarketmobile.ui.base.BaseFragment;
 import com.zx.tjmarketmobile.util.DateUtil;
+import com.zx.tjmarketmobile.util.PhotoRecordUtil;
+import com.zx.tjmarketmobile.util.ZXItemClickSupport;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Create By Stanny On 2017/3/22
@@ -26,7 +33,10 @@ public class ComplainDetailInfoFragment extends BaseFragment {
     private CaseCompDetailInfoAdapter mCompAdapter;
     private RecyclerView mRvInfo;
     private int type = 0;
+    private ComplainInfoDetailsBean.BaseInfoBean baseInfoBean;
     private List<KeyValueInfo> dataInfoList = new ArrayList<>();
+
+    private ApiData updateFile = new ApiData(ApiData.FILE_UPLOAD);
 
     public static ComplainDetailInfoFragment newInstance(ComplainInfoDetailsBean.BaseInfoBean baseInfoBean, int type) {
         ComplainDetailInfoFragment details = new ComplainDetailInfoFragment();
@@ -41,15 +51,34 @@ public class ComplainDetailInfoFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.normal_swipe_recycler_view, container, false);
         mRvInfo = (RecyclerView) view.findViewById(R.id.rv_normal_view);
         view.findViewById(R.id.srl_normal_layout).setEnabled(false);
+        updateFile.setLoadingListener(this);
         mRvInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
         getDataList();
         mCompAdapter = new CaseCompDetailInfoAdapter(getActivity(), dataInfoList);
+        ZXItemClickSupport.addTo(mRvInfo)
+                .setOnItemClickListener(new ZXItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                        if (dataInfoList.get(position).key.contains("电话") && dataInfoList.get(position).value.length() > 0) {
+                            PhotoRecordUtil.doPhotoRecord(getActivity(), dataInfoList.get(position).value, new PhotoRecordUtil.PhotoRecordListener() {
+                                @Override
+                                public void onPhotoRecord(File file) {
+                                    Map<String, String> map = new HashMap<>();
+                                    map.put("itemId", baseInfoBean.getFGuid());
+                                    map.put("tableName", "tComplaintsInfo");
+                                    map.put("field", "fFileName");
+                                    updateFile.loadData(0, new String[]{file.getPath()}, "/TJComplaint/file/uploadFiles.do", map);
+                                }
+                            });
+                        }
+                    }
+                });
         mRvInfo.setAdapter(mCompAdapter);
         return view;
     }
 
     private void getDataList() {
-        ComplainInfoDetailsBean.BaseInfoBean baseInfoBean = (ComplainInfoDetailsBean.BaseInfoBean) getArguments().getSerializable("bean");
+        baseInfoBean = (ComplainInfoDetailsBean.BaseInfoBean) getArguments().getSerializable("bean");
         type = getArguments().getInt("type");
         dataInfoList.clear();
         if (type == 0) {//基本信息
@@ -99,4 +128,9 @@ public class ComplainDetailInfoFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onLoadComplete(int id, BaseHttpResult b) {
+        super.onLoadComplete(id, b);
+        showToast("录音文件上传成功");
+    }
 }

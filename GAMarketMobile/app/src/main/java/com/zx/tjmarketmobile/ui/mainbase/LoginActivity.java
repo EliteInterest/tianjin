@@ -201,6 +201,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_user_login_button:
+
+//                startActivityForResult(new Intent(LoginActivity.this, CameraActivity.class),RESULT_OK);
+//
                 if (updateVersion) {
                     showUpdateDialog();
                     return;

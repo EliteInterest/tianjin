@@ -92,7 +92,7 @@ public class GuideActivity extends BaseActivity {
                     switch (id) {
                         case 0://主体查询
                             Intent mapIntent = new Intent(GuideActivity.this, WorkInMapShowActivity.class);
-                            mapIntent.putExtra("type", ConstStrings.MapType_Main);
+                            mapIntent.putExtra("type", ConstStrings.MapType_FromGuide);
                             startActivity(mapIntent);
                             break;
                         case 1://监管任务

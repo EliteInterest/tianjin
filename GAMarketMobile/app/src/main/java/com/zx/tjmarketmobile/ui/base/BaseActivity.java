@@ -304,7 +304,10 @@ public class BaseActivity extends AppCompatActivity implements BaseRequestData.O
     public void onLoadPregress(int id, int progress) {
         if (id == ApiData.FILE_DOWNLOAD) {
             dismissProgressDialog();
-            Util.showProgressDialog(this, progress, "正在下载中");
+            Util.showProgressDialog(this, progress, "正在下载中...");
+        }else if (id == ApiData.FILE_UPLOAD){
+            dismissProgressDialog();
+            Util.showProgressDialog(this, progress, "正在上传中...");
         }
     }
 

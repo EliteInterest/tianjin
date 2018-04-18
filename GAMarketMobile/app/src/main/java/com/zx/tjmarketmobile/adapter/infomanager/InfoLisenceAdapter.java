@@ -55,10 +55,10 @@ public class InfoLisenceAdapter extends MyRecycleAdapter {
             myHolder.tvField.setText(entity.getLongitude() + "\n" + entity.getLatitude());
             myHolder.tvDate.setText("");
             myHolder.tvName.setText(entity.getEnterpriseName());
-            myHolder.tvType1.setText("Id：");
-            myHolder.tvPerson.setText(entity.getId());
-            myHolder.tvType2.setText("许可证号：");
-            myHolder.tvStage.setText(entity.getLicNum());
+            myHolder.tvType1.setText("法人：");
+            myHolder.tvPerson.setText(entity.getLegalPerson());
+            myHolder.tvType2.setText("地址：");
+            myHolder.tvStage.setText(entity.getAddress());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

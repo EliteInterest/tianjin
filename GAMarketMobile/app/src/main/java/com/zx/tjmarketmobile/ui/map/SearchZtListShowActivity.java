@@ -56,6 +56,7 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
         setMidText("查询结果");
         getRightImg().setOnClickListener(this);
 
+
         mIsCreated = true;
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(id.srl_normal_layout);
         mRecyclerView = (RecyclerView) findViewById(id.rv_normal_view);
@@ -146,7 +147,7 @@ public class SearchZtListShowActivity extends BaseActivity implements MyItemClic
         if (isFirst) {
             mPageNo = 1;
         }
-        ztsearchData.loadData(mPageNo, "10", mKeyword+"*");
+        ztsearchData.loadData(mPageNo, "10", mKeyword + "*");
     }
 
     @Override

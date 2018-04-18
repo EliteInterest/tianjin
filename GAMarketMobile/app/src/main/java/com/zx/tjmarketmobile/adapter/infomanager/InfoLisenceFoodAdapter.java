@@ -51,19 +51,14 @@ public class InfoLisenceFoodAdapter extends MyRecycleAdapter {
         if (holder instanceof Holder) {
             myHolder = (Holder) holder;
             InfoManagerLicenseFood.RowsBean entity = mItemList.get(position);
-            Log.i(TAG, "getEnterpriseName is " + entity.getEnterpriseName());
-            Log.i(TAG, "getAgencyCode is " + entity.getEnterpriseId());
-            Log.i(TAG, "getAdministrativeDivisions is " + entity.getId());
-            Log.i(TAG, "getRegisteredAddress is " + entity.getLevel());
-            Log.i(TAG, "getContactPhone is " + entity.getLicNum());
 
             myHolder.tvField.setText(entity.getLongitude() + "\n" + entity.getLatitude());
             myHolder.tvDate.setText("");
             myHolder.tvName.setText(entity.getEnterpriseName());
-            myHolder.tvType1.setText("监管等级：");
-            myHolder.tvPerson.setText(entity.getLevel());
-            myHolder.tvType2.setText("许可证号：");
-            myHolder.tvStage.setText(entity.getLicNum());
+            myHolder.tvType1.setText("法人：");
+            myHolder.tvPerson.setText(entity.getLegalPerson());
+            myHolder.tvType2.setText("地址：");
+            myHolder.tvStage.setText(entity.getAddress());
         } else {
             footerViewHolder = (FooterViewHolder) holder;
         }

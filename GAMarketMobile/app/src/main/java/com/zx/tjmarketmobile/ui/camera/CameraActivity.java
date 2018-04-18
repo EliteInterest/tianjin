@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
@@ -30,7 +31,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zx.tjmarketmobile.R;
 import com.zx.tjmarketmobile.ui.base.BaseActivity;
@@ -39,6 +39,7 @@ import com.zx.tjmarketmobile.util.ToastUtil;
 import com.zx.tjmarketmobile.util.Util;
 import com.zx.tjmarketmobile.util.Worker;
 import com.zx.tjmarketmobile.util.ZXDialogUtil;
+import com.zx.tjmarketmobile.util.ZXFileUtil;
 import com.zx.tjmarketmobile.video.ClipUtil;
 import com.zx.tjmarketmobile.video.VideoCompressListener;
 import com.zx.tjmarketmobile.video.VideoCompressor;
@@ -81,20 +82,19 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
             // TODO Auto-generated method stub
             switch (msg.what) {
                 case 0:
-                    ToastUtil.getLongToastByString(mContext, "开始压缩视频");
-                    showProgressDialog("正在处理中，请稍后...");
+                    ZXDialogUtil.showLoadingDialog(mContext, "正在压缩视频...");
                     break;
-
                 case 1:
                     ToastUtil.getLongToastByString(mContext, "压缩完成");
-                    dismissProgressDialog();
+                    ZXDialogUtil.dismissLoadingDialog();
                     break;
                 case 2:
-                    dismissProgressDialog();
+                    ZXDialogUtil.dismissLoadingDialog();
                     ToastUtil.getLongToastByString(mContext, "压缩失败");
-
                     break;
                 case 3:
+                    Log.e("video======", "progress" + msg.arg1);
+                    ZXDialogUtil.showLoadingDialog(mContext, "正在压缩视频...");
                     break;
                 case 4:
                     break;
@@ -164,36 +164,45 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         mPlayunSelectImage.setOnClickListener(this);
         mPlayImage.setOnClickListener(this);
 
-        Dialog dialog = ZXDialogUtil.showYesNoDialog(this, "视频选择", "", "本地文件", "拍摄", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("video/*");//设置类型，选择视频 （mp4 是android支持的视频格式）
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent, 1);
-            }
-        }, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mPlayImage.setVisibility(View.VISIBLE);
-                textView.setVisibility(View.VISIBLE);
-                mPlayunImageSettings.setVisibility(View.VISIBLE);
-            }
-        });
-
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                dialog.dismiss();
-                CameraActivity.this.finish();
-            }
-        });
-        dialog.show();
-
         SurfaceHolder holder = mSurfaceview.getHolder();
         holder.addCallback(this);
         // setType必须设置，要不出错.
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        if (getIntent().hasExtra("type") && getIntent().hasExtra("path") && "play".contains(getIntent().getStringExtra("type"))) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    findViewById(R.id.defaultImageLayout).setVisibility(View.GONE);
+                    playVideo(getIntent().getStringExtra("path"));
+                }
+            }, 1000);
+        } else {
+            Dialog dialog = ZXDialogUtil.showYesNoDialog(this, "视频选择", "", "本地文件", "拍摄", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("video/*");//设置类型，选择视频 （mp4 是android支持的视频格式）
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    startActivityForResult(intent, 1);
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mPlayImage.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.VISIBLE);
+                    mPlayunImageSettings.setVisibility(View.VISIBLE);
+                }
+            });
+
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    dialog.dismiss();
+                    CameraActivity.this.finish();
+                }
+            });
+            dialog.show();
+        }
     }
 
     @Override
@@ -404,6 +413,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         }
     };
 
+    //TODO
     private void playVideo(String path) {
         mIsPlay = true;
         if (mediaPlayer == null) {
@@ -411,19 +421,27 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         }
         mediaPlayer.reset();
         if (path == null || path.length() == 0) {
-            ToastUtil.getLongToastByString(CameraActivity.this, "no file is found!");
+            ToastUtil.getLongToastByString(CameraActivity.this, "未找到文件!");
         }
 
         Uri uri = Uri.parse(path);
         mediaPlayer = MediaPlayer.create(CameraActivity.this, uri);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDisplay(mSurfaceHolder);
-        try {
-            mediaPlayer.prepare();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mediaPlayer.prepare();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         mediaPlayer.start();
+        // 监听音频播放完的代码，实现音频的自动循环播放
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer arg0) {
+                mediaPlayer.start();
+                mediaPlayer.setLooping(true);
+            }
+        });
     }
 
     @Override
@@ -441,13 +459,13 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
             }
 
             if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
-                Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, uri.getPath(), Toast.LENGTH_SHORT).show();
                 resultPath = uri.getPath();
             } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 resultPath = getPath(this, uri);
-                Toast.makeText(this, resultPath, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, resultPath, Toast.LENGTH_SHORT).show();
             } else {//4.4一下系统调用方法
-                Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CameraActivity.this, getRealPathFromURI(uri), Toast.LENGTH_SHORT).show();
                 resultPath = getRealPathFromURI(uri);
             }
 
@@ -463,6 +481,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                 clipUtil.clip();
                 resultPath = Util.Myvideopath + outFileName;
             } else {
+
             }
         } else {
             finish();
@@ -493,9 +512,16 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
     }
 
     private boolean checkVedioTime(String path) {
-        int duration = Integer.valueOf(getRingDuring(path)) / 1000;
 
-        return duration > Util.VIDEO_MAX_TIME ? true : false;
+        try {
+            int duration = Integer.valueOf(getRingDuring(path)) / 1000;
+
+            return duration > Util.VIDEO_MAX_TIME ? true : false;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return false;
+        }
     }
 
     public String getRealPathFromURI(Uri contentUri) {
@@ -525,17 +551,19 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                                 handler.sendEmptyMessage(1);
                                 SGLog.e("video compress success:" + outputFile);
 
+                                ZXDialogUtil.dismissLoadingDialog();
                                 int ret = Util.CopySdcardFile(outputFile, mInputStr);
-                                if (ret == 0) {
-                                    File file = new File(outputFile);
-                                    file.delete();
-                                    Intent intent = CameraActivity.this.getIntent();
-                                    intent.putExtra("path", mInputStr);
-                                    setResult(RESULT_OK, intent);
-                                    CameraActivity.this.finish();
-                                } else {
-                                    SGLog.e("copy file is fail:");
-                                }
+//                                if (ret == 0) {
+                                File file = new File(outputFile);
+                                ZXFileUtil.deleteFiles(file);
+                                Intent intent = CameraActivity.this.getIntent();
+                                intent.putExtra("path", mInputStr);
+                                setResult(101, intent);
+                                CameraActivity.this.finish();
+//                                } else {
+//
+//                                    SGLog.e("copy file is fail:");
+//                                }
                             }
                         });
                     }
@@ -549,7 +577,7 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                                 SGLog.e("video compress failed:" + reason);
                                 Intent intent = CameraActivity.this.getIntent();
                                 intent.putExtra("path", "");
-                                setResult(RESULT_OK, intent);
+                                setResult(101, intent);
                                 CameraActivity.this.finish();
                             }
                         });
@@ -560,7 +588,13 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
                         Worker.postMain(new Runnable() {
                             @Override
                             public void run() {
-                                SGLog.e("video compress progress:" + progress);
+                                Message message = new Message();
+                                message.arg1 = progress;
+                                message.what = 3;
+                                handler.sendMessage(message);
+//                                handler.sendEmptyMessage(3);
+//                                SGLog.e("video compress progress:" + progress);
+//                                ZXDialogUtil.showLoadingDialog(mContext, "正在压缩中...", progress);
                             }
                         });
                     }

@@ -97,7 +97,7 @@ public class DeviceListFragment extends BaseFragment implements LoadMoreListener
         if (msg.length() != 0)
             getInfoStandar.loadData(mPageNo, mPageSize, msg);
         else
-            getInfoStandar.loadData(mPageNo, mPageSize);
+            getInfoStandar.loadData(mPageNo, mPageSize,"");
     }
 
     public void load(final String msg) {
@@ -125,7 +125,6 @@ public class DeviceListFragment extends BaseFragment implements LoadMoreListener
                 InfoManagerDevice.RowsBean bean = null;
                 for (int j = 0; j < dataList.size(); j++) {
                     bean = dataList.get(j);
-                    Log.i(TAG, "bean is " + bean.getEnterpriseName());
                 }
 
                 break;

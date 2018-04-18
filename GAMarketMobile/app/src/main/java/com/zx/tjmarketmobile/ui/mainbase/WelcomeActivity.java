@@ -21,6 +21,10 @@ import com.zx.tjmarketmobile.ui.base.BaseActivity;
 import com.zx.tjmarketmobile.util.ConstStrings;
 import com.zx.tjmarketmobile.util.NetWorkReceiver;
 import com.zx.tjmarketmobile.util.SYSUtil;
+import com.zx.tjmarketmobile.util.Util;
+import com.zx.tjmarketmobile.util.ZXFileUtil;
+
+import java.io.File;
 
 /**
  * Create By Xiangb On 2016/9/13
@@ -53,6 +57,8 @@ public class WelcomeActivity extends BaseActivity {
         edit.commit();
         mUpdateData.setLoadingListener(this);
         loginData.setLoadingListener(this);
+        File dir = new File(Util.Myvideopath);
+        ZXFileUtil.deleteFiles(dir);
         //检查是否为正式环境
         String ip = "";
         if (ApiData.ISRELEASE) {
