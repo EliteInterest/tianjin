@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/rl"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="47dp"
+        android:background="@mipmap/content_bg"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/activity_workshowinmap_ll_header_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+
+            <ImageButton
+                android:id="@+id/activity_workshowinmap_header_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="10dip"
+                android:background="@color/transparent"
+                android:contentDescription="@string/app_name"
+                android:padding="5dip"
+                android:scaleType="centerInside"
+                android:src="?attr/homeAsUpIndicator"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/workinmapshow_activity_searchview"
+            android:layout_width="0dip"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_ll_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingRight="5dip"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dip"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:hint="@string/ztsearch"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_small"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dip"
+                android:background="@color/transparent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerInside"
+                android:src="@mipmap/fdj_small"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_list"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/home_ll_bg"
+            android:drawableLeft="@mipmap/lb"
+            android:gravity="center"
+            android:padding="@dimen/padding_normal"
+            android:text="@string/list"
+            android:textColor="@color/buttonblue"
+            android:textSize="@dimen/text_size_extra_small"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_workinmapshow_activity_title"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="50dip"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_normal"
+            android:text="@string/title_zt"
+            android:textSize="@dimen/text_size_small"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <com.esri.android.map.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.esri.android.map.MapView>
+
+        <LinearLayout
+            android:id="@+id/llbasemap"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ll_buttonstyle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/maplayer"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/layer"
+                android:textColor="@color/dimgray"
+                android:textSize="@dimen/text_size_micro"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llbasemapleft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@id/llbasemap"
+            android:background="@drawable/ll_buttonstyle"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:id="@+id/llbasemapvec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/map_mode_3d_normal"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="@string/vector"
+                    android:textColor="@color/dimgray"
+                    android:textSize="@dimen/text_size_micro"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llbasemapimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/map_mode_satellite_normal"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0px"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="@string/image"
+                    android:textColor="@color/dimgray"
+                    android:textSize="@dimen/text_size_micro"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lllocation"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/llbasemap"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ll_buttonstyle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/icon_location_unfixed_2x"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/location"
+                android:textColor="@color/dimgray"
+                android:textSize="@dimen/text_size_micro"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/changePos"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/lllocation"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ll_buttonstyle"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/changepos"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="位置纠正"
+                android:textColor="@color/dimgray"
+                android:textSize="8sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llpoi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/home_ll_bg"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_poidetails"
+                android:layout_width="fill_parent"
+                android:layout_height="90dp"
+                android:clickable="true"
+                android:focusable="true"></android.support.v4.view.ViewPager>
+
+        </LinearLayout>
+
+        <!--LinearLayout
+            android:id="@+id/workinmap_ll_bottom"
+	        android:layout_width="fill_parent"
+		    android:layout_height="@dimen/listview_item_height"
+		    android:orientation="horizontal"
+		    android:baselineAligned="false"
+		    android:layout_marginLeft="5dip"
+		    android:layout_marginRight="5dip"
+		    android:layout_marginBottom="5dip"
+		    android:layout_alignParentBottom="true"
+		    android:background="@drawable/home_mapbottom_bg"
+		     >
+
+	        <RelativeLayout
+	            android:id="@+id/workinmapshow_rl_bottom_deal"
+		        android:layout_width="wrap_content"
+			    android:layout_height="fill_parent"
+			    android:layout_margin="2dip"
+			    android:orientation="horizontal"
+			    android:layout_weight="1"
+			    android:background="@color/bottombgblue"
+			    android:gravity="center"
+			     >
+		            
+		        <TextView
+		            android:id="@+id/workinmapshow_btn_bottom_deal"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginBottom="10dip"
+		            android:layout_marginTop="10dip"
+		            android:drawableLeft="@drawable/dcl"
+		            android:layout_gravity="center"
+		            android:gravity="center"
+		            android:text="@string/deal"
+		            android:textColor="@color/white" />
+		        
+		        <TextView
+	                android:id="@+id/workinmapshow_tv_bottom_deal_msg"
+	                android:layout_width="wrap_content"
+	           		android:layout_height="wrap_content"
+	           		android:gravity="center"
+	           		android:background="@drawable/new_bottom_bg"
+	           		android:layout_toRightOf="@+id/workinmapshow_btn_bottom_deal"
+	           		android:textColor="@color/white"
+	           		android:textSize="@dimen/text_size_micro"
+	           		android:text="23" />
+		        
+	        </RelativeLayout>
+	    	
+	        <View 
+	            android:layout_width="0.01dip"
+	            android:layout_height="fill_parent"
+	            android:background="@color/gray"
+	            android:layout_marginTop="5dip"
+	            android:layout_marginBottom="5dip"/>
+	        
+	        <RelativeLayout
+	            android:id="@+id/workinmapshow_rl_bottom_dealing"
+		        android:layout_width="wrap_content"
+			    android:layout_height="fill_parent"
+			    android:layout_margin="2dip"
+			    android:orientation="horizontal"
+			    android:layout_weight="1"
+			    android:background="@color/bottombgblue"
+			    android:gravity="center"
+			     >
+		        
+		    	<TextView
+		            android:id="@+id/workinmapshow_btn_bottom_dealing"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center"
+		            android:gravity="center"
+		            android:layout_marginTop="10dip"
+		            android:layout_marginBottom="10dip"
+		            android:drawableLeft="@drawable/clz"
+		            android:textColor="@color/white"
+		            android:text="@string/dealing" />
+	    	
+		    	<TextView
+	                android:id="@+id/workinmapshow_tv_bottom_dealing_msg"
+	                android:layout_width="wrap_content"
+	           		android:layout_height="wrap_content"
+	           		android:gravity="center"
+	           		android:background="@drawable/new_bottom_bg"
+	           		android:layout_toRightOf="@+id/workinmapshow_btn_bottom_dealing"
+	           		android:textColor="@color/white"
+	           		android:textSize="@dimen/text_size_micro"
+	           		android:text="1" />
+		    </RelativeLayout>
+		    
+	    </LinearLayout-->
+
+    </RelativeLayout>
+
+
+</LinearLayout>

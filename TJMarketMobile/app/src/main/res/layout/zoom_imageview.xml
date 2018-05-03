@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/common_image_info"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/content_bg"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibtn_zoom_iv_header_back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layout_titlebar_height"
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dip"
+            android:background="@color/transparent"
+            android:contentDescription="@string/app_name"
+            android:padding="5dip"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_route_back" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <ProgressBar
+            android:id="@+id/common_image_processbar"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:layout_centerInParent="true"
+            android:background="#000000"></ProgressBar>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true">
+
+            <com.zx.tjmarketmobile.zoom.GestureImageView
+                android:id="@+id/common_image_imageview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/common_image_pop_title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignLeft="@+id/common_image_imageview"
+                android:layout_alignRight="@+id/common_image_imageview"
+                android:layout_below="@+id/common_image_imageview"
+                android:layout_marginTop="5dip"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"></TextView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

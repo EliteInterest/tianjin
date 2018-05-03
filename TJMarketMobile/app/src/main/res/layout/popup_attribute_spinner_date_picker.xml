@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/date_picker_GridLayout"
+    android:layout_width="@dimen/px300"
+    android:layout_height="@dimen/px300">
+
+    <DatePicker
+        android:id="@+id/dateSpinnerPicker"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/px180"
+        android:layout_gravity="center"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false" />
+
+</GridLayout>

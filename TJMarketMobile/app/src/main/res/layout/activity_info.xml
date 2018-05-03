@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llActHome_type_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvActInfoHome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="32dp"
+            android:paddingTop="10dp"
+            android:text="查询类型"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_small" />
+
+        <Spinner
+            android:id="@+id/info_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llInfoHome_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/llInfoHome_bottom_edit"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dip"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:hint="请输入关键字搜索..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_small" />
+
+        <ImageButton
+            android:id="@+id/info_case_search"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dip"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/fdj_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoHome_search_radios"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="32dp"
+            android:paddingTop="10dp"
+            android:text="查询范围"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_small" />
+
+        <RadioGroup
+            android:id="@+id/infoHome_search_radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <RadioButton
+                android:id="@+id/rb_info_legal1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="当前法律法规"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/rb_info_legal2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="当前目录"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/rb_info_legal3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="全部法律法规"
+                android:textSize="10sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoHome_search_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/infoHome_legal_edit"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dip"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:hint="请输入关键字搜索..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_small" />
+
+        <Button
+            android:id="@+id/info_legal_search_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dip"
+            android:background="@color/blue"
+            android:scaleType="centerInside"
+            android:text="搜索" />
+    </LinearLayout>
+
+    <!--<include-->
+    <!--layout="@layout/normal_swipe_recycler_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <include
+        layout="@layout/normal_tab_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

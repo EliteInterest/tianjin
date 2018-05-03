@@ -1,0 +1,300 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">移动监督管理系统</string>
+    <string name="systemname">移动监督管理系统</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- <string name="action_settings">Settings</string> -->
+
+    <string name="pic">图片</string>
+    <string name="add">添加</string>
+    <string name="delete">删除</string>
+    <string name="main">主页</string>
+    <string name="map">查询</string>
+    <string name="list">列表</string>
+    <string name="title_zt">主体位置</string>
+    <string name="title_task">任务位置</string>
+    <string name="all">全部</string>
+    <string name="jjdq">即将到期</string>
+    <string name="yq">逾期</string>
+    <string name="settings">设置</string>
+    <string name="settings_ip">设置-服务器</string>
+    <string name="setting_map">地图设置</string>
+    <string name="settings_ip_title">请设置要连接的服务器IP(最后一个为端口号)：</string>
+    <string name="messagecenter">消息中心</string>
+    <string name="help">帮助</string>
+    <string name="login_username">请输入用户名</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login_submit">登陆</string>
+    <string name="login_remember_psw">记住密码</string>
+    <string name="logout_submit">退出登陆</string>
+    <string name="layer">图 层</string>
+    <string name="location">定 位</string>
+    <string name="vector">矢 量</string>
+    <string name="image">影 像</string>
+    <string name="ztsearch">主体搜索</string>
+    <string name="deal">待处理</string>
+    <string name="dealing">处理中</string>
+    <string name="cxjg">查询结果</string>
+    <string name="credit_level">信用等级</string>
+    <string name="address">地址：</string>
+    <string name="tel">电话：</string>
+    <string name="ztxq">主体详情</string>
+    <string name="rwxq">任务详情</string>
+    <string name="jgtask">监管任务</string>
+    <string name="tstask">投诉举报</string>
+    <string name="yjtask">预警信息</string>
+    <string name="yjtaskzl">应急指令</string>
+    <string name="taskentity">涉及主体：</string>
+    <string name="taskaddress">任务地址：</string>
+    <string name="taskinfo">任务信息</string>
+    <string name="ztinfo">主体信息</string>
+    <string name="tsxx">投诉信息</string>
+    <string name="jczb">检查指标</string>
+    <string name="yjcz">应急处置</string>
+    <string name="ztname">主体名称：</string>
+    <string name="creditLevel">信用等级：</string>
+    <string name="contactInfo">联系方式：</string>
+    <string name="legalPerson">法定代表人（负责人）：</string>
+    <string name="bizlicNum">营业执照注册号：</string>
+    <string name="orgCode">统一社会信用代码：</string>
+    <string name="licenses"> 许可证：</string>
+    <string name="jyfw">经营范围：</string>
+    <string name="taskname">任务名称：</string>
+    <string name="tasknum">任务编号：</string>
+    <string name="tasksource">任务来源：</string>
+    <string name="tasktime">下发时间：</string>
+    <string name="taskdeadline">办理时限：</string>
+    <string name="taskremark">任务说明：</string>
+    <string name="tsname">投诉名称：</string>
+    <string name="regTime">登记时间：</string>
+    <string name="regName">登记人：</string>
+    <string name="regOrg">登记单位：</string>
+    <string name="complaintName">投诉人：</string>
+    <string name="cellPhone">投诉人联系方式：</string>
+    <string name="content">投诉内容：</string>
+    <string name="execute">开始执行</string>
+    <string name="chushen">初审</string>
+    <string name="heshen">核审</string>
+    <string name="app_id">5816b1f9</string>
+    <string name="zhongshen">终审</string>
+    <string name="executegoon">继续执行</string>
+    <string name="executetask">任务处理</string>
+    <string name="save">保存</string>
+    <string name="commit">提交</string>
+    <string name="status_istrue">经查属实</string>
+    <string name="status_isnottrue">经查不实</string>
+    <string name="status_complaint_revert">撤销</string>
+    <string name="status_other_revert">其他原因撤销</string>
+    <string name="status_other_condition">其他情况</string>
+    <string name="changepos">位置纠正</string>
+    <string name="event">应急事件</string>
+    <string name="eventinfo">事件信息</string>
+    <string name="eventuser">应急人员</string>
+    <string name="eventcontact">相关单位</string>
+    <string name="eventres">应急资源</string>
+    <string name="eventname">事件名称：</string>
+    <string name="eventnum">事件编号：</string>
+    <string name="eventtime">事发时间：</string>
+    <string name="eventstarttime">启动时间：</string>
+    <string name="eventsource">事件来源：</string>
+    <string name="eventtype">事件类型：</string>
+    <string name="eventlevel">事件等级：</string>
+    <string name="eventzt">关联主体：</string>
+    <string name="eventaddress">事发地址：</string>
+    <string name="eventaddesc">事件详情：</string>
+    <string name="eventdealing_desc">情况描述：</string>
+    <string name="eventdealing_photo">现场照片：</string>
+    <string name="eventdealing_edit_hint">请输入情况描述</string>
+    <string name="eventdealing_commit_with_loc">将当前位置一起上报</string>
+    <string name="eventdealing_commit">上报</string>
+    <string name="department">部门：</string>
+    <string name="duty">职务：</string>
+    <string name="telephone">固定电话：</string>
+    <string name="cellphone">移动电话：</string>
+    <string name="take_photo">拍照</string>
+    <string name="take_pic_from_card">从手机相册选择</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="ip_setting">服务器设置</string>
+    <string name="psw_setting">修改密码</string>
+    <string name="map_publish_setting">公共服务平台地图</string>
+    <string name="map_offline_setting">离线地图</string>
+    <string name="map_customer_setting">在线地图</string>
+    <string name="setting_time">登陆时限</string>
+    <string name="settings_time_title">请设置登录状态失效的时间(单位：小时)：</string>
+    <string name="settings_time_hint">请输入清空登录状态时间</string>
+    <string name="about_title">关于我们</string>
+    <string name="about_address">联系地址: 重庆市渝北区黄山大道中段52号B5座</string>
+    <string name="about_phone_name">技术支持电话:</string>
+    <string name="about_phone">023-63424876</string>
+    <string name="about_hint">在使用过程中,有任何好的建议和意见，请及时与我们联系！</string>
+    <string name="help_skip">跳&#160;&#160;过</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新</string>
+    <string name="xlistview_header_hint_loading">正在加载</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="textOn">on</string>
+    <string name="textOff">off</string>
+    <string name="bc">案件查询</string>
+    <string name="zfyth_detail">案件详情</string>
+    <string name="process">流程办理</string>
+
+    <!-- 版本更新 -->
+    <string name="version1.0.1">        1：更新最新矢量，影像数据。\n\n
+        2：添加药品生产许可相关数据。\n\n
+        3：完成后台管理系统各系统权限模块的添加。\n\n
+        4：完成市场主体分类监管系统任务下发主体查询功能调整。</string>
+    <string name="version1.0.2">        1：与云计算中心确认基础设施资源准备情况，对接硬件设施，进行平台部署。\n\n
+        2：完成电梯维保预警数据处理整合。\n\n
+        3：根据外网部署方案拆分对外服务接口和数据库表。\n\n
+        4：完成突发应急指挥系统查询结果列表选择状态修改、增加应急单位添加分页功能。\n\n
+        5：完成市场主体分类监管系统统计分析模块增加电梯、火锅店、特种设备、餐饮结构、电梯排行，主体变化趋势功能开发。</string>
+    <string name="version1.0.3">        1：完成监管平台各个系统权限功能开发，云计算中心和质监局服务器更新部署、测试最新系统。\n\n
+        2：拆分用于外网部署的系统和外网网闸同步的数据子库。\n\n
+        3：根据需求设计完成企业分类监督管理统计分析模块功能，完成年报信息展示和电梯预警功能开发。</string>
+    <string name="version1.0.4">        1：完成投诉举报指挥调度系统，企业分类监督管理系统用户权限功能测试。</string>
+    <string name="version1.0.5">        1：完成投诉举报指挥调度系统信息录入模块，消费类型、证据、性质等录入调价的添加。\n\n
+        2：完成投诉举报指挥调度系统主体库中不存在的投诉举报记录添加，增加地图选点功能。\n\n
+        3：完成后台管理系统个系统权限模块的添加。\n\n
+        4：完成投诉举报系统、分类监督管理系统、突发应急指挥调度系统权限调整后的模块修改。</string>
+    <string name="version1.0.6">        1：完成市场主体分类监管系统特殊主体、无照无证、联系地址等需求收集，开始相应功能设计。\n\n
+        2：完成投诉举报指挥调度系统信息录入模块的条件和统计分析功能需求收集，开始相应功能设计。\n\n
+        3：完成市场主体分类监管系统统计分析模块增加的统计分析功能图标设计。\n\n
+        4：完成投诉举报指挥调度系统用户登录代办事务提示功能开发，完成信息录入模块相关问题和功能修改。\n\n
+        5：完成后台管理系统用户片区信息挂接，修改一个用户可能管理几个片区的功能。\n\n
+        6：完成监管平台版本号信息展示功能开发。</string>
+    <string name="version1.0.7">        1：完成市场主体分类监管系统业务信息药品数据展示的后台接口开发。\n\n
+        2：完成市场主体分类监管系统注册地址详情展示，联系地址、联系电话、联系人信息编辑功能修改。\n\n
+        3：完成市场主体分类监管系统统计分析模块图标修改和替换。\n\n
+        4：完成投诉举报指挥调度系统登记信息登记编号和联系电话展示功能添加。\n\n
+        5：完成投诉举报指挥调度系统处理流程是否联系投诉人、联系途径信息添加。\n\n
+        6：移动端增加用户退出，记住密码功能。</string>
+    <string name="version1.0.8">        1：完成市场主体分类监管系统任务管理模块,任务下发药品查询条件添加。\n\n
+        2：完成市场主体分类监管系统任务管理模块,定制查询药品查询条件添加。\n\n
+        3：完成市场主体分类监管系统特殊主体录入、编辑、删除接口开发。\n\n
+        4：完成投诉举报指挥调度系统信息录入模块自编号、环节、附件上传录入项添加。\n\n
+        5：完成投诉举报指挥调度系统待提交流程挽回经济损失值录入项添加。\n\n
+        6：完成投诉举报指挥调度系统监控管理模块投诉人动态功能添加。\n\n
+        7：完成投诉举报指挥调度系统统计分析模块投诉记录统计、消费类型统计功能添加。</string>
+    <string name="version1.0.9">        1：完成两江新区市场信用监管平台地图配置，片区网格符号、片区名称标注美化。\n\n
+        2：完成两江新区市场信用监管平台系统用户登录界面优化。\n\n
+        3：完成市场主体分类监管系统功能图标优化，任务管理模块分辨率自适应界面修改。\n\n
+        4：完成市场主体分类监管系统特殊主体录入功能、编辑功能开发。\n\n
+        5：完成市场主体分类监管系统信用分类模块特殊主体查询和详情展示集成。\n\n
+        6：完成投诉举报指挥调度系统查询检索模块增加基层所和监管片区查询条件。\n\n
+        7：完成移动监督管理系统系统更新功能开发。\n\n
+        8：完成移动监督管理系统监管干部执行阶段是否联系投诉人，联系途径选择项增加。\n\n
+        9：完成移动监督管理系统监管干部继续执行阶段挽回经济损失值选择项增加。</string>
+    <string name="version1.1.0">        1：完成市场主体分类监管系统信息查询模块特殊主体查询功能添加。\n\n
+        2：完成市场主体分类监管系统年报详情展示模式调整。\n\n
+        3：完成投诉举报指挥调度系统审批流程不同意办结原因填写功能开发，审批、办结过程备注项修改。\n\n
+        4：完成投诉举报指挥调度系统涉及金额按照性质、类型、年份、季度、月份的统计分析功能。\n\n
+        5：完成投诉举报指挥调度系统投诉举报提交阶段重新输入涉案主体注册号，重新关联主体信息功能。\n\n
+        6：完成突发事件应急指挥系统预案下载之后文档显示真时名称功能。\n\n
+        7：完成移动监督管理系统局领导、基层所长、监管干部用户投诉举报处置流程功能，完成消保科用户处置展示界面开发。</string>
+    <string name="version1.1.1">        1：完成第四所和第九所片区名称修改，包括主体数据库和地图片区数据。\n\n
+        2：完成主体分类监督管理系统信息管理模块户外广告、商标品牌、标准信息功能开发。\n\n
+        3：完成投诉举报指挥调度系统状态监控中逾期时间和即将逾期时间调整。\n\n
+        4：完成移动监督管理系统投诉举报详情信息修改。\n\n
+        5：完成移动监督管理系统消保科用户受理、分流、处置、提交、办结流程修改。\n\n
+        6：完成移动监督管理系统检查更新功能修改，系统登陆时自动判断新版本，有新版直接下载，下载完成提示安装新版本。</string>
+    <string name="version1.1.2">        1：完成两江新区市场信用监管平台5、6、7、8月的主体数据更新。\n\n
+        2：完成主体分类监督管理系统任务管理模块任务制定、任务修改、任务下发、任务审批、任务监控功能开发。\n\n
+        3：完成主体分类监督管理系统信息查询模块特种设备查询、预警，药品库存查询功能开发。\n\n
+        4：完成移动监督管理系统登录之后的系统导航页面开发。\n\n
+        5：完成移动监督管理系统主体查询条件增加地址的注册代码功能开发。\n\n
+        6：完成移动监督管理系统主体详情信用信息和业务信息展示功能开发。\n\n
+        7：完成移动监督管理系统监管任务办理、审批、监控功能开发。\n\n
+        8：完成移动监督管理系统应急事件查询、处置功能开发。\n\n
+        9：完成移动监督管理系统统计分析模块餐饮结构，特种设备结构等功能开发。\n\n</string>
+    <string name="version1.1.3">       1：完成两江新区所有监管所电梯数据的处理，完成空间定位和入库。\n\n
+       2：完成市场主体分类监管系统主体异常名录信息查询功能开发。\n\n
+       3：完成市场主体分类监管系统定制查询中增加非公党建、异常名录、特种设备查询条件。\n\n
+       4：完成投诉举报指挥调度系统定统计分析模块挽回经济损失值模块添加。\n\n
+       5：完成移动监督管理系统系统更新功能修改，系统启动时强制更新新版本。\n\n
+       6：完成移动监督管理系统系统通知功能添加，详细展示平台各版本信息。\n\n
+       7：完成移动监督管理系统统计分析模块市场主体、投诉举报功能开发。\n\n</string>
+    <string name="version1.1.4">       1：完成两江新区市场信用监管平台经济户口数据每天定时更新功能开发。\n\n
+       2：完成两江新区市场信用监管平台地图数据更新，增加灰度版地图。\n\n
+       3：完成市场主体分类监管系统任务管理模块调整，增加监管任务自办流程，监管任务处置流程增加科室核审阶段。\n\n
+       4：完成市场主体分类监管系统任务管理模块调整，任务处置取消办理中的状态，任务审批调整为任务中的单个主体审批。\n\n
+       5：完成市场主体分类监管系统统计分析模块经营情况功能添加。\n\n
+       6：完成投诉举报指挥调度系统信息录入模块功能修改，增加信息录入数据项，数据项囊括12315、12331、12365等需要对接系统的所有数据内容。\n\n
+       7：完成投诉举报指挥调度系统投诉举报流程修改，增加待处置阶段结果反馈内容填报页面。\n\n
+       8：完成投诉举报指挥调度系统结果反馈内容查询展示功能添加。\n\n
+       9：完成移动监督管理系统投诉举报模块功能修改，调整待处置阶段移动端不能进行处置结果反馈内容填写，提示在PC端进行相应操作。\n\n
+       10：完成移动监督管理系统监管任务模块功能修改，增加监管流程科室核审阶段，调整监管任务审批为单个监管主体审批。\n\n</string>
+    <string name="version1.1.5">       1：完成许可证数据的更新。\n\n
+       2：完成抽检数据入库和主体信用等级升降级处理。\n\n
+       3：完成市场主体分类监管系统主体详情展示中抽检记录和抽检详情展示功能开发。\n\n</string>
+    <string name="version1.1.6">       1：完成许可证数据的更新。\n\n
+       2：完成投诉举报指挥调度系统逾期时限和逾期提醒功能修改。\n\n
+       3：完成投诉举报指挥调度系统延期申请功能增加。\n\n
+       4：完成投诉举报指挥调度系统3天内联系投诉人功能修改。\n\n</string>
+    <string name="version1.1.7">       1：完成投诉举报指挥调度系统文书下载功能开发。\n\n
+       2：完成投诉举报指挥调度系统12358物价投诉举报对接功能开发。\n\n
+       3：完成投诉举报指挥调度系统统计分析功能受理时间判断条件修改。\n\n
+       4：完成突发事件应急指挥系统应急预案修改和添加。\n\n
+       5：完成后台综合管理系统分辨率自适应功能修改。\n\n</string>
+    <string name="version1.1.8">       1：完成综合执法案件管理系统的上线运行。\n\n
+       2：完成市场主体分类监管系统物价数据对接和查询、展示功能开发。\n\n
+       3：完成市场主体分类监管系统动产抵押数据对接和查询、展示功能开发。n\n
+       4：完成市场主体分类监管系统市场主体更新动态提醒功能开发。\n\n
+       5：完成突发事件应急指挥系统指挥调度模块中监控展示功能修改。\n\n</string>
+    <string name="version1.1.9">       1：完成市场主体分类监管系统科技型企业定制查询和标记功能开发。\n\n
+	   2：完成市场主体分类监管系统物价商品房数据项目地址的匹配。\n\n
+	   3：完成市场主体分类监管系统互联网金融企业的标记和查询展示功能开发。\n\n
+	   4：完成投诉举报指挥调度系统投诉举报分流科室处置功能开发。\n\n
+	   5：完成综合执法案件管理系统“涉嫌犯罪移送”流程处理功能增加。\n\n
+	   6：完成综合执法案件管理系统案件结束流程调整，增加结束全部功能。\n\n
+	   7：完成综合执法案件管理系统文书创建人显示和案件管理排序功能修改。\n\n
+	   8：完成综合执法案件管理系统价格举报文书新增。\n\n
+	   9：完成移动监督管理系统投诉举报模块流程办理中分流科室办理相关功能开发。\n\n
+	   10：完成许可证数据更新。\n\n
+	   11：完成特种设备电梯数据更新。\n\n</string>
+    <string name="version1.2.0">       1：完成综合执法案件管理系统案件处置结果统计分析功能开发。\n\n
+	   2：完成综合执法案件管理系统案源录入物价类法规项增加。\n\n
+	   3：完成综合执法案件管理系统最新文书置顶，默认获取最新审批意见功能修改。\n\n
+	   4：完成综合执法案件管理系统案件管理模块功能优化，增加当事人筛选功能。\n\n
+	   5：完成综合执法案件管理系统所有犯罪移送修改为案件移送。\n\n
+	   6：完成综合执法案件管理系统案件移送流程修改，移送完成直接结束案件流程。\n\n
+	   7：完成综合执法案件管理系统案界面分辨率自适应功能修改。\n\n
+	   8：完成综合执法案件管理系统7所历史案件数据导入。\n\n
+	   9：完成综合执法案件管理系统案件不予立案结束修改为案件流程直接结束。\n\n
+	   10：解决综合执法案件管理系统资料上传中不能上传图片的问题。\n\n
+	   11：完成截止2016年7月27号的许可证数据更新。\n\n</string>
+    <string name="version1.3.0">       1：完成两江新区市场信用监管平台统一登录功能集成。\n\n
+	   2：完成市场主体分类监管系统科技金融贷款数据整理、入库和展示功能开发。\n\n
+	   3：完成综合执法案件管理系统案源移送流程优化，移交过程中由案源移交负责人直接提交执法局领导审核。\n\n
+	   4：完成综合执法案件管理系统文书新增、修改时文书编号必填验证功能开发。\n\n
+	   5：完成综合执法案件管理系统统计分析模块趋势分析功能开发。\n\n
+	   6：完成综合执法案件管理系统解除强制措施功能修改。\n\n</string>
+    <string name="title_activity_wtmain">WTMainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_test_tab">TestTabActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_asedff">asedff</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_case_detail_file">CaseDetailFileActivity</string>
+
+</resources>

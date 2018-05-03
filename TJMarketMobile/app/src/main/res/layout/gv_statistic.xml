@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+         android:id="@+id/tvItemStatistic_icon"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:drawablePadding="5dp"
+         android:drawableTop="@mipmap/icon_main_all"
+         android:gravity="center_horizontal"
+         android:padding="@dimen/padding_normal"
+         android:text="@string/all"
+         android:textColor="@color/textgrey" />
+
+</LinearLayout>

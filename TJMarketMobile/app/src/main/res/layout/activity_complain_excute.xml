@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <!--分流到-->
+            <LinearLayout
+                android:id="@+id/ll_comp_shunt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分流到:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_shunt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_shunt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_shunt"
+                        android:text="请选择..."
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_shunt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--指派处理人-->
+            <LinearLayout
+                android:id="@+id/ll_comp_assign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指派给:"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_comp_assign"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/home_ll_bg"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_comp_assign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/iv_comp_assign"
+                        android:text="请选择..."
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_comp_assign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/down"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--调解情况-->
+            <EditText
+                android:id="@+id/et_comp_tjOpinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入内容..."
+                android:maxHeight="300dp"
+                android:maxLength="200"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <!--调解情况-->
+            <EditText
+                android:id="@+id/et_comp_feedback1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入答复内容..."
+                android:maxHeight="300dp"
+                android:maxLength="200"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <!--调解情况-->
+            <EditText
+                android:id="@+id/et_comp_feedback2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入回访结果..."
+                android:maxHeight="300dp"
+                android:maxLength="200"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <me.iwf.photopicker.widget.MultiPickResultView
+                android:id="@+id/mprv_complain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+            </me.iwf.photopicker.widget.MultiPickResultView>
+
+            <RelativeLayout
+                android:id="@+id/rl_videoContent"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+
+                <LinearLayout
+                    android:id="@+id/ll_vedio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rv_video"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_video"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@mipmap/add_video"/>
+
+                    <TextView
+                        android:id="@+id/tv_video"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="点击添加录像"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_comp_btnBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_comp_excute"
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/btn_comp_cancel"
+            style="@style/MyCloseButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/btn_comp_cancel2"
+            style="@style/MyCloseButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:text="@string/ok"
+            android:visibility="gone"/>
+    </LinearLayout>
+</RelativeLayout>

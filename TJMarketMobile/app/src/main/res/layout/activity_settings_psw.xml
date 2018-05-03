@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/old_psw_textinputlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp">
+
+        <com.zx.tjmarketmobile.view.ClearEditText
+            android:id="@+id/old_psw_edit"
+            android:background="@drawable/round_corners_more"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50"
+            android:hint="旧密码"
+            android:tag="旧密码"
+            android:padding="@dimen/px10"
+            android:gravity="center_vertical"
+            android:singleLine="false"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/new_psw_textinputlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <com.zx.tjmarketmobile.view.ClearEditText
+            android:id="@+id/new_psw_edit"
+            android:background="@drawable/round_corners_more"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50"
+            android:hint="新密码"
+            android:tag="新密码"
+            android:padding="@dimen/px10"
+            android:gravity="center_vertical"
+            android:singleLine="false"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/renew_psw_textinputlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <com.zx.tjmarketmobile.view.ClearEditText
+            android:id="@+id/renew_psw_edit"
+            android:background="@drawable/round_corners_more"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50"
+            android:hint="重复密码"
+            android:tag="重复密码"
+            android:padding="@dimen/px10"
+            android:gravity="center_vertical"
+            android:singleLine="false"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/px20"
+        android:layout_marginLeft="@dimen/px20"
+        android:layout_marginRight="@dimen/px20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px50">
+            <Button
+                android:id="@+id/btn_yes"
+                style="@style/MyButtonStyle"
+                android:text="确定" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/px5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px30">
+            <CheckBox
+                android:id="@+id/btn_show_psw"
+                android:layout_width="@dimen/px30"
+                android:layout_height="@dimen/px20" />
+            <TextView
+                android:text="显示密码"
+                android:layout_marginLeft="@dimen/px5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/px5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px30">
+
+            <TextView
+                android:text="提示：5-15个字符，区分大小写"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="@dimen/px5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

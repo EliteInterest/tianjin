@@ -1,0 +1,136 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginLeft="10dip"
+	        android:gravity="center"
+	        android:text="@string/settings_ip_title"/>
+	    
+	    <LinearLayout
+		    android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+		    <android.support.v7.widget.AppCompatEditText
+		        android:id="@+id/et_settings_ip_1"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:inputType="numberDecimal"
+		        android:layout_marginTop="10dip"
+		        android:layout_marginLeft="10dip"
+				android:maxLength="3"
+		        android:gravity="center"
+		        android:text="192"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:layout_gravity="bottom"
+		        android:text="."/>
+		    
+		    <android.support.v7.widget.AppCompatEditText
+		        android:id="@+id/et_settings_ip_2"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+				android:maxLength="3"
+		        android:inputType="numberDecimal"
+		        android:layout_marginTop="10dip"
+		        android:layout_marginLeft="10dip"
+		        android:gravity="center"
+		        android:text="168"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:layout_gravity="bottom"
+		        android:text="."/>
+		    
+		    <android.support.v7.widget.AppCompatEditText
+		        android:id="@+id/et_settings_ip_3"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:inputType="numberDecimal"
+		        android:layout_marginTop="10dip"
+				android:maxLength="3"
+		        android:layout_marginLeft="10dip"
+		        android:gravity="center"
+		        android:text="110"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:layout_gravity="bottom"
+		        android:text="."/>
+		    
+		    <android.support.v7.widget.AppCompatEditText
+		        android:id="@+id/et_settings_ip_4"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:inputType="numberDecimal"
+		        android:layout_marginTop="10dip"
+		        android:layout_marginLeft="10dip"
+		        android:layout_marginRight="10dip"
+				android:maxLength="3"
+		        android:gravity="center"
+		        android:text="35"/>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:layout_marginTop="5dip"
+		        android:layout_gravity="center"
+		        android:text=":"/>
+		    
+		    <android.support.v7.widget.AppCompatEditText
+		        android:id="@+id/et_settings_ip_port"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:inputType="numberDecimal"
+		        android:layout_marginTop="10dip"
+		        android:layout_marginLeft="10dip"
+				android:maxLength="4"
+		        android:layout_marginRight="10dip"
+		        android:gravity="center"
+		        android:text="8080"/>
+		</LinearLayout>
+		
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginTop="10dip"
+	        android:textColor="@color/colorPrimaryDark"
+	        android:gravity="center"
+	        android:text="（注：更改设置后需重新登录系统）"/>
+	    
+	    <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="1">
+	    </View>
+		
+	    <android.support.v7.widget.AppCompatButton
+	        android:id="@+id/btn_settings_ip_ok"
+			style="@style/MyButtonStyle"
+	        android:text="@string/ok"/>
+	</LinearLayout>
+    
+</LinearLayout>

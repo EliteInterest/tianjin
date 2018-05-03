@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <EditText
+            android:id="@+id/etActSuperviseDispose_other"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/home_ll_bg"
+            android:minHeight="130dp"
+            android:padding="8dp"
+            android:textColor="@color/darkgrey"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_locationlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前坐标："
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_gotomap"
+            style="@style/MyButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@id/ll_locationlayout"
+            android:layout_centerHorizontal="true"
+            android:text="查看坐标"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/llActSuperviseDispost_bottom"
+            android:layout_alignParentTop="true">
+
+            <LinearLayout
+                android:id="@+id/llActSuperviseDispost_check"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/llActSuperviseDispost_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnActDispose_execute"
+                style="@style/MyButtonStyle"
+                android:text="提交" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

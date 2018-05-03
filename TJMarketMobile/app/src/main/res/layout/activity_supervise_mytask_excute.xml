@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_marginLeft="@dimen/px10"
+                android:layout_marginRight="@dimen/px10"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="处理结果:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_marginTop="@dimen/px20"
+                android:id="@+id/rg_supervise_check_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_supervise_task_publish0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:checked="true"
+                    android:text="自办"
+                    android:textSize="14sp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_supervise_task_publish1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="分局"
+                    android:textSize="14sp"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/et_supervise_task_excuteOpinion_layout"
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/px20"
+            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginRight="@dimen/px10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您的意见:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/et_supervise_task_excuteOpinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_ll_bg"
+                android:gravity="top"
+                android:hint="请输入处理说明..."
+                android:maxHeight="300dp"
+                android:maxLines="7"
+                android:minHeight="80dp"
+                android:padding="8dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/sp_task_issued_layout"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/px20"
+            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginRight="@dimen/px10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任务下发:"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_task_issued"
+                android:layout_marginTop="@dimen/px10"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <com.zx.tjmarketmobile.view.MultiSpinner
+                android:id="@+id/msp_task_issued"
+                android:layout_marginTop="@dimen/px10"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:hint="请选择"
+                android:gravity="center"
+                android:background="@drawable/textview_bg"/>
+
+            <LinearLayout
+                android:id="@+id/ll_task_issued_xb"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/px10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="协办人员:"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <com.zx.tjmarketmobile.view.MultiSpinner
+                    android:id="@+id/sp_task_xb"
+                    android:layout_marginTop="@dimen/px10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="30dp"
+                    android:hint="请选择"
+                    android:gravity="center"
+                    android:background="@drawable/textview_bg"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_supervise_check_excute"
+            style="@style/MyButtonStyle"
+            android:text="提交"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

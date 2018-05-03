@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dip">
+    <!-- 拍照 -->
+
+    <Button
+        android:id="@+id/pop_dialogues_AMapNavi"
+        style="@style/MyButtonStyle"
+        android:text="跳转到高德地图进行导航" />
+
+    <!-- 手机相册 -->
+
+    <Button
+        android:id="@+id/pop_dialogues_GANavi"
+        style="@style/MyButtonStyle"
+        android:text="跳转到百度地图进行导航" />
+    <!-- 取消 -->
+    <Button
+        android:id="@+id/pop_dialogues_navi_cancel"
+        style="@style/MyButtonStyle"
+        android:text="取消" />
+
+</LinearLayout>

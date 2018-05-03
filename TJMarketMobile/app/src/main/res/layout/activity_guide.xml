@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@mipmap/guide_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
+            android:scaleType="center"
+            android:src="@mipmap/logo_login" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:background="@color/guideBg">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/guideBg"-->
+        <!--android:visibility="gone"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_ztsearch"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_search" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="主体查询"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_analyse"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_analysis" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="统计分析"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_sudden"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_sudden" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="预警信息"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.3dp"-->
+            <!--android:background="@color/guideLine" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_supervise"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_supervise" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="协同监管"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_complain"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/police" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="投诉举报"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_help"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_help" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="帮助"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.3dp"-->
+            <!--android:background="#017bbe" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_msg"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_msg" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="消息中心"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llActGuide_set"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical"-->
+                <!--android:visibility="visible">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_setting" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="设置"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.005"-->
+                <!--android:background="@color/guideLine" />-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="110dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:background="@drawable/press_state"-->
+                <!--android:orientation="vertical"-->
+                <!--android:visibility="invisible">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="@mipmap/guide_search" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:text="主体信息查询"-->
+                    <!--android:textColor="@color/guideText"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_myTask_addEntity"
+        style="@style/MyButtonStyle"
+        android:layout_width="match_parent"
+        android:text="添加主体"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/normal_swipe_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
